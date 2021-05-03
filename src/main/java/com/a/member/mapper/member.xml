@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<select id="test" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT * FROM MEMBERS
+	</select>
+	
+	<!-- 
+	<select id="login" parameterType="yttk.com.a.dto.MemberDto" resultType="yttk.com.a.dto.MemberDto">
+	SELECT ID, NAME, EMAIL, AUTH
+	FROM MEMBER
+	WHERE ID=#{id} AND PWD=#{pwd}
+	</select>
+	 -->
+	
+</mapper>
