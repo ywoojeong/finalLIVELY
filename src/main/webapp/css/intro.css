@@ -1,0 +1,136 @@
+/*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*영어 기본 폰트 Poppins  font-family: 'Poppins', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* 영어 포인트 폰트 Raleway  font-family: 'Raleway', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.navbar{
+	font-family: 'Poppins', sans-serif;
+}
+
+/*---------------intro----------------------*/
+
+
+.introDiv{
+	margin-left:0;
+	 width: 100vw;
+	 height: 100vh;
+	 background-image: url('./image/concert-768722_1920.jpg');
+	 background-position: center;
+     background-size: cover;
+}
+
+/*-------introSen ------------*/
+.introSen{
+	padding-left: 100px;
+	padding-top: 400px;
+}
+.introSen> h1{
+	
+	 font-family: 'Raleway', sans-serif;
+	color:#fff;
+	font-weight: 600;
+}
+
+.introSen> p{
+	font-family: 'Noto Sans KR', sans-serif;
+	color:#cb98ed;
+	margin-bottom: 5px;
+    
+}
+
+/*-------intro button scene------------*/
+.scene {
+  perspective: 1000;
+  width: 10em;
+  position: absolute;
+  top: 65%;
+  left: 10%; 
+  margin-left: -5em;
+  margin-top: -5em;
+}
+
+.cube{
+  color: #ccc;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-weight:700;
+  transition: all 0.85s cubic-bezier(.17,.67,.14,.93);
+	transform-style: preserve-3d;
+  transform-origin: 100% 50%;
+  width: 10em;
+  height: 4em;
+  
+}
+
+ .cube :hover {
+    transform: rotateX(-90deg);
+  }
+
+.side {
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  height: 4em;
+  width: 10em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 1.5em;
+}
+
+.top {
+  background: #8b63da;
+  color: #fff;
+  transform: rotateX(90deg) translate3d(0, 0, 2em);
+}
+
+.front {
+  background: #fff;
+  color: #222229;
+  box-shadow: inset 0 0 0 5px #8b63da;
+  transform: translate3d(0, 0, 2em);
+}
+
+
+/* ----------------info-----------------*/
+
+/*------infoMain-------*/
+.infoHead >h1{
+	text-align:center;
+	 font-family: 'Raleway', sans-serif;
+	 font-weight: 800;
+	 font-size:55pt;
+	 color:#8b63da;
+	 padding: 5px 0;
+	 margin-bottom: 0;
+
+
+}
+.infoHead> h2{
+	text-align:center;
+	 font-family: 'Raleway', sans-serif;
+	 font-weight: 800;
+	 font-size:55pt;
+	 color:black;
+	 background-color: white;
+	 margin-bottom: 0;
+
+}
+.infoMain{
+	height: 700px;
+	 background-color: #8b63da;
+}
+
+.infoSub{
+	height: 900px;
+	 background-color: #8b63da;
+}
+
+
+/*------------------CONTENT--------------------- */
+.conSen{
+	height: 550px;
+	background-color: #222229; 
+}
+}
