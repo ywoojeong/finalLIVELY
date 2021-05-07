@@ -44,12 +44,13 @@
 .scene {
   perspective: 1000;
   width: 10em;
-  position: absolute;
+  /*  position: absolute;
   top: 65%;
-  left: 10%; 
-  margin-left: -5em;
-  margin-top: -5em;
+  left: 10%;  
+  margin-left: -5em;*/
+  margin-top: 1em;
 }
+
 
 .cube{
   color: #ccc;
