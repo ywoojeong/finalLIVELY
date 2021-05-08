@@ -9,5 +9,7 @@
 <body>
 header
 <a href="/member/testmember">testmember</a>
+<a href="/member/memberLogin">login</a>
+<a href="/member/regi">join us</a>
 </body>
 </html>
