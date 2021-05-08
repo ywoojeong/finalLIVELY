@@ -23,17 +23,21 @@
  -->
 
 
+<!-- 아이콘 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark"> <!-- p -->
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">LIVELY</a>
+    <a class="navbar-brand" href="#">
+    	<img src="./image/logo.png" style="height: 45px">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0 ">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#intro">Home</a>
         </li>
@@ -44,13 +48,12 @@
           <a class="nav-link" href="#content">CONTENT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">INFO</a>
+          <a class="nav-link" href="#info3">INFO3</a>
         </li>
        
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="loginbtn">LIVELY LOGIN</button>
       </form>
     </div>
   </div>
@@ -76,28 +79,35 @@
 		  </main>
 		</div>
 	</section>
+	
 <!-- info -->
 	<section id="info" class="section">
 		<header class="infoHead">
-			<h1 class="he1">WHAT'S YOUR TYPE?</h1>
-			<h2 class="he2">LIVELY WILL LET YOU KNOW</h2>
+			<h1>WHAT'S YOUR TYPE?</h1>
+			<h2>LIVELY WILL LET YOU KNOW</h2>
 		</header>
 		<div class="row">
-			<div class="col-sm-6 infoMain">
-				다이브1
+			<div class="col-sm-6 infoImg">
+				<span style="color:white">이미지 삽입</span>
 			</div>
-			<div class="col-sm-6">
-				다이브2
+			<div class="col-sm-6 infoSen">
+				<div>
+					<h4>문구를 추가하세요</h4>		
+					<p>문장을 추가하세요</p>
+				</div>
 			</div>
 				
 		</div>
 		
 		<div class="row">
-			<div class="col-sm-6 ">
-				다이브1
-			</div>
 			<div class="col-sm-6 infoSub">
-				다이브2
+				<div>
+					<h4>문구를 추가하세요</h4>		
+					<p>문장을 추가하세요</p>
+				</div>
+			</div>
+			<div class="col-sm-6 infoImg">
+				<span style="color:white">이미지 삽입</span>
 			</div>
 				
 		</div>
@@ -106,16 +116,44 @@
 	
 <!-- CONTENT -->
 	<section id="content" class="section">
-		<header>
-			<h1>LIVELY</h1>
+		<header class="conHeader">
+			<h1>EXPERIENCE SOMTHING NEW WITH LIVELY</h1>
+			<div class="warning" style="background-image:url('image/livwarning.png') ">
+ 			</div>
+ 			<div class="row contentMain">
+ 				<div class="col-sm-4">
+ 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
+ 						<i class="fas fa-clipboard fa-4x hexagonImg1"></i>
+ 					</div>
+ 					<h4>SURVEY MBTI</h4>
+ 					<p>mbti에 관한 내용을 입력하세요</p>
+ 				</div>
+ 				<div class="col-sm-4">
+ 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
+ 						<i class="fas fa-user-check fa-4x hexagonImg2"></i>
+ 					</div>	
+ 					<h4>MAKING A RELATIONSHIP</h4>
+ 					<p>MATCHING에 관한 내용을 입력하세요</p>
+ 				</div>
+ 				
+ 				<div class="col-sm-4">
+ 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
+ 						<i class="fas fa-users fa-4x hexagonImg2"></i>
+ 					</div>
+ 					<h4>CLUB ACTIVITIES</h4>
+ 					<p>CLUB에 관한 내용을 입력하세요</p>
+ 				</div>
+ 			</div>
+ 			<div class="warning" style="background-image:url('image/livwarning.png') ">
+ 			</div>		
 		</header>
 		<div class="row">
 		<%for(int i=0; i<4;i++){ %>
 			<div class="col-sm-4 conSen">
 			 다이브1
 			</div>
-			<div class="col-sm-4">
-			 다이브1
+			<div class="col-sm-4 conSen2">
+			 다이브2
 			</div>
 		<%} %>	
 			<div class="col-sm-4 conSen">
