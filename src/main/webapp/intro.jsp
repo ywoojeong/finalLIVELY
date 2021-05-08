@@ -42,13 +42,13 @@
           <a class="nav-link active" aria-current="page" href="#intro">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#info">INFO</a>
+          <a class="nav-link " href="#info">INFO</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#content">CONTENT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#info3">INFO3</a>
+          <a class="nav-link" href="#link">LINK</a>
         </li>
        
       </ul>
@@ -73,9 +73,7 @@
 			    <span class="side top">MBTI</span>
 			    <span class="side front">ENJOY US</span>
 			  </div>
-			</div>
-		 	
-		    
+			</div>	    
 		  </main>
 		</div>
 	</section>
@@ -150,18 +148,61 @@
 		<div class="row">
 		<%for(int i=0; i<4;i++){ %>
 			<div class="col-sm-4 conSen">
-			 다이브1
+				<div>
+					<h4>문구를 입력하세요</h4>
+					<p>문장을 입력하세요</p>
+				</div>
+
 			</div>
 			<div class="col-sm-4 conSen2">
-			 다이브2
+			 <span style="color:white">이미지 삽입</span>
 			</div>
 		<%} %>	
 			<div class="col-sm-4 conSen">
-			 다이브1
+				<div>
+					<h4>문구를 입력하세요</h4>
+					<p>문장을 입력하세요</p>
+				</div>
+
 			</div>
 		</div>
+	</section>
 	
-	</section>	
+<!-- link -->	
+	<section id="link" class="section">
+	 <div class="row linkRow">
+	 	<div class="col-sm-6">
+	 		<div class="linkI">
+	 			 <span style="color:white">이미지 삽입</span>
+	 		</div>
+	 		<div class="linkS">
+	 			<h4>문구를 입력하세요</h4>
+		 		<div class="table_center">
+			       <a href="#none">
+			           MATCHING
+			       </a>
+				</div>
+			</div>	 		
+	 	</div>
+	 	
+	 	<div class="col-sm-6">
+	 		<div class="linkI">
+	 			 <span style="color:white">이미지 삽입</span>
+	 		</div>
+	 		<div class="linkC">
+	 			<h4>문구를 입력하세요</h4>
+		 		<div class="table_center">
+			       <a href="#none">
+			           CLUB
+			       </a>
+				</div>
+			</div>
+	 	</div>
+	 </div>
+	 
+	</section>
+	
+	
 	
 </main>
 
