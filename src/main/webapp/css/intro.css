@@ -11,6 +11,8 @@
 body{
 	font-family: 'Raleway', sans-serif;
 }
+
+/* 네비바 디자인*/
 .navbar{
 	font-family: 'Krona One', sans-serif;
 	height: 70px;
@@ -22,16 +24,23 @@ body{
  	margin-left: 30px;
 }
 
+/*안먹힘.... hover시 글씨색 바꾸는거 추가 (선택 유지하려면 자바스크립트사용)*/
+ .nav-link:hover{
+ 	color:#cb98ed;
+ }
+ 
+
 /*---------------intro----------------------*/
 
 
 .introDiv{
 	margin-left:0;
-	 width: 100vw;
+	/*  width: 100vw; */
 	 height: 100vh;
 	 background-image: url('./image/concert-768722_1920.jpg');
 	 background-position: center;
      background-size: cover;
+     position: 
 }
 
 .loginbtn{
@@ -55,8 +64,8 @@ body{
 
 /*-------introSen ------------*/
 .introSen{
-	padding-left: 100px;
-	padding-top: 400px;
+	 padding-left: 100px;
+	padding-top: 400px; 
 }
 .introSen> h1{
 	
@@ -161,6 +170,7 @@ body{
 }
 .infoSen{
 	height: 700px;
+	min-height: 33.3vw;
 	display:table;
 }
 
@@ -172,7 +182,8 @@ body{
 }
 
 .infoSub{
-	height: 900px;
+	height:900px;
+	min-height: 33.3vw;
 	 background-color: #cb98ed;
 	 display:table;
 }
@@ -186,7 +197,7 @@ body{
 
 /*------------------CONTENT--------------------- */
 .conHeader{
-	height: 550px;
+	
 }
 
 .conHeader> h1{
@@ -196,6 +207,7 @@ body{
 	 font-size:55pt;
 	 color:#fff;
 	 margin-top: 20px;
+	 margin-bottom: 20px;
 	
 }
 .warning{
@@ -205,8 +217,7 @@ body{
 }
 
 .contentMain{
-/* 	height: 300px; */
-	background-color: #22229;
+ 	/* height: 400px; */
 }
 .hexagon{
 	margin-top:50px;
@@ -229,6 +240,9 @@ body{
   	left: 44%;
 	top: 16%;
 }
+.contentMain>div{
+	margin-bottom: 50px;
+}
 .contentMain>div>h4{
 	color: #fff;
 	text-align: center;
@@ -243,9 +257,121 @@ body{
 .conSen{
 	 min-height: 33.3vw;
 	background-color: #222229; 
+	display: table;
+}
+
+.conSen>div{
+	color:#cb98ed;
+	display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.conSen>div>h4{
+	color:white;
+	font-size: 15pt;
+}
+.conSen>p{
+	color:#cb98ed;
 }
 
 .conSen2{
 	    min-height: 33.3vw;
 }
+
+
+
+
+/*-- link --*/
+.linkRow{
+	--bs-gutter-x:0rem;
+}
+
+.linkI{
+	height: 700px;
+	background-color: grey;
+}
+.linkS{
+	text-align: center;
+	 height: 200px;
+	 background-color: rgb(203, 152, 237);
+}
+.linkS>h4{
+	padding: 40px 0 30px 0;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+.linkC{
+	text-align: center;
+	 height: 200px;
+	 background-color: rgba(139, 99, 218, 0.83);
+}
+.linkC>h4{
+	padding: 40px 0 30px 0;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+/*버튼*/
+/*.linkMain{
+	height:100%;
+  display:table;
+}
+
+.table_center{
+  display:table-cell;
+  vertical-align: middle;
+}*/
+
+
+
+.table_center> a{
+  text-decoration:none;
+  color:#000;
+  margin:auto;
+  width:150px;
+  display:inline-block;
+  line-height:40px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  background-color: #fff;
+   border:5px solid #000;
+   box-shadow:1px 1px 0, 2px 2px 0, 3px 3px 0, 4px 4px 0,5px 5px 0;
+  /*position: relative;*/
+}
+
+ .table_center>a:after{
+  content: "";
+/*   position: absolute; */
+  left: 0;
+  top: 0;
+  height: 100%;
+  width:100%;
+   z-index: -1;
+  background-color: #fff;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+.table_center>a:hover{
+  background-color: #dddcdfff;
+}
+ .table_center>a:hover:after{
+  background-color: #dddcdfff;
+}
+
+ .table_center>a:active{
+   top:5px;
+   left:5px;
+   box-shadow:0 0 0 0;
+}
+
+
+
+
 
