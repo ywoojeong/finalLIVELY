@@ -1,0 +1,10 @@
+DROP TABLE AREA
+CASCADE CONSTRAINTS;
+
+--AREA
+
+CREATE TABLE AREA(
+		--시 군 구......
+)
+
+ 

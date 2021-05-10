@@ -352,6 +352,14 @@
 	    <artifactId>commons-fileupload</artifactId>
 	    <version>1.3.3</version>
 	</dependency>
+	
+	<!-- 정연우 추가 -->
+	<!-- oauth 라이브러리 -->
+	<dependency>
+		<groupId>com.github.scribejava</groupId>
+		<artifactId>scribejava-core</artifactId>
+		<version>2.8.1</version>
+	</dependency>
 
 
   </dependencies>
