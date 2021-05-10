@@ -7,6 +7,7 @@
 
 	<!--// main layout -->
 	<definition name="mainTiles" template="/WEB-INF/views/index.jsp">
+		<put-attribute name="commons" value="/WEB-INF/views/include/commons.jsp" />
 		<put-attribute name="header" value="/WEB-INF/views/include/header.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp" />

@@ -8,6 +8,8 @@
 
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
  <!-- Bootstrap CSS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 
@@ -17,10 +19,10 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 
  <!-- Option 2: Separate Popper and Bootstrap JS -->
- <!--
+ 
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js" integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ" crossorigin="anonymous"></script>
- -->
+ 
 
 
 <!-- 아이콘 -->
@@ -53,7 +55,7 @@
        
       </ul>
       <form class="d-flex">
-        <button class="loginbtn">LIVELY LOGIN</button>
+        <button class="loginbtnW" id="loginbtn">LIVELY LOGIN</button>
       </form>
     </div>
   </div>
@@ -69,7 +71,7 @@
 		    <p>LIVELY와 함께 시작해보세요. 당신의...어쩌구..저쩌구...</p>
 		 	
 		 	<div class="scene">
-			  <div class="cube">
+			  <div class="cube" id="loginbtn">
 			    <span class="side top">MBTI</span>
 			    <span class="side front">ENJOY US</span>
 			  </div>
@@ -202,9 +204,20 @@
 	 
 	</section>
 	
-	
-	
 </main>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#loginbtn").click(function(){
+		location.href="memberLogin.do";
+	});
+});
+
+
+
+</script>
 
 
 </body>
