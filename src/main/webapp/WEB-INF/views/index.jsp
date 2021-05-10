@@ -8,7 +8,7 @@
 <title>index</title>
 </head>
 <body>
-	<div style="height: 100px;width:100%;background: #f2f2f2">
+	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
 	
@@ -16,7 +16,7 @@
 		<tiles:insertAttribute name="body"/>   <!--요청에의해 바뀌는 body부분-->
 	</div>
 	
-	<div style="height: 300px;width:100%;background: #f2f2f2">
+	<div style="height: 80px;width:100%;background: #ffffff;position: absolute;bottom: 0; padding-top: 10px;">
 		<tiles:insertAttribute name="footer"/> 
 	</div>
 </body>
