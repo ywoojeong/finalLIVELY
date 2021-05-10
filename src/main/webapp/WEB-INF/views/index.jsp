@@ -6,8 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>index</title>
+
+<tiles:insertAttribute name="commons"/>   
 </head>
 <body>
+
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
