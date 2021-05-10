@@ -43,7 +43,7 @@ body{
      position: 
 }
 
-.loginbtn{
+.loginbtnW{
 	background-color:#212529;
 	border:2px solid #cb98ed;
 	border-radius: 20px;
@@ -53,11 +53,30 @@ body{
 	font-size: 15pt;
 	color:#cb98ed;
 }
+.loginbtnW:hover{
+	background-color:#cb98ed;
+	border:2px solid #cb98ed;
+	font-size: 15pt;
+	color:#212529;
+}
+
+.loginbtn{
+	background-color:#fff;
+	border:2px solid #cb98ed;
+	border-radius: 20px;
+	width: 200px;
+	height: 42px;
+	font-family: 'Krona One', sans-serif;
+	font-size: 15pt;
+	color:#cb98ed;
+}
+
 .loginbtn:hover{
 	background-color:#cb98ed;
 	border:2px solid #cb98ed;
-	color:#212529;
-	font
+	font-size: 15pt;
+	color:#fff;
+	
 }
 
 

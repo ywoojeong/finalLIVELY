@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.a.common.NaverLoginBO;
 
 @Controller
-@RequestMapping("/member")
+/* @RequestMapping("/member") */
 public class memberController {
 	
 	@Autowired
@@ -33,4 +34,13 @@ public class memberController {
 		model.addAttribute("naverUrl", naverAuthUrl);
 		return "member/memberLogin";
 	}
+	
+	//민선 테스트중 intro.jsp >> login 페이지
+	@RequestMapping(value="memberlogin.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberlogin1() {
+		System.out.print("민선 테스트중");
+		return "member/memberLogin";
+	}
+
+	
 }
