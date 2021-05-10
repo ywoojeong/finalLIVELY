@@ -1,0 +1,377 @@
+/*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*영어 기본 폰트 Poppins  font-family: 'Poppins', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/* 영어 포인트 폰트 Raleway  font-family: 'Raleway', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/*네비 포인트 폰트 Krona One */
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+
+body{
+	font-family: 'Raleway', sans-serif;
+}
+
+/* 네비바 디자인*/
+.navbar{
+	font-family: 'Krona One', sans-serif;
+	height: 70px;
+
+}
+
+.nav-item{
+ 	margin-right: 50px;
+ 	margin-left: 30px;
+}
+
+/*안먹힘.... hover시 글씨색 바꾸는거 추가 (선택 유지하려면 자바스크립트사용)*/
+ .nav-link:hover{
+ 	color:#cb98ed;
+ }
+ 
+
+/*---------------intro----------------------*/
+
+
+.introDiv{
+	margin-left:0;
+	/*  width: 100vw; */
+	 height: 100vh;
+	 background-image: url('./image/concert-768722_1920.jpg');
+	 background-position: center;
+     background-size: cover;
+     position: 
+}
+
+.loginbtn{
+	background-color:#212529;
+	border:2px solid #cb98ed;
+	border-radius: 20px;
+	width: 200px;
+	height: 42px;
+	font-family: 'Krona One', sans-serif;
+	font-size: 15pt;
+	color:#cb98ed;
+}
+.loginbtn:hover{
+	background-color:#cb98ed;
+	border:2px solid #cb98ed;
+	color:#212529;
+	font
+}
+
+
+
+/*-------introSen ------------*/
+.introSen{
+	 padding-left: 100px;
+	padding-top: 400px; 
+}
+.introSen> h1{
+	
+	font-family: 'Raleway', sans-serif;
+	color:#fff;
+	font-weight: 600;
+}
+
+.introSen> p{
+	font-family: 'Noto Sans KR', sans-serif;
+	color:#fff;
+	margin-bottom: 5px;
+    
+}
+
+/*-------intro button scene------------*/
+.scene {
+  perspective: 1000;
+  width: 10em;
+  /*  position: absolute;
+  top: 65%;
+  left: 10%;  
+  margin-left: -5em;*/
+  margin-top: 1em;
+}
+
+
+.cube{
+  color: #ccc;
+  cursor: pointer;
+ font-family: 'Krona One', sans-serif;
+  font-weight:700;
+  transition: all 0.85s cubic-bezier(.17,.67,.14,.93);
+	transform-style: preserve-3d;
+  transform-origin: 100% 50%;
+  width: 10em;
+  height: 4em;
+   /* &:hover {
+    transform: rotateX(-90deg);
+} */
+}
+
+ .cube:hover {
+    transform: rotateX(-90deg);
+  }
+
+.side {
+  box-sizing: border-box;
+  position: absolute;
+  display: inline-block;
+  height: 4em;
+  width: 10em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 1.5em;
+}
+
+.top {
+  background: #8b63da;
+  color: #fff;
+  transform: rotateX(90deg) translate3d(0, 0, 2em);
+}
+
+.front {
+  background: #fff;
+  color: #222229;
+  box-shadow: inset 0 0 0 5px #8b63da;
+  transform: translate3d(0, 0, 2em);
+}
+
+
+/* ----------------info-----------------*/
+
+#info{
+	min-height: calc(100vh+70px);
+}
+
+/*------infoMain-------*/
+.infoHead >h1{
+	text-align:center;
+	 font-family: 'Raleway', sans-serif;
+	 font-weight: 800;
+	 font-size:55pt;
+	 color:#cb98ed;
+	 padding: 5px 0;
+	 margin-bottom: 0;
+
+
+}
+.infoHead> h2{
+	text-align:center;
+	 font-family: 'Raleway', sans-serif;
+	 font-weight: 800;
+	 font-size:55pt;
+	 color:black;
+	 background-color: white;
+	 margin-bottom: 0;
+
+}
+.infoImg{
+	height: 700px;
+}
+.infoSen{
+	height: 700px;
+	min-height: 33.3vw;
+	display:table;
+}
+
+.infoSen>div{
+	color:#cb98ed;
+	display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.infoSub{
+	height:900px;
+	min-height: 33.3vw;
+	 background-color: #cb98ed;
+	 display:table;
+}
+.infoSub>div{
+	 display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+}
+
+
+
+/*------------------CONTENT--------------------- */
+.conHeader{
+	
+}
+
+.conHeader> h1{
+	text-align:center;
+	 font-family: 'Raleway', sans-serif;
+	 font-weight: 700;
+	 font-size:55pt;
+	 color:#fff;
+	 margin-top: 20px;
+	 margin-bottom: 20px;
+	
+}
+.warning{
+	height:40px;
+	background-size:contain;
+	background-repeat:repeat-x;
+}
+
+.contentMain{
+ 	/* height: 400px; */
+}
+.hexagon{
+	margin-top:50px;
+	margin-bottom:30px;
+	height:100px;
+	background-position:center;
+	background-size:contain;
+	background-repeat: no-repeat;
+	position: relative;
+}
+.hexagonImg1{
+	position: absolute;
+  	left: 46%;
+	top: 18%;
+
+}
+
+.hexagonImg2{
+	position: absolute;
+  	left: 44%;
+	top: 16%;
+}
+.contentMain>div{
+	margin-bottom: 50px;
+}
+.contentMain>div>h4{
+	color: #fff;
+	text-align: center;
+}
+.contentMain>div>p{
+	color: #cb98ed;
+	text-align: center;
+}
+
+
+
+.conSen{
+	 min-height: 33.3vw;
+	background-color: #222229; 
+	display: table;
+}
+
+.conSen>div{
+	color:#cb98ed;
+	display: table-cell;
+     vertical-align: middle;
+     text-align: center;
+}
+
+.conSen>div>h4{
+	color:white;
+	font-size: 15pt;
+}
+.conSen>p{
+	color:#cb98ed;
+}
+
+.conSen2{
+	    min-height: 33.3vw;
+}
+
+
+
+
+/*-- link --*/
+.linkRow{
+	--bs-gutter-x:0rem;
+}
+
+.linkI{
+	height: 700px;
+	background-color: grey;
+}
+.linkS{
+	text-align: center;
+	 height: 200px;
+	 background-color: rgb(203, 152, 237);
+}
+.linkS>h4{
+	padding: 40px 0 30px 0;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+.linkC{
+	text-align: center;
+	 height: 200px;
+	 background-color: rgba(139, 99, 218, 0.83);
+}
+.linkC>h4{
+	padding: 40px 0 30px 0;
+	font-size: 16pt;
+	font-weight: 700;
+}
+
+/*버튼*/
+/*.linkMain{
+	height:100%;
+  display:table;
+}
+
+.table_center{
+  display:table-cell;
+  vertical-align: middle;
+}*/
+
+
+
+.table_center> a{
+  text-decoration:none;
+  color:#000;
+  margin:auto;
+  width:150px;
+  display:inline-block;
+  line-height:40px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  background-color: #fff;
+   border:5px solid #000;
+   box-shadow:1px 1px 0, 2px 2px 0, 3px 3px 0, 4px 4px 0,5px 5px 0;
+  /*position: relative;*/
+}
+
+ .table_center>a:after{
+  content: "";
+/*   position: absolute; */
+  left: 0;
+  top: 0;
+  height: 100%;
+  width:100%;
+   z-index: -1;
+  background-color: #fff;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+.table_center>a:hover{
+  background-color: #dddcdfff;
+}
+ .table_center>a:hover:after{
+  background-color: #dddcdfff;
+}
+
+ .table_center>a:active{
+   top:5px;
+   left:5px;
+   box-shadow:0 0 0 0;
+}
+
+
+
+
+
