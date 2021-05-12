@@ -5,8 +5,13 @@
 /* 영어 포인트 폰트 Raleway  font-family: 'Raleway', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/*네비 포인트 폰트 Krona One */
+/*font-family: 'Teko', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+/*네비 포인트 폰트 Krona One  font-family: 'Krona One', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+/*네비 포인트 폰트 한글  font-family: 'Russo One', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 body{
 	font-family: 'Raleway', sans-serif;
@@ -32,7 +37,6 @@ body{
 
 /*---------------intro----------------------*/
 
-
 .introDiv{
 	margin-left:0;
 	/*  width: 100vw; */
@@ -43,7 +47,7 @@ body{
      position: 
 }
 
-.loginbtn{
+.loginbtnW{
 	background-color:#212529;
 	border:2px solid #cb98ed;
 	border-radius: 20px;
@@ -53,31 +57,69 @@ body{
 	font-size: 15pt;
 	color:#cb98ed;
 }
+.loginbtnW:hover{
+	background-color:#cb98ed;
+	border:2px solid #cb98ed;
+	font-size: 15pt;
+	color:#212529;
+}
+
+.loginbtn{
+	background-color:#fff;
+	border:2px solid #cb98ed;
+	border-radius: 20px;
+	width: 200px;
+	height: 42px;
+	font-family: 'Krona One', sans-serif;
+	font-size: 15pt;
+	color:#cb98ed;
+}
+
 .loginbtn:hover{
 	background-color:#cb98ed;
 	border:2px solid #cb98ed;
-	color:#212529;
-	font
+	font-size: 15pt;
+	color:#fff;
+	
 }
 
 
 
 /*-------introSen ------------*/
 .introSen{
-	 padding-left: 100px;
-	padding-top: 400px; 
+	position:absolute;
+	padding-left: 100px;
+	top:45%;
 }
 .introSen> h1{
-	
 	font-family: 'Raleway', sans-serif;
 	color:#fff;
+	font-size:38pt;
 	font-weight: 600;
+	margin-bottom: 20px;
+	text-shadow: 1px 1px 1px black;
 }
+
+
+/*타이핑 글씨*/
+.introSen .typing-txt{display: none;}
+.introSen .typeing-txt ul{display: none;list-style:none;}
+
+.typing{
+	text-shadow: 2px 2px 2px black;
+		 font-size: 48pt;
+		 font-style:italic;
+	 font-weight: 800;
+	 color: #cb98ed;
+}
+
+
 
 .introSen> p{
 	font-family: 'Noto Sans KR', sans-serif;
 	color:#fff;
-	margin-bottom: 5px;
+	font-size:14pt;
+	/* margin-bottom: 5px; */
     
 }
 
@@ -89,7 +131,7 @@ body{
   top: 65%;
   left: 10%;  
   margin-left: -5em;*/
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 
 
@@ -126,6 +168,7 @@ body{
 .top {
   background: #8b63da;
   color: #fff;
+
   transform: rotateX(90deg) translate3d(0, 0, 2em);
 }
 
@@ -330,7 +373,7 @@ body{
   text-decoration:none;
   color:#000;
   margin:auto;
-  width:150px;
+  width:180px;
   display:inline-block;
   line-height:40px;
   font-size:12px;
