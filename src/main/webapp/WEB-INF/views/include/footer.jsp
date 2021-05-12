@@ -6,12 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>footer</title>
 <style type="text/css">
-a{text-decoration: none;color: inherit;font-size: 13px;margin: 0 auto;}
-a:hover{color: #6c757d;}
-a:active{color: #6c757d;}
-ul{list-style: none;}
-li{float: left; margin-right: 20px;}
-#info{display: table-cell;vertical-align: middle;}
+.info{list-style: none;}
+.info_svc a:hover{color: #6c757d;}
+.info_svc a:active{color: #6c757d;}
+.info_svc{float: left; margin-right: 20px;}
+.link_info{font-size: 13px;margin: 0 auto;float: left;text-decoration: none;color: inherit;}
 </style>
 </head>
 <body>
