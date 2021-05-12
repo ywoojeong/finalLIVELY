@@ -41,6 +41,8 @@ public class memberController {
 		System.out.print("민선 테스트중");
 		return "member/memberLogin";
 	}
+	
+	
 
 	
 }

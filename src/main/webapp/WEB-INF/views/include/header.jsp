@@ -62,7 +62,7 @@ intro Css
 $(document).ready(function(){
 
 	$("#loginbtn").click(function(){
-		location.href="memberlogin.do";
+		location.href="memberLogin.do";
 	});
 });
 </script>
