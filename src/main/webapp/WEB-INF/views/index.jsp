@@ -6,9 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>index</title>
+
+<tiles:insertAttribute name="commons"/>   
 </head>
-<body>
-	<div style="height: 100px;width:100%;background: #f2f2f2">
+<body style="display: flex; flex-direction: column;min-height: 100vh;">
+
+	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
 	
@@ -16,7 +19,7 @@
 		<tiles:insertAttribute name="body"/>   <!--요청에의해 바뀌는 body부분-->
 	</div>
 	
-	<div style="height: 300px;width:100%;background: #f2f2f2">
+	<div style="display:flex; margin-top: auto; height: 80px;width:100%;background: #ffffff;bottom: 0; padding-top: 10px;">
 		<tiles:insertAttribute name="footer"/> 
 	</div>
 </body>
