@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a href="#none"><img src="image/btn_kakao.png"></a></td>
+                    <td><a href="javascript:kakaoLogin()"><img src="image/btn_kakao.png"></a></td>
                 </tr>
                 <tr>
                     <td><a href="${naverUrl}"><img src="image/btn_naver.png"></a></td>
