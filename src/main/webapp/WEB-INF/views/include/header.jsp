@@ -5,21 +5,10 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+ 
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 
-<!-- 제이쿼리   
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-Bootstrap CSS
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-
-intro Css
-<link href="/css/intro.css" rel="stylesheet">
- Option 1: Bootstrap Bundle with Popper
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-
-아이콘
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
- -->
 <title>header</title>
 </head>
 <body>
@@ -39,16 +28,13 @@ intro Css
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0 ">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#intro">Home</a>
+          <a class="nav-link active" aria-current="page" href="intro.do">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="#info">INFO</a>
+          <a class="nav-link " href="hotChallenge.do">HOT CHALLENGE</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#content">CONTENT</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#link">LINK</a>
+          <a class="nav-link" href="newChallenge.do">NEW CHALLENGE</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -62,7 +48,7 @@ intro Css
 $(document).ready(function(){
 
 	$("#loginbtn").click(function(){
-		location.href="memberlogin.do";
+		location.href="memberLogin.do";
 	});
 });
 </script>
