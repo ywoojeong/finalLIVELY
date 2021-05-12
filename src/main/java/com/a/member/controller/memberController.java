@@ -46,6 +46,12 @@ public class memberController {
 		return "home/home";
 	}
 	
+	@RequestMapping(value="memberInfo.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberInfo() {
+		System.out.print("나 테스트 중");
+		return "member/memberInfo";
+	}
+	
 	//네이버 로그인
 	@RequestMapping(value="memberNaverLogin.do",  method = {RequestMethod.GET,RequestMethod.POST})
 	public String userNaverLoginPro(Model model,@RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state,HttpSession session) throws SQLException, Exception {
