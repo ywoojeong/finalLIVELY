@@ -71,7 +71,7 @@
 		    <p>LIVELY와 함께 시작해보세요. 당신의...어쩌구..저쩌구...</p>
 		 	
 		 	<div class="scene">
-			  <div class="cube" id="loginbtn">
+			  <div class="cube" id="loginBtn">
 			    <span class="side top">MBTI</span>
 			    <span class="side front">ENJOY US</span>
 			  </div>
@@ -211,7 +211,11 @@
 $(document).ready(function(){
 
 	$("#loginbtn").click(function(){
-		location.href="memberLogin.do";
+		location.href="memberlogin.do";
+	});
+	
+	$("#loginBtn").click(function(){
+		location.href="memberCon.do";
 	});
 });
 
