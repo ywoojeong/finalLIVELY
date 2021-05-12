@@ -16,7 +16,7 @@ public class challengeController {
 	@RequestMapping(value = "hotChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String hotChallenge() {
 		
-		return "challenge/newChallenge";
+		return "challenge/hotChallenge";
 	}
 	
 	@RequestMapping(value = "newChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
