@@ -10,7 +10,7 @@
 .info_svc a:hover{color: #6c757d;}
 .info_svc a:active{color: #6c757d;}
 .info_svc{float: left; margin-right: 20px;}
-.link_info{font-size: 13px;margin: 0 auto;float: left;text-decoration: none;color: inherit;}
+.link_info{font-size: 13px;float: left;text-decoration: none;color: inherit;}
 </style>
 </head>
 <body>
