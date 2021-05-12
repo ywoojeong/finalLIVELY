@@ -52,12 +52,12 @@ intro Css
         </li>
       </ul>
       <form class="d-flex">
-        <button class="loginbtn" id="loginbtn">LIVELY LOGIN</button>
+        <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
       </form>
     </div>
   </div>
 </nav> 
-
+<!-- 
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-
+ -->
 
 </body>
 </html>
