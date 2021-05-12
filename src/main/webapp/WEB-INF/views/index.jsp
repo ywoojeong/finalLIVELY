@@ -9,7 +9,7 @@
 
 <tiles:insertAttribute name="commons"/>   
 </head>
-<body>
+<body style="display: flex; flex-direction: column;min-height: 100vh;">
 
 	<div>
 		<tiles:insertAttribute name="header" />
@@ -19,7 +19,7 @@
 		<tiles:insertAttribute name="body"/>   <!--요청에의해 바뀌는 body부분-->
 	</div>
 	
-	<div style="height: 80px;width:100%;background: #ffffff;position: absolute;bottom: 0; padding-top: 10px;">
+	<div style="display:flex; margin-top: auto; height: 80px;width:100%;background: #ffffff;bottom: 0; padding-top: 10px;">
 		<tiles:insertAttribute name="footer"/> 
 	</div>
 </body>
