@@ -25,4 +25,9 @@ public class challengeController {
 		return "challenge/newChallenge";
 	}
 	
+	//챌린지 만들기 페이지로 이동
+	@RequestMapping(value = "challengeMake.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeMake() {
+		return "challenge/challengeMake";
+	}
 }
