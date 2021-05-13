@@ -65,7 +65,10 @@ public class memberController {
 		System.out.println("apiResult =>"+apiResult);
 		ObjectMapper objectMapper =new ObjectMapper();
 		Map<String, Object> apiJson = (Map<String, Object>) objectMapper.readValue(apiResult, Map.class).get("response");
-		
+		/*
+		Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
+		session.setAttribute("userInfo", loginCheck);
+		*/
 		return "home/home";
 	}
 
