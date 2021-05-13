@@ -62,8 +62,10 @@
 		     			%>
 		     			
 			     		<div class="col-xs-12 col-sm-4 p-2">
-			     			<div class="card wrap" style="width: 18rem;float: none;margin: 30px auto;height:25rem ">
-			     				 <img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
+			     			<div class="card challCard">
+		     				   <div class="wrap">
+		     				 	  <img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
+		     				  </div>
 							  <div class="card-img-overlay">
 							    <h5 class="card-title">Card title</h5>
 							    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
