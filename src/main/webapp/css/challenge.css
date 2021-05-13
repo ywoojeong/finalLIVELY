@@ -135,11 +135,23 @@
 }
 
 /* 줌 호버 */
+.challCard{
+	width: 18rem;
+	height:25rem;
+	float: none;
+	margin: 30px auto;
+	position:relative;
+}
 
+.wrap{
+  position:absolute;
+  height:100%
+  overflow:hidden;
+	
+}
 .zoom {  
-  transition: transform .2s; /* Animation */
-  width: 300px;
-  height: 400px;
+  transition: all .5s; /* Animation */
+  width:100%; 
   margin: 0 auto;
 }
 
@@ -147,5 +159,7 @@
   transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
-
+.card-img-overlay {
+	
+}
 
