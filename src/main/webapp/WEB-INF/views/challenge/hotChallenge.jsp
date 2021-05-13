@@ -3,7 +3,22 @@
 
  <link href="./css/challenge.css" rel="stylesheet">   
 
-<div class="container-fluid" style="background-color: red;height: 100px">
+<div class="" style="margin-top:70px;">
+	<div class="hotMain">
+		<h2>최근 인기있는 챌린지에 동참하세요</h2>
+		<!-- 챌린지 만들기 버튼 -->
+		<div class="chall-buttons">
+		 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
+		 </div>
+		<!-- 검색창 -->	
+		<div class="md-form md-outline d-flex Search">
+			<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
+	    	<button type="button" class="btn btn-Search" >SEARCH</button>
+	    </div>
+		
+	
+	
+	</div>
 	
 
 </div>    
@@ -11,35 +26,112 @@
    
    <div class="container">
 
-   	 
-   	 <ul class="nav nav-pills mb-3" id="pills-tab2" role="tablist">
-		  <li class="nav-item" role="presentation">
-		    <button class="nav-link active" id="pills-home-tab2" data-mdb-toggle="pill" data-mdb-target="#pills-home2" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
-		  </li>
-		  <li class="nav-item" role="presentation">
-		    <button class="nav-link" id="pills-profile-tab2" data-mdb-toggle="pill" data-mdb-target="#pills-profile2" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
-		  </li>
-		  <li class="nav-item" role="presentation">
-		    <button class="nav-link" id="pills-contact-tab2" data-mdb-toggle="pill" data-mdb-target="#pills-contact2" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
-		  </li>
-		</ul>
-		<div class="tab-content" id="pills-tabContent2">
-		  <div class="tab-pane fade show active" id="pills-home2" role="tabpanel" aria-labelledby="pills-home-tab2">Tab 1 content</div>
-		  <div class="tab-pane fade" id="pills-profile2" role="tabpanel" aria-labelledby="pills-profile-tab2">Tab 2 content</div>
-		  <div class="tab-pane fade" id="pills-contact2" role="tabpanel" aria-labelledby="pills-contact-tab2">Tab 3 content</div>
-		</div>
-   	 
-   	 
-   	    
+   	 <!-- Nav pills -->
+		  <ul class="nav nav-pills" role="tablist">
+		    <li class="nav-item">
+		      <a class="nav-link active" data-toggle="pill" href="#home">전 체</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category2">건 강</a>
+		    </li>
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category3">역 량</a>
+		    </li>
+		     <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category4">정 서</a>
+		    </li>
+		     <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category5">자 산</a>
+		    </li>
+		     <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category6">생 활</a>
+		    </li>	
+		    <li class="nav-item">
+		      <a class="nav-link" data-toggle="pill" href="#category6">취 미</a>
+		    </li>		 
+		  </ul>
 		
-			<div class="md-form md-outline d-flex Search">
-
-					<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
-			
-		    		<button type="submit" class="btn btn-Search">SEARCH</button>
+		  <!-- Tab panes -->
+		  <div class="tab-content">
+		  	
+		    <div id="home" class="container tab-pane active"><br>
+		    	<!-- 카드 -->
+		     	<div class="row">
+		     		<%for(int i=0;i<3;i++){
+		     			for(int j=0;j<3;j++){
+		     			%>
+		     			
+			     		<div class="col-xs-12 col-sm-4 p-2">
+			     			<div class="card wrap" style="width: 18rem;float: none;margin: 30px auto;height:25rem ">
+			     				 <img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
+							  <div class="card-img-overlay">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							    <a href="#" class="btn">Go somewhere</a>
+							  </div>
+							</div>
+			     		</div>
+		     		
+		     			<%}
+		     		}%>
+		     	</div>
+		     	<!-- 페이지네이션 -->
+		     	<nav aria-label="...">
+				  <ul class="pagination">
+				    <li class="page-item disabled">
+				      <a class="page-link" href="#" tabindex="-1">Previous</a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">1</a></li>
+				    <li class="page-item active">
+				      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="#">3</a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#">Next</a>
+				    </li>
+				  </ul>
+				</nav>	     	
 		    </div>
-
+		      
+		      <div id="category1" class="container tab-pane fade"><br>
+			      <h3>Menu 1</h3>
+			      <p>각 메뉴의 데이터를 보여준다</p>
+			    </div>
+			    
+			    <div id="category2" class="container tab-pane fade"><br>
+			      <h3>Menu 2</h3>
+			      <p>각 메뉴의 데이터를 보여준다</p>
+			    </div>
+			    
+			    <div id="category3" class="container tab-pane fade"><br>
+			      <h3>Menu 3</h3>
+			      <p>각 메뉴의 데이터를 보여준다</p>
+			    </div>
+			    
+			  
+		      
+		      <% for(int i=1;i<7;i++){ %>
+			    <div id="category(<%=i %>)" class="container tab-pane fade"><br>
+			      <h3>Menu <%=i %></h3>
+			      <p>각 메뉴의 데이터를 보여준다</p>
+			    </div>
+		      <%} %>
+		   
+		  </div>
 		  
-   </div>
+		  <button type="button" class="btn">버튼 기본</button>
  
+   </div>
+
+
+<script>
+function challengeMake(){
+	location.href="challengeMake.do";	
+}
+
+/* $(".nav-pills").find('a').click(function(){
+	window.location.hash = $(this).attr('href').
+});
+ */
+</script> 
 
