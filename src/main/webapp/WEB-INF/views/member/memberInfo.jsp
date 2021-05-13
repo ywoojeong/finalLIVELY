@@ -3,24 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>      
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" />  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
-<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="css/memberInfo.css" />
 <script src="js/memberInfo.js"></script>
 
 <!-- cookie -->
 <script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script>
 
-</head>
-<body>
 <div class="container">
 	<div id="logo"><h1 class="logo"><img src="image/logo.png" width="120" height="42"></h1>
 		<div class="CTA"><h1>가입하기</h1></div>
@@ -55,5 +44,3 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>
