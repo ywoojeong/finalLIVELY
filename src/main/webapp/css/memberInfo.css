@@ -1,13 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto");
-/*
-body {
-  background: linear-gradient(to right, #3fb6a8, #7ed386);
-}
-*/
 .container {
   background: #ffffff;
-  width: 640px;
-  height: 530px;
+  width: 600px;
+  height: 510px;
   margin: 0 auto;
   position: relative;
   margin-top: 10%;
@@ -18,14 +12,9 @@ body {
   float: right;
   margin-right: 12px;
   margin-top: 30px;
-  font-family: "Nunito Sans", sans-serif;
-  color: #3dbb3d;
-  font-weight: 900;
-  font-size: 1.5em;
-  letter-spacing: 1px;
 }
 
-.CTA {
+.joinBtn {
   width: 80px;
   height: 40px;
   right: -20px;
@@ -40,13 +29,13 @@ body {
   cursor: pointer;
 }
 
-.CTA h1 {
+.joinBtn h1 {
   color: #ffffff;
   margin-top: 10px;
   margin-left: 9px;
 }
 
-.CTA:hover {
+.joinBtn:hover {
   background: #8b63da;
   transform: scale(1.1);
 }
@@ -69,20 +58,10 @@ body {
   margin-top: 60px;
 }
 
-.profile,
-.payment,
-.subscription,
-.privacy,
-.settings {
-  transition: opacity 0.5s ease-in;
-  position: absolute;
-  width: 70%;
-}
-
 h1 {
   font-family: "Montserrat", sans-serif;
-  color: #777777;
-  font-size: 1em;
+  color: #8b63da;
+  font-size: 1.3em;
   margin-top: 40px;
   margin-bottom: 35px;
 }
@@ -100,8 +79,7 @@ h2 {
 p {
   border-width: 1px;
   border-style: solid;
-  border-image: linear-gradient(to right, #cb98ed, rgba(126, 211, 134, 0.5)) 1
-    0%;
+  border-image: linear-gradient(to right, #590061, rgb(230, 149, 247)) 1 0%;
   border-top: 0;
   width: 80%;
   font-family: "Montserrat", sans-serif;
@@ -110,41 +88,40 @@ p {
   color: #070707;
 }
 
-span {
-  font-size: 0.5em;
-  color: #777777;
-}
-
 .btn {
   float: right;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   font-size: 10px;
   border: none;
-  color: #3fb6a8;
+  color: #8b63da;
 }
 
 .btn:hover {
-  text-decoration: underline;
+  text-decoration:blink;
   font-weight: 900;
 }
 
 input {
-  border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
+  border: none;
+  border-right: 0px;
+  border-top: 0px;
+  boder-left: 0px;
+  boder-bottom: 0px;
   padding: 2px;
   margin: 0;
 }
 
-.privacy h2 {
-  margin-top: 25px;
+.memberImg {
+  border: 1px solid;
+  border-image: linear-gradient(to right, #590061, rgb(230, 149, 247)) 1;
+  border-radius: 3px;
+  padding: 5px;
+  width: 270px;
+  height: 150px;
 }
-
-.settings h2 {
-  margin-top: 25px;
+#nicknameCheck {
+	border: none;
+	width: 130px;
+	font-size: 10px;
 }
-
-.noshow {
-  opacity: 0;
-}
-
-
