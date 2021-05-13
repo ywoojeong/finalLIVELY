@@ -5,6 +5,18 @@
 
 <tiles-definitions>
 
+	<!-- intro layout -->
+	<definition name="introTiles" template="/WEB-INF/views/intro.jsp">
+		<put-attribute name="commons" value="/WEB-INF/views/include2/commons.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/include2/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/include2/footer.jsp" />
+		 <put-attribute name="body"  expression="/WEB-INF/views/include2/main.jsp" />
+	</definition>
+	<!-- 
+	<definition name="intro" extends="introTiles">
+		 <put-attribute name="body"  expression="/WEB-INF/views/include/main.jsp" />
+	</definition> -->
+	
 	<!--// main layout -->
 	<definition name="mainTiles" template="/WEB-INF/views/index.jsp">
 		<put-attribute name="commons" value="/WEB-INF/views/include/commons.jsp" />
