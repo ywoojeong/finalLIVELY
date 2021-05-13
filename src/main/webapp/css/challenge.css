@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 /* 검색버튼 */
 .form-control .input-Search{
-
 	border-right-style:none;
 	border-bottom: 1px solid #ced4da;
-	
 }
 
 .Search{
@@ -20,6 +18,11 @@
 
 }
 
+.btn-Search:hover{
+	background-color: #8b63da;
+	}
+
+
 .btn-Search:active{
 	background-color: #8b63da;
 	color: white;
@@ -29,7 +32,7 @@
 	margin-left: 20px; 
 
 }
-
+ /*검색 버튼 선택하면 사이즈 줄이는거 방지*/
 .ripple-surface{
 	overflow:inherit;
 	
@@ -39,6 +42,9 @@
 .btn-Search:hover{
 	background-color: #cb98ed;
 	}
+	
+
+/*카테고리 범주 네비 디자인 */
 
 .nav-pills .nav-link{
 	background-color: #f2f2f2;
@@ -55,5 +61,4 @@
 	padding:5px 10px;
 
 }
-=======
->>>>>>> branch 'MinSunBitcamp' of https://github.com/ywoojeong/FinalMBTI.git
+
