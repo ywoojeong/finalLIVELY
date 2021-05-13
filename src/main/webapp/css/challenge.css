@@ -1,0 +1,165 @@
+.hotMain{
+	height: 500px;
+	background-color: grey;
+	position: relative;
+}
+
+.hotMain >h2{
+	position:absolute;
+	top:28%;
+	left:36%;
+	
+	
+}
+
+/*챌린지 만들기 버튼 */
+
+.chall-buttons {
+	position:absolute;
+	top:40%;
+	left:45%;
+    text-align: center;
+}
+
+.chall-btn-hover {
+    width: 170px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 45px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.chall-btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.chall-btn-hover:focus {
+    outline: none;
+}
+
+
+.chall-btn-hover.color-3 {
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+}
+
+
+
+/* 검색버튼 */
+.form-control .input-Search{
+	border-right-style:none;
+	border-bottom: 1px solid #ced4da;
+}
+
+.Search{
+	position:absolute;
+	top:65%;
+	left:37%;
+	width: 500px;
+	margin: 0 auto;
+}
+.btn-Search{
+	background-color: #8b63da;
+	color: white;
+	border-radius:20px;
+	padding-right:25px;
+	padding-left:25px;
+	margin-left: 20px; 
+	box-shadow: 0 4px 15px 0 rgba(108,89,146, 0.75);
+
+}
+
+.btn-Search:hover{
+	background-color: #8b63da;
+	}
+
+
+.btn-Search:active, .btn-Search:focus{
+	 box-shadow: 0 4px 15px 0 rgba(154,120,223, 0.75);
+	background-color: #8b63da;
+	color: white;
+	border-radius:20px;
+	padding-right:25px;
+	padding-left:25px;
+	margin-left: 20px; 
+
+}
+ 
+
+.btn-Search:hover{
+	background-color: #cb98ed;
+	}
+	
+
+/*카테고리 범주 네비 디자인 */
+.nav-pills{
+	justify-content: center;
+}
+
+.nav-pills .nav-link{
+	margin:20px auto;
+	background-color: #f2f2f2;
+	border-radius: 20px;
+	height:27px;
+	font-size:9pt;
+	padding:6px 20px;
+	color: #222229;
+	font-weight: 600;
+}
+
+.nav-link:focus, .nav-link:hover{
+	color:cb98ed;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	background-color: #cb98ed;
+	border-radius: 20px;
+	height:27px;
+	padding:6px 20px;
+	font-weight: 600;
+
+}
+
+/* 줌 호버 */
+.challCard{
+	width: 18rem;
+	height:25rem;
+	float: none;
+	margin: 30px auto;
+	position:relative;
+}
+
+.wrap{
+  position:absolute;
+  height:100%
+  overflow:hidden;
+	
+}
+.zoom {  
+  transition: all .5s; /* Animation */
+  width:100%; 
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.card-img-overlay {
+	
+}
+

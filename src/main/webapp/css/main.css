@@ -9,58 +9,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
 body{
-	font-family: 'Raleway', sans-serif;
-}
-
-/*부트스트랩 버튼과 인풋 테두리 컬러*/
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
-	background-color: #cb98ed;
-	border-radius: 20px;
-	height: 32px;
-	padding:5px 10px;
-
-}
-.nav-link{
-	padding:5px 10px;
-	color:#222229;
-}
-
-.form-control:focus{
-
-  border-color:#cb98ed;
-  box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
-}
-
-
-.btn.focus, .btn:focus{
-	box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
-}
-
-
-/* 검색버튼 */
-.form-control .input-Search{
-
-	border-right-style:none;
-	border-bottom: 1px solid #ced4da;
+	font-family: 'Raleway', sans-serif, Noto Sans KR', sans-serif;
 	
 }
 
-.Search{
-	width: 500px;
-}
-.btn-Search{
+/*부트스트랩 버튼과 인풋 테두리 컬러*/
+
+.form-control:focus{
+  border-color:#cb98ed;
+   box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
+} 
+
+.btn{
 	background-color: #8b63da;
 	color: white;
-	border-radius:20px;
-	padding-right:20px;
-	padding-left:20px;
-	margin-left: 20px; 
-
+	box-shadow: 0 4px 15px 0 rgba(108,89,146, 0.75);
 }
 
-.btn-Search:hover{
-	background-color: #8b63da;
-	}
+
+.btn:hover{
+	background-color: #cb98ed;
+}
+
+
+.btn.active, .btn.focus, .btn:focus{ 
+	 box-shadow: 0 4px 15px 0 rgba(108,89,146, 0.75);
+}
+
+
+
 
 
 /* 네비바 디자인*/
@@ -93,7 +70,11 @@ body{
 	background-color:#cb98ed;
 	border:2px solid #cb98ed;
 	font-size: 15pt;
-	color:#fff;
+	color:#fff;	
+}
+
+.loginbtn:focus-visible{
+
 	
 }
 
