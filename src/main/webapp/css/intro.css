@@ -8,13 +8,16 @@
 /*font-family: 'Teko', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
+/* font-family: 'Do Hyeon', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
 /*네비 포인트 폰트 Krona One  font-family: 'Krona One', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 /*네비 포인트 폰트 한글  font-family: 'Russo One', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 body{
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 네비바 디자인*/
@@ -47,7 +50,7 @@ body{
      position: 
 }
 
-.loginbtnW{
+.loginbtn{
 	background-color:#212529;
 	border:2px solid #cb98ed;
 	border-radius: 20px;
@@ -57,30 +60,11 @@ body{
 	font-size: 15pt;
 	color:#cb98ed;
 }
-.loginbtnW:hover{
-	background-color:#cb98ed;
-	border:2px solid #cb98ed;
-	font-size: 15pt;
-	color:#212529;
-}
-
-.loginbtn{
-	background-color:#fff;
-	border:2px solid #cb98ed;
-	border-radius: 20px;
-	width: 200px;
-	height: 42px;
-	font-family: 'Krona One', sans-serif;
-	font-size: 15pt;
-	color:#cb98ed;
-}
-
 .loginbtn:hover{
 	background-color:#cb98ed;
 	border:2px solid #cb98ed;
 	font-size: 15pt;
-	color:#fff;
-	
+	color:#212529;
 }
 
 
@@ -107,7 +91,7 @@ body{
 
 .typing{
 	text-shadow: 2px 2px 2px black;
-		 font-size: 48pt;
+		 font-size: 52pt;
 		 font-style:italic;
 	 font-weight: 800;
 	 color: #cb98ed;
@@ -219,9 +203,18 @@ body{
 
 .infoSen>div{
 	color:#cb98ed;
+	
 	display: table-cell;
      vertical-align: middle;
      text-align: center;
+}
+
+.infoSen>div>h4{
+	/* font-family: 'Do Hyeon', sans-serif; */
+	letter-spacing :2px;
+	font-size: 1.5em;
+	/* font-weight:600; */
+	font-style: italic;
 }
 
 .infoSub{
@@ -236,6 +229,13 @@ body{
      text-align: center;
 }
 
+.infoSub>div>h4{
+/* 	font-family: 'Do Hyeon', sans-serif; */
+	letter-spacing :2px;
+	font-size: 1.5em;
+	/* font-weight:600; */
+	font-style: italic;
+}
 
 
 /*------------------CONTENT--------------------- */
@@ -248,9 +248,12 @@ body{
 	 font-family: 'Raleway', sans-serif;
 	 font-weight: 700;
 	 font-size:55pt;
-	 color:#fff;
-	 margin-top: 20px;
-	 margin-bottom: 20px;
+	 color:#222229;
+	 padding-top: 15px;
+	 padding-bottom: 15px;
+	 margin-bottom:0px;
+	 background-color: white;
+	 
 	
 }
 .warning{
@@ -284,11 +287,13 @@ body{
 	top: 16%;
 }
 .contentMain>div{
+	margin-top:30px;
 	margin-bottom: 50px;
 }
 .contentMain>div>h4{
 	color: #fff;
 	text-align: center;
+	font-family: 'Raleway', sans-serif;
 }
 .contentMain>div>p{
 	color: #cb98ed;
