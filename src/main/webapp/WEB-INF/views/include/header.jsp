@@ -68,9 +68,9 @@ nav a:first-child {
   </div>
 </nav> 
 
-<script>
+<!-- <script>
 $('#nav-item a').click(function() {
     $('#nav-item a').removeClass('focus');
     $(this).addClass('focus');
 });
-</script>
+</script> -->
