@@ -18,4 +18,5 @@ public class memberRestController {
 	NaverLoginBO naverloginbo;
 	
 	
+	
 }
