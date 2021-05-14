@@ -5,28 +5,52 @@
 
 .hotMain{
 	height: 500px;
-	background-color: grey;
+	background-color: #ff80c0;
 	position: relative;
+	
 }
 
-.hotMain >h2{
+.hotMainSen >h2{
 	font-family: 'Noto Sans KR', sans-serif;
 	position:absolute;
 	font-size:37pt;
 	top:30%;
 	left:50%;
-	transform:translateX(-50%);
+	  
+	  z-index: 2;
+	   color: white;
 	
+}
+
+.hotMainSen >p{
+	font-family: 'Noto Sans KR', sans-serif;
+	position:absolute;
+	font-size:12pt;
+	top:43%;
+	left:50%;
+	transform:translateX(-50%);
+	  z-index: 2;
+	  color: white;
+	
+}
+
+.hotMainCover{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-color: rgba(0, 0, 0, 0.6);                                                                 
+   z-index:1;
 }
 
 /*챌린지 만들기 버튼 */
 
-.chall-buttons {
+.hotMainSen .chall-buttons {
 	position:absolute;
 	top:60%;
 	left:50%;
 	transform:translateX(-50%);
     text-align: center;
+      z-index: 2;
 }
 
 .chall-btn-hover {
@@ -81,7 +105,7 @@
 	left:50%;
 	transform:translateX(-50%);*/
 	width: 370px;
-	justify-content: right;
+	
 	
 }
 
