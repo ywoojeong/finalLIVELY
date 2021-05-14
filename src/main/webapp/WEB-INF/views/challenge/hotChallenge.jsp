@@ -5,18 +5,15 @@
 
 <div class="" style="margin-top:70px;">
 	<div class="hotMain">
-		<h2>최근 인기있는 챌린지에 동참하세요</h2>
-		<!-- 챌린지 만들기 버튼 -->
-		<div class="chall-buttons">
-		 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
-		 </div>
-		<!-- 검색창 -->	
-		<div class="md-form md-outline d-flex Search">
-			<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
-	    	<button type="button" class="btn btn-Search" >SEARCH</button>
-	    </div>
-		
-	
+		<div class="hotMainCover"></div>
+		<div class="hotMainSen">	
+			<h2>최근 인기있는 챌린지에 동참하세요</h2>
+			<p>새로운 챌린지를 만들어보세요. LIVELY는 여러분의 챌린지를 기다립니다.</p>
+			<!-- 챌린지 만들기 버튼 -->
+			<div class="chall-buttons">
+			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
+			 </div>
+		</div>
 	
 	</div>
 	
@@ -29,19 +26,19 @@
    	 <!-- Nav pills -->
 		  <ul class="nav nav-pills" role="tablist">
 		    <li class="nav-item">
-		      <a class="nav-link active" data-toggle="pill" href="#home">전 체</a>
+		      <a class="nav-link active" data-toggle="pill" href="#home">전  체</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" data-toggle="pill" href="#category2">건 강</a>
+		      <a class="nav-link" data-toggle="pill" href="#category2">건  강</a>
 		    </li>
 		    <li class="nav-item">
-		      <a class="nav-link" data-toggle="pill" href="#category3">역 량</a>
+		      <a class="nav-link" data-toggle="pill" href="#category3">역  량</a>
 		    </li>
 		     <li class="nav-item">
-		      <a class="nav-link" data-toggle="pill" href="#category4">정 서</a>
+		      <a class="nav-link" data-toggle="pill" href="#category4">정  서</a>
 		    </li>
 		     <li class="nav-item">
-		      <a class="nav-link" data-toggle="pill" href="#category5">자 산</a>
+		      <a class="nav-link" data-toggle="pill" href="#category5">자  산</a>
 		    </li>
 		     <li class="nav-item">
 		      <a class="nav-link" data-toggle="pill" href="#category6">생 활</a>
@@ -51,10 +48,23 @@
 		    </li>		 
 		  </ul>
 		
+			
+	
+		
+		
 		  <!-- Tab panes -->
 		  <div class="tab-content">
-		  	
-		    <div id="home" class="container tab-pane active"><br>
+		  
+	
+		    <div id="home" class="container tab-pane active">
+			   <!-- 검색창 -->	
+				<div class="md-form md-outline d-flex Search" align="right">
+					<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
+			    	<button type="button" class="btn btn-Search" >SEARCH</button>
+			    </div>
+		  		
+		    	
+		    
 		    	<!-- 카드 -->
 		     	<div class="row">
 		     		<%for(int i=0;i<3;i++){
@@ -62,9 +72,9 @@
 		     			%>
 		     			
 			     		<div class="col-xs-12 col-sm-4 p-2">
-			     			<div class="card wrap" style="width: 18rem;float: none;margin: 30px auto;height:25rem ">
-			     				 <img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
-							  <div class="card-img-overlay">
+			     			<div class="card challCard">
+		     				 	<img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
+ 							  <div class="card-img-overlay"> 
 							    <h5 class="card-title">Card title</h5>
 							    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 							    <a href="#" class="btn">Go somewhere</a>
@@ -76,8 +86,8 @@
 		     		}%>
 		     	</div>
 		     	<!-- 페이지네이션 -->
-		     	<nav aria-label="...">
-				  <ul class="pagination">
+		     
+				  <ul class="pagination" style="justify-content: center">
 				    <li class="page-item disabled">
 				      <a class="page-link" href="#" tabindex="-1">Previous</a>
 				    </li>
@@ -90,7 +100,7 @@
 				      <a class="page-link" href="#">Next</a>
 				    </li>
 				  </ul>
-				</nav>	     	
+				   	
 		    </div>
 		      
 		      <div id="category1" class="container tab-pane fade"><br>
@@ -107,19 +117,9 @@
 			      <h3>Menu 3</h3>
 			      <p>각 메뉴의 데이터를 보여준다</p>
 			    </div>
-			    
-			  
-		      
-		      <% for(int i=1;i<7;i++){ %>
-			    <div id="category(<%=i %>)" class="container tab-pane fade"><br>
-			      <h3>Menu <%=i %></h3>
-			      <p>각 메뉴의 데이터를 보여준다</p>
-			    </div>
-		      <%} %>
-		   
+			  		   
 		  </div>
-		  
-		  <button type="button" class="btn">버튼 기본</button>
+		
  
    </div>
 
