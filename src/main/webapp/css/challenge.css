@@ -1,38 +1,70 @@
+/*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+
+
 .hotMain{
 	height: 500px;
-	background-color: grey;
+	background-color: #ff80c0;
 	position: relative;
+	
 }
 
-.hotMain >h2{
+.hotMainSen >h2{
+	font-family: 'Noto Sans KR', sans-serif;
 	position:absolute;
-	top:28%;
-	left:36%;
+	font-size:37pt;
+	top:30%;
+	left:50%;
+	  
+	  z-index: 2;
+	   color: white;
 	
+}
+
+.hotMainSen >p{
+	font-family: 'Noto Sans KR', sans-serif;
+	position:absolute;
+	font-size:12pt;
+	top:43%;
+	left:50%;
+	transform:translateX(-50%);
+	  z-index: 2;
+	  color: white;
 	
+}
+
+.hotMainCover{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   background-color: rgba(0, 0, 0, 0.6);                                                                 
+   z-index:1;
 }
 
 /*챌린지 만들기 버튼 */
 
-.chall-buttons {
+.hotMainSen .chall-buttons {
 	position:absolute;
-	top:40%;
-	left:45%;
+	top:60%;
+	left:50%;
+	transform:translateX(-50%);
     text-align: center;
+      z-index: 2;
 }
 
 .chall-btn-hover {
-    width: 170px;
-    font-size: 17px;
+    width: 230px;
+    font-size: 30px;
     font-weight: 600;
     color: #fff;
     cursor: pointer;
     margin: 20px;
-    height: 45px;
+    height: 55px;
     text-align:center;
     border: none;
     background-size: 300% 100%;
-
+    letter-spacing: 4px;
     border-radius: 50px;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
@@ -67,12 +99,16 @@
 }
 
 .Search{
-	position:absolute;
-	top:65%;
-	left:37%;
-	width: 500px;
-	margin: 0 auto;
+	font-family: 'Noto Sans KR', sans-serif;
+	/*position:absolute;
+	top:45%;
+	left:50%;
+	transform:translateX(-50%);*/
+	width: 370px;
+	
+	
 }
+
 .btn-Search{
 	background-color: #8b63da;
 	color: white;
@@ -109,17 +145,20 @@
 /*카테고리 범주 네비 디자인 */
 .nav-pills{
 	justify-content: center;
+	margin-left: 25px;
 }
 
 .nav-pills .nav-link{
-	margin:20px auto;
+	font-family: 'Noto Sans KR', sans-serif;
+	margin:30px auto 15px auto;
 	background-color: #f2f2f2;
 	border-radius: 20px;
-	height:27px;
-	font-size:9pt;
-	padding:6px 20px;
+	height:30px;
+	font-size:10pt;
+	padding:6px 25px;
 	color: #222229;
-	font-weight: 600;
+	font-weight: 400;
+	letter-spacing: 2px;
 }
 
 .nav-link:focus, .nav-link:hover{
@@ -128,24 +167,41 @@
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
 	background-color: #cb98ed;
 	border-radius: 20px;
-	height:27px;
-	padding:6px 20px;
-	font-weight: 600;
+	height:30px;
+	padding:6px 25px;
+	font-weight: 400;
+	box-shadow: 0 2px 8px 0 rgba(154,120,223, 0.75);
 
 }
 
 /* 줌 호버 */
-
+.challCard{
+	width: 18rem;
+	height:25rem;
+	float: none;
+	margin: 30px auto;
+	 overflow:hidden;
+	 position: relative;
+}
+.challCard>img{
+	width: 18rem;
+	height:25rem;
+	object-fit: cover;
+}
 .zoom {  
-  transition: transform .2s; /* Animation */
-  width: 300px;
-  height: 400px;
-  margin: 0 auto;
+  transition: all 1s; /* Animation */
+  width:100%; 
 }
 
 .zoom:hover {
-  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
-
+.card-img-overlay {
+	position: absolute;
+	top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+}
 

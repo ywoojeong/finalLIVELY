@@ -1,13 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>header</title>
-</head>
-<body>
+
+<style>
+
+
+nav a:first-child {
+  margin-top: 3px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+	 list-style: none;
+	  padding: 20px;
+	  color: #a7a7b8;
+	  font-size: 1em;
+	  display: block;
+	  transition: all 0.3s ease-in-out;
+}
+
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #cb98ed;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.navbar-dark .navbar-nav .nav-link .active, .navbar-light .navbar-nav .nav-link:focus{
+  color: #cb98ed;
+  font-weight: 700;
+}
+
+#nav-item>a:focus{
+  color: #cb98ed;
+  font-weight: 700;
+}
+
+</style>
+
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="container-fluid">
@@ -45,6 +74,3 @@ $(document).ready(function(){
 });
 </script>
  -->
-
-</body>
-</html>
