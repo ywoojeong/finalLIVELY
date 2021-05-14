@@ -8,10 +8,13 @@
 /*네비 포인트 폰트 Krona One  font-family: 'Krona One', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
-body{
+*{
 	font-family: 'Raleway', sans-serif, Noto Sans KR', sans-serif;
 	
 }
+*:lang(en){
+	 font-family: 'Raleway', sans-serif;
+} 
 
 /*부트스트랩 버튼과 인풋 테두리 컬러*/
 
@@ -73,10 +76,17 @@ body{
 	color:#fff;	
 }
 
-.loginbtn:focus-visible{
-
-	
+:focus-visible {
+	outline: none;
 }
 
+button:focus{
+	outline: none;
+}
 
+.me-auto{
+ margin-right: auto!important;
+}
+
+}
  
