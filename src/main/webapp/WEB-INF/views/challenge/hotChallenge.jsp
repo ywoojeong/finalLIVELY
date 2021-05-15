@@ -5,15 +5,15 @@
 
 <div class="" style="margin-top:70px;">
 	<div class="hotMain">
-		<h2>최근 인기있는 챌린지에 동참하세요</h2>
-		
-	
-		
-		<!-- 챌린지 만들기 버튼 -->
-		<div class="chall-buttons">
-		 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
-		 </div>
-			
+		<div class="hotMainCover"></div>
+		<div class="hotMainSen">	
+			<h2>최근 인기있는 챌린지에 동참하세요</h2>
+			<p>새로운 챌린지를 만들어보세요. LIVELY는 여러분의 챌린지를 기다립니다.</p>
+			<!-- 챌린지 만들기 버튼 -->
+			<div class="chall-buttons">
+			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
+			 </div>
+		</div>
 	
 	</div>
 	
@@ -54,14 +54,17 @@
 		
 		  <!-- Tab panes -->
 		  <div class="tab-content">
-		    <!-- 검색창 -->	
-			<div class="md-form md-outline d-flex Search">
-				<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
-		    	<button type="button" class="btn btn-Search" >SEARCH</button>
-		    </div>
-		  		
+		  
 	
-		    <div id="home" class="container tab-pane active"><br>
+		    <div id="home" class="container tab-pane active">
+			   <!-- 검색창 -->	
+				<div class="md-form md-outline d-flex Search" align="right">
+					<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
+			    	<button type="button" class="btn btn-Search" >SEARCH</button>
+			    </div>
+		  		
+		    	
+		    
 		    	<!-- 카드 -->
 		     	<div class="row">
 		     		<%for(int i=0;i<3;i++){
