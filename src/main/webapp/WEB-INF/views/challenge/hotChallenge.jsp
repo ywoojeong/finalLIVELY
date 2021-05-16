@@ -58,11 +58,12 @@
 	
 		    <div id="home" class="container tab-pane active">
 			   <!-- 검색창 -->	
-				<div class="md-form md-outline d-flex Search" align="right">
-					<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
-			    	<button type="button" class="btn btn-Search" >SEARCH</button>
-			    </div>
-		  		
+			   <div class="row">
+					<div class="col-sm-6 md-form md-outline d-flex Search">
+						<input type="text" class="form-control input-Search" id="search" placeholder="인기있는 챌린지를 검색하세요" name="search">
+				    	<button type="button" class="btn btn-Search" >SEARCH</button>
+				    </div>
+	  			</div>
 		    	
 		    
 		    	<!-- 카드 -->
