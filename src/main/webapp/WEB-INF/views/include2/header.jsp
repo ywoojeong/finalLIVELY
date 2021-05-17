@@ -59,6 +59,7 @@ nav a:first-child {
         </li>
       </ul>
       <form class="d-flex">
+      <!-- 로그인 시 데이터 변경 관리자 : MANAGER / 로그인 : MYPAGE / 비로그인 LIVELY LOGIN  -->
         <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
       </form>
     </div>
