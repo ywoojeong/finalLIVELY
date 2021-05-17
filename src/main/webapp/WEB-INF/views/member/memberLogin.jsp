@@ -25,7 +25,7 @@
 	                 <td><a href="${naverUrl}"><img src="image/naverlogin.svg"/></a></td>
 	             </tr>
 	             <tr>
-	                 <td><a href="#none"><img src="image/googlelogin.svg"/></a></td>
+	                 <td><a href="#none"><img src="image/btn_google.png"/></a></td>
 	             </tr>
 	             <tr>
 	                 <td><a href="memberInfo.do">이거당</a></td>
