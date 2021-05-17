@@ -11,7 +11,7 @@
 
 <div class="container">
 	<form name="memberInfo" id="memberInfo" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
-//        <input type="hidden"  id="email" name="email" value="${email}"/>
+        <input type="hidden"  id="email" name="email" value="${email}"/>
         <div id="addInfo" class="infoLogo">
             <div class="logo">
                 <img src="image/logo.png" width="160px"/>

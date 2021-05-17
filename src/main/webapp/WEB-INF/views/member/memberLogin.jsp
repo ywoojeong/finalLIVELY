@@ -22,10 +22,10 @@
 	                 <td><a href="javascript:kakaoLogin()"><img src="image/btn_kakao.png"/></a></td>
 	             </tr>
 	             <tr>
-	                 <td><a href="${naverUrl}"><img src="image/btn_naver.png"/></a></td>
+	                 <td><a href="${naverUrl}"><img src="image/naverlogin.svg"/></a></td>
 	             </tr>
 	             <tr>
-	                 <td><a href="#none"><img src="image/btn_google.png"/></a></td>
+	                 <td><a href="#none"><img src="image/googlelogin.svg"/></a></td>
 	             </tr>
 	             <tr>
 	                 <td><a href="memberInfo.do">이거당</a></td>
