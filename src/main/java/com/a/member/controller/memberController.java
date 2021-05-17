@@ -30,6 +30,16 @@ public class memberController {
 	
 	/*
 	 정연우
+	 home으로 이동
+	 */
+	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberlogin2() {
+		System.out.print("홈으로 이동");
+		return "home/home";
+	}
+	
+	/*
+	 정연우
 	 member 로그인페이지 이동
 	*/
 	@RequestMapping(value = "memberLogin.do", method = {RequestMethod.POST,RequestMethod.GET})
@@ -39,25 +49,26 @@ public class memberController {
 		model.addAttribute("naverUrl", naverAuthUrl);
 		return "member/memberLogin";
 	}
-
-	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
-	public String memberlogin2() {
-		System.out.print("나 테스트 중");
-		return "home/home";
-	}
 	
+	/*
+	 정연우
+	 네이버, 카카오, 구글 로그인 후 추가 작성
+	 */
 	@RequestMapping(value="memberInfo.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String memberInfo() {
 		System.out.print("나 테스트 중");
 		return "member/memberInfo";
 	}
 	
-	//네이버 로그인
-	@RequestMapping(value="memberNaverLogin.do",  method = {RequestMethod.GET,RequestMethod.POST})
-	public String userNaverLoginPro(Model model,@RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state,HttpSession session) throws SQLException, Exception {
+	/*
+	 정연우
+	 네이버 로그인 이동
+	 */
+	@RequestMapping(value="memberNaverLoginPro.do",  method = {RequestMethod.GET,RequestMethod.POST})
+	public String memberNaverLoginPro(Model model,@RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state,HttpSession session) throws SQLException, Exception {
 		System.out.println("paramMap:" + paramMap);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
-
+		System.out.println("아예 안들어오는거니?");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverloginbo.getAccessToken(session, code, state);
 		//로그인 사용자 정보를 읽어온다
@@ -65,12 +76,35 @@ public class memberController {
 		System.out.println("apiResult =>"+apiResult);
 		ObjectMapper objectMapper =new ObjectMapper();
 		Map<String, Object> apiJson = (Map<String, Object>) objectMapper.readValue(apiResult, Map.class).get("response");
-		/*
-		Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
-		session.setAttribute("userInfo", loginCheck);
-		*/
-		return "home/home";
-	}
+		//apiJson.put("password",apiJson.get("id"));
+		Map<String, Object> naverConnectionCheck = service.naverConnectionCheck(apiJson);
+		
+		if(naverConnectionCheck == null) { //일치하는 이메일 없으면 가입
+			//Integer registerCheck = userservice.userNaverRegisterPro(apiJson);
+			
+			
+			/*if(registerCheck == null || registerCheck < 1) {
+				model.addAttribute("error","loginFail");
+				return "user/userLogin";
+			}else {
+				Map<String, Object> loginCheck = userservice.userNaverLoginPro(apiJson);
+				session.setAttribute("userInfo", loginCheck);
+			}*/
+			model.addAttribute("email",apiJson.get("email"));
+//			model.addAttribute("flag","naver");
+			return "member/memberInfo";
+		}else if(naverConnectionCheck.get("NAVERLOGIN") == null && naverConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
+			service.setNaverConnection(apiJson);
+			Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
+			session.setAttribute("userInfo", loginCheck);
+		}else { //모두 연동 되어있을시
+			Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
+			session.setAttribute("userInfo", loginCheck);
+		}
 
+		return "redirect:memberLogin.do";
+	}
+	
+	
 	
 }

@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-	<select id="test" resultType="java.util.Map" parameterType="java.util.Map">
-		SELECT * FROM MEMBERS
-	</select>
+	
+	<!-- 회원가입 추가 정보 -->
+ 	<insert id="memberInfoPro" parameterType="com.a.dto.MemberDto">
+		INSERT INTO MEMBER(EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, KAKAOLOGIN, GOOGLELOGIN, AUTH, MEMBERDEL)
+		VALUES( #{email}, #{nickname}, #{memberPhoto}, #{naverLogin}, #{kakaoLogin}, #{googleLogin}, 3, 0)
+	</insert>
 	
 	<!-- 닉네임 중복 확인 -->
-	<select id="nickCheck" resultType="int" parameterType="java.util.Map">
-		SELECT COUNT(*) FROM MEMBERS WHERE NICKNAME = #{nickname}
+	<select id="nickCheck" parameterType="com.a.dto.MemberDto" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
 	</select>
 	
-	<!-- 
-	<select id="login" parameterType="yttk.com.a.dto.MemberDto" resultType="yttk.com.a.dto.MemberDto">
-	SELECT ID, NAME, EMAIL, AUTH
-	FROM MEMBER
-	WHERE ID=#{id} AND PWD=#{pwd}
+	<!-- 네이버 이메일 체크 -->
+	<select id="naverConnectionCheck" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT EMAIL,NICKNAME,NAVERLOGIN FROM MEMBER 
+		WHERE EMAIL = #{email}
 	</select>
-	 -->
+	
+	<update id="setNaverConnection" parameterType="java.util.Map">
+		UPDATE MEMBER SET NAVERLOGIN = #{naverLogin}
+		WHERE EMAIL = #{email}
+	</update>
+	
+	<insert id="memberNaverRegisterPro" parameterType="java.util.Map">
+		INSERT INTO MEMBER (EMAIL,NICKNAME,NAVERLOGIN) VALUES (#{email},#{nickname},#{naverLogin})
+	</insert>
+	
+	<select id="memberNaverLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT EMAIL,NICKNAME FROM MEMBER 
+		WHERE EMAIL = #{email} AND NAVERLOGIN = #{naverLogin}
+	</select>
 	
 </mapper>

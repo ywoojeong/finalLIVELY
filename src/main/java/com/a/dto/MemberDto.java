@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 /*
 CREATE TABLE MEMBER(
+		MEMBERSEQ NUMBER,
 		EMAIL VARCHAR2(20) CONSTRAINT MEM_PRI PRIMARY KEY, 
 		NICKNAME VARCHAR2(20),
 		MEMBERPHOTO VARCHAR2(50),
+		NAVERLOGIN VARCHAR2(20),
+		KAKAOLOGIN VARCHAR2(20),
+		GOOGLELOGIN VARCHAR2(20),
 		AUTH NUMBER,
 		MEMBERDEL NUMBER
 )
@@ -16,18 +20,25 @@ public class MemberDto implements Serializable{
 	
 	private String email;
 	private String nickname;
-	private String memberphoto;
-	private int auth;
-	private int memberdel;	//관리자 1, 멤버 3
+	private String memberPhoto;
+	private String naverLogin;
+	private String kakaoLogin;
+	private String googleLogin;
+	private int auth;		//관리자 1, 멤버 3
+	private int memberdel;	
 	
 	public MemberDto() {
 	}
 
-	public MemberDto(String email, String nickname, String memberphoto, int auth, int memberdel) {
+	public MemberDto(String email, String nickname, String memberPhoto, String naverLogin, String kakaoLogin,
+			String googleLogin, int auth, int memberdel) {
 		super();
 		this.email = email;
 		this.nickname = nickname;
-		this.memberphoto = memberphoto;
+		this.memberPhoto = memberPhoto;
+		this.naverLogin = naverLogin;
+		this.kakaoLogin = kakaoLogin;
+		this.googleLogin = googleLogin;
 		this.auth = auth;
 		this.memberdel = memberdel;
 	}
@@ -48,12 +59,36 @@ public class MemberDto implements Serializable{
 		this.nickname = nickname;
 	}
 
-	public String getMemberphoto() {
-		return memberphoto;
+	public String getMemberPhoto() {
+		return memberPhoto;
 	}
 
-	public void setMemberphoto(String memberphoto) {
-		this.memberphoto = memberphoto;
+	public void setMemberPhoto(String memberPhoto) {
+		this.memberPhoto = memberPhoto;
+	}
+
+	public String getNaverLogin() {
+		return naverLogin;
+	}
+
+	public void setNaverLogin(String naverLogin) {
+		this.naverLogin = naverLogin;
+	}
+
+	public String getKakaoLogin() {
+		return kakaoLogin;
+	}
+
+	public void setKakaoLogin(String kakaoLogin) {
+		this.kakaoLogin = kakaoLogin;
+	}
+
+	public String getGoogleLogin() {
+		return googleLogin;
+	}
+
+	public void setGoogleLogin(String googleLogin) {
+		this.googleLogin = googleLogin;
 	}
 
 	public int getAuth() {
@@ -74,8 +109,11 @@ public class MemberDto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberphoto=" + memberphoto + ", auth="
-				+ auth + ", memberdel=" + memberdel + "]";
+		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + memberPhoto + ", naverLogin="
+				+ naverLogin + ", kakaoLogin=" + kakaoLogin + ", googleLogin=" + googleLogin + ", auth=" + auth
+				+ ", memberdel=" + memberdel + "]";
 	}
+
+	
 	
 }
