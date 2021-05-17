@@ -1,0 +1,6 @@
+
+.backDiv{
+	height:500px;
+	clip-path: polygon(0 0, 100% 0, 100% 31%, 0 56%);
+	background-color: red;
+}
