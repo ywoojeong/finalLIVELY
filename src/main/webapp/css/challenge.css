@@ -16,9 +16,9 @@
 	font-size:37pt;
 	top:30%;
 	left:50%;
-	  
-	  z-index: 2;
-	   color: white;
+	transform:translateX(-50%);
+	z-index: 2;
+	color: white;
 	
 }
 
@@ -104,8 +104,9 @@
 	top:45%;
 	left:50%;
 	transform:translateX(-50%);*/
-	width: 370px;
-	
+	width: 500px;
+	margin: 42px auto 16px auto;
+
 	
 }
 
@@ -205,3 +206,35 @@
     left: auto;
 }
 
+/* 페이징 디자인 */
+.page-item.disabled .page-link {
+ border-radius: 50px;
+}
+
+.page-item:last-child .page-link {
+	border-radius: 50px;
+}
+
+.page-item.active .page-link {
+	background-color: #cb98ed;
+    border-color: #cb98ed;
+}
+
+.page-link:hover {
+    color: white;
+    background-color: #cb98ed;
+    border-color: #cb98ed;
+    border-radius: 50px;
+}
+
+
+.page-link {   
+	color: black;
+    margin-left: 10px;
+    border-radius: 50px;
+}
+
+.page-link:focus {
+  
+    box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
+}
