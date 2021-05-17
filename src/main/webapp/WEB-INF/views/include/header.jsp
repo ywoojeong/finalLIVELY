@@ -61,7 +61,14 @@ nav a:first-child {
         </li>
       </ul>
       <form class="d-flex">
+      	
         <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
+        <!-- 로그인 시 데이터 변경 관리자 : MANAGER / 로그인 : MYPAGE / 비로그인 LIVELY LOGIN 
+          <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='manager.do'">MANAGER</button>
+          
+            <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='mypage.do'">MYPAGE</button>
+            -->          
+        
       </form>
     </div>
   </div>
