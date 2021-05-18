@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 
 <style type="text/css">
+.footerLivley{
+width:100vw;
+background-color: white;
+}
 .info{list-style: none;}
 .info_svc a:hover{color: #6c757d;font-weight: 600}
 .info_svc a:active{color: #6c757d;font-weight: 600}
