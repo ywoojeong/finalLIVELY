@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
  <link href="./css/challenge.css" rel="stylesheet">   
-
-<div class="" style="margin-top:70px;">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!-- <div class="" style="margin-top:70px;"> -->
 	<div class="hotMain">
 		<div class="hotMainCover"></div>
 		<div class="hotMainSen">	
@@ -76,9 +76,12 @@
 			     			<div class="card challCard">
 		     				 	<img class="card-img-top zoom" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image cap">
  							  <div class="card-img-overlay"> 
-							    <h5 class="card-title">Card title</h5>
-							    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-							    <a href="#" class="btn">Go somewhere</a>
+							    <h5 class="card-title">챌린지 제목</h5>
+							    <p class="challuser"><i class="fas fa-trophy"></i> 공식 챌린지</p>
+							    <div class="usercount"><i class="fas fa-user"></i> 35명</div>
+							    <span class="when">평일 매일</span><span class="when">2주동안</span>
+							    <p class="card-text">오늘부터 시작</p>
+							    <button type="button" class="btn" onclick="challengeDetailBtn(seq)">Go challenge</button>
 							  </div>
 							</div>
 			     		</div>
@@ -126,6 +129,9 @@
 
 
 <script>
+function challengeDetailBtn(seq){
+	location.href="challengeDetail.do?challengeseq="+seq;
+}
 function challengeMake(){
 	location.href="challengeMake.do";	
 }

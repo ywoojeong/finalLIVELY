@@ -1,7 +1,9 @@
 /*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
-
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 
 .hotMain{
 	height: 500px;
@@ -204,6 +206,47 @@
     right: auto;
     bottom: auto;
     left: auto;
+}
+
+/*카드 내부 디자인*/
+
+.card-title{
+	font-weight: 700px;
+}
+
+.challuser{
+	color:#222229;
+	margin-bottom: 0px;
+	font-size: 10pt;
+}
+.usercount{
+	width:72px;
+	text-align:center;
+	font-size: 10pt;
+	background-color: rgba(50, 50, 50, 55%);
+	color:white;
+	border-radius: 3px;
+	padding: 0 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+
+	
+}
+
+.when{
+	border-radius: 3px;
+	background-color: rgba(156, 156, 156, 55%);
+	font-size: 10pt;
+	padding: 0 10px;	
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.card-text{
+	font-weight: 500;
+	color:#ff0000;
+	margin: 5px 0 5px 0;
+	font-size: 11pt;
 }
 
 /* 페이징 디자인 */

@@ -42,7 +42,7 @@ int min=cal.get(Calendar.MINUTE);//분
 	 		<div class="col-sm-4 pt-5 pl-5">
 	 		
 			            <label for="challImg"> 
-			                  <img id="bookImg" class="img-responsive challImg" src="">
+			                  <img id="bookImg" class="img-responsive challImg" onerror="this.src=''">
 			               		<input type="hidden" name="oldfile" value="image">
 			            </label>
 			            <input type="file" name="bookimage" id="challImg" style="display: none; width: 100%;">
@@ -86,6 +86,29 @@ int min=cal.get(Calendar.MINUTE);//분
 		 					</select>
 	 					</td>
 	 				</tr>
+	 				<tr>
+	 					<td>
+	 						<label for=frequency">인증 빈도</label>
+	 						<select class="form-control form-control-sm challSelect">
+	 							<option>월-일 매일 인증하기</option>
+	 							<option>월-금 매일 인증하기</option>
+	 							<option>토-일 매일 인증하기</option>
+	 						<%for(int i=6;i>0;i--){ %>
+		 						<option>주 <%=i%>일 인증하기</option>
+		 					<%} %>
+		 					</select>
+	 					</td>
+	 					<td class="challSelect2">
+	 						<label for="endDate">선택 요일</label><br>
+	 						<div class="challSelect2">
+	 							<%String dateWeek[] = new String[]{"일", "월", "화", "수", "목", "금", "토"}; 
+	 						 	for(int i=0; i<dateWeek.length;i++){ %>
+ 	 							    <input type="checkbox" class="" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
+	 							<%}%>					 			
+							 </div> 		
+	 					</td>
+	 				</tr>
+	 				
 	 				<tr>
 	 					<td>
 	 						<label for="identifyTime">인증시간</label>
