@@ -2,10 +2,13 @@ package com.a.challenge.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.a.challenge.service.challengeService;
+import com.a.dto.challengeDto;
+import com.a.dto.identifyfrequencyDto;
 
 @Controller
 public class challengeController {
@@ -29,5 +32,18 @@ public class challengeController {
 	@RequestMapping(value = "challengeMake.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String challengeMake() {
 		return "challenge/challengeMake";
+	}
+	
+	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
+	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeDetail(Model model, int challengeseq) {
+		
+		//challengeDto dto = service.challengeDetail(challengeseq);
+		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
+		//받아오면 set으로 dto에 넣어주기(배열로)
+	
+		
+		//model.addAllAttributes("challengeDto", dto);
+		return "challenge/challengeDetail";
 	}
 }
