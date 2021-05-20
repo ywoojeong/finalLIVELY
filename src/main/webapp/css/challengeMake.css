@@ -103,8 +103,8 @@ body{
 	box-shadow: 0 4px 13px 0 rgba(166,162,169, 0.70);
 	 width: 300px; 
 	height: 250px;
-	background-color: red;
-	  margin:15px; auto;  
+	  margin:15px auto;
+	  object-fit: cover;  
 }
 
 .challTable{

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.a.challenge.service.challengeService;
 import com.a.dto.challengeDto;
-import com.a.dto.identifyfrequencyDto;
 
 @Controller
 public class challengeController {
@@ -17,13 +16,13 @@ public class challengeController {
 	challengeService service;
 	
 	@RequestMapping(value = "hotChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String hotChallenge() {
+	public String hotChallenge(Model model) {
 		
 		return "challenge/hotChallenge";
 	}
 	
 	@RequestMapping(value = "newChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String newChallenge() {
+	public String newChallenge(Model model) {
 		
 		return "challenge/newChallenge";
 	}
@@ -33,6 +32,7 @@ public class challengeController {
 	public String challengeMake() {
 		return "challenge/challengeMake";
 	}
+	
 	
 	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
 	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
