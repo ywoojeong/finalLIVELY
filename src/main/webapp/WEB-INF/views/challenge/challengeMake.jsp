@@ -1,3 +1,7 @@
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="com.a.util.dataUtil"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,8 +14,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 현재 시간 받아오기 -->
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" />
+<%-- <jsp:useBean id="now" class="java.util.Date" /> --%>
+ <c:set var = "now" value = "<%= new java.util.Date()%>" />
+<%-- <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+<fmt:formatDate pattern="MM월 dd일"  value="${now}" />
+
+<%-- <c:out value="${i }" val="date1"/> --%>
 
 <%
 Calendar cal = Calendar.getInstance();
@@ -40,7 +48,7 @@ $(document).ready(function(){
 	 <header class="challengeHeader">
 	 		<img class="userWrap" src="https://th.bing.com/th/id/OIP.wTFsSYLWKoHwmv9OOZIp9wHaHa?pid=ImgDet&w=500&h=500&rs=1">
 	 	<h4>LimonLimeL 님,</h4>
-	 	<p>관심있는 주제로 챌린지를 생성해 보세요.</p>
+	 	<p>${now} 관심있는 주제로 챌린지를 생성해 보세요.</p>
 	 </header>
 
 	 <div class="">
@@ -63,8 +71,8 @@ $(document).ready(function(){
 	 				<tr>
 	 					<td>
 		 					<label for="category">주제</label>
-		 					<select class="form-control form-control-sm" name="category" id="_category" onchange="categoryChange(this)">
-		 						<option>선택하세요</option>
+		 					<select class="form-control form-control-sm" name="category" id="_category">
+		 						<option value="0">선택하세요</option>
 		 						<option value="1">건강</option>
 		 						<option value="2">역량</option>
 		 						<option value="3">정서</option>
@@ -78,14 +86,16 @@ $(document).ready(function(){
 	 					<td>
 	 						<label for="startDate">챌린지 시작일</label>
 	 						<select class="form-control form-control-sm challSelect" name="challengestart" id="_challengestart">
-	 						<%for(int i=day;i<day+5;i++){ %>
-		 						<option value="<%=year+"-"+month+"-"+day%>"><%=month %>월 <%=i %>일</option>
+	 							<option value="0">선택하세요</option>
+	 						<% for(int i=day;i<day+5;i++){ %>
+		 						<option value="<%=dataUtil.yyyymmdd(year, month, i)%>"><%=month %>월 <%=i %>일</option>
 		 					<%} %>
 		 					</select>
 	 					</td>
 	 					<td class="challSelect2">
 	 						<label for="endDate">챌린지 기간</label>
 	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod">
+	 							<option value="0">선택하세요</option>
 	 						<%for(int i=1;i<5;i++){ %>
 		 						<option><%=i%>주</option>
 		 					<%} %>
@@ -94,8 +104,9 @@ $(document).ready(function(){
 	 				</tr>
 	 				<tr>
 	 					<td>
-	 						<label for=frequency">인증 빈도</label>
-	 						<select class="form-control form-control-sm challSelect" id="_challengefrequency" name="challengefrequency">
+	 						<label for="frequency">인증 빈도</label>
+	 						<select class="form-control form-control-sm challSelect" id="_challengefrequency" name="challengefrequency" onchange="challengeFreChange(this.value)">
+	 							<option value="0">선택하세요</option>
 	 							<option value="9">월-일 매일 인증하기</option>
 	 							<option value="8">월-금 매일 인증하기</option>
 	 							<option value="7">토-일 매일 인증하기</option>
@@ -189,19 +200,65 @@ function handleImgFileSelect(e) {
     });
 }
 
-
-//카테고리 비 선택 시 제어
-	var category = $("select[name=category]").val();
-	alert(category);
-	if (category==null){
-		alert("카테고리를 선택해 주세요");
-		return false;
+//onchange 인증빈도
+function challengeFreChange(val){
+	if(val>=1 && val<=6){
+		$("#_endDateTd").show();
+	}else{
+		$("#_endDateTd").hide();
 	}
 }
 
 
-	
+
 function challengeMake(){
+	
+	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
+	
+	//카테고리 비 선택 시 제어
+	var category = $("select[name=category]").val();
+	//alert(category);
+	if (category==0 || category==null){
+		alert("카테고리를 선택해 주세요");
+		return false;
+	}
+	
+	//챌린지 시작일 비 선택 시 제어
+	var challengestart = $("select[name=challengestart]").val();
+	//alert(challengestart);
+	if (challengestart==0 || challengestart==null){
+		alert("챌린지 시작일을 선택해 주세요");
+		return false;
+	}
+	
+	//챌린지 기간 비 선택 시 제어(challengeperiod)
+	var challengeperiod = $("select[name=challengeperiod]").val();
+	//alert(challengeperiod);
+	if (challengeperiod==0 || challengeperiod==null){
+		alert("챌린지 기간을 선택해 주세요");
+		return false;
+	}
+	
+	
+	//인증빈도 비 선택 시 제어
+	var challengefrequency = $("select[name=challengefrequency]").val();
+	//alert(challengefrequency);
+	if (challengefrequency==0 || challengefrequency==null){
+		alert("인증 빈도를 선택해 주세요");
+		return false;
+	}
+	
+
+	//인증시간 비 선택 시 제어
+	
+	//참가포인트 비 선택 시 제어
+	
+	//챌린지 제목 비 기입 시 제어
+	
+	//챌린지 소개 비 기입 시 제어
+	
+	
+	
 	
 	var params = $("#challengeFrm").serialize();
 		

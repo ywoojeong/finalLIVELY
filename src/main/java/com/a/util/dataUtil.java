@@ -7,5 +7,10 @@ public class dataUtil {
 		return number.trim().length()<2?"0"+number.trim():number.trim();
 	}
 	
+	//20210327
+	public static String yyyymmdd(int year, int month, int day) {
+		String dates = (year+"")+two(month+"")+two(day+"");
+		return dates;
+	}
 	
 }
