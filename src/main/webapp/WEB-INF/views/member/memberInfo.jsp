@@ -6,12 +6,16 @@
 
 <link rel="stylesheet" href="./css/memberInfo.css" />
 
+
 <!-- cookie -->
 <!-- <script src="http://lab.alexcican.com/set_cookies/cookie.js" type="text/javascript" ></script> -->
 
 <div class="container">
 	<form name="memberInfo" id="memberInfo" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
         <input type="hidden"  id="email" name="email" value="${email}"/>
+        <input type="hidden"  id="naverLogin" name="naverLogin" value="${naverLogin}"/>
+        <input type="hidden"  id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
+        <input type="hidden"  id="flag" name="flag"  value="${flag}">
         <div id="addInfo" class="infoLogo">
             <div class="logo">
                 <img src="image/logo.png" width="160px"/>
@@ -92,10 +96,23 @@ function register() {
         return false;
     }
     
+    var memberPhoto = $('input[name="memberPhoto"]').get(0).files[0];
+    var email = $("#email").val()
+    var nickname = $("#nickname").val()
+    var naverLogin = $("#naverLogin").val()
+    var formData = new FormData();
+    formData.append('email', email);
+    formData.append('nickname', nickname);
+    formData.append('memberPhoto', memberPhoto);
+    formData.append('naverLogin', naverLogin);
+    formData.append('kakaoLogin', kakaoLogin);
+    
     $.ajax({
 		type : 'POST',
 		url : 'memberInfoPro.do',
-		data : {email:$("#email").val(), memberPhoto:$("#memberPhoto").val(), nickname:$("#nickname").val()},
+		processData:false,
+		contentType: false,
+		data : formData,
 		success : function(data){
 			alert("success");
 			if(data.trim() == "YES"){
@@ -107,6 +124,24 @@ function register() {
 		},
 		error: function(xhr, status, error){
 			alert("error");
+		}
+	});
+    
+    $.ajax({
+		type : 'POST',
+		url : 'memberKakaoRegisterPro.do',
+		data : registerData,
+		dataType : 'json',
+		success : function(data){
+			if(data.JavaData == "YES"){
+				alert("가입되었습니다.");
+				location.href = 'memberCon.do'
+			}else{
+				alert("가입에 실패했습니다.");
+			}
+		},
+		error: function(xhr, status, error){
+			alert("가입에 실패했습니다."+error);
 		}
 	});
 }

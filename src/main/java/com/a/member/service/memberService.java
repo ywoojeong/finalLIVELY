@@ -13,4 +13,10 @@ public interface memberService {
 	Integer setNaverConnection (Map<String, Object> paramMap) throws SQLException;
 	Integer memberNaverRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	Map<String, Object> memberNaverLoginPro (Map<String, Object> paramMap) throws SQLException;
+
+	
+	Map<String, Object> kakaoConnectionCheck (Map<String, Object> paramMap) throws SQLException;
+	Integer setKakaoConnection (Map<String, Object> paramMap) throws SQLException;
+	Map<String, Object> memberKakaoLoginPro (Map<String, Object> paramMap) throws SQLException;
+	Integer memberKakaoRegisterPro (Map<String, Object> paramMap) throws SQLException;
 }

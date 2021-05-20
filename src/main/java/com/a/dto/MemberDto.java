@@ -1,6 +1,9 @@
 package com.a.dto;
 
 import java.io.Serializable;
+import java.util.Arrays;
+
+import org.springframework.web.multipart.MultipartFile;
 
 /*
 CREATE TABLE MEMBER(
@@ -20,7 +23,7 @@ public class MemberDto implements Serializable{
 	
 	private String email;
 	private String nickname;
-	private String memberPhoto;
+	private MultipartFile[] memberPhoto;
 	private String naverLogin;
 	private String kakaoLogin;
 	private String googleLogin;
@@ -30,7 +33,7 @@ public class MemberDto implements Serializable{
 	public MemberDto() {
 	}
 
-	public MemberDto(String email, String nickname, String memberPhoto, String naverLogin, String kakaoLogin,
+	public MemberDto(String email, String nickname, MultipartFile[] memberPhoto, String naverLogin, String kakaoLogin,
 			String googleLogin, int auth, int memberdel) {
 		super();
 		this.email = email;
@@ -59,11 +62,11 @@ public class MemberDto implements Serializable{
 		this.nickname = nickname;
 	}
 
-	public String getMemberPhoto() {
+	public MultipartFile[] getMemberPhoto() {
 		return memberPhoto;
 	}
 
-	public void setMemberPhoto(String memberPhoto) {
+	public void setMemberPhoto(MultipartFile[] memberPhoto) {
 		this.memberPhoto = memberPhoto;
 	}
 
@@ -109,9 +112,9 @@ public class MemberDto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + memberPhoto + ", naverLogin="
-				+ naverLogin + ", kakaoLogin=" + kakaoLogin + ", googleLogin=" + googleLogin + ", auth=" + auth
-				+ ", memberdel=" + memberdel + "]";
+		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + Arrays.toString(memberPhoto)
+				+ ", naverLogin=" + naverLogin + ", kakaoLogin=" + kakaoLogin + ", googleLogin=" + googleLogin
+				+ ", auth=" + auth + ", memberdel=" + memberdel + "]";
 	}
 
 	

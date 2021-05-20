@@ -48,6 +48,26 @@ public class memberServiceImpl implements memberService {
 	public Map<String, Object> memberNaverLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberNaverLoginPro(paramMap);
 	}
+
+	@Override
+	public Map<String, Object> kakaoConnectionCheck(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.kakaoConnectionCheck(paramMap);
+	}
+
+	@Override
+	public Integer setKakaoConnection(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.setKakaoConnection(paramMap);
+	}
+
+	@Override
+	public Map<String, Object> memberKakaoLoginPro(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.memberKakaoLoginPro(paramMap);
+	}
+
+	@Override
+	public Integer memberKakaoRegisterPro(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.memberKakaoRegisterPro(paramMap);
+	}
 	
 	
 }

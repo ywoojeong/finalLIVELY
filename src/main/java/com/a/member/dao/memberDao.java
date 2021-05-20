@@ -13,8 +13,12 @@ public interface memberDao {
 	public int nickCheck(MemberDto dto) throws Exception;
 	// 네이버 이메일 가입 확인(중복)
 	public Map<String, Object> naverConnectionCheck(Map<String, Object> apiJson) throws SQLException;
-	
 	public Integer setNaverConnection (Map<String, Object> paramMap) throws SQLException;
 	public Integer memberNaverRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	public Map<String, Object> memberNaverLoginPro (Map<String, Object> apiJson) throws SQLException;
+	
+	public Map<String, Object> kakaoConnectionCheck (Map<String, Object> apiJson) throws SQLException;
+	public Integer setKakaoConnection (Map<String, Object> apiJson) throws SQLException;
+	public Map<String, Object> memberKakaoLoginPro (Map<String, Object> apiJson) throws SQLException;
+	public Integer memberKakaoRegisterPro (Map<String, Object> paramMap) throws SQLException;
 }

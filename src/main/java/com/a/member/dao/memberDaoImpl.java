@@ -20,7 +20,7 @@ public class memberDaoImpl implements memberDao {
 	// 회원가입 추가 정보
 	@Override
 	public int memberInfoPro(MemberDto dto) throws Exception {
-		return sql.insert("member.memberInfo", dto);
+		return sql.insert("member.memberInfoPro", dto);
 	}
 
 	// 닉넴임 중복 확인
@@ -42,12 +42,32 @@ public class memberDaoImpl implements memberDao {
 
 	@Override
 	public Integer memberNaverRegisterPro(Map<String, Object> paramMap) throws SQLException {
-		return sql.insert("member.userNaverRegisterPro", paramMap);
+		return sql.insert("member.memberNaverRegisterPro", paramMap);
 	}
 
 	@Override
 	public Map<String, Object> memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
-		return sql.selectOne("member.userNaverLoginPro", apiJson);
+		return sql.selectOne("member.memberNaverLoginPro", apiJson);
+	}
+
+	@Override
+	public Map<String, Object> kakaoConnectionCheck(Map<String, Object> apiJson) throws SQLException {
+		return sql.selectOne("member.kakaoConnectionCheck", apiJson);
+	}
+
+	@Override
+	public Integer setKakaoConnection(Map<String, Object> apiJson) throws SQLException {
+		return sql.update("member.setKakaoConnection", apiJson);
+	}
+
+	@Override
+	public Map<String, Object> memberKakaoLoginPro(Map<String, Object> apiJson) throws SQLException {
+		return sql.selectOne("member.memberKakaoLoginPro", apiJson);
+	}
+
+	@Override
+	public Integer memberKakaoRegisterPro(Map<String, Object> paramMap) throws SQLException {
+		return sql.insert("member.memberKakaoRegisterPro", paramMap);
 	}
 	
 	
