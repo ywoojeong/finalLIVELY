@@ -29,7 +29,10 @@ public class challengeController {
 	
 	//챌린지 만들기 페이지로 이동
 	@RequestMapping(value = "challengeMake.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeMake() {
+	public String challengeMake(Model model) {
+		
+		
+		
 		return "challenge/challengeMake";
 	}
 	

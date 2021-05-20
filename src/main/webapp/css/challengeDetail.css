@@ -4,3 +4,12 @@
 	clip-path: polygon(0 0, 100% 0, 100% 31%, 0 56%);
 	background-color: red;
 }
+
+.challHeader{
+	position:absolute;
+	left:30%;
+	top:90%;
+	background-color:white
+	width: 300px;
+	height: 300px;	
+}
