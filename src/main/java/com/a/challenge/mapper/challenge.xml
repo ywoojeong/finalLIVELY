@@ -3,6 +3,15 @@
 
 <mapper namespace="challenge">
 	
-	
+	<insert id="challengeInsert" parameterType="com.a.dto.challengeDto">
+		
+		INSERT INTO CHALLENGE(CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT,CHALLENGESTART, CHALLENGEEND,CHALLENGEPERIOD,
+						IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, RATINGAVG, CHALLENGESTOP, CHALLENGEDEL, 
+						HEADERNUM, POINTCOUNT, EMAIL)
+		VALUES(CHAL_SEQ.NEXTVAL, #{category}, #{challengetitle}, #{challengetext}, #{challengestart}, #{challengeend}, #{challengeperiod}, 
+				#{identifyfrequency}, #{identifyday}, #{identifytime}, #{challengephoto}, 0, 0, 0,
+				#{headernum}, #{pointcount}, #{email})
+		
+	</insert>
 	
 </mapper>
