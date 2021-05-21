@@ -15,7 +15,7 @@
         <input type="hidden"  id="email" name="email" value="${email}"/>
         <input type="hidden"  id="naverLogin" name="naverLogin" value="${naverLogin}"/>
         <input type="hidden"  id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
-        <input type="hidden"  id="kakaoLogin" name="googleLogin" value="${googleLogin}"/>
+        <input type="hidden"  id="googleLogin" name="googleLogin" value="${googleLogin}"/>
         <input type="hidden"  id="flag" name="flag"  value="${flag}">
         <div id="addInfo" class="infoLogo">
             <div class="logo">
@@ -107,6 +107,7 @@ function register() {
     formData.append('memberPhoto', memberPhoto);
     formData.append('naverLogin', naverLogin);
     formData.append('kakaoLogin', kakaoLogin);
+    formData.append('googleLogin', googleLogin);
     
     $.ajax({
 		type : 'POST',

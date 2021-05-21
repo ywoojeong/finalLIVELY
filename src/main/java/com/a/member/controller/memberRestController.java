@@ -125,11 +125,10 @@ public class memberRestController {
 		}else if(flag.equals("naver")) {
 			registerCheck = service.memberNaverRegisterPro(paramMap);
 		}
-		/*
+		
 		else if(flag.equals("google")) {
-			registerCheck = service.userNaverRegisterPro(paramMap);
+			registerCheck = service.memberNaverRegisterPro(paramMap);
 		}
-		*/
 		
 		if(registerCheck != null && registerCheck > 0) {
 			Map<String, Object> loginCheck = null;
@@ -138,11 +137,11 @@ public class memberRestController {
 			}else if(flag.equals("naver")) {
 				loginCheck = service.memberNaverLoginPro(paramMap);
 			}
-			/*
+			
 			else if(flag.equals("google")) {
-				loginCheck = userservice.userNaverLoginPro(paramMap);
+				loginCheck = service.memberNaverLoginPro(paramMap);
 			}
-			*/ 
+			
 			session.setAttribute("memberInfo", loginCheck);
 			resultMap.put("JavaData", "YES");
 		}else {
@@ -165,6 +164,9 @@ public class memberRestController {
 			service.setGoogleConnection(paramMap);
 			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);
 			session.setAttribute("memberInfo", loginCheck);
+			
+			System.out.println("구글 로그인의 세션 : " + loginCheck);
+			
 			resultMap.put("JavaData", "YES");
 		}else { //모두 연동 되어있을시
 			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);

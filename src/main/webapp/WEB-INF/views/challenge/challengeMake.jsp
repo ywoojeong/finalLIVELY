@@ -13,7 +13,7 @@
 
 <!-- format 사용시 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<!-- ${member.nickname} -->
 <!-- 현재 시간 받아오기 -->
 <%-- <jsp:useBean id="now" class="java.util.Date" /> --%>
  <c:set var = "now" value = "<%= new java.util.Date()%>" />
@@ -38,7 +38,7 @@ cal.setTime(new Date());
 DateFormat dateText = new SimpleDateFormat("MM월 dd일");
 //dateText.format(cal.getTime());
 System.out.println(dateText.format(cal.getTime()));
-DateFormat dateVal = new SimpleDateFormat("yyyyMMdd");
+DateFormat dateVal = new SimpleDateFormat("yyyy-MM-dd");
 //dateVal.format(cal.getTime());
 System.out.println(dateVal.format(cal.getTime()));
 
@@ -48,6 +48,7 @@ System.out.println(dateVal.format(cal.getTime()));
 //_endDateTd 선택요일 td숨기기
 $(document).ready(function(){
 	$("#_endDateTd").hide();	
+	$("#periodText").hide();
 });
 	
 
@@ -58,13 +59,13 @@ $(document).ready(function(){
  <div class="container">
 	 <header class="challengeHeader">
 	 		<img class="userWrap" src="https://th.bing.com/th/id/OIP.wTFsSYLWKoHwmv9OOZIp9wHaHa?pid=ImgDet&w=500&h=500&rs=1">
-	 	<h4>LimonLimeL 님,</h4>
+	 	<h4>${memberInfo.NICKNAME} 님,</h4>
 	 	<p>관심있는 주제로 챌린지를 생성해 보세요.</p>
 	 </header>
 
 	 <div class="">
 	 	<form  id="challengeFrm">
-	 		<input type="hidden" name="email" value="">
+	 		<input type="hidden" name="email" value="${memberInfo.EMAIL}">
 	 	<div class="row challengeMain">
 	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
@@ -112,7 +113,7 @@ $(document).ready(function(){
 	 					</td>
 	 					<td class="challSelect2">
 	 						<label for="endDate">챌린지 기간</label>
-	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod" onchange="challperiodChange(this.value)">
+	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod" onchange="challengeperiodChange(this.value)">
 	 							<option value="0">선택하세요</option>
 	 						<%for(int i=1;i<5;i++){ %>
 		 						<option value="<%=i%>"><%=i%>주</option>
@@ -123,7 +124,7 @@ $(document).ready(function(){
 	 				<tr>
 	 					<td>
 	 						<label for="frequency">인증 빈도</label>
-	 						<select class="form-control form-control-sm challSelect" id="_challengefrequency" name="challengefrequency" onchange="challengeFreChange(this.value)">
+	 						<select class="form-control form-control-sm challSelect" id="_identifyfrequency" name="identifyfrequency" onchange="challengeFreChange(this.value)">
 	 							<option value="0">선택하세요</option>
 	 							<option value="9">월-일 매일 인증하기</option>
 	 							<option value="8">월-금 매일 인증하기</option>
@@ -230,14 +231,36 @@ function challengeFreChange(val){
 	}
 }
 
+
 //챌린지 기간 계산 _challengeperiod challperiodChange
-function challperiodChange(val){
-	//alert(val);	
-	if(val == 1){
-		//_challengestart 챌린지 시작일 데이터 받아와서 계산
+function challengeperiodChange(period){
+	//챌린지 시작일
+	var startDay =  $("select[name=challengestart]").val();
+	
+	const strArr = startDay.split('-');
+	const sDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+
+	alert("시작 날짜:"+sDate);
+	alert("sDate.getDate()" + sDate.getDate()+7);
+	var endDate = "";
+	if(period==1){
+		endDate = sDate.setDate(sDate.getDate()+7);
 	}
+	else if(period==2){
+		endDate = Date(sDate.setDate(sDate.getDate()+14));	
+	}
+	else if(period==3){
+		endDate = Date(sDate.setDate(sDate.getDate()+21));
+	}
+	else if(period==4){
+		endDate = Date(sDate.setDate(sDate.getDate()+28));
+	}
+	alert("종료 날짜"+endDate);
 	
 }
+
+//
+
 
 
 
@@ -273,9 +296,9 @@ function challengeMake(){
 	
 	
 	//인증빈도 비 선택 시 제어
-	var challengefrequency = $("select[name=challengefrequency]").val();
-	//alert(challengefrequency);
-	if (challengefrequency==0 || challengefrequency==null){
+	var identifyfrequency = $("select[name=identifyfrequency]").val();
+	//alert(identifyfrequency);
+	if (identifyfrequency==0 || identifyfrequency==null){
 		alert("인증 빈도를 선택해 주세요");
 		return false;
 	}
