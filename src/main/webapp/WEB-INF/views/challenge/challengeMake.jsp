@@ -1,3 +1,8 @@
+<%@page import="javafx.scene.input.DataFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="com.a.util.dataUtil"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -10,18 +15,32 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- 현재 시간 받아오기 -->
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" />
+<%-- <jsp:useBean id="now" class="java.util.Date" /> --%>
+ <c:set var = "now" value = "<%= new java.util.Date()%>" />
+<%-- <fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+<fmt:formatDate var="dateText" value="${now}" pattern="MM월 dd일"/>
+<fmt:formatDate var="dateVal" pattern="yyyyMMdd"  value="${now}"/>
+
+<%-- <c:out value="${i }" val="date1"/> --%>
 
 <%
 Calendar cal = Calendar.getInstance();
-System.out.print(cal);
+System.out.println(cal);
 
 int year=cal.get(Calendar.YEAR); //년
 int month=cal.get(Calendar.MONTH )+1;//월
 int day=cal.get(Calendar.DATE);//일
 int hour=cal.get(Calendar.HOUR_OF_DAY);//24시
 int min=cal.get(Calendar.MINUTE);//분
+
+//오늘날짜5월 21일
+cal.setTime(new Date());
+DateFormat dateText = new SimpleDateFormat("MM월 dd일");
+//dateText.format(cal.getTime());
+System.out.println(dateText.format(cal.getTime()));
+DateFormat dateVal = new SimpleDateFormat("yyyyMMdd");
+//dateVal.format(cal.getTime());
+System.out.println(dateVal.format(cal.getTime()));
 
 %>
 
@@ -44,27 +63,26 @@ $(document).ready(function(){
 	 </header>
 
 	 <div class="">
-	 	<form action="" id="challengefrm">
+	 	<form  id="challengeFrm">
+	 		<input type="hidden" name="email" value="">
 	 	<div class="row challengeMain">
-	 		<div class="col-sm-4 pt-5 pl-5">
+	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
 	              <label for="newImg">
 		               
-		                  <img id="challImg" class="img-responsive challImg" src="./image/noneImage.svg">
+		                  <img id="challImg" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
 		               
 		            </label>
-		            <input type="file" name="challengephoto" id="newImg" style="display: none">
-	            <p style="color:#777777;font-size: 9pt">새로 생성하는 챌린지의 이미지를 등록해주세요.</p>		
-	 			
+		            <input type="file" name="challengephoto" id="newImg" style="display: none">	 			
 	 		</div>
-	 		<div class="col-sm-8 challData p-5">
+	 		<div class="col-sm-8 challData p-5"> 
 	 			<table class="table-borderless table-responsive challTable">
 	 				<col width="200px"><col width="400px">	 				
 	 				<tr>
 	 					<td>
 		 					<label for="category">주제</label>
-		 					<select class="form-control form-control-sm" name="category" id="_category" onchange="categoryChange(this)">
-		 						<option>선택하세요</option>
+		 					<select class="form-control form-control-sm" name="category" id="_category">
+		 						<option value="0">선택하세요</option>
 		 						<option value="1">건강</option>
 		 						<option value="2">역량</option>
 		 						<option value="3">정서</option>
@@ -73,29 +91,40 @@ $(document).ready(function(){
 		 						<option value="6">취미</option>
 		 					</select>
 	 					</td>
+	 					<td id="periodText">
+	 						<p class="periodTe">챌린지 기간은 2021-05-01부터 2021-05-03까지 입니다.</p>
+	 					</td>
 	 				</tr>
 	 				<tr>
 	 					<td>
 	 						<label for="startDate">챌린지 시작일</label>
 	 						<select class="form-control form-control-sm challSelect" name="challengestart" id="_challengestart">
-	 						<%for(int i=day;i<day+5;i++){ %>
-		 						<option value="<%=year+"-"+month+"-"+day%>"><%=month %>월 <%=i %>일</option>
-		 					<%} %>
+	 							<option value="0">선택하세요</option>
+	 							<option value="<%=dateVal.format(cal.getTime())%>"><%=dateText.format(cal.getTime())%></option>
+	 							<% int w = 0;
+	 								while(w<4){ 
+	 								cal.add(Calendar.DAY_OF_YEAR, 1);
+	 							%>
+		 						<option value="<%=dateVal.format(cal.getTime())%>"><%=dateText.format(cal.getTime())%></option>
+			 					<% w++;
+			 					} %>
 		 					</select>
 	 					</td>
 	 					<td class="challSelect2">
 	 						<label for="endDate">챌린지 기간</label>
-	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod">
+	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod" onchange="challperiodChange(this.value)">
+	 							<option value="0">선택하세요</option>
 	 						<%for(int i=1;i<5;i++){ %>
-		 						<option><%=i%>주</option>
+		 						<option value="<%=i%>"><%=i%>주</option>
 		 					<%} %>
 		 					</select>
 	 					</td>
 	 				</tr>
 	 				<tr>
 	 					<td>
-	 						<label for=frequency">인증 빈도</label>
-	 						<select class="form-control form-control-sm challSelect" id="_challengefrequency" name="challengefrequency">
+	 						<label for="frequency">인증 빈도</label>
+	 						<select class="form-control form-control-sm challSelect" id="_challengefrequency" name="challengefrequency" onchange="challengeFreChange(this.value)">
+	 							<option value="0">선택하세요</option>
 	 							<option value="9">월-일 매일 인증하기</option>
 	 							<option value="8">월-금 매일 인증하기</option>
 	 							<option value="7">토-일 매일 인증하기</option>
@@ -109,7 +138,7 @@ $(document).ready(function(){
 	 						<div class="challSelect2">
 	 							<%String dateWeek[] = new String[]{"일", "월", "화", "수", "목", "금", "토"}; 
 	 						 	for(int i=0; i<dateWeek.length;i++){ %>
- 	 							    <input type="checkbox" name="frequencyDay" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
+ 	 							    <input type="checkbox" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
 	 							<%}%>					 			
 							 </div> 		
 	 					</td>
@@ -119,29 +148,30 @@ $(document).ready(function(){
 	 					<td>
 	 						<label for="identifyTime">인증시간</label>
 	 						<select class="form-control form-control-sm" name="identifytime" id="_identifytime">
+	 								<option value="">선택하세요</option>
 	 							<%for(int i=0;i<24;i++){
 	 								%>
-	 								<option><%=(i<10)?"0"+i:i+""%>시</option>
+	 								<option value="<%=i%>"><%=dataUtil.two(i+"")%>시</option>
 	 							<%} %>
 	 						</select>
 	 					</td>
 	 					<td class="challSelect2">
 	 						<label for="pointCount">참가 포인트</label>
 	 						<div class="form-inline">
-	 							<input type="text" class="form-control form-control-sm" name="point" style="width: 200px"><span>&nbsp;&nbsp;point</span>
+	 							<input type="text" class="form-control form-control-sm" id="_pointcount" name="pointcount" style="width: 200px"><span>&nbsp;&nbsp;point</span>
 	 						</div>
 	 					</td>
 	 				</tr>
 	 				<tr>
 	 					<td colspan="2">
 	 						<label for="challengeTitle">챌린지 제목</label>
-	 						<input type="text" class="form-control form-control-sm" placeholder="챌린지 제목을 작성해주세요">
+	 						<input type="text" class="form-control form-control-sm" placeholder="챌린지 제목을 작성해주세요" name="challengetitle" id="_challengetitle">
 	 					</td>
 	 				</tr>
 	 				<tr >
 	 					<td colspan="2" class="content">
 	 						<label for="challengeContent">챌린지 소개</label>
-	 						<textarea rows="8" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요"></textarea>
+	 						<textarea rows="8" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext"></textarea>
 	 					</td>
 	 				</tr>
 	 			</table>	 				
@@ -189,26 +219,117 @@ function handleImgFileSelect(e) {
     });
 }
 
-
-//카테고리 비 선택 시 제어
-	var category = $("select[name=category]").val();
-	alert(category);
-	if (category==null){
-		alert("카테고리를 선택해 주세요");
-		return false;
+//onchange 인증빈도
+function challengeFreChange(val){
+	if(val>=1 && val<=6){
+		$("#_endDateTd").show();
+		
+		//숫자별 제어하기
+	}else{
+		$("#_endDateTd").hide();
 	}
 }
 
-
+//챌린지 기간 계산 _challengeperiod challperiodChange
+function challperiodChange(val){
+	//alert(val);	
+	if(val == 1){
+		//_challengestart 챌린지 시작일 데이터 받아와서 계산
+	}
 	
+}
+
+
+
+
+
 function challengeMake(){
 	
+	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
+	
+	//카테고리 비 선택 시 제어
+	var category = $("select[name=category]").val();
+	//alert(category);
+	if (category==0 || category==null){
+		alert("주제를 선택해 주세요");
+		return false;
+	}
+	
+	//챌린지 시작일 비 선택 시 제어
+	var challengestart = $("select[name=challengestart]").val();
+	alert(challengestart);
+	if (challengestart==0 || challengestart==null){
+		alert("챌린지 시작일을 선택해 주세요");
+		return false;
+	}
+	
+	//챌린지 기간 비 선택 시 제어(challengeperiod)
+	var challengeperiod = $("select[name=challengeperiod]").val();
+	//alert(challengeperiod);
+	if (challengeperiod==0 || challengeperiod==null){
+		alert("챌린지 기간을 선택해 주세요");
+		return false;
+	}
+	
+	
+	//인증빈도 비 선택 시 제어
+	var challengefrequency = $("select[name=challengefrequency]").val();
+	//alert(challengefrequency);
+	if (challengefrequency==0 || challengefrequency==null){
+		alert("인증 빈도를 선택해 주세요");
+		return false;
+	}
+	
+
+	//인증시간 비 선택 시 제어 identifyTime
+	var identifytime = $("select[name=identifytime]").val();
+	//alert(identifytime);
+	if (identifytime=="" || identifytime==null){
+		alert("인증 시간을 선택해 주세요");
+		return false;
+	}
+	
+	//참가포인트 비 선택 시 제어 _pointcount
+	var pointcount = $("#_pointcount").val();
+	//alert(pointcount);
+	if( pointcount == "" ){
+		alert ( "참가 포인트를 입력해주세요");
+		$("#_pointcount").focus();
+    	return false;
+	}
+	else{
+		var num_check=/^[0-9]*$/;
+		if(!num_check.test(pointcount)){
+			alert ( "숫자만 입력할 수 있습니다." );
+			pointcount="";
+			pointcount.focus();
+		}
+	}
+
+	
+	//챌린지 제목 비 기입 시 제어
+	var challengetitle = $("#_challengetitle").val();
+	if(challengetitle==null || challengetitle==""){
+		alert("챌린지 제목을 기입해 주세요.");
+		$("#_challengetitle").focus();
+	}
+	
+	//챌린지 소개 비 기입 시 제어
+	var challengetext = $("#_challengetext").val();
+	if(challengetext==null || challengetext==""){
+		challengetext = "챌린지를 소개합니다.";
+	}
+	
+
+	//데이터 보내기	
 	var params = $("#challengeFrm").serialize();
-		
+		alert(params);
 	$.ajax({
 		url:"challengeInsert.do",
 		type:"post", 
 		data:params,
+		contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+		dataType:'html',
 		success:function(msg){
 			alert(msg);
 		},
