@@ -50,26 +50,81 @@ function memberKakaoLoginPro(response){
 	
 };
 
+// 구글 API 등록
+function googleInit(data) {
+	gapi.load('auth2', function() { 
+	var gauth = gapi.auth2.init({
+		client_id: data
+	});
+                    
+	gauth.then(function(){
+		console.log('init success');
+	 }, function(){
+		 console.error('init fail');
+	 })
+	 });
+};
+
+function googleLoginPro(profile){
+	console.log(profile.getEmail())
+	$.ajax({
+		type : 'POST',
+		url : 'googleLoginPro.do',
+		data : {email: profile.getEmail(), id:profile.getId()},
+		dataType : 'json',
+		success : function(data){
+			if(data.JavaData == "YES"){
+				location.href = 'memberCon.do'
+			}else if(data.JavaData == "register"){
+				console.log(profile.getEmail())
+				$("#googleEmail").val(profile.getEmail());
+				$("#googleId").val(profile.getId());
+				$("#memberPhoto").val(memberPhoto);
+				$("#googleForm").submit();
+			}else{
+				alert("로그인에 실패했습니다");
+			}
+			
+		},
+		error: function(xhr, status, error){
+			alert("로그인에 실패했습니다."+error);
+		}
+	});
+};
+
 function onSignIn(){
 	var auth2 = gapi.auth2.getAuthInstance()
 	if(auth2.isSignedIn.get()){
 	 var profile = auth2.currentUser.get().getBasicProfile();
 	 googleLoginPro(profile)
 	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	  console.log('Name: ' + profile.getName());
-	  console.log('Image URL: ' + profile.getImageUrl());
 	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 	
 	}
 	
 };
 
-function signOut() {
+ function signOut() {
 	if(gapi.auth2 != undefined){
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
-			console.log('User signed out.');
-   		});
-	}
-	location.href= "logOut.do"
-  };
+	 	var auth2 = gapi.auth2.getAuthInstance();
+   		 auth2.signOut().then(function () {
+    	  console.log('User signed out.');
+    });
+};
+   
+if (Kakao.Auth.getAccessToken()) {
+	Kakao.API.request({
+		url: '/v1/user/unlink',
+		success: function (response) {
+			console.log(response)
+		},
+		fail: function (error) {
+			console.log(error)
+		},
+	})
+	Kakao.Auth.setAccessToken(undefined) 
+}
+	
+	location.href= "/user/logOut.do"
+};
+

@@ -13,7 +13,7 @@
  <link rel="stylesheet" href="./css/main.css">
 
 <!-- api 로그인 관련 -->
-<script  src="js/ApiLogin.js"></script>
+<script src="js/ApiLogin.js"></script>
 
 <!-- 카카오 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

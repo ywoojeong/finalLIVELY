@@ -16,9 +16,16 @@ public interface memberDao {
 	public Integer setNaverConnection (Map<String, Object> paramMap) throws SQLException;
 	public Integer memberNaverRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	public Map<String, Object> memberNaverLoginPro (Map<String, Object> apiJson) throws SQLException;
-	
+	// 카카오
 	public Map<String, Object> kakaoConnectionCheck (Map<String, Object> apiJson) throws SQLException;
 	public Integer setKakaoConnection (Map<String, Object> apiJson) throws SQLException;
 	public Map<String, Object> memberKakaoLoginPro (Map<String, Object> apiJson) throws SQLException;
 	public Integer memberKakaoRegisterPro (Map<String, Object> paramMap) throws SQLException;
+
+	// 구글
+	public Map<String, Object> googleConnectionCheck (Map<String, Object> paramMap) throws SQLException;
+	public Integer setGoogleConnection (Map<String, Object> paramMap) throws SQLException;
+	public Map<String, Object> memberGoogleLoginPro (Map<String, Object> paramMap) throws SQLException;
+	public Integer memberGoogleRegisterPro (Map<String, Object> paramMap) throws SQLException;
+	
 }
