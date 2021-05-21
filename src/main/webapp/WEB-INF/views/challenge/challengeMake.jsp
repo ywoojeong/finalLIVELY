@@ -58,7 +58,7 @@ $(document).ready(function(){
  <div class="container">
 	 <header class="challengeHeader">
 	 		<img class="userWrap" src="https://th.bing.com/th/id/OIP.wTFsSYLWKoHwmv9OOZIp9wHaHa?pid=ImgDet&w=500&h=500&rs=1">
-	 	<h4>LimonLimeL 님,</h4>
+	 	<h4>${member.nickname}LimonLimeL 님,</h4>
 	 	<p>관심있는 주제로 챌린지를 생성해 보세요.</p>
 	 </header>
 

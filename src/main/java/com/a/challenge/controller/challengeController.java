@@ -1,5 +1,7 @@
 package com.a.challenge.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.a.challenge.service.challengeService;
+import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 
 @Controller
@@ -29,10 +32,11 @@ public class challengeController {
 	
 	//챌린지 만들기 페이지로 이동
 	@RequestMapping(value = "challengeMake.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeMake(Model model) {
+	public String challengeMake(Model model, HttpSession session) {
 		
-		
-		
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");
+		System.out.println(member.toString());
+		model.addAttribute("memberInfo", member);
 		return "challenge/challengeMake";
 	}
 	
