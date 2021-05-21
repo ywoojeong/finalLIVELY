@@ -46,6 +46,12 @@
 	<input type="hidden" name="flag" id="flag" value="kakao" />
 </form>
 
+<form name="googleForm" id="googleForm" method = "post" action="addInfo.do">
+<input type="hidden" name="email" id="googleEmail" />
+<input type="hidden" name="id" id="googleId" />
+<input type="hidden" name="flag" id="flag" value="google" />
+</form>
+
 <script type="text/javascript">
 //카카오 로그인 팝업
 function kakaoLogin() {
@@ -67,4 +73,6 @@ function kakaoLogin() {
 		},
 	});
 };
+
+
 </script>

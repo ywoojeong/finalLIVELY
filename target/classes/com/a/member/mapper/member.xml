@@ -58,4 +58,25 @@
 		VALUES  (MEM_SEQ.NEXTVAL,#{email},#{nickname},#{kakaoLogin})
 	</insert>
 	
+	<!-- 여기서부터 구글 -->
+	<select id="googleConnectionCheck" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT EMAIL,NICKNAME,GOOGLELOGIN FROM MEMBER 
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<update id="setGoogleConnection" parameterType="java.util.Map">
+		UPDATE MEMBER SET GOOGLELOGIN = #{id}
+		WHERE EMAIL = #{email}
+	</update>
+	
+	<select id="userGoogleLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT EMAIL,NICKNAME FROM MEMBER 
+		WHERE EMAIL = #{email} AND GOOGLELOGIN = #{id}
+	</select>
+	
+	<insert id="userGoogleRegisterPro" parameterType="java.util.Map">
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, GOOGLELOGIN) 
+		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{googleLogin})
+	</insert>
+	
 </mapper>

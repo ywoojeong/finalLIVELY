@@ -91,7 +91,6 @@ public class memberController {
 				session.setAttribute("memberInfo", loginCheck);
 			}*/
 			model.addAttribute("email",apiJson.get("email"));
-			
 			model.addAttribute("naverLogin",apiJson.get("id"));
 			model.addAttribute("flag","naver");
 			return "member/memberInfo";
@@ -104,7 +103,7 @@ public class memberController {
 			session.setAttribute("memberInfo", loginCheck);
 		}
 
-		return "redirect:memberLogin.do";
+		return "redirect:memberCon.do";
 	}
 	
 	
@@ -119,6 +118,7 @@ public class memberController {
 		
 		model.addAttribute("email",paramMap.get("email"));
 		model.addAttribute("kakaoLogin",paramMap.get("id"));
+		model.addAttribute("googleLogin",paramMap.get("id"));
 		model.addAttribute("memberPhoto", paramMap.get("memberPhoto"));
 		model.addAttribute("flag",paramMap.get("flag"));
 		return "member/memberInfo";

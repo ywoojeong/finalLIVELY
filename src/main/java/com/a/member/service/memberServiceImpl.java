@@ -68,6 +68,26 @@ public class memberServiceImpl implements memberService {
 	public Integer memberKakaoRegisterPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberKakaoRegisterPro(paramMap);
 	}
+
+	@Override
+	public Map<String, Object> googleConnectionCheck(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.googleConnectionCheck(paramMap);
+	}
+
+	@Override
+	public Integer setGoogleConnection(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.setGoogleConnection(paramMap);
+	}
+
+	@Override
+	public Map<String, Object> memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.memberGoogleLoginPro(paramMap);
+	}
+
+	@Override
+	public Integer memberGoogleRegisterPro(Map<String, Object> paramMap) throws SQLException {
+		return memberDao.memberGoogleRegisterPro(paramMap);
+	}
 	
 	
 }

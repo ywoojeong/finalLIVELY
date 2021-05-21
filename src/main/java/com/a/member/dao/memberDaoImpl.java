@@ -69,7 +69,26 @@ public class memberDaoImpl implements memberDao {
 	public Integer memberKakaoRegisterPro(Map<String, Object> paramMap) throws SQLException {
 		return sql.insert("member.memberKakaoRegisterPro", paramMap);
 	}
-	
+
+	@Override
+	public Map<String, Object> googleConnectionCheck(Map<String, Object> paramMap) throws SQLException {
+		return sql.selectOne("member.googleConnectionCheck", paramMap);
+	}
+
+	@Override
+	public Integer setGoogleConnection(Map<String, Object> paramMap) throws SQLException {
+		return sql.update("member.setGoogleConnection", paramMap);
+	}
+
+	@Override
+	public Map<String, Object> memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
+		return sql.selectOne("member.memberGoogleLoginPro", paramMap);
+	}
+
+	@Override
+	public Integer memberGoogleRegisterPro(Map<String, Object> paramMap) throws SQLException {
+		return sql.insert("member.memberGoogleRegisterPro", paramMap);
+	}
 	
 	
 }

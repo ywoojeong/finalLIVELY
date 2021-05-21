@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -147,6 +148,30 @@ public class memberRestController {
 		}else {
 			resultMap.put("JavaData", "NO");
 		}
+		return resultMap;
+	}
+	
+	// 구글 로그인
+	@RequestMapping(value="/googleLoginPro.do",  method = {RequestMethod.GET,RequestMethod.POST})
+	public Map<String, Object> googleLoginPro(Model model,@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+		System.out.println("paramMap:" + paramMap);
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		Map <String, Object> googleConnectionCheck = service.googleConnectionCheck(paramMap);
+		System.out.println(googleConnectionCheck);
+		
+		if(googleConnectionCheck == null) { //일치하는 이메일 없으면 가입
+			resultMap.put("JavaData", "register");
+		}else if(googleConnectionCheck.get("GOOGLELOGIN") == null && googleConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
+			service.setGoogleConnection(paramMap);
+			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);
+			session.setAttribute("memberInfo", loginCheck);
+			resultMap.put("JavaData", "YES");
+		}else { //모두 연동 되어있을시
+			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);
+			session.setAttribute("memberInfo", loginCheck);
+			resultMap.put("JavaData", "YES");
+		}
+
 		return resultMap;
 	}
 }
