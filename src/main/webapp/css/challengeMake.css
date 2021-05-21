@@ -104,7 +104,7 @@ body{
 	 width: 300px; 
 	height: 250px;
 	  margin:15px auto;
-	  object-fit: cover;  
+	  object-fit:scale-down; 
 }
 
 .challTable{

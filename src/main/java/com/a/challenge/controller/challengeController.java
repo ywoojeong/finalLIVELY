@@ -1,5 +1,8 @@
 package com.a.challenge.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +37,21 @@ public class challengeController {
 	@RequestMapping(value = "challengeMake.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String challengeMake(Model model, HttpSession session) {
 		
-		MemberDto member = (MemberDto)session.getAttribute("memberInfo");
-		System.out.println(member.toString());
-		model.addAttribute("memberInfo", member);
+		
+		HashMap<String, Object> member = (HashMap<String, Object>)session.getAttribute("memberInfo");
+		
+		 //*{NICKNAME=LemonLime, GOOGLELOGIN=112957813385668127996, EMAIL=final.5623@gmail.com}
+		
+		 //model.addAttribute("memberInfo",member);
+
+	    model.addAttribute("memberInfo", member);	//${NICKNAME}, ${}   
 		return "challenge/challengeMake";
 	}
 	
 	
 	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
 	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeDetail(Model model, int challengeseq) {
+	public String challengeDetail(Model model/* , int challengeseq */) {
 		
 		//challengeDto dto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)

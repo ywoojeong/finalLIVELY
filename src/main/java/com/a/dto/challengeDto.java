@@ -47,7 +47,7 @@ public class challengeDto {
 	private int challengedel;
 	private int headernum;	//개설자
 	private int pointcount;	//얼마 걸테냐...
-	private int email;	//id와 같음
+	private String email;	//id와 같음
 	
 	public challengeDto() {
 		// TODO Auto-generated constructor stub
@@ -56,7 +56,7 @@ public class challengeDto {
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
 			String challengestart, String challengeend, String challengeperiod, int identifyfrequency,
 			String identifyday, String identifytime, String challengephoto, double ratingavg, int challengestop,
-			int challengedel, int headernum, int pointcount, int email) {
+			int challengedel, int headernum, int pointcount, String email) {
 		super();
 		this.challengeseq = challengeseq;
 		this.category = category;
@@ -205,11 +205,11 @@ public class challengeDto {
 		this.pointcount = pointcount;
 	}
 
-	public int getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(int email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

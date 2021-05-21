@@ -81,7 +81,7 @@
 							    <div class="usercount"><i class="fas fa-user"></i> 35명</div>
 							    <span class="when">평일 매일</span><span class="when">2주동안</span>
 							    <p class="card-text">오늘부터 시작</p>
-							    <button type="button" class="btn" onclick="challengeDetailBtn(seq)">Go challenge</button>
+							    <button type="button" class="btn" onclick="challengeDetailBtn()">Go challenge</button>
 							  </div>
 							</div>
 			     		</div>
@@ -129,8 +129,9 @@
 
 
 <script>
-function challengeDetailBtn(seq){
-	location.href="challengeDetail.do?challengeseq="+seq;
+function challengeDetailBtn(){
+	/* location.href="challengeDetail.do?challengeseq="+seq; */
+	location.href="challengeDetail.do";
 }
 function challengeMake(){
 	location.href="challengeMake.do";	
