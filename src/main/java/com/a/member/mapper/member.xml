@@ -5,7 +5,7 @@
 	<!-- 회원가입 추가 정보 -->
  	<insert id="memberInfoPro" parameterType="com.a.dto.MemberDto">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, AUTH, MEMBERDEL) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, 0, #{naverLogin}, 3, 0)
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, '', #{naverLogin}, 3, 0)
 	</insert>
 	
 	<!-- 닉네임 중복 확인 -->
@@ -69,12 +69,12 @@
 		WHERE EMAIL = #{email}
 	</update>
 	
-	<select id="userGoogleLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="memberGoogleLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME FROM MEMBER 
 		WHERE EMAIL = #{email} AND GOOGLELOGIN = #{id}
 	</select>
 	
-	<insert id="userGoogleRegisterPro" parameterType="java.util.Map">
+	<insert id="memberGoogleRegisterPro" parameterType="java.util.Map">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, GOOGLELOGIN) 
 		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{googleLogin})
 	</insert>

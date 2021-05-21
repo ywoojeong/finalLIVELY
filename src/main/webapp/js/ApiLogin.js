@@ -111,20 +111,20 @@ function onSignIn(){
     	  console.log('User signed out.');
     });
 };
-   
-if (Kakao.Auth.getAccessToken()) {
-	Kakao.API.request({
-		url: '/v1/user/unlink',
-		success: function (response) {
-			console.log(response)
-		},
-		fail: function (error) {
-			console.log(error)
-		},
-	})
-	Kakao.Auth.setAccessToken(undefined) 
-}
-	
-	location.href= "/user/logOut.do"
+	   
+	if (Kakao.Auth.getAccessToken()) {
+		Kakao.API.request({
+			url: '/v1/user/unlink',
+			success: function (response) {
+				console.log(response)
+			},
+			fail: function (error) {
+				console.log(error)
+			},
+		})
+		Kakao.Auth.setAccessToken(undefined) 
+	}
+		
+	location.href= "logOut.do"
 };
 
