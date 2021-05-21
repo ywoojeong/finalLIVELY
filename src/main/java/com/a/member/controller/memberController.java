@@ -44,8 +44,8 @@ public class memberController {
 	*/
 	@RequestMapping(value = "memberLogin.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String memberLogin(Model model, HttpSession session) {
-		System.out.println("member login + memberLogin.do");
 		String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
+		System.out.println("memberLogin.do 세션 : " + session);
 		model.addAttribute("naverUrl", naverAuthUrl);
 		return "member/memberLogin";
 	}
@@ -94,13 +94,17 @@ public class memberController {
 			model.addAttribute("naverLogin",apiJson.get("id"));
 			model.addAttribute("flag","naver");
 			return "member/memberInfo";
-		}else if(naverConnectionCheck.get("NAVERLOGIN") == null && naverConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
+		/*}else if(naverConnectionCheck.get("NAVERLOGIN") == null && naverConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
 			service.setNaverConnection(apiJson);
 			Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
 			session.setAttribute("memberInfo", loginCheck);
+			System.out.println("네이버로그인 1 세션 : " + session);
+			System.out.println("네이버로그인 1 로그인체크 : " + loginCheck);*/
 		}else { //모두 연동 되어있을시
 			Map<String, Object> loginCheck = service.memberNaverLoginPro(apiJson);
 			session.setAttribute("memberInfo", loginCheck);
+			System.out.println("네이버로그인 2 세션 : " + session);
+			System.out.println("네이버로그인 2 로그인체크 : " + loginCheck);
 		}
 
 		return "redirect:memberCon.do";
@@ -124,4 +128,10 @@ public class memberController {
 		return "member/memberInfo";
 	}
 	
+	@RequestMapping(value="logOut.do")
+	public String logOut(Model model,HttpSession session) {
+		System.out.println("logOut");	
+		session.invalidate();
+		return "home/home";
+	}
 }
