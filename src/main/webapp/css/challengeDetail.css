@@ -1,16 +1,307 @@
+/*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 
 .backDiv{
-	height:800px;
-	clip-path: polygon(0 0, 100% 0, 100% 31%, 0 56%);
-	background-color: red;
+	height:400px;
+	background-size:cover;	
 	position: relative;
 }
 
+/* header */
 .challHeader{
 	position:absolute;
-	left:30%;
-	top:90%;
+	left:50%;
+	transform:translateX(-50%);
+	top:53%;
 	background-color:white;
-	width: 300px;
-	height: 300px;	
+	padding-bottom: 13px;
+	/* width: 70%;
+	height: 300px; */	
 }
+
+.challHeader> h1{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.challHeader > p{
+	color: red;
+	font-weight: 600;
+	font-size: 11pt;
+	margin-bottom: 3px;
+}
+.challHeader>label{
+	border-radius: 3px;
+	background-color: rgba(200, 200, 200, 40%);
+	font-weight:500;
+	font-size: 10pt;
+ 	padding: 2px 15px;	 
+	margin-right: 15px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+.challHeader>span{
+	font-size:12pt;
+	font-weight: 700;
+}
+.challHeader .explain{
+	background-color: #464646;
+	color:white;
+	font-weight: 500;
+	margin-bottom: 20px;
+	padding: 1px 12px;
+}
+
+
+/*attend 테이블*/
+.attend{
+	font-weight: 500;
+	margin-top: 10px;
+	height: 70px;
+}
+
+
+.userWrap{
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+  	overflow: hidden;
+    vertical-align: middle;
+  	 align-items: center;
+  	 margin-right: 10px;
+}
+
+.modalBtn{
+	
+}
+
+
+/*챌린지 소개*/
+.challengetext{
+	font-weight: 500;
+	margin: 15px 0;
+	font-size: 13pt;
+ } 
+
+/*pointText 테이블 */
+.pointExplain{
+	background-color: #e9e9eaff;	
+	margin: 30px 0 25px 0;
+	padding: 10px;
+}
+.pointExplain>div>table{
+	height: 100px;
+}
+
+.pointExplain>div>label{
+	font-weight: 500;
+	font-size: 12pt;
+}
+
+.highlight{
+  display: inline;
+  box-shadow: inset 0 -15px 0 #fbc2eb; 
+  /*-10px은 highlight의 두께*/
+}
+
+/* 주의사항 */
+.precautions>table{
+	height: 150px;
+	margin-left: 25px;
+}
+
+/*hr 밑줄 */
+.one{
+	border-top: 2px solid rgba(0,0,0,.1);
+}
+
+/*카테고리 범주 네비 디자인 */
+.nav-pills{
+	justify-content: center;
+	margin-left: 25px;
+}
+
+.nav-pills .nav-link{
+	font-family: 'Noto Sans KR', sans-serif;
+	margin:30px auto 15px auto;
+	background-color: #f2f2f2;
+	border-radius: 20px;
+	height:30px;
+	font-size:10pt;
+	padding:6px 25px;
+	color: #222229;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+
+.nav-link:focus, .nav-link:hover{
+	color:cb98ed;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+	background-color: #cb98ed;
+	border-radius: 20px;
+	height:30px;
+	padding:6px 25px;
+	font-weight: 400;
+	box-shadow: 0 2px 8px 0 rgba(154,120,223, 0.75);
+
+}
+
+/*///////////////////탭부분////////////*/
+
+/*현재 결과 */
+.resultHeader{
+	text-align: center;
+	margin-top: 30px;
+	
+}
+
+.resultChart{
+	margin-top: 45px;
+	margin-bottom: 45px;
+}
+
+.userWrap80{
+	border-radius: 50%;
+	height: 80px;
+	width: 80px;
+  	overflow: hidden;
+    vertical-align: middle;
+  	 align-items: center;
+  	 margin-right: 10px;
+}
+
+
+/*결과 차트부분 */
+.easypiechart-panel {
+	text-align: center;
+	padding: 1px 0;
+	margin-bottom: 20px;
+}
+
+
+
+.easypiechart {
+	position: relative;
+	text-align: center;
+	width: 120px;
+	height: 120px;
+	margin: 20px auto 10px auto;
+}
+
+.easypiechart .percent {
+	display: block;
+	position: absolute;
+	font-size: 30px;
+	top: 33px;
+	width: 125px;
+}
+
+#easypiechart-total .percent { color: #8b63da;}
+#easypiechart-user .percent { color: #8b63da;}
+	 
+.identify{
+	height: 200px;
+	width: 670px;
+	margin: 0 auto;
+}	 
+.identify>span{
+	font-size: 15pt;
+	font-weight: 600;
+	display:inline-block;
+	margin-left: 30px;
+}
+
+.identify  .inCount{
+	margin: 50px 0;
+}
+
+
+/*채팅*/
+.chatHeader{
+	height: 50px;
+	width: 80%;
+	margin: 0 auto;
+	background-color: #cb98ed;
+}
+.chatHeader>div>img{
+	height: 35px;
+	margin-top: 7px;
+}
+
+.userName{
+	float:right;
+	padding-top: 15px;
+	font-weight: 500;
+	display: inline-block;
+	
+}
+
+.userWrap30 {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    vertical-align: middle;
+    align-items: center;
+    margin-right: 15px;
+
+}
+
+.chat{
+ 	 width: 80%; 
+	background-color: rgba(203, 152, 237, 0.4);
+ 	margin:0 auto 100px auto; 
+	box-shadow: 0 4px 13px 0 rgba(166,162,169, 0.70);
+}
+
+.userCard{
+	padding:10px;
+	box-shadow: 0 3px 9px 0 rgba(166,162,169, 0.60);
+	margin: 15px 0 15px 0 ;
+}
+
+.chatUser{
+	background-color: white;
+	border-right: 1px solid rgb(200,200,200);
+}
+
+.chatMain{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.chatAll{
+	height: 700px;
+	overflow: auto;
+}
+.chatForm{
+	width: 100%;
+
+	
+}
+
+.chatrow{
+  width: 85%;
+}
+
+.chatrow>textarea{
+/*       width: 100%;  */
+	height:70px;
+      resize: none;
+      overflow-y: hidden; /* prevents scroll bar flash */
+      padding: 1.1em; /* prevents text jump on Enter keypress */
+      padding-bottom: 0.2em;
+      line-height: 1.6;
+}
+
+
+.send{
+	 width: 87px;
+}
+
+
