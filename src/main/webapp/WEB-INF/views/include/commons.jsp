@@ -11,6 +11,9 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
  <link rel="stylesheet" href="./css/main.css">
+ 
+  <!-- 아이콘 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
 <!-- api 로그인 관련 -->
 <script src="js/ApiLogin.js"></script>
