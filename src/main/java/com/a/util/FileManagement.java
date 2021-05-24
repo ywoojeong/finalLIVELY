@@ -6,10 +6,12 @@ import java.util.UUID;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MultipartFilter;
 
 @Controller
 public class FileManagement {
@@ -21,38 +23,32 @@ public class FileManagement {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 	
-	public ArrayList FileUploader(MultipartFile[] files) throws IOException {
-		ArrayList filelist = new ArrayList();
+	public String FileUploader(MultipartFile multipartFile) throws IOException {
 		String FileNames ="";
-		S3Uploader.S3Uploader();
-		  for (MultipartFile mf : files) {
-			    
-	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-	            long fileSize = mf.getSize(); // 파일 사이즈
-
-	            System.out.println("originFileName : " + originFileName);
-	            System.out.println("fileSize : " + fileSize);
-	            // 확장자를 찾기 위한 코드
-	            final String ext = originFileName.substring(originFileName.lastIndexOf('.'));
-	            // 파일이름 암호화
-	            final String saveFileName = getUuid() + ext;
-	            
-	            S3Uploader.fileUpload("livelybucket",saveFileName,mf);
-	            String safeFile =System.currentTimeMillis() + saveFileName;
-	            
-	            FileNames = FileNames+","+safeFile; 
-	            System.out.println("파일 사이즈 다음" + FileNames);
-	            filelist.add(saveFileName);
-	            try {
-	            //	File f1 = new File(filepath+safeFile);
-	            //    mf.transferTo(f1);
-	            } catch (IllegalStateException e) {
-	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-	            }
-	        }
 		
-		return filelist;
+		S3Uploader.S3Uploader();
+		
+		String originFileName = multipartFile.getOriginalFilename(); // 원본 파일 명
+        long fileSize = multipartFile.getSize(); // 파일 사이즈
+
+        System.out.println("originFileName : " + originFileName);
+        System.out.println("fileSize : " + fileSize);
+        // 확장자를 찾기 위한 코드
+        final String ext = originFileName.substring(originFileName.lastIndexOf('.'));
+        // 파일이름 암호화
+        final String saveFileName = getUuid() + ext;
+        System.out.println("saveFileName : " + saveFileName);
+        S3Uploader.fileUpload("livelybucket",saveFileName,multipartFile);
+        
+        try {
+        //	File f1 = new File(filepath+safeFile);
+        //    mf.transferTo(f1);
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+		
+		return saveFileName;
 	}
 	
 }

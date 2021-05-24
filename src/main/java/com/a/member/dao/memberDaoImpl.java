@@ -43,12 +43,12 @@ public class memberDaoImpl implements memberDao {
 	@Override
 	public Integer memberNaverRegisterPro(Map<String, Object> paramMap) throws SQLException {
 		int naverSs = sql.insert("member.memberNaverRegisterPro", paramMap);
-		System.out.println("귀신이 곡할 노릇이네 " + naverSs);
+		System.out.println("다오임플 네이버 회원가입 : " + naverSs);
 		return naverSs;
 	}
 
 	@Override
-	public Map<String, Object> memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
+	public MemberDto memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
 		return sql.selectOne("member.memberNaverLoginPro", apiJson);
 	}
 
@@ -63,7 +63,7 @@ public class memberDaoImpl implements memberDao {
 	}
 
 	@Override
-	public Map<String, Object> memberKakaoLoginPro(Map<String, Object> apiJson) throws SQLException {
+	public MemberDto memberKakaoLoginPro(Map<String, Object> apiJson) throws SQLException {
 		return sql.selectOne("member.memberKakaoLoginPro", apiJson);
 	}
 
@@ -83,7 +83,7 @@ public class memberDaoImpl implements memberDao {
 	}
 
 	@Override
-	public Map<String, Object> memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
+	public MemberDto memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return sql.selectOne("member.memberGoogleLoginPro", paramMap);
 	}
 

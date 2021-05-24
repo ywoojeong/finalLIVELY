@@ -42,14 +42,14 @@
 <form name="kakaoForm" id="kakaoForm" method = "post" action="addInfo.do">
 	<input type="hidden" name="email" id="kakaoEmail" />
 	<input type="hidden" name="id" id="kakaoId" />
-	<input type="hidden" name=memberPhoto id="memberPhoto" />
 	<input type="hidden" name="flag" id="flag" value="kakao" />
 </form>
 
 <form name="googleForm" id="googleForm" method = "post" action="addInfo.do">
-<input type="hidden" name="email" id="googleEmail" />
-<input type="hidden" name="id" id="googleId" />
-<input type="hidden" name="flag" id="flag" value="google" />
+	<input type="hidden" name="email" id="googleEmail" />
+	<input type="hidden" name="id" id="googleId" />
+	<input type="hidden" name=memberPhoto id="memberPhoto" />
+	<input type="hidden" name="flag" id="flag" value="google" />
 </form>
 
 <script type="text/javascript">

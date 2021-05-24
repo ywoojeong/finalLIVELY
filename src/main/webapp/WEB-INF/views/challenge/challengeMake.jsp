@@ -239,21 +239,22 @@ function challengeperiodChange(period){
 	
 	const strArr = startDay.split('-');
 	const sDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-
-	alert("시작 날짜:"+sDate);
-	alert("sDate.getDate()" + sDate.getDate()+7);
+	//let a = sDate.getDate()
+	//alert("시작 날짜:"+sDate);
+	//alert(a+7  + "sDate.getDate()");
+	//alert(typeof(sDate.getDate()));
 	var endDate = "";
 	if(period==1){
-		endDate = sDate.setDate(sDate.getDate()+7);
+		endDate = Date(sDate.setDate(sDate.getDate())+7);
 	}
 	else if(period==2){
-		endDate = Date(sDate.setDate(sDate.getDate()+14));	
+		endDate = Date(sDate.setDate(sDate.getDate())+14);	
 	}
 	else if(period==3){
-		endDate = Date(sDate.setDate(sDate.getDate()+21));
+		endDate = Date(sDate.setDate(sDate.getDate())+21);
 	}
 	else if(period==4){
-		endDate = Date(sDate.setDate(sDate.getDate()+28));
+		endDate = Date(sDate.setDate(sDate.getDate())+28);
 	}
 	alert("종료 날짜"+endDate);
 	

@@ -12,13 +12,14 @@
 
 <div class="container">
 	<form name="memberInfo" id="memberInfo" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
-        <input type="hidden"  id="email" name="email" value="${email}"/>
-        <input type="hidden"  id="naverLogin" name="naverLogin" value="${naverLogin}"/>
-        <input type="hidden"  id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
-        <input type="hidden"  id="googleLogin" name="googleLogin" value="${googleLogin}"/>
-        <input type="hidden"  id="flag" name="flag"  value="${flag}">
+        <input type="hidden" id="email" name="email" value="${email}"/>
+        <input type="hidden" id="naverLogin" name="naverLogin" value="${naverLogin}"/>
+        <input type="hidden" id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
+        <input type="hidden" id="googleLogin" name="googleLogin" value="${googleLogin}"/>
+        <input type="hidden" id="flag" name="flag"  value="${flag}">
         <div id="addInfo" class="infoLogo">
             <div class="logo">
+            
                 <img src="image/logo.png" width="160px"/>
                  <h1>추가 정보 입력</h1>
             </div>
@@ -101,6 +102,11 @@ function register() {
     var email = $("#email").val()
     var nickname = $("#nickname").val()
     var naverLogin = $("#naverLogin").val()
+    var kakaoLogin = $("#kakaoLogin").val()
+    var googleLogin = $("#googleLogin").val()
+    console.log(googleLogin)
+    
+    var flag = $("#flag").val()
     var formData = new FormData();
     formData.append('email', email);
     formData.append('nickname', nickname);
@@ -108,16 +114,17 @@ function register() {
     formData.append('naverLogin', naverLogin);
     formData.append('kakaoLogin', kakaoLogin);
     formData.append('googleLogin', googleLogin);
-    
+    formData.append('flag', flag);
+    /* 
     $.ajax({
 		type : 'POST',
-		url : 'memberInfoPro.do',
+		url : 'memberNaverRegisterPro.do',
 		processData:false,
 		contentType: false,
 		data : formData,
 		success : function(data){
 			alert("success");
-			if(data.trim() == "YES"){
+			if(data.JavaData == "YES"){
 				alert("가입되었습니다.");
 				location.href = 'memberCon.do';
 			}else{
@@ -128,16 +135,19 @@ function register() {
 			alert("error");
 		}
 	});
-    
+     */
     $.ajax({
 		type : 'POST',
-		url : 'memberKakaoRegisterPro.do',
-		data : registerData,
-		dataType : 'json',
+		url : 'memberInfoPro.do',
+		processData:false,
+		contentType: false,
+		data : formData,
+//		dataType : 'json',
 		success : function(data){
-			if(data.JavaData == "YES"){
+			console.log(data);
+			if(data == "YES"){
 				alert("가입되었습니다.");
-				location.href = 'memberCon.do'
+				location.href = 'memberLogin.do'
 			}else{
 				alert("가입에 실패했습니다.");
 			}
@@ -146,7 +156,8 @@ function register() {
 			alert("가입에 실패했습니다."+error);
 		}
 	});
-}
+     
+};
 </script>
 
 <script type="text/javascript">
@@ -159,7 +170,7 @@ function previewImage(targetObj, previewId) {
         targetObj.select();
 
         try {
-            var src = document.selection.createRange().text; // get file full path 
+            var src = document.selection.createRange().text; //get file full path 
             var ie_preview_error = document
                     .getElementById("ie_preview_error_" + previewId);
 
@@ -201,8 +212,8 @@ function previewImage(targetObj, previewId) {
             img.id = "prev_" + previewId;
             img.classList.add("obj");
             img.file = file;
-            img.style.width = '150px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
-            img.style.height = '150px';
+            img.style.width = '168px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
+            img.style.height = '170px';
             
             preview.appendChild(img);
 
