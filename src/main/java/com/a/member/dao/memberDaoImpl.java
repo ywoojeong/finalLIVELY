@@ -42,7 +42,9 @@ public class memberDaoImpl implements memberDao {
 
 	@Override
 	public Integer memberNaverRegisterPro(Map<String, Object> paramMap) throws SQLException {
-		return sql.insert("member.memberNaverRegisterPro", paramMap);
+		int naverSs = sql.insert("member.memberNaverRegisterPro", paramMap);
+		System.out.println("다오임플 네이버 회원가입 : " + naverSs);
+		return naverSs;
 	}
 
 	@Override

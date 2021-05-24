@@ -8,14 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 /*
 CREATE TABLE MEMBER(
 		MEMBERSEQ NUMBER,
-		EMAIL VARCHAR2(20) CONSTRAINT MEM_PRI PRIMARY KEY, 
-		NICKNAME VARCHAR2(20),
-		MEMBERPHOTO VARCHAR2(50),
-		NAVERLOGIN VARCHAR2(20),
-		KAKAOLOGIN VARCHAR2(20),
-		GOOGLELOGIN VARCHAR2(20),
+		EMAIL VARCHAR2(50) CONSTRAINT MEM_PRI PRIMARY KEY, 
+		NICKNAME VARCHAR2(50),
+		MEMBERPHOTO VARCHAR2(200),
+		NAVERLOGIN VARCHAR2(50),
+		KAKAOLOGIN VARCHAR2(50),
+		GOOGLELOGIN VARCHAR2(50),
 		AUTH NUMBER,
-		MEMBERDEL NUMBER
+		MEMBERDEL NUMBER,
+		POINT NUMBER
 )
 --관리자 1, 멤버 3
 */
@@ -23,18 +24,20 @@ public class MemberDto implements Serializable{
 	
 	private String email;
 	private String nickname;
-	private MultipartFile[] memberPhoto;
+	private MultipartFile memberPhoto;
+	private String memberPhotoName;
 	private String naverLogin;
 	private String kakaoLogin;
 	private String googleLogin;
 	private int auth;		//관리자 1, 멤버 3
-	private int memberdel;	
+	private int memberdel;
+	private String flag;
 	
 	public MemberDto() {
 	}
 
-	public MemberDto(String email, String nickname, MultipartFile[] memberPhoto, String naverLogin, String kakaoLogin,
-			String googleLogin, int auth, int memberdel) {
+	public MemberDto(String email, String nickname, MultipartFile memberPhoto, String naverLogin, String kakaoLogin,
+			String googleLogin, int auth, int memberdel, String flag) {
 		super();
 		this.email = email;
 		this.nickname = nickname;
@@ -44,6 +47,7 @@ public class MemberDto implements Serializable{
 		this.googleLogin = googleLogin;
 		this.auth = auth;
 		this.memberdel = memberdel;
+		this.flag = flag;
 	}
 
 	public String getEmail() {
@@ -62,11 +66,11 @@ public class MemberDto implements Serializable{
 		this.nickname = nickname;
 	}
 
-	public MultipartFile[] getMemberPhoto() {
+	public MultipartFile getMemberPhoto() {
 		return memberPhoto;
 	}
 
-	public void setMemberPhoto(MultipartFile[] memberPhoto) {
+	public void setMemberPhoto(MultipartFile memberPhoto) {
 		this.memberPhoto = memberPhoto;
 	}
 
@@ -110,11 +114,27 @@ public class MemberDto implements Serializable{
 		this.memberdel = memberdel;
 	}
 
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getMemberPhotoName() {
+		return memberPhotoName;
+	}
+	
+	public void setMemberPhotoName(String memberPhotoName) {
+		this.memberPhotoName = memberPhotoName;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + Arrays.toString(memberPhoto)
-				+ ", naverLogin=" + naverLogin + ", kakaoLogin=" + kakaoLogin + ", googleLogin=" + googleLogin
-				+ ", auth=" + auth + ", memberdel=" + memberdel + "]";
+		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + memberPhoto + ", naverLogin="
+				+ naverLogin + ", kakaoLogin=" + kakaoLogin + ", googleLogin=" + googleLogin + ", auth=" + auth
+				+ ", memberdel=" + memberdel + ", flag=" + flag + "]";
 	}
 
 	
