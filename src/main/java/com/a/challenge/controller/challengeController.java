@@ -22,7 +22,10 @@ public class challengeController {
 	challengeService service;
 	
 	@RequestMapping(value = "hotChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String hotChallenge(Model model) {
+	public String hotChallenge(Model model, HttpSession session) {
+		
+		Map<String, Object> memberInfo = (Map<String, Object>)session.getAttribute("memberInfo");
+		model.addAttribute("memberInfo", memberInfo);
 		
 		return "challenge/hotChallenge";
 	}

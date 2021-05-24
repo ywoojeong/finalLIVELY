@@ -154,15 +154,23 @@ body{
 /*///////////////////탭부분////////////*/
 
 /*현재 결과 */
+#home{
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .resultHeader{
 	text-align: center;
 	margin-top: 30px;
-	
+	font-size: 26pt;
 }
 
 .resultChart{
-	margin-top: 45px;
-	margin-bottom: 45px;
+	margin: 45px 0;
+
+	padding-top:25px;
+	padding-bottom:25px;
+	border: 1px solid #edf0f2;
 }
 
 .userWrap80{
@@ -206,9 +214,12 @@ body{
 	 
 .identify{
 	height: 200px;
-	width: 670px;
-	margin: 0 auto;
+/* 	width: 670px; */
+	margin: 0 auto 50px auto;
+	
+	padding: 20px 0;
 }	 
+
 .identify>span{
 	font-size: 15pt;
 	font-weight: 600;
@@ -219,8 +230,79 @@ body{
 .identify  .inCount{
 	margin: 50px 0;
 }
+/*///////////////////////////////////////////////////////////*/
+/* 후기 */
+.review{
+	margin: 35px 0;
+	padding-top:25px;
+	padding-bottom:25px;
+	border: 1px solid #edf0f2;
+}
+
+.reviewBbs>p{
+	background-color: #e9e9eaff;
+	border-top: 1px solid #969696;
+	border-bottom: 1px solid #bababa;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 
 
+/* progress-bar */
+
+.progress {
+    height: 15px;
+	margin:0 auto;
+    background-color: #f2f2f2;
+    border-radius: 0px;
+    box-shadow: none;
+    width: 200px;
+    position: relative;
+}
+
+.progress-bar {
+    background-color: #8b63da;
+}
+.progress-bar span{
+    position: absolute;
+    top: -20px;
+    right: 15px;
+}
+
+.progress .progress-bar.six-sec-ease-in-out {
+  -webkit-transition: width 2s ease-in-out;
+  -moz-transition: width 2s ease-in-out;
+  -o-transition: width 2s ease-in-out;
+  transition:  width 2s ease-in-out;
+}
+/*////////////////////////////////*/
+
+
+.bar-container {
+
+width: 150px;
+
+background-color: #f1f1f1;
+
+text-align: center;
+
+color: white;
+
+}
+
+.bar {
+	
+height: 20px;
+
+background-color: #2196F3;
+
+}
+
+
+
+
+/*///////////////////////////////////////////////////////////*/
 /*채팅*/
 .chatHeader{
 	height: 50px;
@@ -264,6 +346,9 @@ body{
 	box-shadow: 0 3px 9px 0 rgba(166,162,169, 0.60);
 	margin: 15px 0 15px 0 ;
 }
+.userCard>span{
+	font-size: 10pt;
+}
 
 .chatUser{
 	background-color: white;
@@ -286,7 +371,7 @@ body{
 }
 
 .chatrow{
-  width: 85%;
+  width: 86%;
 }
 
 .chatrow>textarea{
@@ -301,7 +386,43 @@ body{
 
 
 .send{
-	 width: 87px;
+	 width: 91px;
+}
+
+/* userChatText */
+.userChatText{
+	 margin: 10px 5px;
+}
+.userChatText .userChatImg{
+	float: left;
+}
+.userTextMain{
+	float: left;
+	display: flex;
+	flex-direction: column;
+}
+.userTextMain>p{
+	font-size: 10pt;
+	margin-bottom: 3px;
+	
+}	
+.userTextMain2{
+	width: 300px;
+	display: flex;
+	align-items: flex-end;
+}
+.userTextMain2>div{
+	padding:5px;
+	width: 220px;
+	background-color:white;
+	font-size:10pt;
+	box-shadow: 0 3px 9px 0 rgba(166,162,169, 0.60);
+}
+.userTextMain2>span{
+	color:#808080;
+	font-size:9pt;
+	margin-left: 5px;
+	
 }
 
 
