@@ -48,16 +48,18 @@ public class memberRestController {
 	}
 
 
-	 // 회원가입 추가 정보
-	 
-	 @RequestMapping(value="memberInfoPro.do", method = {RequestMethod.POST,RequestMethod.GET}) 
-	 public String memberInfo(MemberDto dto) throws Exception {
+	// 회원가입 추가 정보
+	
+	@RequestMapping(value="memberInfoPro.do", method = {RequestMethod.POST,RequestMethod.GET}) 
+	public String memberInfo(MemberDto dto) throws Exception {
 		System.out.println("회원가입 정보 추가 + memberInfoPro.do"); 
 		
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getNickname());
-		ArrayList memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
-		System.out.println("멤버포토 들어왔니 " + memberPhoto);
+		System.out.println(dto.getFlag());
+		String memberPhotoName = fileManagement.FileUploader(dto.getMemberPhoto());
+		dto.setMemberPhotoName(memberPhotoName);
+//		System.out.println("멤버포토 들어왔니 " + memberPhoto);
 		System.out.println(dto);
 		boolean regiPro =  service.memberInfoPro(dto);
 		System.out.println("다녀왔니 : " + regiPro );
@@ -71,10 +73,12 @@ public class memberRestController {
 	 }
 	 
 	// 네이버 회원 가입 부분
-	@RequestMapping(value="/memberNaverRegisterPro.do", method=RequestMethod.POST)
-	public Map<String, Object> memberNaverRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+	@RequestMapping(value="memberNaverRegisterPro.do", method = {RequestMethod.POST, RequestMethod.GET}) 
+	public Map<String, Object> memberNaverRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
 		System.out.println("paramMap:" + paramMap);
 		System.out.println("네이버 회원가입부분");
+		String memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
+		paramMap.put("memberPhoto", memberPhoto);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		Integer registerCheck = service.memberNaverRegisterPro(paramMap);
 		System.out.println(registerCheck);
@@ -115,8 +119,10 @@ public class memberRestController {
 	
 	// 회원가입 분류
 	@RequestMapping(value="/memberSnsRegisterPro.do", method=RequestMethod.POST)
-	public Map<String, Object> memberSnsRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+	public Map<String, Object> memberSnsRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
 		System.out.println("memberSnsRegisterPro.do의 paramMap:" + paramMap);
+		String memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
+		paramMap.put("memberPhoto", memberPhoto);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		String flag = (String) paramMap.get("flag");
 		Integer registerCheck = null;
@@ -127,7 +133,7 @@ public class memberRestController {
 		}
 		
 		else if(flag.equals("google")) {
-			registerCheck = service.memberNaverRegisterPro(paramMap);
+			registerCheck = service.memberGoogleRegisterPro(paramMap);
 		}
 		
 		if(registerCheck != null && registerCheck > 0) {
@@ -139,7 +145,7 @@ public class memberRestController {
 			}
 			
 			else if(flag.equals("google")) {
-				loginCheck = service.memberNaverLoginPro(paramMap);
+				loginCheck = service.memberGoogleLoginPro(paramMap);
 			}
 			
 			session.setAttribute("memberInfo", loginCheck);
