@@ -59,6 +59,9 @@ nav a:first-child {
         <li class="nav-item">
           <a class="nav-link" href="newChallenge.do">NEW CHALLENGE</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:signOut();">로그아웃</a>
+        </li>
       </ul>
       <form class="d-flex">
       	

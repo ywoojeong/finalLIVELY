@@ -48,7 +48,7 @@ public class memberDaoImpl implements memberDao {
 	}
 
 	@Override
-	public Map<String, Object> memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
+	public MemberDto memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
 		return sql.selectOne("member.memberNaverLoginPro", apiJson);
 	}
 
@@ -63,7 +63,7 @@ public class memberDaoImpl implements memberDao {
 	}
 
 	@Override
-	public Map<String, Object> memberKakaoLoginPro(Map<String, Object> apiJson) throws SQLException {
+	public MemberDto memberKakaoLoginPro(Map<String, Object> apiJson) throws SQLException {
 		return sql.selectOne("member.memberKakaoLoginPro", apiJson);
 	}
 
@@ -83,7 +83,7 @@ public class memberDaoImpl implements memberDao {
 	}
 
 	@Override
-	public Map<String, Object> memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
+	public MemberDto memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return sql.selectOne("member.memberGoogleLoginPro", paramMap);
 	}
 

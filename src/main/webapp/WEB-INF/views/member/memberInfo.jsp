@@ -12,11 +12,11 @@
 
 <div class="container">
 	<form name="memberInfo" id="memberInfo" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
-        <input type="hidden"  id="email" name="email" value="${email}"/>
-        <input type="hidden"  id="naverLogin" name="naverLogin" value="${naverLogin}"/>
-        <input type="hidden"  id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
-        <input type="hidden"  id="googleLogin" name="googleLogin" value="${googleLogin}"/>
-        <input type="hidden"  id="flag" name="flag"  value="${flag}">
+        <input type="hidden" id="email" name="email" value="${email}"/>
+        <input type="hidden" id="naverLogin" name="naverLogin" value="${naverLogin}"/>
+        <input type="hidden" id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
+        <input type="hidden" id="googleLogin" name="googleLogin" value="${googleLogin}"/>
+        <input type="hidden" id="flag" name="flag"  value="${flag}">
         <div id="addInfo" class="infoLogo">
             <div class="logo">
             
@@ -103,7 +103,9 @@ function register() {
     var nickname = $("#nickname").val()
     var naverLogin = $("#naverLogin").val()
     var kakaoLogin = $("#kakaoLogin").val()
-    var gooleLogin = $("#gooleLogin").val()
+    var googleLogin = $("#googleLogin").val()
+    console.log(googleLogin)
+    
     var flag = $("#flag").val()
     var formData = new FormData();
     formData.append('email', email);
@@ -145,7 +147,7 @@ function register() {
 			console.log(data);
 			if(data == "YES"){
 				alert("가입되었습니다.");
-				location.href = 'memberCon.do'
+				location.href = 'memberLogin.do'
 			}else{
 				alert("가입에 실패했습니다.");
 			}
@@ -210,8 +212,8 @@ function previewImage(targetObj, previewId) {
             img.id = "prev_" + previewId;
             img.classList.add("obj");
             img.file = file;
-            img.style.width = '150px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
-            img.style.height = '150px';
+            img.style.width = '168px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
+            img.style.height = '170px';
             
             preview.appendChild(img);
 

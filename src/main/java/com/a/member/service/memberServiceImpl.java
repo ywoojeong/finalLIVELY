@@ -45,7 +45,7 @@ public class memberServiceImpl implements memberService {
 	}
 
 	@Override
-	public Map<String, Object> memberNaverLoginPro(Map<String, Object> paramMap) throws SQLException {
+	public MemberDto memberNaverLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberNaverLoginPro(paramMap);
 	}
 
@@ -60,7 +60,7 @@ public class memberServiceImpl implements memberService {
 	}
 
 	@Override
-	public Map<String, Object> memberKakaoLoginPro(Map<String, Object> paramMap) throws SQLException {
+	public MemberDto memberKakaoLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberKakaoLoginPro(paramMap);
 	}
 
@@ -80,7 +80,7 @@ public class memberServiceImpl implements memberService {
 	}
 
 	@Override
-	public Map<String, Object> memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
+	public MemberDto memberGoogleLoginPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberGoogleLoginPro(paramMap);
 	}
 
