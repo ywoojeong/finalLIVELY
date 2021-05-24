@@ -49,18 +49,20 @@ public class memberRestController {
 
 
 	// 회원가입 추가 정보
-	
 	@RequestMapping(value="memberInfoPro.do", method = {RequestMethod.POST,RequestMethod.GET}) 
-	public String memberInfo(MemberDto dto) throws Exception {
+	public String memberInfo(MemberDto dto, HttpSession session) throws Exception {
 		System.out.println("회원가입 정보 추가 + memberInfoPro.do"); 
 		
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getNickname());
 		System.out.println(dto.getFlag());
+		System.out.println(dto.getGoogleLogin());
 		String memberPhotoName = fileManagement.FileUploader(dto.getMemberPhoto());
 		dto.setMemberPhotoName(memberPhotoName);
-//		System.out.println("멤버포토 들어왔니 " + memberPhoto);
-		System.out.println(dto);
+		System.out.println("memberDto 값 2:" + dto);
+		
+		session.invalidate();
+		
 		boolean regiPro =  service.memberInfoPro(dto);
 		System.out.println("다녀왔니 : " + regiPro );
 		String msg = "";
@@ -71,7 +73,7 @@ public class memberRestController {
 			return msg = "NO";
 		}
 	 }
-	 
+	/* 
 	// 네이버 회원 가입 부분
 	@RequestMapping(value="memberNaverRegisterPro.do", method = {RequestMethod.POST, RequestMethod.GET}) 
 	public Map<String, Object> memberNaverRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
@@ -92,10 +94,10 @@ public class memberRestController {
 		}
 		return resultMap;
 	}
-	
+	*/
 	// 카카오 회원 가입
 	@RequestMapping(value="memberKakaoLoginPro.do", method=RequestMethod.POST)
-	public Map<String, Object> memberkakaoLoginPro(@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+	public Map<String, Object> memberkakaoLoginPro(Model model ,@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
 		System.out.println("memberKakaoLoginPro.do 의 paramMap:" + paramMap);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -105,11 +107,11 @@ public class memberRestController {
 		}else if(kakaoConnectionCheck.get("KAKAOLOGIN") == null && kakaoConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
 			System.out.println("kakaoLogin");
 			service.setKakaoConnection(paramMap);
-			Map<String, Object> loginCheck = service.memberKakaoLoginPro(paramMap);
+			MemberDto loginCheck = service.memberKakaoLoginPro(kakaoConnectionCheck);
 			session.setAttribute("memberInfo", loginCheck);
 			resultMap.put("JavaData", "YES");
 		}else{
-			Map<String, Object> loginCheck = service.memberKakaoLoginPro(paramMap);
+			MemberDto loginCheck = service.memberKakaoLoginPro(kakaoConnectionCheck);
 			session.setAttribute("memberInfo", loginCheck);
 			resultMap.put("JavaData", "YES");
 		}
@@ -120,11 +122,12 @@ public class memberRestController {
 	// 회원가입 분류
 	@RequestMapping(value="/memberSnsRegisterPro.do", method=RequestMethod.POST)
 	public Map<String, Object> memberSnsRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
-		System.out.println("memberSnsRegisterPro.do의 paramMap:" + paramMap);
+		System.out.println("멤버sns회원가입 paramMap:" + paramMap);
 		String memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
 		paramMap.put("memberPhoto", memberPhoto);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		String flag = (String) paramMap.get("flag");
+		System.out.println("멤버sns회원가입 flag:" + flag);
 		Integer registerCheck = null;
 		if(flag.equals("kakao")) {
 			registerCheck = service.memberKakaoRegisterPro(paramMap);
@@ -137,7 +140,7 @@ public class memberRestController {
 		}
 		
 		if(registerCheck != null && registerCheck > 0) {
-			Map<String, Object> loginCheck = null;
+			MemberDto loginCheck = null;
 			if(flag.equals("kakao")) {
 				loginCheck = service.memberKakaoLoginPro(paramMap);
 			}else if(flag.equals("naver")) {
@@ -158,25 +161,24 @@ public class memberRestController {
 	
 	// 구글 로그인
 	@RequestMapping(value="/googleLoginPro.do",  method = {RequestMethod.GET,RequestMethod.POST})
-	public Map<String, Object> googleLoginPro(Model model,@RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
-		System.out.println("paramMap:" + paramMap);
+	public Map<String, Object> googleLoginPro(Model model, @RequestParam Map<String,Object> paramMap,HttpSession session) throws SQLException, Exception {
+		System.out.println("구글 로그인 프로 paramMap:" + paramMap);
 		Map <String, Object> resultMap = new HashMap<String, Object>();
 		Map <String, Object> googleConnectionCheck = service.googleConnectionCheck(paramMap);
-		System.out.println(googleConnectionCheck);
+		System.out.println("구글로그인프로 구글컨넥체크" + googleConnectionCheck);
 		
 		if(googleConnectionCheck == null) { //일치하는 이메일 없으면 가입
 			resultMap.put("JavaData", "register");
 		}else if(googleConnectionCheck.get("GOOGLELOGIN") == null && googleConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
 			service.setGoogleConnection(paramMap);
-			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);
+			MemberDto loginCheck = service.memberGoogleLoginPro(googleConnectionCheck);
 			session.setAttribute("memberInfo", loginCheck);
-			
-			System.out.println("구글 로그인의 세션 : " + loginCheck);
-			
+			System.out.println("GOOGLELOGIN 이메일 확인" + loginCheck);
 			resultMap.put("JavaData", "YES");
 		}else { //모두 연동 되어있을시
-			Map<String, Object> loginCheck = service.memberGoogleLoginPro(paramMap);
+			MemberDto loginCheck = service.memberGoogleLoginPro(googleConnectionCheck);
 			session.setAttribute("memberInfo", loginCheck);
+			System.out.println("구글 로그인 확인 : " + loginCheck);
 			resultMap.put("JavaData", "YES");
 		}
 

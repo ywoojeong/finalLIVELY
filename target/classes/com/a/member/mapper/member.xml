@@ -35,15 +35,14 @@
 		UPDATE MEMBER SET NAVERLOGIN = #{naverLogin}
 		WHERE EMAIL = #{email}
 	</update>
-
-	<!-- 네이버 회원가입 -->
+	<!-- 
 	<insert id="memberNaverRegisterPro" parameterType="java.util.Map">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
 		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{naverLogin}, 3, 0, 0)
 	</insert>
-	
+	 -->
 	<!-- 네이버 로그인 -->
-	<select id="memberNaverLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="memberNaverLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME FROM MEMBER 
 		WHERE EMAIL = #{email} AND NAVERLOGIN = #{naverLogin}
 	</select>
@@ -60,16 +59,16 @@
 		WHERE EMAIL = #{email}
 	</update>
 	
-	<select id="memberKakaoLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="memberKakaoLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME FROM MEMBER 
-		WHERE EMAIL = #{email} AND KAKAOLOGIN = #{kakaoLogin}
+		WHERE EMAIL = #{EMAIL} AND KAKAOLOGIN = #{KAKAOLOGIN}
 	</select>
-	
+	<!-- 
 	<insert id="memberKakaoRegisterPro" parameterType="java.util.Map">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, KAKAOLOGIN, AUTH, MEMBERDEL, POINT) 
 		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{kakaoLogin}, 3, 0, 0)
 	</insert>
-	
+	 -->
 	<!-- 여기서부터 구글 -->
 	<select id="googleConnectionCheck" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT EMAIL, NICKNAME, GOOGLELOGIN FROM MEMBER 
@@ -81,14 +80,14 @@
 		WHERE EMAIL = #{email}
 	</update>
 	
-	<select id="memberGoogleLoginPro" resultType="java.util.Map" parameterType="java.util.Map">
+	<select id="memberGoogleLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME FROM MEMBER 
-		WHERE EMAIL = #{email} AND GOOGLELOGIN = #{googleLogin}
+		WHERE EMAIL = #{EMAIL} AND GOOGLELOGIN = #{GOOGLELOGIN}
 	</select>
-	
+	<!-- 
 	<insert id="memberGoogleRegisterPro" parameterType="java.util.Map">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, GOOGLELOGIN, AUTH, MEMBERDEL, POINT) 
 		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{googleLogin}, 3, 0, 0)
 	</insert>
-	
+	 -->
 </mapper>

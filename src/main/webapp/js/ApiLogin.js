@@ -31,7 +31,7 @@ function memberKakaoLoginPro(response){
 			console.log(data)
 			if(data.JavaData == "YES"){
 				alert("로그인되었습니다.");
-				location.href = 'home.do'
+				location.href = 'memberCon.do'
 			}else if(data.JavaData == "register"){
 				alert("추가정보 입력 필요")
 				$("#kakaoEmail").val(response.kakao_account.email);
@@ -39,12 +39,12 @@ function memberKakaoLoginPro(response){
 				$("#memberPhoto").val(memberPhoto);
 				$("#kakaoForm").submit();
 			}else{
-				alert("로그인에 실패했습니다");
+				alert("로그인에 실패했습니다--");
 			}
 			
 		},
 		error: function(xhr, status, error){
-			alert("로그인에 실패했습니다."+error);
+			alert("로그인에 실패했습니다!!"+error);
 		}
 	});
 	
@@ -73,6 +73,7 @@ function googleLoginPro(profile){
 		data : {email: profile.getEmail(), id:profile.getId()},
 		dataType : 'json',
 		success : function(data){
+			console.log(data)
 			if(data.JavaData == "YES"){
 				location.href = 'memberCon.do'
 			}else if(data.JavaData == "register"){
@@ -82,12 +83,12 @@ function googleLoginPro(profile){
 				$("#memberPhoto").val(memberPhoto);
 				$("#googleForm").submit();
 			}else{
-				alert("로그인에 실패했습니다");
+				alert("로그인에 실패했습니다-");
 			}
 			
 		},
 		error: function(xhr, status, error){
-			alert("로그인에 실패했습니다."+error);
+			alert("로그인에 실패했습니다!"+error);
 		}
 	});
 };
