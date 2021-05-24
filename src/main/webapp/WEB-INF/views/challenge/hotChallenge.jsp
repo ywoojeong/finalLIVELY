@@ -3,15 +3,21 @@
 
  <link href="./css/challenge.css" rel="stylesheet">   
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<!-- <div class="" style="margin-top:70px;"> -->
+ <!-- core tag -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+ 
+ 
+ 
+ <div class="" style="margin-top:70px;"> 
 	<div class="hotMain">
 		<div class="hotMainCover"></div>
 		<div class="hotMainSen">	
 			<h2>최근 인기있는 챌린지에 동참하세요</h2>
 			<p>새로운 챌린지를 만들어보세요. LIVELY는 여러분의 챌린지를 기다립니다.</p>
-			<!-- 챌린지 만들기 버튼 -->
+			<!-- 챌린지 만들기 버튼 세션 없으면 로그인 / 있으면 만들기-->
 			<div class="chall-buttons">
 			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
+			 	
 			 </div>
 		</div>
 	
@@ -134,7 +140,15 @@ function challengeDetailBtn(){
 	location.href="challengeDetail.do";
 }
 function challengeMake(){
-	location.href="challengeMake.do";	
+	var email ="";
+	email = '${memberInfo.EMAIL }';
+	if(email!=null && email != ""){
+		location.href="challengeMake.do";	
+	}else{
+		alert("로그인 해주세요.");
+		return false;
+	}
+	
 }
 
 /* $(".nav-pills").find('a').click(function(){

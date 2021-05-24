@@ -3,6 +3,16 @@
 
  <link rel="stylesheet" href="./css/challengeDetail.css" />
  
+  <!-- core tag -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<!-- format 사용시 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <!-- jsp태그 -->
+<jsp:useBean id="now" class="java.util.Date" />
+
+ 
+ 
+ 
  
 <div class="backDiv" style="background-image: url('image/challengeBack.png')">
 	<div class="container challHeader">
@@ -113,44 +123,116 @@
 		<div id="home" class="container tab-pane active">
 			<h1 class="resultHeader">얼마나 달성되었나요?</h1>
 			<div class="row resultChart">
-				<div class="col-sm-6 ">
-					<div class="card-panel text-center">
+				<div class="col-sm-6" style="border-right: 1px solid #edf0f2">
+					<div class="card-panel text-center" >
 						<div class="easypiechart" id="easypiechart-total" data-percent="82" >
 							<span class="percent">82%</span>
 						</div>
-						<h3>전체</h3>
+						<h4>전체</h4>
 					</div> 					
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-6" >
 					<div class="card-panel text-center">
 						<div class="easypiechart" id="easypiechart-user" data-percent="82" >
 							<span class="percent">82%</span>
 						</div>
-						<h3>LemonLime 님</h3>
+						<h4>LemonLime 님</h4>
 					</div> 	
 				</div>
 			</div> 
 			<div class="identify text-center">
-					<img class="userWrap80" src="" onerror="this.src='image/user_80px.jpg'">
-					<span>LemonLime님의 인증 횟수입니다</span><br>
-					<div class="inCount">
-						<%for(int i=0;i<5;i++){ %>
-							<img  src="image/identify.png" style="background-color: #8b63da">	
-						<%} %>
-						<%for(int i=0;i<14-5;i++){ %>
-							<img  src="image/identify.png" style="background-color: #e9e9eaff">	
-						<%} %>
-						<span style="font-size: 13pt;color:#7a777d;">5/14회</span>
-					</div>
+				<p>LemonLime님의 인증 횟수는 얼마일까요</p>
+				<img class="userWrap80" src="" onerror="this.src='image/user_80px.jpg'">
+				<span>LemonLime님의 인증 횟수입니다</span><br>
+				<div class="inCount">
+					<%for(int i=0;i<5;i++){ %>
+						<img  src="image/identify.png" style="background-color: #8b63da">	
+					<%} %>
+					<%for(int i=0;i<14-5;i++){ %>
+						<img  src="image/identify.png" style="background-color: #e9e9eaff">	
+					<%} %>
+					<span style="font-size: 13pt;color:#7a777d;">5/14회</span>
+				</div>
 			</div>
- 
 	    </div>
+	     <!--///////////////////////// 후기 끝 /////////////////////-->
 	    
 	     <!-- 후기 -->
         <div id="category1" class="container tab-pane fade"><br>
-      		
+      		<div class="row review">
+				<div class="col-sm-6 text-center" style="border-right: 1px solid #edf0f2">
+					<h2>만족도</h2>
+      				<h1>4.6</h1>
+      				<img src="image/star1.png" style="height: 30px;">
+      				<p>35 건</p>			
+				</div>
+				<div class="col-sm-6 text-center">
+					<table>
+						<tr>
+							<td>5점</td>
+							<td>
+								<div class="progress">
+					                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+					               		<span>65%</span>
+					                </div>
+					            </div>
+							</td>
+							<td>85%</td>
+						</tr>
+						<tr>
+							<td>4점</td>
+							<td>
+								<div class="progress">
+					                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+					               		<span>65%</span>
+					                </div>
+					            </div>
+							</td>
+							<td>85%</td>
+						</tr>
+						<tr>
+							<td>3점</td>
+							<td>
+								<div class="progress">
+					                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+					               		<span>65%</span>
+					                </div>
+					            </div>
+							</td>
+							<td>85%</td>
+						</tr>
+						<tr>
+							<td>2점</td>
+							<td>
+								<div class="progress">
+					                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+					               		<span>65%</span>
+					                </div>
+					            </div>
+							</td>
+							<td>85%</td>
+						</tr>
+						<tr>
+							<td>1점</td>
+							<td>
+								<div class="progress">
+					                <div class="progress-bar six-sec-ease-in-out" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 65%;">
+					               		<span>65%</span>
+					                </div>
+					            </div>
+							</td>
+							<td>85%</td>
+						</tr>	
+					</table>
+				</div>	
+			</div>
+			
+			<div class="reviewBbs">
+				<p>253개 후기가 있습니다</p>
+			
+			</div> 
  	    </div>
-	    
+	     <!--///////////////////////// 후기 끝 /////////////////////-->
 	    
 	     <!-- 대화 -->
 	     <div id="category2" class="container tab-pane fade"><br>
@@ -166,7 +248,7 @@
 	     		</div>
 	     	</div>
 	     	<div class="row chat">
-	     		<div class="d-none d-sm-block col-sm-4 chatUser">
+	     		<div class="d-none d-sm-block col-sm-3 chatUser">
 	     			<%for(int i=0;i<5;i++){ %>
  	     				<div class="userCard"> 
 	     					<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
@@ -175,9 +257,18 @@
 	     				</div>
 	     			<%} %>
 	     		</div>
-	     		<div class="col-sm-8 chatMain">
+	     		<div class="col-sm-9 chatMain">
 	     			<div class="chatAll">
-	     			
+	     				<div class="userChatText">
+	     					<img class="userChatImg userWrap" src="" onerror="this.src='image/user_80px.jpg'">
+	     					<div class="userTextMain">
+	     						<p>LemonLime</p>
+	     					  <div class="userTextMain2">
+	     						<div>채팅한 데이터를 넣어놓는데 만약에 길어지면 어떻게 되는 지 너무 궁금하군요?호호호</div>
+	     						<span><fmt:formatDate value="${now}" pattern="MM-dd HH:mm" /></span>
+	     					  </div>
+	     					</div>
+	     				</div>
 	     			</div>
 					<div class="input-group chatForm">	
 				   		<div class="chatrow">
@@ -190,6 +281,8 @@
 	     		</div>
 	     	</div>      	
 	    </div>
+	    <!--///////////////////////// 대화 끝 /////////////////////-->
+	    
 	  </div>
 	</div>
 </div>
@@ -230,14 +323,13 @@
 <!-- 결과 차트 js -->
 <script src="js/easypiechart.js"></script>
 
-
 <script type="text/javascript">
 //결과 차트 모션
 $(function() {
     $('#easypiechart-total').easyPieChart({
         scaleColor: false,
         barColor: '#8b63da'
-    });
+     });
 });
 
 $(function() {
@@ -256,6 +348,7 @@ $(function() {
       });
       $('.wrap').find( 'textarea' ).keyup();
     });
+    
 </script>
 
 
