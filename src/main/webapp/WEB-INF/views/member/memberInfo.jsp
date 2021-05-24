@@ -19,6 +19,7 @@
         <input type="hidden"  id="flag" name="flag"  value="${flag}">
         <div id="addInfo" class="infoLogo">
             <div class="logo">
+            
                 <img src="image/logo.png" width="160px"/>
                  <h1>추가 정보 입력</h1>
             </div>
@@ -101,6 +102,9 @@ function register() {
     var email = $("#email").val()
     var nickname = $("#nickname").val()
     var naverLogin = $("#naverLogin").val()
+    var kakaoLogin = $("#kakaoLogin").val()
+    var gooleLogin = $("#gooleLogin").val()
+    var flag = $("#flag").val()
     var formData = new FormData();
     formData.append('email', email);
     formData.append('nickname', nickname);
@@ -108,16 +112,17 @@ function register() {
     formData.append('naverLogin', naverLogin);
     formData.append('kakaoLogin', kakaoLogin);
     formData.append('googleLogin', googleLogin);
-    
+    formData.append('flag', flag);
+    /* 
     $.ajax({
 		type : 'POST',
-		url : 'memberInfoPro.do',
+		url : 'memberNaverRegisterPro.do',
 		processData:false,
 		contentType: false,
 		data : formData,
 		success : function(data){
 			alert("success");
-			if(data.trim() == "YES"){
+			if(data.JavaData == "YES"){
 				alert("가입되었습니다.");
 				location.href = 'memberCon.do';
 			}else{
@@ -128,14 +133,17 @@ function register() {
 			alert("error");
 		}
 	});
-    
+     */
     $.ajax({
 		type : 'POST',
-		url : 'memberKakaoRegisterPro.do',
-		data : registerData,
-		dataType : 'json',
+		url : 'memberInfoPro.do',
+		processData:false,
+		contentType: false,
+		data : formData,
+//		dataType : 'json',
 		success : function(data){
-			if(data.JavaData == "YES"){
+			console.log(data);
+			if(data == "YES"){
 				alert("가입되었습니다.");
 				location.href = 'memberCon.do'
 			}else{
@@ -146,7 +154,8 @@ function register() {
 			alert("가입에 실패했습니다."+error);
 		}
 	});
-}
+     
+};
 </script>
 
 <script type="text/javascript">
@@ -159,7 +168,7 @@ function previewImage(targetObj, previewId) {
         targetObj.select();
 
         try {
-            var src = document.selection.createRange().text; // get file full path 
+            var src = document.selection.createRange().text; //get file full path 
             var ie_preview_error = document
                     .getElementById("ie_preview_error_" + previewId);
 
