@@ -5,6 +5,7 @@
 .footerLivley{
 width:100vw;
 background-color: white;
+margin-top: 50px;
 }
 .info{list-style: none;}
 .info_svc a:hover{color: #6c757d;font-weight: 600}
