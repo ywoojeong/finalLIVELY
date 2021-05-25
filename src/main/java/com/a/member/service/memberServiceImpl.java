@@ -88,6 +88,11 @@ public class memberServiceImpl implements memberService {
 	public Integer memberGoogleRegisterPro(Map<String, Object> paramMap) throws SQLException {
 		return memberDao.memberGoogleRegisterPro(paramMap);
 	}
+
+	@Override
+	public MemberDto memberSession(String email) throws SQLException {
+		return memberDao.memberSession(email);
+	}
 	
 	
 }

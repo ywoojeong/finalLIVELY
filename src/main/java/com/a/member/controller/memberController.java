@@ -151,4 +151,10 @@ public class memberController {
 		session.invalidate();
 		return "redirect:intro.do";
 	}
+	/*
+	@RequestMapping(value="memberSession.do")
+	public String memberSession(Model model) {
+		
+	}
+	*/
 }

@@ -25,4 +25,5 @@ public interface memberService {
 	MemberDto memberGoogleLoginPro (Map<String, Object> paramMap) throws SQLException;
 	Integer memberGoogleRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	
+	public MemberDto memberSession(String email) throws SQLException;
 }
