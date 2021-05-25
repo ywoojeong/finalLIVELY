@@ -24,7 +24,7 @@ public class challengeController {
 	@RequestMapping(value = "hotChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String hotChallenge(Model model, HttpSession session) {
 		
-		Map<String, Object> memberInfo = (Map<String, Object>)session.getAttribute("memberInfo");
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 		model.addAttribute("memberInfo", memberInfo);
 		
 		return "challenge/hotChallenge";
@@ -41,7 +41,7 @@ public class challengeController {
 	public String challengeMake(Model model, HttpSession session) {
 		
 		
-		HashMap<String, Object> member = (HashMap<String, Object>)session.getAttribute("memberInfo");
+			MemberDto member = (MemberDto)session.getAttribute("memberInfo");
 		
 		 //*{NICKNAME=LemonLime, GOOGLELOGIN=112957813385668127996, EMAIL=final.5623@gmail.com}
 		
