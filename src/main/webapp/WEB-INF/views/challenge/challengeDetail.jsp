@@ -12,8 +12,9 @@
 
 <script>
 $(document).ready(function(){
-// 	$(".chall-buttons").hide();
-//$(".reviewSummerNote").hide();
+	  $('[data-toggle="popover"]').popover();   
+//$(".chall-buttons").hide();
+
 //	$("#pro1").css("width", "80%");
 });
 </script>
@@ -21,7 +22,13 @@ $(document).ready(function(){
  
 <div class="backDiv" style="background-image: url('image/challengeBack.png')">
 	<div class="container challHeader">
-		<h1>하루에 1L씩 물먹기</h1>
+		<div>
+			<h1>하루에 1L씩 물먹기</h1>
+			<img src="image/checkFill.svg" style="height: 60px;">
+			<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
+			  <img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'" style="height: 55px;opacity: 70%;">
+			</a>
+		</div>
 		<p>내일부터 시작 | 모집 마감</p>
 		<label>평일 매일</label><label>3주 동안</label><span class="period">05.11(화) ~ 05.28(금)</span><br>
 		<span class="explain">평일 매일 3주동안, 하루에 1번 18시에 인증해야 합니다.</span>
@@ -155,15 +162,15 @@ $(document).ready(function(){
 				<span>LemonLime님의 인증 횟수는?</span><br>
 				<div class="inCount">
 					<div style="display: flex;flex-direction:column;">
-						<h5>8위</h5>
-						<i class="fas fa-trophy fa-4x"></i>
+						<h5 style="margin-bottom: 0;font-size: 13pt;color:#8b63da">8위</h5>
+						<img src="image/mytrophy1.svg" style="height:85px;filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));">
 					</div>
 					<span class="d-none d-sm-block">
 						<%for(int i=0;i<5;i++){ %>
-							<img src="image/identify.png" style="background-color: #8b63da">	
+							<img src="image/identify1.png" style="background-color: #8b63da">	
 						<%} %>
 						<%for(int i=0;i<14-5;i++){ %>
-							<img src="image/identify.png" style="background-color: #e9e9eaff">	
+							<img src="image/identify1.png" style="background-color:white">	
 						<%} %>
 						<span style="font-size: 11pt;color:#7a777d;margin-left: 10px;">5/14회</span>
 					</span>
@@ -175,18 +182,18 @@ $(document).ready(function(){
 				<h3>TOP3 순위</h3>
 				<div class="row text-center" style="width: 80%;margin:30px auto 20px auto";>
 					<div class="col-sm-4 gradeTop" style="color:#e6ba1e;border-right:1px solid #edf0f2">
-						<h5 style="font-size: 13pt">1위</h5>
-						<i class="fas fa-trophy fa-4x" style="filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));"></i>
+						<h5 style="font-size: 13pt;margin-bottom:0">1위</h5>
+						<img src="image/gold1.svg" style="height:85px;filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));">
 						<h5 style="margin-top: 10px;">LemonLime</h5>
 					</div>
 					<div class="col-sm-4 gradeTop" style="color: #c7c7c7;border-right:1px solid #edf0f2">
-						<h5 style="font-size: 13pt">2위</h5>
-						<i class="fas fa-trophy fa-4x" style="filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));"></i>
+						<h5 style="font-size: 13pt;margin-bottom:0">2위</h5>
+						<img src="image/silver1.svg" style="height:85px;filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));">
 						<h5 style="margin-top: 10px;">LemonLime</h5>
 					</div>
 					<div class="col-sm-4 gradeTop" style="color: #82590d;">
-						<h5 style="font-size: 13pt">3위</h5>
-						<i class="fas fa-trophy fa-4x" style="filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));"></i>
+						<h5 style="font-size: 13pt;margin-bottom:0">3위</h5>
+						<img src="image/coper1.svg" style="height:85px;filter: drop-shadow(3px 3px 2px rgba(0,0,0,0.2));">
 						<h5 style="margin-top: 10px;">LemonLime</h5>
 					</div>			
 				</div>
@@ -217,16 +224,12 @@ $(document).ready(function(){
 	     <!-- 후기 -->
         <div id="category1" class="container tab-pane fade"><br>
         	<!-- 챌린지 참가한 사람들만 보이게 제어(한번 작성하면 버튼 hide) -->
-        	
-        	
+   	
 				<div class="chall-buttons">
 					<a class="modalBtn" data-toggle="modal" data-target="#myModal2">
 			 			<button type="button" class="chall-btn-hover color-3"  id="reviewMakeBtn" >후기 작성</button>
 			 		</a> 	
 				</div>
-
-        	
-			
 
 			 <!-- ///////////////후기 작성 끝////////////////// -->
       		<div class="row review">
@@ -445,7 +448,7 @@ $(document).ready(function(){
   
   <!-- 후기작성 모달 -->
   <div class="modal" id="myModal2" >
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl" style="top:30%">
       <div class="modal-content">
       
         <!-- Modal body -->
@@ -455,39 +458,18 @@ $(document).ready(function(){
           <div class="reviewSummerNote">
 		        <h3>후기 작성</h3>
 		        <form name="reviewform" class="reviewform" method="post" action="/save">
-		        	<input type="hidden" name="rate" id="rate" value="0"/>
-		            <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>   		 
-                    <div class="review_rating rating_point">   
-	                    <div class="rating">
-	                        <div class="ratefill"></div>
-	                        <!-- [D] 해당 별점이 선택될 때 그 점수 이하의 input엘리먼트에 checked 클래스 추가 -->
-	                        <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점">
-	                        <label for="rating1" style="background-image: url('./img/starrate.png')"></label>
-	                        <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점">
-	                        <label for="rating2" style="background-image: url('./img/starrate.png')"></label>
-	                        <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" >
-	                        <label for="rating3" style="background-image: url('./img/starrate.png')"></label>
-	                        <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점">
-	                        <label for="rating4" style="background-image: url('./img/starrate.png')"></label>
-	                        <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점">
-	                        <label for="rating5" style="background-image: url('./img/starrate.png')"></label>
-	                    </div>   
-	                    <div class="warning_msg">별점을 선택해 주세요.</div>
-	                 </div> 
-    					
-    				 <input type="button"  name="save" id="save" class="btn" value="Review">
-    				 <div class="warning_msg2">5자 이상의 리뷰 내용을 작성해 주세요.</div>
-                     <div class="review_contents" style="background-color: white">
-                        <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-                     </div> 
+		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>   		 
+                   <div class="review_contents" style="background-color: white">
+                     <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
+                   </div> 
 		        </form>
    			</div>
 
         </div>
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn">후기 작성</button>
+        <div class="modal-footer" style="justify-content: center">
+          <button type="button" name="save" id="save" class="btn" style="width: 200px">후기 작성</button>
         </div>
         
       </div>
