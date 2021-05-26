@@ -1,0 +1,150 @@
+/* 영어 포인트 폰트 Raleway  font-family: 'Raleway', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+.nav-pills{
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.member_box {
+  top:150px;
+  border: black solid 1px;
+  width: 260px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+.userWrap {
+  border: 1px solid black;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  vertical-align: middle;
+  align-items: center;
+  position: absolute;
+  top: 15%;
+}
+.member_box > h3 {
+  margin: 180px auto 2px;
+}
+.member_box > h4 {
+  margin: 2px auto;
+}
+.member_link {
+  border-top: 1px solid #ccc;
+  width: 180px;
+  margin: 20px 30px 20px;
+  display: flex;
+}
+.cut_item {
+  font-size: 10px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cut_icon {
+  padding-top: 10px;
+}
+.cut_count {
+  font-size: 20px;
+  padding-top: 8px;
+}
+/* .member_rightBox {
+  border: crimson solid 1px;
+  height: 180%;
+  display: flexbox;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.member_suggest {
+  border: black solid 1px;
+  width: 96%;
+  height: 600px;
+  position: absolute;
+  top: 40px;
+}
+ .member_month {
+  border: black solid 1px;
+/*   width: 900px; */
+/*   height: 600px; */
+/*   position: absolute; */
+	margin-top: 40px;
+} 
+.member_count {
+  top: 40px;
+  width: 100%;
+  height: 150%;
+  position: relative;
+}
+.category1{
+	display: inline-block;
+	background-color: #ffea90;
+	margin-left: 10px;
+	border-radius: 3px;
+	font-size: 12px;
+	padding : 3px 10px 3px 10px;
+}
+.category2, .category3{
+	display: inline-block;
+	background-color: #dadad7;
+	margin-left: 10px;
+	border-radius: 3px;
+	font-size: 12px;
+	padding : 3px 10px 3px 10px;
+}
+.card-title{
+	margin-left: 10px;
+}
+.card{
+	height: 130px;
+	width: 670px;
+	margin-top: 25px;
+}
+
+.easypiechart-panel {
+  text-align: center;
+  padding: 1px 0;
+  margin-bottom: 20px;
+}
+.easypiechart {
+  position: relative;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  margin: 20px auto 10px auto;
+}
+
+.easypiechart .percent {
+  display: block;
+  position: absolute;
+  font-size: 30px;
+  top: 33px;
+  width: 125px;
+}
+
+#easypiechart-total .percent {
+  color: #8b63da;
+}
+#easypiechart-user .percent {
+  color: #8b63da;
+}
+/* #calendar{
+	max-width: 800px;
+	margin: 0 auto;
+} */

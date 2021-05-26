@@ -141,7 +141,7 @@ function challengeDetailBtn(){
 }
 function challengeMake(){
 	var email ="";
-	email = '${memberInfo.EMAIL }';
+	email = '${memberInfo.email }';
 	if(email!=null && email != ""){
 		location.href="challengeMake.do";	
 	}else{

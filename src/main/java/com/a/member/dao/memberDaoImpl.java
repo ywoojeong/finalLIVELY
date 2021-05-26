@@ -91,6 +91,11 @@ public class memberDaoImpl implements memberDao {
 	public Integer memberGoogleRegisterPro(Map<String, Object> paramMap) throws SQLException {
 		return sql.insert("member.memberGoogleRegisterPro", paramMap);
 	}
+
+	@Override
+	public MemberDto memberSession(String email) throws SQLException {
+		return sql.selectOne("member.memberSession", email);
+	}
 	
 	
 }

@@ -1,7 +1,11 @@
+<%@page import="com.a.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  
-
+<%MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");%>   
+<%	if(memberInfo !=null){
+	System.out.println("session memberInfo : " + memberInfo.getNickname() + memberInfo.getAuth());
+	}else {System.out.println("memberInfo:null "); }%>
 
 <style>
 
@@ -60,18 +64,29 @@ nav a:first-child {
           <a class="nav-link" href="newChallenge.do">NEW CHALLENGE</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="myMainPage.do">마이페이지탭</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="myMainPage2.do">마이페이지2</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="javascript:signOut();">로그아웃</a>
         </li>
       </ul>
       <form class="d-flex">
       	
-        <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
+        	<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
+      	<%-- 
         <!-- 로그인 시 데이터 변경 관리자 : MANAGER / 로그인 : MYPAGE / 비로그인 LIVELY LOGIN 
-          <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='manager.do'">MANAGER</button>
-          
+      	<%if(memberInfo = null ){%>
+      	<%}else if(memberInfo != null && memberInfo.getAuth() == 1){%>
+          	<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='manager.do'">MANAGER</button>
+      	 
+      	<%}else if(memberInfo != null && memberInfo.getAuth() == 3){%>
             <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='mypage.do'">MYPAGE</button>
+          
             -->          
-        
+         --%>
       </form>
     </div>
   </div>
