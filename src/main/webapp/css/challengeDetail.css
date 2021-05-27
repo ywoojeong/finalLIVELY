@@ -27,12 +27,15 @@ body{
 	display: flex;
 	justify-content: space-between;
 	margin-top: 20px;
-	margin-bottom: 20px;	
+	margin-bottom: 12px;	
 }
 
 .checkImg{
-	src:"
+	height: 55px;
+	opacity: 80%;
 }
+
+
 .challHeader > p{
 	color: red;
 	font-weight: 600;
@@ -226,7 +229,7 @@ body{
 }	 
 
 .identify>span{
-	font-size: 15pt;
+	font-size: 18pt;
 	font-weight: 600;
 	display:inline-block;
 	margin-left: 30px;
@@ -670,3 +673,46 @@ background-color: #2196F3;
 }
 
 
+/* user모달 버튼 */
+.btn-secondary {
+    display: block;
+  /*   margin: 40px auto 0px; */
+    text-align: center;
+    background: #ed2553;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px -8px rgb(240, 75, 113);
+    padding: 10px 17px;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    -webkit-transition: 0.3s ease;
+    transition: 0.3s ease;
+    padding:5px 10px 5px 10px;
+}
+ .btn-secondary:hover {
+    transform: translateY(-3px);
+    background: #ed2553;
+}
+
+.btn-secondary .like-review{
+   
+    background-color: #ed2553;
+}
+ .btn-secondary .fa {
+    margin-right: 5px;
+}
+.animate-like {
+/*   animation-name: likeAnimation; */
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-duration: 0.65s;
+}
+@keyframes likeAnimation {
+  0%   { transform: scale(30); }
+  100% { transform: scale(1); }
+}
+
+/*///////////////////////////////*/

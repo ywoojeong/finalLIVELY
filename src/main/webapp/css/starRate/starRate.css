@@ -1,10 +1,3 @@
-/* a, a:hover, a:visited, a:active{
-    text-decoration: none;
-    color: #000;
-}
-a:hover{
-    color: #a00;
-} */
 .reviewSummerNote>h3{
    
    margin: 0;
@@ -18,78 +11,253 @@ a:hover{
   box-sizing: border-box;
    
 }
+
+@import "lesshat";
+
+/*******************************************
+  = LESS
+*******************************************/
+
+/* LESS - Mixins */
+.clearfix() {
+  
+  &:before,
+  &:after {
+	content: "";
+	display:table;
+  }
+  
+  &:after {
+	clear: both;
+  }
+  
+}
+
 .title_star{
+	margin-bottom: 30px;
+	color: #bdbdbd;
 	font-size: 11pt;
-	color:#878787;
-	font-weight: 400;
-    padding-top: 5px;
+	
 }
 
-.rating .rate_radio {
-    position: relative;
-    display: inline-block;
-    z-index: 20;
-    opacity: 0.001;
-    width: 30px;
-    height: 30px;
-    background-color: #fff;
-    cursor: pointer;
-    vertical-align: top;
-    display: none;
-}
-.rating .rate_radio + label {
-    position: relative;
-    display: block;
-    float: left;
-    z-index: 10;
-    width: 30px;
-    height: 30px;
-    background-image: url(./img/starrate.png);
-    background-repeat: no-repeat;
-    background-size: 30px 30px;
-    cursor: pointer;
-}
-.rating .ratefill {
-    background-color: #8b63da;
-    width: 0;
-    height: 30px;
-    position: absolute;
-    float: left;
-    margin-right: 20px;
+.transition() {
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;  
 }
 
-.cmd{
-    margin-top: 20px;
-    text-align: right;
+
+/*******************************************
+  = TYPOGRAPHY
+*******************************************/
+
+/* html { */
+/*  font-size: 62.5%; */
+/* } */
+
+/* body { */
+/*  font: 12px 'Arial', 'Helvetica Neue', 'Helvetica', sans-serif; font-size: 1.2rem; */
+/*  background: #fff; */
+/*  color:#dbdbdb; */
+/* } */
+
+
+/*******************************************
+  = LAYOUT
+*******************************************/
+/* 
+* {
+  -webit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+		 box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
-.cmd input[type="button"]{
-    padding: 10px 20px;
-    border: 1px solid ;
-    background-color: #fff;
-    background-color:#000;  
-    color: #fff;
-}
-/* 5자 이상의 글자 작성해주세요 메세지 설정 */
-.warning_msg {
-    /* 
-    position: relative;
-   text-align: center;
-    background: #ffffff;
-    line-height: 26px; 
-     width: 100%; */
-    display: none;
-    float:left;
-    color: #4b4b49;
-    margin: 10px 0 0 10px;
-   /* box-sizing: border-box;
-    border: 1px solid #e0e0e0;*/
+ */
+
+/*******************************************
+  = RATING
+*******************************************/
+
+/* RATING - Form */
+.rating-form {
+	 margin-top: 20px;
+	color:#d4d4d4;
+
 }
 
-.warning_msg2 {
- 
+	/* RATING - Form - Group */
+	.rating-form .form-group {
     position: relative;
-    background: #ffffff;
-    line-height: 26px; 
-    display: none;
-    color: #4b4b49;
-}
+    border: 0;
+    height: 57px;
+
+	}
+
+	/* RATING - Form - Legend */
+	.rating-form .form-legend {
+		display: none;
+		margin: 0;
+		padding: 0;
+		font-size: 10px; font-size: 2rem;
+		/*background: green;*/
+	}
+
+	/* RATING - Form - Item */
+	.rating-form .form-item {
+		position: relative;
+		margin: auto;
+		width: 300px;
+		text-align: center;
+		direction: rtl;
+		/*background: green;*/
+	}
+
+	.rating-form .form-legend + .form-item {
+		padding-top: 10px;
+	}
+
+		.rating-form input[type='radio'] {
+			position: absolute;
+			left: -9999px;
+		}
+
+	  /* RATING - Form - Label */
+	  .rating-form label {
+		display: inline-block;
+		cursor: pointer;
+	  }
+
+		.rating-form .rating-star {
+     	  display: inline-block;
+			position: relative;
+		}
+
+	.rating-form input[type='radio'] + label:before {
+		content: attr(data-value);
+		position: absolute;
+		left:171px; top: 29px;
+		font-size: 30px;
+		opacity: 0;
+		direction: ltr;
+		.transition();
+	}
+
+	.rating-form input[type='radio']:checked + label:before {
+		right: 25px;
+		opacity: 1;
+	}
+
+	.rating-form input[type='radio'] + label:after {
+		content: "/ 5";
+		position: absolute;
+		right: 39px; top: 41px;
+		font-size: 19px;
+		opacity: 0;
+		direction: ltr;
+		.transition();
+	}
+
+	.rating-form input[type='radio']:checked + label:after {
+		/*right: 5px;*/
+		opacity: 1;
+	}
+
+		.rating-form label .fa {
+		  font-size: 30px; font-size: 3rem;
+		  line-height: 3px;
+		  .transition();
+		}
+
+		.rating-form label .fa-star-o {
+
+		}
+
+		.rating-form label:hover .fa-star-o,
+		.rating-form label:focus .fa-star-o,
+		.rating-form label:hover ~ label .fa-star-o,
+		.rating-form label:focus ~ label .fa-star-o,
+		.rating-form input[type='radio']:checked ~ label .fa-star-o {
+		  opacity: 0;
+		}
+
+		.rating-form label .fa-star {
+		  position: absolute;
+		  left: 0; top: 0;
+		  opacity: 0;
+		}
+
+		.rating-form label:hover .fa-star,
+		.rating-form label:focus .fa-star,
+		.rating-form label:hover ~ label .fa-star,
+		.rating-form label:focus ~ label .fa-star,
+		.rating-form input[type='radio']:checked ~ label .fa-star {
+		  opacity: 1;
+		}
+
+		.rating-form input[type='radio']:checked ~ label .fa-star {
+		  color: gold;
+		}
+
+		.rating-form .ir {
+		  position: absolute;
+		  left: -9999px;
+		}
+
+	/* RATING - Form - Action */
+	.rating-form .form-action {
+		opacity: 0;
+		position: absolute;
+		left:31px; top:41px;
+	}
+
+	.rating-form input[type='radio']:checked ~ .form-action {
+	  cursor: pointer;
+	  opacity: 1;
+	}
+
+	.rating-form .btn-reset {
+		display: inline-block;
+		margin: 0;
+		padding: 2px 7px;
+		border: 0;
+		font-size: 10px;
+		background: #dbdbdb;
+		color: #333;
+		cursor: auto;
+		border-radius: 5px;
+		outline: 0;
+		.transition();
+	}
+
+	   .rating-form .btn-reset:hover,
+	   .rating-form .btn-reset:focus {
+		 background: gold;
+	   }
+
+	   .rating-form input[type='radio']:checked ~ .form-action .btn-reset {
+		 cursor: pointer;
+	   }
+
+
+	/* RATING - Form - Output */
+	.rating-form .form-output {
+		display: none;
+		position: absolute;
+		right: 15px; bottom: -45px;
+		font-size: 30px; font-size: 3rem;
+		opacity: 0;
+		.transition();
+	}
+
+	.no-js .rating-form .form-output {
+		right: 5px;
+		opacity: 1;
+	}
+
+	.rating-form input[type='radio']:checked ~ .form-output {
+		right: 5px;
+		opacity: 1;
+	}
