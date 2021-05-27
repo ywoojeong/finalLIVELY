@@ -23,10 +23,15 @@ body{
 	/* width: 70%;
 	height: 300px; */	
 }
-
-.challHeader> h1{
+.challHeader>div{
+	display: flex;
+	justify-content: space-between;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 20px;	
+}
+
+.checkImg{
+	src:"
 }
 .challHeader > p{
 	color: red;
@@ -216,7 +221,7 @@ body{
 	height: 270px;
 /* 	width: 670px; */
 	margin: 0 auto 0 auto;
-	background-color:rgba(203, 152, 237,0.2);
+	background-color:#f5eafb;
 	padding: 45px 0;
 }	 
 

@@ -91,7 +91,7 @@
       <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
       <a href="#" class="btn btn-Card">See Profile</a>
     </div>
-  </div>
+</div>
  
   <!-- /////////////////////////////////////////////////////////////// -->
 

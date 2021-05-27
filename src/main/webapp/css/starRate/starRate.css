@@ -14,10 +14,9 @@ a:hover{
 /* 레이아웃 외곽 너비 400px 제한*/
 .reviewSummerNote{
   margin: 30px auto; 
-   padding: 30px;
- 	width:80%;
-   box-sizing: border-box;
-    background-color: #e9e9eaff;
+  width:80%;
+  box-sizing: border-box;
+   
 }
 .title_star{
 	font-size: 11pt;

@@ -40,12 +40,12 @@
 		UPDATE MEMBER SET NAVERLOGIN = #{naverLogin}
 		WHERE EMAIL = #{email}
 	</update>
-	<!-- 
+	 
 	<insert id="memberNaverRegisterPro" parameterType="java.util.Map">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
 		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{naverLogin}, 3, 0, 0)
 	</insert>
-	 -->
+	
 	<!-- 네이버 로그인 -->
 	<select id="memberNaverLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME FROM MEMBER 
