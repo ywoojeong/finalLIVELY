@@ -15,8 +15,8 @@
  
  <!-- 챌린지 만들기 버튼 -->
 <div class="pointButton">
- 	<button type="button" class="point-btn-hover color-Purple"  onclick="challengeMake()" >START</button>
- </div>
+	<button type="button" class="point-btn-hover color-Purple"  onclick="challengeMake()" >START</button>
+</div>
  
  <!-- /////////////////////////////////////////////////////////////// -->
  

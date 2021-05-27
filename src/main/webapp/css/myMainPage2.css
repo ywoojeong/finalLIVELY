@@ -11,9 +11,9 @@
 }
 
 .member_box {
-  top:150px;
+  margin-top:150px;
+  padding-top: 160px;
   border: black solid 1px;
-  width: 260px;
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -43,7 +43,8 @@
 .member_link {
   border-top: 1px solid #ccc;
   width: 180px;
-  margin: 20px 30px 20px;
+  margin-top: 10px;
+  /* margin: 20px 30px 20px; */
   display: flex;
 }
 .cut_item {
@@ -73,21 +74,25 @@
 } */
 
 .member_suggest {
-  border: black solid 1px;
-  width: 96%;
-  height: 600px;
+  width: 100%;
   position: absolute;
-  top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
  .member_month {
-  border: black solid 1px;
+/*   border: black solid 1px; */
 /*   width: 900px; */
 /*   height: 600px; */
 /*   position: absolute; */
 	margin-top: 40px;
 } 
+
+.member_daily{
+	margin-top: 400px;
+}
 .member_count {
-  top: 40px;
+  top: 20px;
   width: 100%;
   height: 150%;
   position: relative;
@@ -107,6 +112,7 @@
 	border-radius: 3px;
 	font-size: 12px;
 	padding : 3px 10px 3px 10px;
+	margin-bottom: 6px;
 }
 .card-title{
 	margin-left: 10px;
@@ -144,7 +150,87 @@
 #easypiechart-user .percent {
   color: #8b63da;
 }
-/* #calendar{
-	max-width: 800px;
-	margin: 0 auto;
-} */
+#calendar{
+	/* max-width: 800px; */
+	/* height: 100%; */
+	/* margin: 0 auto; */
+}
+.btn-Daily-Card{
+	background-color: #ffd622;
+	
+}
+.category4{
+	display: inline-block;
+	background-color: #ffea90;
+	margin-left: 10px;
+	border-radius: 3px;
+	font-size: 10px;
+	padding : 2px 5px 2px 5px;
+}
+.category5, .category6{
+	display: inline-block;
+	background-color: #dadad7;
+	margin-left: 10px;
+	border-radius: 3px;
+	font-size: 10px;
+	padding : 2px 5px 2px 5px;
+	margin-bottom: 6px;
+}
+.point-btn-hover.color-Yellow {
+    /* background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7); */
+    background-image: linear-gradient(to right, #ffd622, #fff16b, #ffd622, #fff16b);
+    box-shadow: 0 4px 15px 0 rgba(172, 172, 173, 0.75);
+    /* background-color: #ffd622; */
+}
+
+/* 제안하기 부분 */
+.suggestCard{
+    margin-top: 50px;
+    box-shadow: 0 4px 13px 0 rgb(166 162 169 / 70%);
+    border-radius: 0px;
+}
+.suggest-card-body{
+    height: 90px;
+    width: 600px;
+    display: flex;
+}
+.suggest-category{
+	font-size: 13px;
+	margin-left: 50px;
+	padding-top: 20px;
+	margin-bottom: 2px;
+	color: #828282;
+}
+.suggest-title{
+	font-size: 20px;
+	margin-left: 50px;
+}
+.suggest-like{
+	width: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5px;
+    margin-left: 350px;
+}
+.suggest-like>p{
+	margin-bottom: 0;
+	font-size: 10pt;
+	margin-top: 5px;
+}
+.myChartCls{
+	margin: auto;
+	height: 500px;
+	width: 500px;
+}
+.memModify{
+	padding: 0.25em 0.7em 0.25em 0.7em;
+	background-color: #e1e1e1;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #fff;
+    text-align: center;
+    border: 0;
+    outline: 0;
+}
