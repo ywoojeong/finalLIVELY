@@ -17,6 +17,7 @@
         <input type="hidden" id="kakaoLogin" name="kakaoLogin" value="${kakaoLogin}"/>
         <input type="hidden" id="googleLogin" name="googleLogin" value="${googleLogin}"/>
         <input type="hidden" id="flag" name="flag"  value="${flag}">
+        
         <div id="addInfo" class="infoLogo">
             <div class="logo">
             

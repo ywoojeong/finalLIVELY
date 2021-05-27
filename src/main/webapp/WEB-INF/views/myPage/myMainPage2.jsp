@@ -8,21 +8,16 @@
 <link rel="stylesheet" href="./css/myMainPage2.css" />
 <link href="./fcalLib/main.css" rel="stylesheet">
 
-<script src="./js/easypiechart.js"></script>
-<script src="./js/myMainPage2.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="./fcalLib/main.js"></script>
-
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
             <div class="member_box">
                 <img class="userWrap"/>
-                <h3>Admin</h3>
-                <h4>0 Point</h4>
+                <h4>Admin</h4>
+                <p style="font-size: 15px;">0 Point</p>
                 
                 <!-- 회원정보수정 모달 -->
-                <button type="button">회원정보 수정</button>
+                <button type="button" class="memModify">회원정보 수정</button>
                 
                 <div class="member_link">
                     <div class="cut_item">
@@ -54,7 +49,7 @@
 		            <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
 		        </li>
 		        <li class="nav-item">
-		            <a class="nav-link" data-toggle="pill" href="#menu1">월간리포트</a>
+		            <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth">월간리포트</a>
 		        </li>
 		        <li class="nav-item">
 		            <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
@@ -70,7 +65,7 @@
 		                    <div class="col-sm-12">
 		                        <div class="member_count">
 		                        	<!-- count 부분 -->
-		                            <div class="count_box">
+		                            
 		                                <div class="card-panel text-center">
 		                                    <div class="row">
 		                                        <div class="col-sm-4">
@@ -95,11 +90,11 @@
 		                                </div>
 		                                
 		                                <!-- 차트부분 -->
-		                                <div >
-										  <canvas id="myChart" style="height:300px;width:300px"></canvas>
+		                                <div class="myChartCls">
+										  <canvas id="myChart"></canvas>
 										</div>
 		                                
-		                            </div>
+		                            
 		                            
 					                <!-- 탭안에 탭 -->
 					                <ul class="nav nav-pills" role="tablist">
@@ -174,7 +169,7 @@
                 <div id="menu1" class="container tab-pane fade">
                 	<div class="row">
                     	<div class="col-sm-12">
-	                        <div class="member_month">
+	                        <div class="member_month" id="memCalendar">
 	                        	<!-- 캘린더 부분 -->
 	                            <div id="calendar"></div>
 	                        </div>
@@ -190,8 +185,8 @@
 									    <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
 									    <div class="card-body">
 									      <p class="card-title">챌린지 이름</p>
-									      <p class="card-text"><span class="category1">카테고리 </span><span class="category2">언제부터 </span><span class="category3">언제까지 </span></p>
-									      <a href="#" class="btn btn-Card" style="margin-left: 118px;margin-top: -23px; padding: 3px 7px;">CHALLENGE</a>
+									      <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
+									      <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8	px; padding: 3px 7px;">CHALLENGE</a>
 									    </div>
 									</div>
 	                            </div>
@@ -205,19 +200,84 @@
 		            <div class="row">
                     	<div class="col-sm-12">
 	                        <div class="member_suggest">
-	                            <h3>Menu 2</h3>
+	                        	<!-- 제안하기 버튼 (포인트버튼) -->
+	                        	<div class="pointButton">
+	                        		<a class="modalBtn" data-toggle="modal" data-target="#myModal2">
+										<button type="button" class="point-btn-hover color-Yellow" id="suggestMake" >제안하기</button><br><br>
+									</a>
+								</div>
+								<!-- 메인 검색버튼 (타원)-->
+								<div class="md-form md-outline d-flex Search" align="right">
+									<input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
+									<button type="button" class="btn btn-Search" >SEARCH</button>
+								</div>
+								<!-- 제안하기 --> 
+								<div class="suggestCard" >
+									<div class="suggest-card-body">
+										<div class="suggest-text">
+											<p class="suggest-category">카테고리</p>
+											<p class="suggest-title">챌린지 이름</p>
+										</div>
+										<div class="suggest-like">
+											<i class="far fa-thumbs-up fa-2x"></i>
+											<p>123</p>
+										</div>
+									</div>
+								</div>
 	                        </div>
                         </div>
                     </div>
 		        </div>
-		        
+		        <!-- 제안하기 끝 -->
     		</div>
         </div>
     </div>
 </div>
 
+<!-- 제안하기 모달 -->
+<div class="modal" id="myModal2" >
+  <div class="modal-dialog modal-lg" style="top:30%">
+    <div class="modal-content">
+    
+      <!-- Modal body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        
+        <div class="reviewSummerNote">
+        <h3>제안 작성</h3>
+        <form name="reviewform" class="reviewform" method="post" action="/save">
+           <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>   		 
+                 <div class="review_contents" style="background-color: white">
+                   <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
+                 </div> 
+        </form>
+ 			</div>
 
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="justify-content: center">
+        <button type="button" name="save" id="save" class="btn btn-Card" style="width: 200px">작성 완료</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
 
+<!-- 원형 차트 js -->
+<script src="./js/easypiechart.js"></script>
+
+<!-- 레이더차트 js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/myMainPage2.js"></script>
+
+<!-- 풀캘린더 js -->
+<script src="./fcalLib/main.js"></script>
+
+<!-- summer note 사용시 추가 --> 
+<script src="./js/summernote/summernote-lite.js"></script>
+<script src="./js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
 
 <script type="text/javascript">
@@ -326,5 +386,50 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	calendar.addEvent({'title':'추가추가', 'start':'2021-04-29 11:00:00', 'constraint':'내용 없음'});		//이벤트 추가
 	
+});
+</script>
+
+<script type="text/javascript">
+/* $(document).ready(function(){
+	$('#menu1').on('click', function(){
+		$('#menu1').load(window.location.href + '#menu1');
+		
+	});
+}); */
+/* $('#memMonth').on('click', function(){
+	$('#calendar').load(location.href + '#calendar');
+	
+}); */
+
+$(document).ready(function() {
+    $('.chatrow').on( 'keyup', 'textarea', function (e){
+      $(this).css('height', 'auto' );
+      $(this).height( this.scrollHeight );
+    });
+    $('.wrap').find( 'textarea' ).keyup();
+	
+    
+  	//써머노트
+    $('#summernote').summernote({
+         height: 150,
+         /* width:, */
+         minHeight: 100,             // 최소 높이
+         maxHeight: null,             // 최대 높이
+         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+         lang: "ko-KR",               // 한글 설정
+         placeholder: "댓글을 기입하세요",   //placeholder      
+         //툴바 변경
+          toolbar: [
+              // [groupName, [list of button]]
+              ['fontname',['fontname']],
+              ['fontsize',['fontsize']],
+              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+              ['color', ['forecolor','color']],
+              ['para', ['ul', 'ol', 'paragraph']]
+            ],
+          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+    });
+		
 });
 </script>
