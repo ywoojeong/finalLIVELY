@@ -10,20 +10,20 @@
  
  <div class="" style="margin-top:70px;"> 
 	<div class="hotMain">
+		<video muted autoplay loop>
+        	<source src="video/write.mp4" type="video/mp4">
+        	<strong>Your browser does not support the video tag.</strong>
+        </video>
 		<div class="hotMainCover"></div>
 		<div class="hotMainSen">	
 			<h2>최근 인기있는 챌린지에 동참하세요</h2>
 			<p>새로운 챌린지를 만들어보세요. LIVELY는 여러분의 챌린지를 기다립니다.</p>
 			<!-- 챌린지 만들기 버튼 세션 없으면 로그인 / 있으면 만들기-->
 			<div class="chall-buttons">
-			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button>
-			 	
+			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button> 	
 			 </div>
 		</div>
-	
 	</div>
-	
-
 </div>    
  
    
