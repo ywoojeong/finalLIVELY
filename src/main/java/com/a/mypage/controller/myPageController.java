@@ -22,7 +22,7 @@ public class myPageController {
 	
 	@RequestMapping(value="myMainPage2.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String myMainPage2(){
-		System.out.println("myMainPage로 넘어가기!");
+		System.out.println("myMainPage2로 넘어가기!");
 		
 		return "myPage/myMainPage2";
 	}

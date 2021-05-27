@@ -175,7 +175,26 @@
                 	<div class="row">
                     	<div class="col-sm-12">
 	                        <div class="member_month">
+	                        	<!-- 캘린더 부분 -->
 	                            <div id="calendar"></div>
+	                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    	<div class="col-sm-12">
+	                        <div class="member_daily">
+	                        	<p>오늘 진행중인 챌린지</p>
+	                        	<!-- 캘린더 아래 데일리 부분 -->
+	                            <div class="daily_card">
+		                            <div class="card" style="width: 250px; height: 400px;">
+									    <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
+									    <div class="card-body">
+									      <p class="card-title">챌린지 이름</p>
+									      <p class="card-text"><span class="category1">카테고리 </span><span class="category2">언제부터 </span><span class="category3">언제까지 </span></p>
+									      <a href="#" class="btn btn-Card" style="margin-left: 118px;margin-top: -23px; padding: 3px 7px;">CHALLENGE</a>
+									    </div>
+									</div>
+	                            </div>
 	                        </div>
                         </div>
                     </div>
