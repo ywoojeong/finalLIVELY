@@ -10,6 +10,7 @@
  <!-- jsp태그 -->
 <jsp:useBean id="now" class="java.util.Date" />
 
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
 	  $('[data-toggle="popover"]').popover();   
@@ -24,10 +25,12 @@ $(document).ready(function(){
 	<div class="container challHeader">
 		<div>
 			<h1>하루에 1L씩 물먹기</h1>
-			<img src="image/checkFill.svg" style="height: 60px;">
 			<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
-			  <img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'" style="height: 55px;opacity: 70%;">
+				<div onclick="checkChallenge(this)">
+				 	<img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
+				</div>
 			</a>
+		
 		</div>
 		<p>내일부터 시작 | 모집 마감</p>
 		<label>평일 매일</label><label>3주 동안</label><span class="period">05.11(화) ~ 05.28(금)</span><br>
@@ -423,15 +426,20 @@ $(document).ready(function(){
       
         <!-- Modal body -->
         <div class="modal-body">
-        	 <button type="button" class="close" data-dismiss="modal">×</button>
+<!--         	 <button type="button" class="close" data-dismiss="modal">×</button> -->
 			<table>
-				<col width="60px"><col width="200px">
+				<col width="60px"><col width="200px"><col width="205px">
 				<tr>
 					<td>
 							<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
 					</td>
 					<td>
 						user이름
+					</td>
+					<td align="right">
+						<button class="btn btn-secondary like-review" style="background-color:#ed2553">
+						    <i class="fa fa-heart" aria-hidden="true"></i> Like
+						  </button>
 					</td>
 				</tr>
 			</table>   
@@ -448,7 +456,7 @@ $(document).ready(function(){
   
   <!-- 후기작성 모달 -->
   <div class="modal" id="myModal2" >
-    <div class="modal-dialog modal-xl" style="top:30%">
+    <div class="modal-dialog modal-xl" style="top:15%">
       <div class="modal-content">
       
         <!-- Modal body -->
@@ -457,19 +465,89 @@ $(document).ready(function(){
           
           <div class="reviewSummerNote">
 		        <h3>후기 작성</h3>
-		        <form name="reviewform" class="reviewform" method="post" action="/save">
-		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>   		 
-                   <div class="review_contents" style="background-color: white">
+		       
+		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>
+					
+					
+					<!-- RATING - Form -->
+					<form id="rateFrm" class="rating-form" action="#" method="post" name="rating-movie">
+					  <fieldset class="form-group">
+					    
+					    <legend class="form-legend">Rating:</legend>
+					    
+					    <div class="form-item">
+					      
+					      <input id="rating-5" name="rating" type="radio" value="5" />
+					      <label for="rating-5" data-value="5" >
+					        <span class="rating-star">
+					           <i class="fa fa-star-o"></i>
+         					   <i class="fa fa-star"></i>	       
+					        </span>
+					        <span class="ir">5</span>
+					      </label>
+					      <input id="rating-4" name="rating" type="radio" value="4" />
+					      <label for="rating-4" data-value="4" >
+					        <span class="rating-star">
+					           <i class="fa fa-star-o "></i>
+         					   <i class="fa fa-star"></i>
+					        </span>
+					        <span class="ir">4</span>
+					      </label>
+					      <input id="rating-3" name="rating" type="radio" value="3" />
+					      <label for="rating-3" data-value="3">
+					        <span class="rating-star">
+					         <i class="fa fa-star-o"></i>
+         					   <i class="fa fa-star"></i>
+					        </span>
+					        <span class="ir">3</span>
+					      </label>
+					      <input id="rating-2" name="rating" type="radio" value="2" />
+					      <label for="rating-2" data-value="2">
+					        <span class="rating-star">
+					         <i class="fa fa-star-o"></i>
+         					   <i class="fa fa-star"></i>
+					        </span>
+					        <span class="ir">2</span>
+					      </label>
+					      <input id="rating-1" name="rating" type="radio" value="1" />
+					      <label for="rating-1" data-value="1">
+					        <span class="rating-star">
+					          <i class="fa fa-star-o"></i>
+         					   <i class="fa fa-star"></i>
+					        </span>
+					        <span class="ir">1</span>
+					      </label>
+					      
+					      <div class="form-action">
+					        <input class="btn-reset" type="reset" value="Reset" />   
+					      </div>
+					
+					      <div class="form-output">
+					        ? / 5
+					      </div>
+					      
+					    </div>
+					    
+					  </fieldset>
+					  
+				
                      <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-                   </div> 
+
 		        </form>
+					  
+				
+					
+					
+					
+							              		 
+
    			</div>
 
         </div>
         
         <!-- Modal footer -->
         <div class="modal-footer" style="justify-content: center">
-          <button type="button" name="save" id="save" class="btn" style="width: 200px">후기 작성</button>
+          <button type="button" name="save" onclick="save()" class="btn" style="width: 200px">후기 작성</button>
         </div>
         
       </div>
@@ -485,8 +563,7 @@ $(document).ready(function(){
 <script src="./js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
-<!-- 별점 js -->
-<script src="./js/starRate/starRate.js"></script>
+
 <!-- progress 바 채워지기 -->
 <script>
 //차트 모션 (progress)
@@ -501,6 +578,63 @@ $(".meter > span").each(function () {
       1200
     );
 });
+
+	var eventE=0;
+//like버튼 누르면 제어
+$('.like-review').click(function(){
+	if(eventE==0){
+	   $(this).html('<i class="fa fa-heart"></i> You liked');
+	   $(this).children('.fa-heart').addClass('animate-like');
+	    eventE++; 	    
+	}else{
+		$(this).html('<i class="fa fa-heart"></i>like');
+		$(this).children('.fa-heart').addClass('animate-like');
+		eventE--;   
+	}
+});
+
+var checkChall = 0;
+//찜하기 버튼 제어 checkChallenge()
+// <img class="checkImg" src="image/check.svg" style="height: 55px;opacity: 70%;">
+function checkChallenge(id){
+	//alert(id);
+	if(checkChall==0){
+		id.innerHTML = "<img src='image/checkFill.svg' class='checkImg'>";
+// 		$(this).attr("src", "image/checkFill.svg");
+		checkChall++;
+	}else{
+		id.innerHTML = "<img src='image/check.svg' class='checkImg' onmouseover=\"this.src='image/checkhover.svg'\" onmouseout=\"this.src='image/check.svg'\">";
+		checkChall--;
+	}
+}
+
+
+//후기 작성 저장 전송전 필드 체크 이벤트 리스너
+function save(){
+    //별점 선택 안했으면 메시지 표시
+    
+    var rate = $('input:radio[name=rating]:checked').val();
+    var review = $('.review_textarea').val();
+    //alert(review);
+   // alert(rate);
+    if(typeof rate == "undefined" || rate == null || rate == ""){
+       alert("별점을 선택해 주세요.");
+        return false;
+    }
+    //리뷰 5자 미만이면 메시지 표시
+    if(review.length < 5){
+        alert('리뷰는 5자 이상 작성해 주세요.');
+        return false;
+    }
+    //폼 서밋
+	//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
+    
+    document.getElementById("rateFrm").submit();
+    
+	alert("저장완료!");
+	rating.setRate(0);
+	document.querySelector('.review_textarea').value = '';
+}
 
 
 //후기 작성 버튼 제어
@@ -550,8 +684,6 @@ $(function() {
 });
 
 
-
-
 //대화 부분
 //textarea 스크롤 없앰
  $(document).ready(function() {
@@ -564,7 +696,7 @@ $(function() {
       
     //써머노트
       $('#summernote').summernote({
-           height: 150,
+           height: 200,
            /* width:, */
            minHeight: 100,             // 최소 높이
            maxHeight: null,             // 최대 높이

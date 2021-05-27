@@ -52,6 +52,13 @@
 	<input type="hidden" name="flag" id="flag" value="google" />
 </form>
 
+<form name="naverForm" id="naverForm" method = "post" action="addInfo.do">
+	<input type="hidden" name="email" id="naverEmail" />
+	<input type="hidden" name="id" id="naverId" />
+	<input type="hidden" name=memberPhoto id="memberPhoto" />
+	<input type="hidden" name="flag" id="flag" value="naver" />
+</form>
+
 <script type="text/javascript">
 //카카오 로그인 팝업
 function kakaoLogin() {

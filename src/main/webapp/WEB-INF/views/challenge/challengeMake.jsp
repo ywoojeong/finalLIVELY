@@ -112,6 +112,7 @@ $(document).ready(function(){
 		 					</select>
 	 					</td>
 	 					<td class="challSelect2">
+	 						<input type="hidden" name="challengeend" id="_endDate" value="">
 	 						<label for="endDate">챌린지 기간</label>
 	 						<select class="form-control form-control-sm challSelect2" name="challengeperiod" id="_challengeperiod" onchange="challengeperiodChange(this.value)">
 	 							<option value="0">선택하세요</option>
@@ -139,7 +140,7 @@ $(document).ready(function(){
 	 						<div class="challSelect2">
 	 							<%String dateWeek[] = new String[]{"일", "월", "화", "수", "목", "금", "토"}; 
 	 						 	for(int i=0; i<dateWeek.length;i++){ %>
- 	 							    <input type="checkbox" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
+ 	 							    <input type="checkbox" onclick="checkN(this)" id="idid" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
 	 							<%}%>					 			
 							 </div> 		
 	 					</td>
@@ -220,53 +221,113 @@ function handleImgFileSelect(e) {
     });
 }
 
-//onchange 인증빈도
+//onchange 인증빈도 제어
 function challengeFreChange(val){
+ 	$("input:checkbox[name='dateWeek']").attr('checked', false);
 	if(val>=1 && val<=6){
 		$("#_endDateTd").show();
-		
-		//숫자별 제어하기
 	}else{
 		$("#_endDateTd").hide();
+		if(val==9){ //월-일
+			$("input:checkbox[name='dateWeek']").attr('checked', true);
+			
+		}else if(val==8){ 	//월-금
+			for(var i=1;i<6;i++){
+				//$("input:checkbox[id='_dayWeek"+i+"']").attr('checked', true);
+				$("input:checkbox[name='dateWeek']:nth-of-type(-n+6)").attr('checked', true);
+				$("input:checkbox[name='dateWeek']:nth-of-type(1)").attr('checked', false);
+			}
+		}else if(val==7){	//토일
+			$("input:checkbox[name='dateWeek']:nth-of-type(1)").attr('checked', true);
+			$("input:checkbox[name='dateWeek']:nth-of-type(7)").attr('checked', true);
+		}
 	}
 }
+
+// $(document).on("change","#idid", function() {
+// 	console.log('1111')
+//  	let chk1 = $("input:checkbox[name='dateWeek']").is(':checked');
+// 	console.log('11112222')
+// 	let chk2 = $("input:checkbox[name='dateWeek']").prop('checked');
+// 	console.log(chk1.length)
+// 	console.log(chk2.length)
+// });
+
+// //설정 시작
+// var maxChecked = 3;
+// var totalChecked = 0;
+// // 설정 끝
+// function checkN(val) {
+// if (val.checked)
+// totalChecked += 1;
+// else
+// totalChecked -= 1; 
+// if (totalChecked > maxChecked) {
+// alert ("최대 3개 까지만 가능합니다.");
+// field.checked = false;
+// totalChecked -= 1;
+// } 
+// }
+
+
+
+function dateToYear(date) {
+    var year = date.getFullYear();
+
+    var month = date.getMonth()+1;
+    if (month < 10)  {
+        month = '0' + month;
+    }
+
+    var date = date.getDate();
+    if (date < 10) {
+        date = '0' + date;
+    }
+    
+    return year + '-' + month + '-' + date;
+}
+
 
 
 //챌린지 기간 계산 _challengeperiod challperiodChange
 function challengeperiodChange(period){
 	//챌린지 시작일
 	var startDay =  $("select[name=challengestart]").val();
-	
+	//console.log(startDay)
 	const strArr = startDay.split('-');
 	const sDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-	//let a = sDate.getDate()
+	//console.log(sDate)
 	//alert("시작 날짜:"+sDate);
 	//alert(a+7  + "sDate.getDate()");
 	//alert(typeof(sDate.getDate()));
-	var endDate = "";
+	var endDate = "";	
 	if(period==1){
-		endDate = Date(sDate.setDate(sDate.getDate())+7);
+		endDate = sDate.setDate(sDate.getDate()+6);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+		endDate = new Date(endDate)
 	}
 	else if(period==2){
-		endDate = Date(sDate.setDate(sDate.getDate())+14);	
+		endDate = sDate.setDate(sDate.getDate()+13);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+		endDate = new Date(endDate)
 	}
 	else if(period==3){
-		endDate = Date(sDate.setDate(sDate.getDate())+21);
+		endDate = sDate.setDate(sDate.getDate()+20);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+		endDate = new Date(endDate)
 	}
 	else if(period==4){
-		endDate = Date(sDate.setDate(sDate.getDate())+28);
+		endDate = sDate.setDate(sDate.getDate()+27);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+		endDate = new Date(endDate)
 	}
-	alert("종료 날짜"+endDate);
 	
+	$("#_endDate").val(dateToYear(endDate));
+	alert("종료 날짜"+dateToYear(endDate));	
 }
 
-//
 
 
 
 
 
-
+//챌린지 만들기 버튼(enter) 제어
 function challengeMake(){
 	
 	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
@@ -325,8 +386,9 @@ function challengeMake(){
 		var num_check=/^[0-9]*$/;
 		if(!num_check.test(pointcount)){
 			alert ( "숫자만 입력할 수 있습니다." );
-			pointcount="";
+			 $("#_pointcount").val("");
 			pointcount.focus();
+			return false;
 		}
 	}
 
@@ -336,6 +398,7 @@ function challengeMake(){
 	if(challengetitle==null || challengetitle==""){
 		alert("챌린지 제목을 기입해 주세요.");
 		$("#_challengetitle").focus();
+		return false;
 	}
 	
 	//챌린지 소개 비 기입 시 제어

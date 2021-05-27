@@ -19,7 +19,7 @@
 		<tiles:insertAttribute name="body"/>   <!--요청에의해 바뀌는 body부분-->
 	</div>
 	
-	<div style="display:flex; margin-top: auto; height: 80px;width:100%;background: #22229;bottom: 0; padding-top: 10px;">
+	<div >
 		<tiles:insertAttribute name="footer"/> 
 	</div>
 </body>
