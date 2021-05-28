@@ -27,7 +27,6 @@ public class NaverLoginBO {
 	public void setSecret(String value) {
 		CLIENT_SECRET = value;
 	}
-	
 	@Value("#{loginApi['NAVER.CLIENT']}")
 	public void setClient(String value) {
 		CLIENT_ID = value;

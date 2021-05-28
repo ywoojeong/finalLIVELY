@@ -42,6 +42,7 @@ public class challengeDto {
 	private String identifyday; //월 화 수 목 금 토 일
 	private String identifytime;
 	private String challengephoto;
+	private String challengesavephoto; 	//파일 이름 암호화
 	private double ratingavg;
 	private int challengestop;
 	private int challengedel;
@@ -55,8 +56,8 @@ public class challengeDto {
 
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
 			String challengestart, String challengeend, String challengeperiod, int identifyfrequency,
-			String identifyday, String identifytime, String challengephoto, double ratingavg, int challengestop,
-			int challengedel, int headernum, int pointcount, String email) {
+			String identifyday, String identifytime, String challengephoto, String challengesavephoto, double ratingavg,
+			int challengestop, int challengedel, int headernum, int pointcount, String email) {
 		super();
 		this.challengeseq = challengeseq;
 		this.category = category;
@@ -69,6 +70,7 @@ public class challengeDto {
 		this.identifyday = identifyday;
 		this.identifytime = identifytime;
 		this.challengephoto = challengephoto;
+		this.challengesavephoto = challengesavephoto;
 		this.ratingavg = ratingavg;
 		this.challengestop = challengestop;
 		this.challengedel = challengedel;
@@ -165,6 +167,14 @@ public class challengeDto {
 		this.challengephoto = challengephoto;
 	}
 
+	public String getChallengesavephoto() {
+		return challengesavephoto;
+	}
+
+	public void setChallengesavephoto(String challengesavephoto) {
+		this.challengesavephoto = challengesavephoto;
+	}
+
 	public double getRatingavg() {
 		return ratingavg;
 	}
@@ -219,12 +229,11 @@ public class challengeDto {
 				+ challengetitle + ", challengetext=" + challengetext + ", challengestart=" + challengestart
 				+ ", challengeend=" + challengeend + ", challengeperiod=" + challengeperiod + ", identifyfrequency="
 				+ identifyfrequency + ", identifyday=" + identifyday + ", identifytime=" + identifytime
-				+ ", challengephoto=" + challengephoto + ", ratingavg=" + ratingavg + ", challengestop=" + challengestop
-				+ ", challengedel=" + challengedel + ", headernum=" + headernum + ", pointcount=" + pointcount
-				+ ", email=" + email + "]";
+				+ ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto + ", ratingavg="
+				+ ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel + ", headernum="
+				+ headernum + ", pointcount=" + pointcount + ", email=" + email + "]";
 	}
-	
-	
+
 	
 }
 
