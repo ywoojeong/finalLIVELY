@@ -64,17 +64,15 @@ $(document).ready(function(){
 	 </header>
 
 	 <div class="">
-	 	<form  id="challengeFrm">
+	 	<form  id="challengeFrm" enctype="multipart/form-data">
 	 		<input type="hidden" name="email" value="${memberInfo.email}">
 	 	<div class="row challengeMain">
 	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
 	              <label for="newImg">
-		               
-		                  <img id="challImg" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
-		               
+		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
 		            </label>
-		            <input type="file" name="challengephoto" id="newImg" style="display: none">	 			
+		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.png'">	 			
 	 		</div>
 	 		<div class="col-sm-8 challData p-5"> 
 	 			<table class="table-borderless table-responsive challTable">
@@ -93,7 +91,7 @@ $(document).ready(function(){
 		 					</select>
 	 					</td>
 	 					<td id="periodText">
-	 						<p class="periodTe">챌린지 기간은 2021-05-01부터 2021-05-03까지 입니다.</p>
+	 						<p class="periodTe"></p>
 	 					</td>
 	 				</tr>
 	 				<tr>
@@ -140,7 +138,7 @@ $(document).ready(function(){
 	 						<div class="challSelect2">
 	 							<%String dateWeek[] = new String[]{"일", "월", "화", "수", "목", "금", "토"}; 
 	 						 	for(int i=0; i<dateWeek.length;i++){ %>
- 	 							    <input type="checkbox" onclick="checkN(this)" id="idid" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
+ 	 							    <input type="checkbox" onclick="checkNN(this)" id="idid" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
 	 							<%}%>					 			
 							 </div> 		
 	 					</td>
@@ -215,17 +213,57 @@ function handleImgFileSelect(e) {
 
         var reader = new FileReader();
         reader.onload = function(e) {
-            $("#challImg").attr("src", e.target.result);
+            $("#chall_Img").attr("src", e.target.result);
         }
         reader.readAsDataURL(f);
     });
 }
+
 
 //onchange 인증빈도 제어
 function challengeFreChange(val){
  	$("input:checkbox[name='dateWeek']").attr('checked', false);
 	if(val>=1 && val<=6){
 		$("#_endDateTd").show();
+		if(val==1){
+			let maxChecked=1;
+			let totalChecked=0;
+			function checkNN(chec) {
+				console.log("check")
+			 	if (chec){
+					totalChecked += 1;
+			 	}else{
+					totalChecked -= 1;
+			 	}
+				if (totalChecked > maxChecked) {
+					alert ("최대 1개 까지만 가능합니다.");
+					field.checked = false;
+					totalChecked -= 1;
+				} 
+			}
+		}
+// 		for(i=1;i<7;i++){
+// 			if(val==i){
+// 				//alert(val);
+// 				let maxChecked=i;
+// 				let totalChecked=0;
+				
+// 				function checkNN(chec) {
+// 					console.log("check")
+// 				 	if (chec){
+// 						totalChecked += 1;
+// 				 	}else{
+// 						totalChecked -= 1;
+// 				 	}
+// 					if (totalChecked > maxChecked) {
+// 						alert ("최대 "+i+"개 까지만 가능합니다.");
+// 						field.checked = false;
+// 						totalChecked -= 1;
+// 					} 
+// 				}
+// 			}
+// 		}
+		
 	}else{
 		$("#_endDateTd").hide();
 		if(val==9){ //월-일
@@ -244,7 +282,8 @@ function challengeFreChange(val){
 	}
 }
 
-// $(document).on("change","#idid", function() {
+//체크박스 제어하기 주3일 >> 3개까지만 . event.preventDefault();
+ //$(document).on("change","#idid", function() {
 // 	console.log('1111')
 //  	let chk1 = $("input:checkbox[name='dateWeek']").is(':checked');
 // 	console.log('11112222')
@@ -253,24 +292,7 @@ function challengeFreChange(val){
 // 	console.log(chk2.length)
 // });
 
-// //설정 시작
-// var maxChecked = 3;
-// var totalChecked = 0;
-// // 설정 끝
-// function checkN(val) {
-// if (val.checked)
-// totalChecked += 1;
-// else
-// totalChecked -= 1; 
-// if (totalChecked > maxChecked) {
-// alert ("최대 3개 까지만 가능합니다.");
-// field.checked = false;
-// totalChecked -= 1;
-// } 
-// }
-
-
-
+//date 2021-05-23형식으로 바꾸기(문자열)
 function dateToYear(date) {
     var year = date.getFullYear();
 
@@ -293,45 +315,47 @@ function dateToYear(date) {
 function challengeperiodChange(period){
 	//챌린지 시작일
 	var startDay =  $("select[name=challengestart]").val();
-	//console.log(startDay)
-	const strArr = startDay.split('-');
-	const sDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-	//console.log(sDate)
-	//alert("시작 날짜:"+sDate);
-	//alert(a+7  + "sDate.getDate()");
-	//alert(typeof(sDate.getDate()));
-	var endDate = "";	
-	if(period==1){
-		endDate = sDate.setDate(sDate.getDate()+6);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
-		endDate = new Date(endDate)
-	}
-	else if(period==2){
-		endDate = sDate.setDate(sDate.getDate()+13);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
-		endDate = new Date(endDate)
-	}
-	else if(period==3){
-		endDate = sDate.setDate(sDate.getDate()+20);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
-		endDate = new Date(endDate)
-	}
-	else if(period==4){
-		endDate = sDate.setDate(sDate.getDate()+27);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
-		endDate = new Date(endDate)
-	}
-	
-	$("#_endDate").val(dateToYear(endDate));
-	alert("종료 날짜"+dateToYear(endDate));	
+	if(startDay==null||startDay==0){	//_challengeperiod
+		alert("챌린지 시작일을 선택해 주세요.");
+		$('#_challengeperiod').prop('selectedIndex',0);
+		return false;
+	}else{
+		//console.log(startDay)
+		const strArr = startDay.split('-');
+		const sDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+		//console.log(sDate)
+		//alert("시작 날짜:"+sDate);
+		//alert(a+7  + "sDate.getDate()");
+		//alert(typeof(sDate.getDate()));
+		var endDate = "";	
+		if(period==1){
+			endDate = sDate.setDate(sDate.getDate()+6);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = new Date(endDate)
+		}
+		else if(period==2){
+			endDate = sDate.setDate(sDate.getDate()+13);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = new Date(endDate)
+		}
+		else if(period==3){
+			endDate = sDate.setDate(sDate.getDate()+20);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = new Date(endDate)
+		}
+		else if(period==4){
+			endDate = sDate.setDate(sDate.getDate()+27);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = new Date(endDate)
+		}
+		
+		$("#_endDate").val(dateToYear(endDate));
+		//alert("종료 날짜"+dateToYear(endDate));	
+		document.getElementById('periodText').innerHTML="<p class='periodTe'>챌린지 기간은 "+startDay+"부터 "+dateToYear(endDate)+"까지 입니다.</p>";
+		$("#periodText").show();
+	}	
 }
-
-
-
-
 
 
 //챌린지 만들기 버튼(enter) 제어
 function challengeMake(){
-	
-	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
-	
+
 	//카테고리 비 선택 시 제어
 	var category = $("select[name=category]").val();
 	//alert(category);
@@ -342,7 +366,7 @@ function challengeMake(){
 	
 	//챌린지 시작일 비 선택 시 제어
 	var challengestart = $("select[name=challengestart]").val();
-	alert(challengestart);
+	//alert(challengestart);
 	if (challengestart==0 || challengestart==null){
 		alert("챌린지 시작일을 선택해 주세요");
 		return false;
@@ -356,7 +380,6 @@ function challengeMake(){
 		return false;
 	}
 	
-	
 	//인증빈도 비 선택 시 제어
 	var identifyfrequency = $("select[name=identifyfrequency]").val();
 	//alert(identifyfrequency);
@@ -364,7 +387,6 @@ function challengeMake(){
 		alert("인증 빈도를 선택해 주세요");
 		return false;
 	}
-	
 
 	//인증시간 비 선택 시 제어 identifyTime
 	var identifytime = $("select[name=identifytime]").val();
@@ -391,7 +413,6 @@ function challengeMake(){
 			return false;
 		}
 	}
-
 	
 	//챌린지 제목 비 기입 시 제어
 	var challengetitle = $("#_challengetitle").val();
@@ -402,23 +423,40 @@ function challengeMake(){
 	}
 	
 	//챌린지 소개 비 기입 시 제어
-	var challengetext = $("#_challengetext").val();
-	if(challengetext==null || challengetext==""){
-		challengetext = "챌린지를 소개합니다.";
+	if($("#_challengetext").val()==null || $("#_challengetext").val()==""){
+		alert("간단한 챌린지 소개글을 적어주세요.");
+		return false;
+	}
+		
+	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
+	if ($('input[name="uploadFile"]').get(0).files[0] == undefined) {
+		alert("챌린지 이미지를 생성해 주세요.");
+		return false;
 	}
 	
-
-	//데이터 보내기	
-	var params = $("#challengeFrm").serialize();
-		alert(params);
+	//데이터 보내기		
+	let params = new FormData($("#challengeFrm")[0]);
+	//alert(params);
+	//params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
+	//input file추가
+	
 	$.ajax({
 		url:"challengeInsert.do",
 		type:"post", 
 		data:params,
-		contentType:'application/x-www-form-urlencoded; charset=UTF-8',
-		dataType:'html',
+		enctype:"multipart/form-data",	//파일업로드 설정데이터, 인코딩
+		processData:false,
+		contentType:false,
+		cache:false,	//파일 새고고침 시 저장할 것이냐(아니오)
 		success:function(msg){
-			alert(msg);
+			//alert(msg);
+			if(msg=="SUCCESS"){
+				alert("챌린지가 생성되었습니다.");
+				location.href="newChallenge.do";
+			}else{
+				alert("챌린지를 다시 생성해 주세요.");
+				location.href="challengeMake.do";
+			}
 		},
 		error:function(){
 			alert("error");
