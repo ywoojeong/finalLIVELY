@@ -63,7 +63,7 @@ public class memberController {
 	public String memberLogin(Model model, HttpSession session) {
 		String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
 		model.addAttribute("naverUrl", naverAuthUrl);
-		
+		System.out.println("로그인 메소드!");
 		return "member/memberLogin";
 	}
 	
@@ -84,7 +84,7 @@ public class memberController {
 	*/
 	@RequestMapping(value="addInfo.do")
 	public String setMemberInfo(Model model,HttpSession session,@RequestParam Map<String,Object> paramMap) {
-		System.out.println("setMemberInfo param ==>"+paramMap);
+		System.out.println("set addInfo param ==>"+paramMap);
 		
 		String flag = (String)paramMap.get("flag");
 		if(flag.equals("kakao")){
@@ -102,14 +102,9 @@ public class memberController {
 	
 	@RequestMapping(value="logOut.do")
 	public String logOut(Model model,HttpSession session) {
-		System.out.println("logOut");	
+		System.out.println("로그아웃 실행");	
 		session.invalidate();
 		return "redirect:intro.do";
 	}
-	/*
-	@RequestMapping(value="memberSession.do")
-	public String memberSession(Model model) {
-		
-	}
-	*/
+	
 }
