@@ -21,7 +21,7 @@ $(document).ready(function(){
 </script>
 
  
-<div class="backDiv" style="background-image: url('image/challengeBack.png')">
+<div class="backDiv" style="background-image: url('image/challenge1.png')">
 	<div class="container challHeader">
 		<div>
 			<h1>하루에 1L씩 물먹기</h1>
