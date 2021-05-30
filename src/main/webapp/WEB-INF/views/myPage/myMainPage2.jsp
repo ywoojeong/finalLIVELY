@@ -79,8 +79,8 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <h5>참가중</h5>
-		                                            <div class="easypiechart" id="easypiechart-part" data-percent="82" >
-		                                                <span class="percent">82%</span>
+		                                            <div class="easypiechart" id="easypiechart-part" data-percent="${nowPercent}" >
+		                                                <span class="percent"><c:out value="${nowPercent}"></c:out>%</span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-sm-4">
@@ -452,20 +452,18 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	calendar.addEvent({'title':'추가추가', 'start':'2021-04-29 11:00:00', 'constraint':'내용 없음'});		//이벤트 추가
 	
+	
+	$('.nav-pills li a').on('shown.bs.tab', function () {
+	    console.log("ok2")
+	    
+	    calendar.render();
+	    
+	});
+	
 });
 </script>
 
-<script type="text/javascript">
-/* $(document).ready(function(){
-	$('#menu1').on('click', function(){
-		$('#menu1').load(window.location.href + '#menu1');
-		
-	});
-}); */
-/* $('#memMonth').on('click', function(){
-	$('#calendar').load(location.href + '#calendar');
-	
-}); */
+<script type="text/javascript">/
 $(document).ready(function() {
     $('.chatrow').on( 'keyup', 'textarea', function (e){
       $(this).css('height', 'auto' );
