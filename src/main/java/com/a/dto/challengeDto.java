@@ -21,7 +21,7 @@ CREATE TABLE CHALLENGE(
 		CHALLENGEDEL NUMBER, --삭제
 		HEADERNUM NUMBER,   --개설자,  관리자:0 유저:3
 		POINTCOUNT NUMBER,  --기준 포인트(얼마 걸껀지)
-		
+		CALLENGEMEMBER,   --챌린지 전체 인원
 		EMAIL VARCHAR2(50), 
 		
 		CONSTRAINT FK_CHAL FOREIGN KEY (EMAIL) 
@@ -48,6 +48,7 @@ public class challengeDto {
 	private int challengedel;
 	private int headernum;	//개설자
 	private int pointcount;	//얼마 걸테냐...
+	private int challengemember; //멤버 전체
 	private String email;	//id와 같음
 	
 	public challengeDto() {
@@ -57,7 +58,7 @@ public class challengeDto {
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
 			String challengestart, String challengeend, String challengeperiod, int identifyfrequency,
 			String identifyday, String identifytime, String challengephoto, String challengesavephoto, double ratingavg,
-			int challengestop, int challengedel, int headernum, int pointcount, String email) {
+			int challengestop, int challengedel, int headernum, int pointcount, int challengemember, String email) {
 		super();
 		this.challengeseq = challengeseq;
 		this.category = category;
@@ -76,6 +77,7 @@ public class challengeDto {
 		this.challengedel = challengedel;
 		this.headernum = headernum;
 		this.pointcount = pointcount;
+		this.challengemember = challengemember;
 		this.email = email;
 	}
 
@@ -215,6 +217,14 @@ public class challengeDto {
 		this.pointcount = pointcount;
 	}
 
+	public int getChallengemember() {
+		return challengemember;
+	}
+
+	public void setChallengemember(int challengemember) {
+		this.challengemember = challengemember;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -231,7 +241,8 @@ public class challengeDto {
 				+ identifyfrequency + ", identifyday=" + identifyday + ", identifytime=" + identifytime
 				+ ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto + ", ratingavg="
 				+ ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel + ", headernum="
-				+ headernum + ", pointcount=" + pointcount + ", email=" + email + "]";
+				+ headernum + ", pointcount=" + pointcount + ", challengemember=" + challengemember + ", email=" + email
+				+ "]";
 	}
 
 	

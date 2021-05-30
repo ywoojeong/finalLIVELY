@@ -138,7 +138,7 @@ $(document).ready(function(){
 	 						<div class="challSelect2">
 	 							<%String dateWeek[] = new String[]{"일", "월", "화", "수", "목", "금", "토"}; 
 	 						 	for(int i=0; i<dateWeek.length;i++){ %>
- 	 							    <input type="checkbox" onclick="checkNN(this)" id="idid" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
+ 	 							    <input type="checkbox" id="_dateWeek" name="dateWeek" value="<%=i+1%>"><span style="color: #777777;margin-left: 3px;margin-right: 6px"><%=dateWeek[i] %></span> 
 	 							<%}%>					 			
 							 </div> 		
 	 					</td>
@@ -225,45 +225,6 @@ function challengeFreChange(val){
  	$("input:checkbox[name='dateWeek']").attr('checked', false);
 	if(val>=1 && val<=6){
 		$("#_endDateTd").show();
-		if(val==1){
-			let maxChecked=1;
-			let totalChecked=0;
-			function checkNN(chec) {
-				console.log("check")
-			 	if (chec){
-					totalChecked += 1;
-			 	}else{
-					totalChecked -= 1;
-			 	}
-				if (totalChecked > maxChecked) {
-					alert ("최대 1개 까지만 가능합니다.");
-					field.checked = false;
-					totalChecked -= 1;
-				} 
-			}
-		}
-// 		for(i=1;i<7;i++){
-// 			if(val==i){
-// 				//alert(val);
-// 				let maxChecked=i;
-// 				let totalChecked=0;
-				
-// 				function checkNN(chec) {
-// 					console.log("check")
-// 				 	if (chec){
-// 						totalChecked += 1;
-// 				 	}else{
-// 						totalChecked -= 1;
-// 				 	}
-// 					if (totalChecked > maxChecked) {
-// 						alert ("최대 "+i+"개 까지만 가능합니다.");
-// 						field.checked = false;
-// 						totalChecked -= 1;
-// 					} 
-// 				}
-// 			}
-// 		}
-		
 	}else{
 		$("#_endDateTd").hide();
 		if(val==9){ //월-일
@@ -283,14 +244,12 @@ function challengeFreChange(val){
 }
 
 //체크박스 제어하기 주3일 >> 3개까지만 . event.preventDefault();
- //$(document).on("change","#idid", function() {
-// 	console.log('1111')
-//  	let chk1 = $("input:checkbox[name='dateWeek']").is(':checked');
-// 	console.log('11112222')
-// 	let chk2 = $("input:checkbox[name='dateWeek']").prop('checked');
-// 	console.log(chk1.length)
-// 	console.log(chk2.length)
-// });
+
+ $("input:checkbox[name='dateWeek']:checked").each(function() {
+	 var tmpVal = $(this).val();
+	    console.log(tmpVal);
+ });
+
 
 //date 2021-05-23형식으로 바꾸기(문자열)
 function dateToYear(date) {

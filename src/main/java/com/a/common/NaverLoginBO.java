@@ -27,13 +27,12 @@ public class NaverLoginBO {
 	public void setSecret(String value) {
 		CLIENT_SECRET = value;
 	}
-	
 	@Value("#{loginApi['NAVER.CLIENT']}")
 	public void setClient(String value) {
 		CLIENT_ID = value;
 	}
 	
-	private final static String REDIRECT_URI = "http://localhost:8090/memberNaverLoginPro.do";
+	private final static String REDIRECT_URI = "http://localhost:8090/finalMBTI/memberNaverLoginPro.do";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

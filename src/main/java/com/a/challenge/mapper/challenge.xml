@@ -7,11 +7,47 @@
 		
 		INSERT INTO CHALLENGE(CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT,CHALLENGESTART, CHALLENGEEND,CHALLENGEPERIOD,
 						IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, RATINGAVG, CHALLENGESTOP, CHALLENGEDEL, 
-						HEADERNUM, POINTCOUNT, EMAIL)
+						HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL)
 		VALUES(CHAL_SEQ.NEXTVAL, #{category}, #{challengetitle}, #{challengetext}, #{challengestart}, #{challengeend}, #{challengeperiod}, 
 				#{identifyfrequency}, #{identifyday}, #{identifytime}, #{challengephoto}, 0, 0, 0,
-				#{headernum}, #{pointcount}, #{email})
+				#{headernum}, #{pointcount}, 0, #{email})
 		
 	</insert>
+	
+	<!-- hotChallengeData 데이터 전부 가져오기 java.util.Map(param은 start end search category   -->
+	<select id="hotChallengeData" parameterType="java.util.Map" resultType="com.a.dto.challengeDto">
+	 	SELECT CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD,
+	 			  IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, RATINGAVG, HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL 
+	 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY CHALLENGEMEMBER DESC) AS RNUM,
+				CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD,
+	 			IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, RATINGAVG, HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL 
+	  		  FROM CHALLENGE
+	  		  WHERE 1=1 
+	  		  		AND CHALLENGESTOP = 0 
+	  		  			AND CHALLENGEDEL = 0
+	  		  				<if test="category != 0"><!-- 안전성을 고려 -->
+			  					AND CATEGORY = ${category}
+			  				</if>
+				  		  	 	<if test="search != null and search != ''"><!-- 안전성을 고려 -->
+					  				 AND TITLE LIKE '%'||#{search}||'%'		  
+				  				</if>
+			  ORDER BY CHALLENGEMEMBER DESC) 
+	 	WHERE RNUM BETWEEN ${start} AND ${end}
+	</select>
+	
+	<!-- challengeDataCount 글의 총 수 가져오기 paramMap search / category-->
+	<select id="challengeDataCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+	 	SELECT COUNT(*)
+	 	FROM CHALLENGE
+	  	WHERE 1=1 
+	  		AND CHALLENGESTOP = 0 
+	  			AND CHALLENGEDEL = 0
+	  				<if test="category != 0"><!-- 안전성을 고려 -->
+	  					AND CATEGORY = ${category}
+	  				</if>
+					  	 <if test="search != null and search != ''"><!-- 안전성을 고려 -->
+			 				 AND TITLE LIKE '%'||#{search}||'%'		  
+						</if>
+	</select>
 	
 </mapper>

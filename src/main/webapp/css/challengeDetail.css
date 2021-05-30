@@ -175,7 +175,7 @@ body{
 
 .resultChart{
 	margin: 45px 0;
-
+	box-shadow: 0 4px 7px rgb(0 0 0 / 10%);
 	padding-top:25px;
 	padding-bottom:25px;
 	border: 1px solid #edf0f2;
