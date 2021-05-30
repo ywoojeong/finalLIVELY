@@ -1,5 +1,8 @@
 package com.a.challenge.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +24,19 @@ public class challengeDaoImpl implements challengeDao {
 		return count>0?true:false;
 	}
 
+	@Override
+	public List<challengeDto> hotChallengeData(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"hotChallengeData", searchParam);
+	}
+
+	@Override
+	public int challengeDataCount(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"challengeDataCount", searchParam);
+	}
+	
+	
 	
 	
 }

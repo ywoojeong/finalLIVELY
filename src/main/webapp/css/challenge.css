@@ -20,7 +20,7 @@ body{
 .hotMainSen >h2{
 	font-family: 'Noto Sans KR', sans-serif;
 	position:absolute;
-	font-size:37pt;
+	font-size:36pt;
 	top:30%;
 	left:50%;
 	transform:translateX(-50%);
@@ -53,7 +53,7 @@ body{
 
 .hotMainSen .chall-buttons {
 	position:absolute;
-	top:60%;
+	top:63%;
 	left:50%;
 	transform:translateX(-50%);
     text-align: center;
@@ -134,7 +134,7 @@ body{
 
 
 .btn-Search:active, .btn-Search:focus{
-	 box-shadow: 0 4px 15px 0 rgba(154,120,223, 0.75);
+	box-shadow: 0 4px 15px 0 rgba(154,120,223, 0.75);
 	background-color: #8b63da;
 	color: white;
 	border-radius:20px;
@@ -151,14 +151,15 @@ body{
 	
 
 /*카테고리 범주 네비 디자인 */
-.nav-pills{
+.hotNav .nav-pills{
 	justify-content: center;
 	margin-left: 25px;
+	margin: 20px 0 -20px 25px;
 }
 
-.nav-pills .nav-link{
+.hotNav .nav-pills .nav-link{
 	font-family: 'Noto Sans KR', sans-serif;
-	margin:30px auto 15px auto;
+	margin:11px auto 30px auto;
 	background-color: #f2f2f2;
 	border-radius: 20px;
 	height:30px;
@@ -169,12 +170,13 @@ body{
 	letter-spacing: 2px;
 }
 
-.nav-link:focus, .nav-link:hover{
+.hotNav .nav-link:focus, .hotNav .nav-link:hover{
 	color:cb98ed;
 }
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+.hotNav .nav-pills .nav-link.active,.hotNav .nav-pills .show>.nav-link{
 	background-color: #cb98ed;
 	border-radius: 20px;
+	color:white;
 	height:30px;
 	padding:6px 25px;
 	font-weight: 400;
@@ -185,62 +187,73 @@ body{
 /* 줌 호버 */
 .challCard{
 	width: 18rem;
-	height:25rem;
+	/* height:22rem; */
 	float: none;
-	margin: 30px auto;
-	 overflow:hidden;
-	 position: relative;
+	margin: 21px auto;
+	overflow:hidden;
+	position: relative;
+	border-radius:0px;
+	border: 0px solid;
+	
 }
-.challCard>img{
-	width: 18rem;
-	height:25rem;
+.challCardImg{
+	width:18rem;
+	height:13rem;
+	overflow:hidden;
+	border-radius: 3px;
+	
+}
+.challCardImg> img{ 
+	overflow: hidden;
 	object-fit: cover;
-}
-.zoom {  
-  transition: all 1s; /* Animation */
+ 	width:18rem;
+	height:13rem;
+	transition:all 0.5s;
+ } 
+ .challCardImg> img:hover{
+ 	transform:scale(1.2);
+ } 
+/* .zoom {  
+  transition: all 1s; Animation
   width:100%; 
-}
+} */
 
-.zoom:hover {
-  transform: scale(1.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
-
-.card-img-overlay {
-	position: absolute;
-	top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-}
 
 /*카드 내부 디자인*/
+.challCardContent{
+	margin-top: 10px;
+}
+
 
 .card-title{
 	font-weight: 700px;
+	margin-top: 2px;
+	margin-bottom: 5px;
+	font-size: 16pt;
 }
 
 .challuser{
 	color:#222229;
-	margin-bottom: 0px;
+	margin-bottom: 0px; 
 	font-size: 10pt;
 }
 .usercount{
 	width:72px;
 	text-align:center;
 	font-size: 10pt;
-	background-color: rgba(50, 50, 50, 55%);
+	background-color: #cb98ed;
 	color:white;
 	border-radius: 3px;
 	padding: 0 10px;
-	margin-top: 5px;
-	margin-bottom: 10px;
+	margin-top: 8px;
+	/* margin-bottom: 6px; */
 
 	
 }
 
 .when{
 	border-radius: 3px;
-	background-color: rgba(156, 156, 156, 55%);
+	background-color: rgba(156, 156, 156, 30%);
 	font-size: 10pt;
 	padding: 0 10px;	
 	margin-right: 10px;

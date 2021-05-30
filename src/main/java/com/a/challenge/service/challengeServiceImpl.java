@@ -1,6 +1,9 @@
 package com.a.challenge.service;
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,21 @@ public class challengeServiceImpl implements challengeService {
 		
 		return dao.challengeInsert(dto);
 	}
+
+	@Override
+	public List<challengeDto> hotChallengeData(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return dao.hotChallengeData(searchParam);
+	}
+
+	@Override
+	public int challengeDataCount(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return dao.challengeDataCount(searchParam);
+	}
+	
+	
+	
 
 	
 	
