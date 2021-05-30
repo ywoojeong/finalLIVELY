@@ -48,7 +48,7 @@
 	
 	<!-- 네이버 로그인 -->
 	<select id="memberNaverLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME FROM MEMBER 
+		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
 		WHERE EMAIL = #{email} AND NAVERLOGIN = #{naverLogin}
 	</select>
 	
@@ -65,7 +65,7 @@
 	</update>
 	
 	<select id="memberKakaoLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME FROM MEMBER 
+		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
 		WHERE EMAIL = #{EMAIL} AND KAKAOLOGIN = #{KAKAOLOGIN}
 	</select>
 	<!-- 
@@ -86,7 +86,7 @@
 	</update>
 	
 	<select id="memberGoogleLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME FROM MEMBER 
+		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
 		WHERE EMAIL = #{EMAIL} AND GOOGLELOGIN = #{GOOGLELOGIN}
 	</select>
 	<!-- 
