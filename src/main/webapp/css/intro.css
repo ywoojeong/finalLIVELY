@@ -246,11 +246,11 @@ body{
 .conHeader> h1{
 	text-align:center;
 	 font-family: 'Raleway', sans-serif;
-	 font-weight: 700;
+	 font-weight: 800;
 	 font-size:55pt;
 	 color:#222229;
-	 padding-top: 15px;
-	 padding-bottom: 15px;
+/* 	 padding-top: 15px; */
+/* 	 padding-bottom: 15px; */
 	 margin-bottom:0px;
 	 background-color: white;
 	 
@@ -268,24 +268,14 @@ body{
 .hexagon{
 	margin-top:50px;
 	margin-bottom:30px;
-	height:100px;
+	height:150px;
 	background-position:center;
 	background-size:contain;
 	background-repeat: no-repeat;
 	position: relative;
 }
-.hexagonImg1{
-	position: absolute;
-  	left: 46%;
-	top: 18%;
 
-}
 
-.hexagonImg2{
-	position: absolute;
-  	left: 44%;
-	top: 16%;
-}
 .contentMain>div{
 	margin-top:30px;
 	margin-bottom: 50px;
@@ -294,16 +284,19 @@ body{
 	color: #fff;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+    font-size: 20pt;
 }
 .contentMain>div>p{
 	color: #cb98ed;
 	text-align: center;
+	font-size: 14pt;
 }
 
 
 
 .conSen{
-	 min-height: 33.3vw;
+	min-height: 33.3vh;
 	background-color: #222229; 
 	display: table;
 }
@@ -317,14 +310,21 @@ body{
 
 .conSen>div>h4{
 	color:white;
-	font-size: 15pt;
+	font-size: 23pt;
 }
-.conSen>p{
+.conSen>div>p{
 	color:#cb98ed;
+	font-size: 15pt;
 }
 
 .conSen2{
-	    min-height: 33.3vw;
+	overflow: hidden; 
+	padding: 0px;
+	
+}
+
+.conSen2>img{
+	width: 100%; 
 }
 
 

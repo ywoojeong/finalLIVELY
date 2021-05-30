@@ -24,7 +24,7 @@ public class challengeServiceImpl implements challengeService {
 	}
 
 	@Override
-	public List<challengeDto> hotChallengeData(Map<String, Object> searchParam) {
+	public List<Map<String, Object>> hotChallengeData(Map<String, Object> searchParam) {
 		// TODO Auto-generated method stub
 		return dao.hotChallengeData(searchParam);
 	}
@@ -35,6 +35,11 @@ public class challengeServiceImpl implements challengeService {
 		return dao.challengeDataCount(searchParam);
 	}
 	
+	@Override
+	public Map<String, Object> createChallengeMember(String email) {
+		// TODO Auto-generated method stub
+		return dao.createChallengeMember(email);	
+	}
 	
 	
 

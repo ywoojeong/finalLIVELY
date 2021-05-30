@@ -379,6 +379,14 @@
 	    <artifactId>spring-cloud-aws-autoconfigure</artifactId>
 	    <version>1.2.1.RELEASE</version>
 	</dependency>
+	
+	<!-- map key 소문자로 변경하기 -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-collections4</artifactId>
+	    <version>4.0</version>
+	</dependency>
+
 
   </dependencies>
   
