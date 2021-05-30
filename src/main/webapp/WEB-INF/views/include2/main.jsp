@@ -84,26 +84,23 @@
 	 			</div>
 	 			<div class="row contentMain">
 	 				<div class="col-sm-4">
-	 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
-	 						<i class="fas fa-clipboard fa-4x hexagonImg1"></i>
+	 					<div class="hexagon" style="background-image: url('./image/setting.png')">
 	 					</div>
 	 					<h4>SETTING CHALLENGE</h4>
-	 					<p>작은 도전과제를 설정해....</p>
+	 					<p>작은 도전 과제를 설정해 꾸준히 실천해 보세요.</p>
 	 				</div>
 	 				<div class="col-sm-4">
-	 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
-	 						<i class="fas fa-user-check fa-4x hexagonImg2"></i>
+	 					<div class="hexagon" style="background-image: url('./image/check.png')">
 	 					</div>	
 	 					<h4>CERTIFICATION</h4>
-	 					<p>매일매일 인증..어쩌구..</p>
+	 					<p>매일 인증하며 목표 달성에 가까워집니다</p>
 	 				</div>
 	 				
 	 				<div class="col-sm-4">
-	 					<div class="hexagon" style="background-image: url('./image/hexagon.png')">
-	 						<i class="fas fa-users fa-4x hexagonImg2"></i>
+	 					<div class="hexagon" style="background-image: url('./image/communication.png')">
 	 					</div>
 	 					<h4>COMMUNICATION</h4>
-	 					<p>같은 목표를 가진 사람들과 소통하며 도전....</p>
+	 					<p>사람들과 함께 독려하며 달성해 보세요</p>
 	 				</div>
 	 			</div>
 	 			<div class="warning" style="background-image:url('image/livwarning.png') ">
@@ -117,8 +114,8 @@
 					</div>
 	
 				</div>
-				<div class="col-sm-4 conSen2">
-				 <span style="color:white">이미지 삽입</span>
+				<div class="col-sm-4 conSen2" style="text-align: center">
+					<img src="image/emotion1.jpg">
 				</div>
 				<div class="col-sm-4 conSen">
 					<div>
@@ -128,27 +125,27 @@
 	
 				</div>
 				<div class="col-sm-4 conSen2">
-				 <span style="color:white">이미지 삽입</span>
+				<img src="image/tennis1.jpg">
 				</div>
 				<div class="col-sm-4 conSen">
 					<div>
-						<h4>CAPABILITY</h4>
+						<h4>FINANCE</h4>
 						<p>문장을 입력하세요</p>
 					</div>
 	
 				</div>
 				<div class="col-sm-4 conSen2">
-				 <span style="color:white">이미지 삽입</span>
+				 <img src="image/meal1.jpg">
 				</div>
 				<div class="col-sm-4 conSen">
 					<div>
-						<h4>PROPERTY</h4>
+						<h4>HOBBY</h4>
 						<p>문장을 입력하세요</p>
 					</div>
 	
 				</div>
 				<div class="col-sm-4 conSen2">
-				 <span style="color:white">이미지 삽입</span>
+				<img src="image/party1.jpg">
 				</div>
 				<div class="col-sm-4 conSen">
 					<div>

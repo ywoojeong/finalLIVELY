@@ -25,7 +25,7 @@ public class challengeDaoImpl implements challengeDao {
 	}
 
 	@Override
-	public List<challengeDto> hotChallengeData(Map<String, Object> searchParam) {
+	public List<Map<String, Object>> hotChallengeData(Map<String, Object> searchParam) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"hotChallengeData", searchParam);
 	}
@@ -34,6 +34,12 @@ public class challengeDaoImpl implements challengeDao {
 	public int challengeDataCount(Map<String, Object> searchParam) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+"challengeDataCount", searchParam);
+	}
+
+	@Override
+	public Map<String, Object> createChallengeMember(String email) {
+		
+		return sqlSession.selectOne(namespace+"createChallengeMember", email);
 	}
 	
 	

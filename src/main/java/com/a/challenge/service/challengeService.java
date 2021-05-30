@@ -11,8 +11,11 @@ public interface challengeService {
 	public boolean challengeInsert(challengeDto dto);
 	
 	//hot챌린지 전체 가져오기
-	public List<challengeDto> hotChallengeData(Map<String,Object> searchParam);
+	public List<Map<String, Object>> hotChallengeData(Map<String,Object> searchParam);
 
 	//hot 챌린지 전체 글 수
 	public int challengeDataCount(Map<String,Object> searchParam);
+	
+	//챌린지 생성한 사람의 데이
+	public Map<String, Object> createChallengeMember(String email);
 }

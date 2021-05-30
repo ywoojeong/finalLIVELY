@@ -11,9 +11,11 @@ public interface challengeDao {
 	public boolean challengeInsert(challengeDto dto);
 	
 	//hot전체 글 가져오기 hotChallengeData
-	public List<challengeDto> hotChallengeData(Map<String,Object> searchParam);
+	public List<Map<String, Object>> hotChallengeData(Map<String,Object> searchParam);
 	
 	//hot전체 글 수 challengeDataCount
 	public int challengeDataCount(Map<String,Object> searchParam);
 	
+	//챌란자 생성한 사람 데이터 createChallengeMember
+	public Map<String, Object> createChallengeMember(String email);
 }

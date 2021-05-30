@@ -396,8 +396,9 @@ function challengeMake(){
 	//데이터 보내기		
 	let params = new FormData($("#challengeFrm")[0]);
 	//alert(params);
-	//params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
+	params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
 	//input file추가
+	alert(params);
 	
 	$.ajax({
 		url:"challengeInsert.do",
