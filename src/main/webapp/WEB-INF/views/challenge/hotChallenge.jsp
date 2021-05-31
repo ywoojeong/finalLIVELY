@@ -63,6 +63,7 @@
 		  <div class="tab-content">
 		  
 		  	 <div class="row">
+		  	 				   <!-- 검색창 -->	
 					<div class="col-sm-6 md-form md-outline d-flex Search">
 						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search">
 				    	<button type="button" id="searchBtn" class="btn btn-Search" onclick="searchBtn()">SEARCH</button>
@@ -70,42 +71,39 @@
 	  			</div>
 		    	
 		    	<%for(int i=0;i<7;i++) {%>
-		    	  <div id="category<%=i %>" class="container tab-pane active">
-					   <!-- 검색창 -->	
-					  
-				    
+		    	  <div id="category<%=i %>" class="container tab-pane active"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
+
 				    	<!-- 카드 -->
 				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto; width: 94%">
 										<!-- 데이터 들어오는 부분 -->
 				     	</div>
-				     
 				    </div>
 				   <%} %>
 				    	
 		    	
 		    		<!-- 페이지네이션 -->
-		     
-		     	<nav aria-label="Page navigation">
-					  <ul class="pagination"  id="_pagination" style="justify-content: center">
-	<!-- 				    <li class="page-item disabled"> -->
-	<!-- 				      <a class="page-link" href="#" tabindex="-1">Previous</a> -->
-	<!-- 				    </li> -->
+		    				     
+
+					  <ul class="pagination" id="_pagination"  style="justify-content: center">
+					    <li class="page-item">
+					      <a class="page-link"tabindex="-1">Previous</a>
+					    </li>
 					    
-	<!-- 				    <li class="page-item"><a class="page-link" href="#">1</a></li> -->
-	<!-- 				    <li class="page-item active"> -->
-	<!-- 				      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
-	<!-- 				    </li> -->
-	<!-- 				    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-	<!-- 				    <li class="page-item"> -->
-	<!-- 				      <a class="page-link" href="#">Next</a> -->
-	<!-- 				    </li> -->
+					    <li class="page-item active"><a class="page-link">1</a></li>
+<!-- 					    <li class="page-item active"> -->
+<!-- 					      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
+<!-- 					    </li> -->
+<!-- 					    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+					    <li class="page-item">
+					      <a class="page-link">Next</a>
+					    </li>
 				 	 </ul>
-				  </nav>
+
 			</div>	   	 
    </div>
 
 <!-- 페이지네이션 -->
-<script src="./js/jquery.twbsPagination.js"></script>
+<script src="js/jquery.twbsPagination.js"></script>
 
 
 <script type="text/javascript">
@@ -117,6 +115,7 @@ getChallengeList(0, 0);	//페이지 번호, 카테고리번호
 $('#searchBtn').click(function(){
 	getChallengeListCount(0);		//카테고리 번호
 	getChallengeList(0, 0);	
+	$("#_search").val("");
 });
 
 
@@ -150,6 +149,7 @@ function categoryBtn(categoryNumber){
 	$('#searchBtn').click(function(){
 		getChallengeListCount(PageNumber, categoryNumber);		//카테고리 번호
 		getChallengeList(0, categoryNumber);
+		$("#_search").val("");
 	});
 	
 }
@@ -165,6 +165,12 @@ function getChallengeList(pageNumber, categoryNumber){
 	     	
 			$(".dataId").remove();
 			
+			if(list.length==0){
+				console.log("왜안들어와")
+				let data = "<h5>챌린지가 없습니다. 챌린지를 생성해 주세요.<h5>"
+				$("#dataMain"+categoryNumber).append(data);
+			}
+			
 			$.each(list, function(i, challenge){
 				
 				let dateTotal="";
@@ -178,11 +184,10 @@ function getChallengeList(pageNumber, categoryNumber){
 					for(i=6;i>0;i--){
 						if(i==challenge.identifyfrequency){
 							dateTotal="주 "+i+"회";
-						}
-						
+						}	
 					}
 				}
-				console.log(dateTotal);
+				//console.log(dateTotal);
 				//날짜 제어
 				let now = new Date();
 				let year = now.getFullYear();
@@ -203,9 +208,13 @@ function getChallengeList(pageNumber, categoryNumber){
 				let data =  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
 							+"<div class='challCard'>"
 			     			+"<div class='challCardImg'>"
- 			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>"
-			     				 	+"<img  src='upload/"+challenge.challengephoto+"/'>"
-			     				 +"</a>"
+ 			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>";
+		     				if(challenge.challengesavephoto=="0"){
+	     				 		data +="<img  src='image/challenge1.png'>"
+		     				}else{
+		     					data +="<img src='"+challenge.challengesavephoto+"'>";
+		     				}
+			     	data+=   "</a>"
 								+"</div>"
 								+"<div class='challCardContent'>"
 								+"<div style='display:flex;justify-content: space-between;'>"
@@ -228,6 +237,9 @@ function getChallengeList(pageNumber, categoryNumber){
 		},
 		error:function(){
 			alert("리스트 불러오는 error");
+		}, 
+		complete:function(){
+			
 		}
 	});		
 		
@@ -260,23 +272,23 @@ function loadPaging(totalCount){
 	 }
 
 	//페이지 갱신 : 갱신해야 검색 페이징 가능
-	 $("#_pagination").twbsPagination('destroy');
+ 	 $(".pagination").twbsPagination('destroy');
 	
-	 $("#_pagination").twbsPagination('enable');
-	 
-	 $("#_pagination").twbsPagination({
+ 	 $(".pagination").twbsPagination('enable');
+	  console.log("페이징 버튼 누르면 "+_totalPages+" 페이지수"+nowPage)
+	 $(".pagination").twbsPagination({
 		startPage: nowPage,
 	 	totalPages:  _totalPages,
 	 	visiblePages: 5,
 	 	initiateStartPageClick: false,
-	 	first:'<span sria-hidden="true">«</span>',
-	 	prev:"Previous",
-	 	next:"Next",
-	 	last:'<span sria-hidden="true">»</span>',
-		nextClass : "page-item next",	// 이전 페이지 CSS class
-	    prevClass : "page-item prev",	// 다음 페이지 CSS class
-	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
-	    firstClass : "page-item first",	// 첫 페이지 CSS class
+// 	 	first:'<span sria-hidden="true">«</span>',
+// 	 	prev:"Previous",
+// 	 	next:"Next",
+// 	 	last:'<span sria-hidden="true">»</span>',
+// 		nextClass : "page-item next",	// 이전 페이지 CSS class
+// 	    prevClass : "page-item prev",	// 다음 페이지 CSS class
+// 	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
+// 	    firstClass : "page-item first",	// 첫 페이지 CSS class
 	    pageClass : "page-item",	// 페이지 버튼의 CSS class
 	    activeClass : "active",	// 클릭된 페이지 버튼의 CSS class
 	    disabledClass : "disabled",	// 클릭 안된 페이지 버튼의 CSS class

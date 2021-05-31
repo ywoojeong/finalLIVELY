@@ -98,7 +98,7 @@ body{
 /*pointText 테이블 */
 .pointExplain{
 	background-color: #e9e9eaff;	
-	margin: 30px 0 25px 0;
+	margin: 30px 0 0px 0;
 	padding: 10px;
 }
 .pointExplain>div>table{

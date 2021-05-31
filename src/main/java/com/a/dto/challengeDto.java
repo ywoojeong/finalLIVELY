@@ -4,29 +4,32 @@ import java.util.Arrays;
 
 /* 
 CREATE TABLE CHALLENGE(
-		CHALLENGESEQ NUMBER CONSTRAINT MEM_PRI PRIMARY KEY, 
+		CHALLENGESEQ NUMBER CONSTRAINT CHAL_PK PRIMARY KEY, 
 		CATEGORY NUMBER,     --카테고리
 		CHALLENGETITLE VARCHAR2 (200),
 		CHALLENGETEXT VARCHAR2 (4000),
 		CHALLENGESTART DATE,  --시작일
 		CHALLENGEEND DATE,    --종료일
+		CHALLENGEPERIOD VARCHAR2(50), --기간
 		IDENTIFYFREQUENCY NUMBER, --인증 빈도
-		IDENTIFYDAY VARCHAR2(50),
-		IDENTIFYTIME DATE, --인증 시간
-		IDENTIFYDAY VARCHAR2(50) --인증 날짜(요일)1 -7
-		IDENTIFYCOUNT NUMBER, --인증 횟수
-		CHALLENGEPHOTO VARCHAR2(100),
+		IDENTIFYDAY VARCHAR2(50), --인증 날짜 -- 일, 월, 화 , 수, 목, 금, 토(1-7) ,로 잘라서 사용 (0일때false / 1일때 true)
+		IDENTIFYTIME NUMBER, --인증 시간
+		CHALLENGEPHOTO VARCHAR2(100), --이미지
+		CHALLENGESAVEPHOTO VARCHAR2(200),  --이미지 파일 암호화
+		CERTIFYPHOTO VARCHAR2(200),		--인증방법 이미지
+		CERTIFYSAVEPHOTO VARCHAR2(200),	--인증방법 이미지 파일 암호화
+		CERTIFY VARCHAR2(1000), 		--인증방법  
 		RATINGAVG NUMBER, --별점 평균
 		CHALLENGESTOP NUMBER, --정지
 		CHALLENGEDEL NUMBER, --삭제
 		HEADERNUM NUMBER,   --개설자,  관리자:0 유저:3
 		POINTCOUNT NUMBER,  --기준 포인트(얼마 걸껀지)
-		CALLENGEMEMBER,   --챌린지 전체 인원
-		EMAIL VARCHAR2(50), 
-		
+		CHALLENGEMEMBER NUMBER,   --챌린지 전체 인원
+		EMAIL VARCHAR2(50), 	  --개설자 이메일
 		CONSTRAINT FK_CHAL FOREIGN KEY (EMAIL) 
         REFERENCES MEMBER(EMAIL)
-)  
+) 
+
  
  */
 public class challengeDto {
@@ -43,6 +46,9 @@ public class challengeDto {
 	private String identifytime;
 	private String challengephoto;
 	private String challengesavephoto; 	//파일 이름 암호화
+	private String certifyphoto;    //인증방법 포토
+	private String certifysavephoto;	//인증방법 포토이름암호화
+	private String certify;				//인증방법
 	private double ratingavg;
 	private int challengestop;
 	private int challengedel;
@@ -57,8 +63,9 @@ public class challengeDto {
 
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
 			String challengestart, String challengeend, String challengeperiod, int identifyfrequency,
-			String identifyday, String identifytime, String challengephoto, String challengesavephoto, double ratingavg,
-			int challengestop, int challengedel, int headernum, int pointcount, int challengemember, String email) {
+			String identifyday, String identifytime, String challengephoto, String challengesavephoto,
+			String certifyphoto, String certifysavephoto, String certify, double ratingavg, int challengestop,
+			int challengedel, int headernum, int pointcount, int challengemember, String email) {
 		super();
 		this.challengeseq = challengeseq;
 		this.category = category;
@@ -72,6 +79,9 @@ public class challengeDto {
 		this.identifytime = identifytime;
 		this.challengephoto = challengephoto;
 		this.challengesavephoto = challengesavephoto;
+		this.certifyphoto = certifyphoto;
+		this.certifysavephoto = certifysavephoto;
+		this.certify = certify;
 		this.ratingavg = ratingavg;
 		this.challengestop = challengestop;
 		this.challengedel = challengedel;
@@ -177,6 +187,30 @@ public class challengeDto {
 		this.challengesavephoto = challengesavephoto;
 	}
 
+	public String getCertifyphoto() {
+		return certifyphoto;
+	}
+
+	public void setCertifyphoto(String certifyphoto) {
+		this.certifyphoto = certifyphoto;
+	}
+
+	public String getCertifysavephoto() {
+		return certifysavephoto;
+	}
+
+	public void setCertifysavephoto(String certifysavephoto) {
+		this.certifysavephoto = certifysavephoto;
+	}
+
+	public String getCertify() {
+		return certify;
+	}
+
+	public void setCertify(String certify) {
+		this.certify = certify;
+	}
+
 	public double getRatingavg() {
 		return ratingavg;
 	}
@@ -239,12 +273,14 @@ public class challengeDto {
 				+ challengetitle + ", challengetext=" + challengetext + ", challengestart=" + challengestart
 				+ ", challengeend=" + challengeend + ", challengeperiod=" + challengeperiod + ", identifyfrequency="
 				+ identifyfrequency + ", identifyday=" + identifyday + ", identifytime=" + identifytime
-				+ ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto + ", ratingavg="
-				+ ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel + ", headernum="
-				+ headernum + ", pointcount=" + pointcount + ", challengemember=" + challengemember + ", email=" + email
-				+ "]";
+				+ ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto
+				+ ", certifyphoto=" + certifyphoto + ", certifysavephoto=" + certifysavephoto + ", certify=" + certify
+				+ ", ratingavg=" + ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel
+				+ ", headernum=" + headernum + ", pointcount=" + pointcount + ", challengemember=" + challengemember
+				+ ", email=" + email + "]";
 	}
 
+	
 	
 }
 
