@@ -11,7 +11,7 @@
  <div class="" style="margin-top:70px;"> 
 	<div class="hotMain">
 		<video muted autoplay loop>
-        	<source src="video/write.mp4" type="video/mp4">
+        	<source src="video/write.mp4" type="video/mp4" align="middle">
         	<strong>Your browser does not support the video tag.</strong>
         </video>
 <!-- 		<div class="hotMainCover"></div> -->
@@ -62,89 +62,62 @@
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		  
-	
-		    <div id="category0" class="container tab-pane active">
-			   <!-- 검색창 -->	
-			   <div class="row">
+		  	 <div class="row">
 					<div class="col-sm-6 md-form md-outline d-flex Search">
 						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search">
 				    	<button type="button" id="searchBtn" class="btn btn-Search" onclick="searchBtn()">SEARCH</button>
 				    </div>
 	  			</div>
 		    	
-		    
-		    	<!-- 카드 -->
-		     	<div class="row" style="margin: 15px auto 30px auto; width: 94%">
-		     		<%for(int i=0;i<3;i++){
-		     			for(int j=0;j<3;j++){
-		     			%>
-		     			
-			     		<div class="col-xs-12 col-sm-4 p-2">
-			     			<div class="challCard">
-			     			<div class="challCardImg">
-			     				 <a class="challCardImg" href="challengeDetail.do" >
-			     				 	<img  src="https://blog.hmgjournal.com/images/contents/article/20161004-Reissue-hiking-course-02.jpg">
-			     				 </a>
- 							</div>
-							    <div class="challCardContent">
-							    	<div style="display:flex;justify-content: space-between;">
-								     	<p class="challuser"><i class="fas fa-trophy"></i> 공식 챌린지<p>
-								     	<span class="usercount"><i class="fas fa-user"></i> 35명</span>
-								     </div>
-							      	<h5 class="card-title">챌린지가몇자리까지쓰면다음으</h5>
-								    <span class="when">평일 매일</span><span class="when">2주동안</span>
-								    <p class="card-text">오늘부터 시작</p>
-							    </div>
-							   </div>
-
-			     		</div>
-		     		
-		     			<%}
-		     		}%>
-		     	</div>
-		     	<!-- 페이지네이션 -->
+		    	<%for(int i=0;i<7;i++) {%>
+		    	  <div id="category<%=i %>" class="container tab-pane active">
+					   <!-- 검색창 -->	
+					  
+				    
+				    	<!-- 카드 -->
+				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto; width: 94%">
+										<!-- 데이터 들어오는 부분 -->
+				     	</div>
+				     
+				    </div>
+				   <%} %>
+				    	
+		    	
+		    		<!-- 페이지네이션 -->
 		     
-				  <ul class="pagination" style="justify-content: center">
-<!-- 				    <li class="page-item disabled"> -->
-<!-- 				      <a class="page-link" href="#" tabindex="-1">Previous</a> -->
-<!-- 				    </li> -->
-<!-- 				    <li class="page-item"><a class="page-link" href="#">1</a></li> -->
-<!-- 				    <li class="page-item active"> -->
-<!-- 				      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
-<!-- 				    </li> -->
-<!-- 				    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-<!-- 				    <li class="page-item"> -->
-<!-- 				      <a class="page-link" href="#">Next</a> -->
-<!-- 				    </li> -->
-				  </ul>
-				   	
-		    </div>
-		      
-		      <div id="category1" class="container tab-pane fade"><br>
-			      <h3>Menu 1</h3>
-			      <p>각 메뉴의 데이터를 보여준다</p>
-			    </div>
-			    
-			    <div id="category2" class="container tab-pane fade"><br>
-			      <h3>Menu 2</h3>
-			      <p>각 메뉴의 데이터를 보여준다</p>
-			    </div>
-			    
-			    <div id="category3" class="container tab-pane fade"><br>
-			      <h3>Menu 3</h3>
-			      <p>각 메뉴의 데이터를 보여준다</p>
-			    </div>
-			  		   
-		  </div>
-		
- 
+		     	<nav aria-label="Page navigation">
+					  <ul class="pagination"  id="_pagination" style="justify-content: center">
+	<!-- 				    <li class="page-item disabled"> -->
+	<!-- 				      <a class="page-link" href="#" tabindex="-1">Previous</a> -->
+	<!-- 				    </li> -->
+					    
+	<!-- 				    <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+	<!-- 				    <li class="page-item active"> -->
+	<!-- 				      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
+	<!-- 				    </li> -->
+	<!-- 				    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+	<!-- 				    <li class="page-item"> -->
+	<!-- 				      <a class="page-link" href="#">Next</a> -->
+	<!-- 				    </li> -->
+				 	 </ul>
+				  </nav>
+			</div>	   	 
    </div>
 
+<!-- 페이지네이션 -->
+<script src="./js/jquery.twbsPagination.js"></script>
 
-<script>
+
+<script type="text/javascript">
 //시작 시 호출
 getChallengeListCount(0);		//카테고리 번호
 getChallengeList(0, 0);	//페이지 번호, 카테고리번호
+
+//카테고리선택 후 검색
+$('#searchBtn').click(function(){
+	getChallengeListCount(0);		//카테고리 번호
+	getChallengeList(0, 0);	
+});
 
 
 //챌린지 디테일 페이지로 이동
@@ -167,14 +140,16 @@ function challengeMake(){
 }
 
 //탭눌렀을 때 데이터 가져오기
-function categoryBtn(categotyNumber){
-	getBbsListData(0, categotyNumber);	//페이지 번호, 카테고리번호
-	getBbsListCount(categotyNumber);	
+function categoryBtn(categoryNumber){
+	//console.log(categoryNumber)
+	
+	getChallengeListCount(categoryNumber);		//카테고리 번호
+	getChallengeList(0, categoryNumber);	
 	
 	//카테고리선택 후 검색
 	$('#searchBtn').click(function(){
-		getBbsListData(pagingNumber, categotyNumber);	//페이지 번호, 카테고리번호
-		getBbsListCount(categotyNumber);	
+		getChallengeListCount(PageNumber, categoryNumber);		//카테고리 번호
+		getChallengeList(0, categoryNumber);
 	});
 	
 }
@@ -186,7 +161,70 @@ function getChallengeList(pageNumber, categoryNumber){
 		type:"get",
 		data:{'nowpageNumber':pageNumber, 'search':$("#_search").val(), 'category':categoryNumber},
 		success:function(list){
-			alert("전체 리스트 불러오기"+list.length);
+			//alert("전체 리스트 불러오기"+list.length);
+	     	
+			$(".dataId").remove();
+			
+			$.each(list, function(i, challenge){
+				
+				let dateTotal="";
+				if(challenge.identifyfrequency==9){
+					dateTotal = "매일";
+				}else if(challenge.identifyfrequency==8){
+					dateTotal = "평일 매일";
+				}else if(challenge.identifyfrequency==7){
+					dateTotal = "주말";
+				}else{
+					for(i=6;i>0;i--){
+						if(i==challenge.identifyfrequency){
+							dateTotal="주 "+i+"회";
+						}
+						
+					}
+				}
+				console.log(dateTotal);
+				//날짜 제어
+				let now = new Date();
+				let year = now.getFullYear();
+				let month = now.getMonth();
+				let day = now.getDate();
+				
+				let nowDate = new Date(year, month, day);
+				let startDate = challenge.challengestart;
+			//	console.log("시작 날짜"+startDate)
+			//	console.log("오늘 날짜"+nowDate)
+ 				let millisec = startDate - nowDate.getTime();
+				let limitDate = millisec / (1000*60*60*24);
+			//	console.log("limitDate 날짜 차이"+limitDate);
+				
+				let challengeMakeUser = challenge.headernum==3?"<img src='image/userMake.svg' style='height:20px;'>&nbsp"+challenge.nickname:"<img src='image/managerMake.svg' style='height:20px;'>&nbsp공식챌린지";
+				
+				
+				let data =  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
+							+"<div class='challCard'>"
+			     			+"<div class='challCardImg'>"
+ 			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>"
+			     				 	+"<img  src='upload/"+challenge.challengephoto+"/'>"
+			     				 +"</a>"
+								+"</div>"
+								+"<div class='challCardContent'>"
+								+"<div style='display:flex;justify-content: space-between;'>"
+								+"<p class='challuser'>"+challengeMakeUser+"</p>"
+								+"<span class='usercount'><i class='fas fa-user'></i>&nbsp;"+challenge.challengemember+"명</span>"
+								+"</div>"
+								+"<a class='cardTitle' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'><h5 class='card-title'>"+challenge.challengetitle+"</h5></a>"
+								+"<span class='when'>"+dateTotal+"</span><span class='when'>"+challenge.challengeperiod+"주동안</span>";
+						if(limitDate<0){
+							data += "<p class='card-start'>시작중인 챌린지</p>";								
+						}else if(limitDate==0){
+							 data += "<p class='card-text'>오늘부터 시작</p>";				
+						}else{
+							data += "<p class='card-text'>"+limitDate+"일 뒤부터 시작</p>";			
+						}
+						data +=" </div>"
+								 +"  </div> </div>";
+						$("#dataMain"+categoryNumber).append(data);
+			});			
 		},
 		error:function(){
 			alert("리스트 불러오는 error");
@@ -202,7 +240,7 @@ function getChallengeListCount(categoryNumber){
 		type:"get",
 		data:{'search':$("#_search").val(), 'category':categoryNumber},
 		success:function(count){//return이 글의 전체 수임
-			alert("전체 글의 수 : "+count);
+			//alert("전체 글의 수 : "+count);
 			loadPaging(count);
 		},
 		error:function(){
@@ -212,22 +250,25 @@ function getChallengeListCount(categoryNumber){
 }
 //페이징 처리하기
 function loadPaging(totalCount){
-	
+	console.log("페이징 전체 글 수 : "+totalCount)
 	let pageSize = 9;
 	let nowPage= 1;
-	
 	let _totalPages = totalCount / pageSize;
+	
 	 if(totalCount % pageSize>0){
 		 _totalPages++;
 	 }
 
 	//페이지 갱신 : 갱신해야 검색 페이징 가능
-	 $("#pagination").twbsPagination('destroy');
+	 $("#_pagination").twbsPagination('destroy');
 	
-	 $("#pagination").twbsPagination({
-		//startPage: 1,
+	 $("#_pagination").twbsPagination('enable');
+	 
+	 $("#_pagination").twbsPagination({
+		startPage: nowPage,
 	 	totalPages:  _totalPages,
 	 	visiblePages: 5,
+	 	initiateStartPageClick: false,
 	 	first:'<span sria-hidden="true">«</span>',
 	 	prev:"Previous",
 	 	next:"Next",
@@ -240,19 +281,15 @@ function loadPaging(totalCount){
 	    activeClass : "active",	// 클릭된 페이지 버튼의 CSS class
 	    disabledClass : "disabled",	// 클릭 안된 페이지 버튼의 CSS class
 	    anchorClass : "page-link",	//버튼 안의 앵커에 대한 CSS class
-
-
+	    
 	 	 initiateStartPageClick:false,	//처음 실행 시 아래가 실행 안된다.(onPageClick가 자동실행되지 않도록 해준다.)
 	 	 onPageClick:function(event, pageNumber){	//페이지 넘버 클릭 시 들어오는 부분
-	 		nowPage = pageNumber;
-	 		// alert("nowPage : "+page);
+	 		console.log("pageNumber 페이징 버튼 누르면 : "+pageNumber)
+	 		nowPage = pageNumber;	
 	 		getChallengeList(pageNumber-1);
 	 	 }
 	 });
 
 }
-
-
 </script> 
-<!-- 페이지네이션 -->
-<script src="./js/jquery.twbsPagination.js"></script>
+

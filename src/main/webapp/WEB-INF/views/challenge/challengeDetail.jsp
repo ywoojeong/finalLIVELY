@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 
  <link rel="stylesheet" href="./css/challengeDetail.css" />
@@ -629,9 +629,20 @@ function save(){
     //폼 서밋
 	//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
     
-    document.getElementById("rateFrm").submit();
-    
-	alert("저장완료!");
+    let dataFrm = document.getElementById("rateFrm").serialize();
+    $.ajax({
+    	type:"post",
+    	url:"challengeReviewInsert.do",
+    	data:dataFrm, //revcontent, rating
+    	success:function(msg){
+    		if(msg=="SUCCESS"){
+    			alert("후기 작성이 완료되었습니다.");
+    		}
+    	},
+   		error:function(){
+   			alert("후기 작성 에러");
+   		}	
+    });
 	rating.setRate(0);
 	document.querySelector('.review_textarea').value = '';
 }

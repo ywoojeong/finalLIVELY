@@ -4,9 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 
+
+
 <link rel="stylesheet" href="./css/element.css" />
 <link rel="stylesheet" href="./css/myMainPage2.css" />
-<link href="./fcalLib/main.css" rel="stylesheet">
+<link rel="stylesheet" href="./fcalLib/main.css">
 
 <div class="container">
     <div class="row">
@@ -17,8 +19,9 @@
                 <p style="font-size: 15px;">0 Point</p>
                 
                 <!-- 회원정보수정 모달 -->
-                <button type="button" class="memModify">회원정보 수정</button>
-                
+                <a class="modalBtn" data-toggle="modal" data-target="#myModal3">
+                	<button type="button" class="memModify">회원정보 수정</button>
+                </a>
                 <div class="member_link">
                     <div class="cut_item">
                         <div class="cut_text">찜한챌린지</div>
@@ -76,8 +79,8 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <h5>참가중</h5>
-		                                            <div class="easypiechart" id="easypiechart-part" data-percent="82" >
-		                                                <span class="percent">82%</span>
+		                                            <div class="easypiechart" id="easypiechart-part" data-percent="${nowPercent}" >
+		                                                <span class="percent"><c:out value="${nowPercent}"></c:out>%</span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-sm-4">
@@ -90,7 +93,8 @@
 		                                </div>
 		                                
 		                                <!-- 차트부분 -->
-		                                <div class="myChartCls">
+		                                <div class="my
+Cls">
 										  <canvas id="myChart"></canvas>
 										</div>
 		                                
@@ -109,12 +113,14 @@
 								        </li>
 								    </ul>
 								    
+					                <div class="tabtabs">
 								    <div class="tab-content">
-								    	<!-- 전체현황 -->
+								    	<!-- 챌린지 현황 리스트 -->
 								        <div id="chall_befor" class="container tab-pane active"><br>
 								            <!-- 시작 전 챌린지 리스트 -->
 								    		<div class="row">
 								    			<div class="col-sm-12">
+								    			<%for(int i=0; i<3; i++) {%>
 							    					<div class="card" >
 													    <div class="card-body">
 													      <p class="card-text"><span class="category1">카테고리 </span><span class="category2">언제부터 </span><span class="category3">언제까지 </span></p>
@@ -122,6 +128,7 @@
 													      <a href="#" class="btn btn-Card" style="margin-left: 470px; margin-top: -45px;">해당챌린지 가기</a>
 													    </div>
 													</div>
+												<%} %>
 								    			</div>
 								    		</div>
 								        </div>
@@ -130,6 +137,7 @@
 								            <!-- 참가 중 챌린지 리스트 -->
 								    		<div class="row">
 								    			<div class="col-sm-12">
+								    			<%for(int i=0; i<3; i++) {%>
 							    					<div class="card" >
 													    <div class="card-body">
 													      <p class="card-text"><span class="category1">카테고리 </span><span class="category2">언제부터 </span><span class="category3">언제까지 </span></p>
@@ -137,6 +145,7 @@
 													      <a href="#" class="btn btn-Card" style="margin-left: 470px; margin-top: -45px;">해당챌린지 가기</a>
 													    </div>
 													</div>
+								    			<%} %>
 								    			</div>
 								    		</div>
 								        </div>
@@ -145,6 +154,7 @@
 								            <!-- 종료 된 챌린지 리스트 -->
 								    		<div class="row">
 								    			<div class="col-sm-12">
+								    			<%for(int i=0; i<3; i++) {%>
 							    					<div class="card" >
 													    <div class="card-body">
 													      <p class="card-text"><span class="category1">카테고리 </span><span class="category2">언제부터 </span><span class="category3">언제까지 </span></p>
@@ -152,12 +162,14 @@
 													      <a href="#" class="btn btn-Card" style="margin-left: 470px; margin-top: -45px;">해당챌린지 가기</a>
 													    </div>
 													</div>
-													</div>
+												<%} %>
+												</div>
 								    			</div>
 								    		</div>
 								        </div>
+								        </div>
+								    	<!-- 탭안의 탭 끝부분 -->
 								    </div>
-								    <!-- 탭안의 탭 끝부분 -->
 								    
 	                        </div>
 	                    </div>
@@ -180,16 +192,24 @@
 	                        <div class="member_daily">
 	                        	<p>오늘 진행중인 챌린지</p>
 	                        	<!-- 캘린더 아래 데일리 부분 -->
-	                            <div class="daily_card">
-		                            <div class="card" style="width: 250px; height: 400px;">
-									    <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
-									    <div class="card-body">
-									      <p class="card-title">챌린지 이름</p>
-									      <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
-									      <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8	px; padding: 3px 7px;">CHALLENGE</a>
-									    </div>
-									</div>
-	                            </div>
+	                        	<div class="row">
+		                        	<%for(int i=0; i<2; i++) {
+		                        		for(int j=0; j<2; j++){%>
+				                        	<div class="col-xs-12 col-sm-4">
+						                        <div class="card" style="width: 250px; height: 400px;">
+					                            	<div class="daily_card">
+													    <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
+													    <div class="card-body">
+													      <p class="card-title">챌린지 이름</p>
+													      <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
+													      <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8	px; padding: 3px 7px;">CHALLENGE</a>
+													    </div>
+													</div>
+					                            </div>
+											</div>
+			                        	<%} 
+			                        }%>
+								</div>
 	                        </div>
                         </div>
                     </div>
@@ -212,6 +232,8 @@
 									<button type="button" class="btn btn-Search" >SEARCH</button>
 								</div>
 								<!-- 제안하기 --> 
+								
+								<%for(int i=0;i<3;i++) {%>
 								<div class="suggestCard" >
 									<div class="suggest-card-body">
 										<div class="suggest-text">
@@ -224,6 +246,8 @@
 										</div>
 									</div>
 								</div>
+								<%} %>
+								
 	                        </div>
                         </div>
                     </div>
@@ -245,14 +269,13 @@
         
         <div class="reviewSummerNote">
         <h3>제안 작성</h3>
-        <form name="reviewform" class="reviewform" method="post" action="/save">
-           <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>   		 
-                 <div class="review_contents" style="background-color: white">
-                   <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-                 </div> 
-        </form>
- 			</div>
-
+	        <form name="reviewform" class="reviewform" method="post" action="/save">
+				<p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>   		 
+				<div class="review_contents" style="background-color: white">
+					<textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
+				</div> 
+	        </form>
+ 		</div>
       </div>
       
       <!-- Modal footer -->
@@ -264,16 +287,64 @@
   </div>
 </div>
 
+<!-- 회원정보 수정 모달 -->
+<div class="modal" id="myModal3" >
+  <div class="modal-dialog modal-lg" style="top:10%">
+    <div class="modal-content">
+    
+      <!-- Modal body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        	<h5>회원정보수정</h5>
+			<p class="title_star">회원 정보를 수정해주세요</p>
+			<form name="memInfoRevise" id="memInfoRevise" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
+				<!-- 회원정보 수정 폼 -->
+				<div class="profileCon">
+					<div class="profileBox">
+						<div class="profile">
+							<p>PHOTO</p>
+							<!-- 이미지 미리보기 -->
+							<div id="previewId" class="memberImg"></div>
+							
+							<!-- 이미지 업로드 부분 -->
+							<p style="border: none;">
+							<button type="button" class="btnImg"><label for="memberPhoto">이미지 update</label></button>
+							<input type="file" id="memberPhoto" name="memberPhoto" onchange="previewImage(this,'previewId')" style="display: none;"> 
+							</p>							
+							
+							<!-- 닉네임 -->
+							<p>NICKNAME</p>
+							<p>
+							<input type="text"  class="form-control form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
+							<input type="hidden" name="nicknameCheck" id="nicknameCheck" value="">
+							<button type="button" onclick="nickCheck()" class="btnCheck">닉네임 중복 확인</button>
+							</p>
+						</div>
+						<div class="profileImg">
+							<img src="image/memreset.png" />
+						</div>
+					</div>
+				</div>
+			</form>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="justify-content: center">
+        <button type="button" name="save" id="save" class="btn btn-Card" style="width: 200px">수정 완료</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
 <!-- 원형 차트 js -->
 <script src="./js/easypiechart.js"></script>
-
 <!-- 레이더차트 js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="./js/myMainPage2.js"></script>
-
 <!-- 풀캘린더 js -->
 <script src="./fcalLib/main.js"></script>
-
 <!-- summer note 사용시 추가 --> 
 <script src="./js/summernote/summernote-lite.js"></script>
 <script src="./js/summernote/lang/summernote-ko-KR.js"></script>
@@ -282,7 +353,6 @@
 
 <script type="text/javascript">
 var ctx = document.getElementById('myChart');
-
 const data = {
         labels: [
           '건강',
@@ -304,8 +374,6 @@ const data = {
           pointHoverBorderColor: 'rgb(255, 99, 132)'
         }]
       };
-
-
 var myChart = new Chart(ctx, {
         type: 'radar',
         data: data,
@@ -317,8 +385,6 @@ var myChart = new Chart(ctx, {
           }
         }
 });
-
-
 </script>
 
 <script type="text/javascript">
@@ -386,21 +452,18 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	calendar.addEvent({'title':'추가추가', 'start':'2021-04-29 11:00:00', 'constraint':'내용 없음'});		//이벤트 추가
 	
+	
+	$('.nav-pills li a').on('shown.bs.tab', function () {
+	    console.log("ok2")
+	    
+	    calendar.render();
+	    
+	});
+	
 });
 </script>
 
-<script type="text/javascript">
-/* $(document).ready(function(){
-	$('#menu1').on('click', function(){
-		$('#menu1').load(window.location.href + '#menu1');
-		
-	});
-}); */
-/* $('#memMonth').on('click', function(){
-	$('#calendar').load(location.href + '#calendar');
-	
-}); */
-
+<script type="text/javascript">/
 $(document).ready(function() {
     $('.chatrow').on( 'keyup', 'textarea', function (e){
       $(this).css('height', 'auto' );
