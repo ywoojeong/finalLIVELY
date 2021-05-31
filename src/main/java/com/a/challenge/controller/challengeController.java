@@ -56,12 +56,14 @@ public class challengeController {
 	
 	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
 	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeDetail(Model model, int challengeseq) {
-		
+	public String challengeDetail(Model model, int challengeseq, HttpSession session) {
+		System.out.println("오긴왔냐??");
 		challengeDto challDto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
 		//받아오면 set으로 dto에 넣어주기(배열로)
 		
+	
+		//System.out.println(member.toString());
 		//IDENTIFYFREQUENCY
 		if(challDto.getIdentifyfrequency()==9) {
 			challDto.setIdentifyday("매일"); 
@@ -83,7 +85,21 @@ public class challengeController {
 		 * String dateWeek =
 		 * 
 		 */
+		
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");				 
+//		if(member!=null || !member.getEmail().equals("")) {
+//			Map<String, Object> likeData = new HashMap<String, Object>();
+//			likeData.put("challengeseq", challengeseq);
+//			likeData.put("email", member.getEmail());
+//			
+//			Map<String, Object> challLike = new HashMap<String, Object>();
+//			challLike = service.challengelikeSeq(likeData);
+//			model.addAttribute("challLike", challLike);
+//			
+//		}
+
 	
+	    model.addAttribute("memberInfo", member);
 		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";
 	}

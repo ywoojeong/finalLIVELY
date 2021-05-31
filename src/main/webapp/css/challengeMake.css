@@ -110,7 +110,7 @@ body{
 .challImg2{
 	box-shadow: 0 4px 13px 0 rgba(166,162,169, 0.70);
 	 width: 200px; 
-	height: 150px;
+	height: 145px;
 /* 	  margin:15px auto 0 auto; */
 	  object-fit:scale-down; 
 }
