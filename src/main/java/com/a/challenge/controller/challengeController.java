@@ -1,5 +1,7 @@
 package com.a.challenge.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,14 +56,35 @@ public class challengeController {
 	
 	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
 	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeDetail(Model model/* , int challengeseq */) {
+	public String challengeDetail(Model model, int challengeseq) {
 		
-		//challengeDto dto = service.challengeDetail(challengeseq);
+		challengeDto challDto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
 		//받아오면 set으로 dto에 넣어주기(배열로)
-	
 		
-		//model.addAllAttributes("challengeDto", dto);
+		//IDENTIFYFREQUENCY
+		if(challDto.getIdentifyfrequency()==9) {
+			challDto.setIdentifyday("매일"); 
+		}else if(challDto.getIdentifyfrequency()==8) {
+			challDto.setIdentifyday("주말"); 
+		}else if(challDto.getIdentifyfrequency()==7) {
+			challDto.setIdentifyday("평일 매일"); 
+		}else {
+			for(int i=6;i>0;i--){
+				if(i==challDto.getIdentifyfrequency()){
+					challDto.setIdentifyday("주 "+i+"회");
+				}
+				
+			}
+		}
+		
+		//[1,2,3,4,5,6,7] >> 데이터화..?
+		/*
+		 * String dateWeek =
+		 * 
+		 */
+	
+		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";
 	}
 }

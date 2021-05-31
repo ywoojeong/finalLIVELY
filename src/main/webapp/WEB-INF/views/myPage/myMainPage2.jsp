@@ -1,10 +1,11 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@page import="com.a.dto.MemberDto"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
-
-
+ 
+<%MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");%>
 
 <link rel="stylesheet" href="./css/element.css" />
 <link rel="stylesheet" href="./css/myMainPage2.css" />
@@ -15,12 +16,12 @@
         <div class="col-sm-3">
             <div class="member_box">
                 <img class="userWrap"/>
-                <h4>Admin</h4>
+                <h5>${memberInfo.nickname}</h5>
                 <p style="font-size: 15px;">0 Point</p>
                 
                 <!-- 회원정보수정 모달 -->
                 <a class="modalBtn" data-toggle="modal" data-target="#myModal3">
-                	<button type="button" class="memModify">회원정보 수정</button>
+                	<button type="button" id="memUpdateBtn" class="memModify">회원정보 수정</button>
                 </a>
                 <div class="member_link">
                     <div class="cut_item">
@@ -79,22 +80,21 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <h5>참가중</h5>
-		                                            <div class="easypiechart" id="easypiechart-part" data-percent="82" >
-		                                                <span class="percent">82%</span>
+		                                            <div class="easypiechart" id="easypiechart-part" data-percent="${nowPercent}" >
+		                                                <span class="percent"><c:out value="${nowPercent}"></c:out>%</span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <h5>완료</h5>
-		                                            <div class="easypiechart" id="easypiechart-finish" data-percent="82" >
-		                                                <span class="percent">82%</span>
+		                                            <div class="easypiechart" id="easypiechart-finish" data-percent="${complePercent}" >
+		                                                <span class="percent"><c:out value="${complePercent}"></c:out>%</span>
 		                                            </div>
 		                                        </div>
 		                                    </div>
 		                                </div>
 		                                
 		                                <!-- 차트부분 -->
-		                                <div class="my
-Cls">
+		                                <div class="myChartCls">
 										  <canvas id="myChart"></canvas>
 										</div>
 		                                
@@ -297,25 +297,25 @@ Cls">
         <button type="button" class="close" data-dismiss="modal">×</button>
         	<h5>회원정보수정</h5>
 			<p class="title_star">회원 정보를 수정해주세요</p>
-			<form name="memInfoRevise" id="memInfoRevise" method="POST" enctype="multipart/form-data" onsubmit="return checkValue()">
+			<form name="memInfoModify" id="memInfoModify" method="POST" enctype="multipart/form-data">
 				<!-- 회원정보 수정 폼 -->
 				<div class="profileCon">
 					<div class="profileBox">
 						<div class="profile">
 							<p>PHOTO</p>
 							<!-- 이미지 미리보기 -->
-							<div id="previewId" class="memberImg"></div>
+							<div id="previewId" class="memberImg"><img src="기본이미지" onerror="this.style.display='none'" /></div>
 							
 							<!-- 이미지 업로드 부분 -->
 							<p style="border: none;">
 							<button type="button" class="btnImg"><label for="memberPhoto">이미지 update</label></button>
-							<input type="file" id="memberPhoto" name="memberPhoto" onchange="previewImage(this,'previewId')" style="display: none;"> 
+							<input type="file" id="memberPhoto" name="memberPhoto" onchange="previewImage(this,'previewId')" value="" style="display: none;"> 
 							</p>							
 							
 							<!-- 닉네임 -->
 							<p>NICKNAME</p>
 							<p>
-							<input type="text"  class="form-control form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요">
+							<input type="text"  class="form-control form-control" id="nickname" name="nickname" value="${memberInfo.nickname}">
 							<input type="hidden" name="nicknameCheck" id="nicknameCheck" value="">
 							<button type="button" onclick="nickCheck()" class="btnCheck">닉네임 중복 확인</button>
 							</p>
@@ -330,7 +330,7 @@ Cls">
       
       <!-- Modal footer -->
       <div class="modal-footer" style="justify-content: center">
-        <button type="button" name="save" id="save" class="btn btn-Card" style="width: 200px">수정 완료</button>
+        <button type="button" onclick="memModifyCheck()" class="btn btn-Card" style="width: 200px">수정 완료</button>
       </div>
       
     </div>
@@ -452,20 +452,18 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 	calendar.addEvent({'title':'추가추가', 'start':'2021-04-29 11:00:00', 'constraint':'내용 없음'});		//이벤트 추가
 	
+	// 캘린더 클릭 수정
+	$('.nav-pills li a').on('shown.bs.tab', function () {
+	    console.log("ok2")
+	    
+	    calendar.render();
+	    
+	});
+	
 });
 </script>
 
 <script type="text/javascript">
-/* $(document).ready(function(){
-	$('#menu1').on('click', function(){
-		$('#menu1').load(window.location.href + '#menu1');
-		
-	});
-}); */
-/* $('#memMonth').on('click', function(){
-	$('#calendar').load(location.href + '#calendar');
-	
-}); */
 $(document).ready(function() {
     $('.chatrow').on( 'keyup', 'textarea', function (e){
       $(this).css('height', 'auto' );
@@ -497,4 +495,163 @@ $(document).ready(function() {
     });
 		
 });
+</script>
+
+<!-- //////////////////////////////////////////// 여기서부터 회원정보 수정 구간 //////////////////////////////////////////// -->
+
+<script type="text/javascript">
+
+function nickCheck(){
+	var nickname = $("#nickname").val();
+	var regExp =  /^[가-힣|a-z|A-Z|0-9|]+$/;
+
+	if(nickname == null || nickname == ""){
+		alert("닉네임을 입력 해주세요");
+		return false;
+	}
+	if(!regExp.test(nickname)){
+		alert("닉네임은 한글, 영어, 숫자만 4 ~10자리로 입력 가능합니다.");
+		return false;
+	}
+	
+	$.ajax({
+		type : 'POST',
+		url : 'nickCheck.do',
+		data:{ nickname:$("#nickname").val().trim()},
+		success : function(data){
+			alert('success')
+			if(data == 'YES'){
+				alert("사용가능한 닉네임 입니다.");
+				$("#nickname").val(nickname);
+				$("#nicknameCheck").val(nickname);
+			}else{
+				alert("이미 존재하는 닉네임 입니다.");
+				$("#nickname").val("");
+			}
+		},
+		error: function(xhr, status, error){
+			alert('error');
+		}
+	});
+}
+ 
+function memModifyCheck() {
+    console.log("okok")
+    
+    if($('#memberPhoto').val() == "") {
+        alert("프로필 이미지는 필수!");
+        return false;
+    }
+    
+    if($('#nicknameCheck').val() == null || $('#nicknameCheck').val() == "") {
+        alert("닉네임 중복 체크를 해주세요.");
+        return false;
+    }
+    
+    var memberPhoto = $('input[name="memberPhoto"]').get(0).files[0];
+    var nickname = $("#nickname").val()
+    
+    var formData = new FormData();
+    formData.append('email', '${memberInfo.email}');
+    formData.append('nickname', nickname);
+    formData.append('memberPhoto', memberPhoto);
+
+    $.ajax({
+		type : 'POST',
+		url : 'memberModify.do',
+		processData:false,
+		contentType: false,
+		data : formData,
+		success : function(data){
+			console.log(data);
+				alert("회원정보가 수정되었습니다.");
+				location.href = 'myMainPage2.do'
+		},
+		error: function(xhr, status, error){
+			alert("수정을 실패했습니다."+error);
+		}
+	});
+     
+};
+</script>
+
+<script type="text/javascript">
+function previewImage(targetObj, previewId) {
+    var preview = document.getElementById(previewId); //div id   
+    var ua = window.navigator.userAgent;
+
+    if (ua.indexOf("MSIE") > -1) {//ie일때
+
+        targetObj.select();
+
+        try {
+            var src = document.selection.createRange().text; //get file full path 
+            var ie_preview_error = document
+                    .getElementById("ie_preview_error_" + previewId);
+
+            if (ie_preview_error) {
+                preview.removeChild(ie_preview_error); //error가 있으면 delete
+            }
+
+            var img = document.getElementById(previewId); //이미지가 뿌려질 곳 
+
+            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+                    + src + "', sizingMethod='scale')"; /*이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할*/
+        } catch (e) {
+            if (!document.getElementById("ie_preview_error_" + previewId)) {
+                var info = document.createElement("<p>");
+                info.id = "ie_preview_error_" + previewId;
+                info.innerHTML = "a";
+                preview.insertBefore(info, null);
+            }
+        }
+    } else { //ie가 아닐때
+        var files = targetObj.files;
+        for ( var i = 0; i < files.length; i++) {
+
+            var file = files[i];
+			
+            var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+            if (!file.type.match(imageType)){
+            	alert("확장자는 이미지만 가능합니다.")
+            	continue;
+            }
+                
+
+            var prevImg = document.getElementById("prev_" + previewId); //이전에 미리보기가 있다면 삭제
+            if (prevImg) {
+                preview.removeChild(prevImg);
+            }
+
+            var img = document.createElement("img"); /*크롬은 div에 이미지가 뿌려지지 않는다. 그래서 자식Element를 만든다.*/
+            img.id = "prev_" + previewId;
+            img.classList.add("obj");
+            img.file = file;
+            img.style.width = '168px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
+            img.style.height = '168px';
+            
+            preview.appendChild(img);
+
+            if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                var reader = new FileReader();
+                reader.onloadend = (function(aImg) {
+                    return function(e) {
+                        aImg.src = e.target.result;
+                    };
+                })(img);
+                reader.readAsDataURL(file);
+            } else { // safari is not supported FileReader
+                //alert('not supported FileReader');
+                if (!document.getElementById("sfr_preview_error_"
+                        + previewId)) {
+                    var info = document.createElement("p");
+                    info.id = "sfr_preview_error_" + previewId;
+                    info.innerHTML = "not supported FileReader";
+                    preview.insertBefore(info, null);
+                }
+            }
+        }
+    }
+}
+
 </script>

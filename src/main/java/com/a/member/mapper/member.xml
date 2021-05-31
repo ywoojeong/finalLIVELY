@@ -18,6 +18,11 @@
 		</if>
 	</insert>
 	
+	<!-- 회원정보수정 -->
+	<update id="memberModify" parameterType="com.a.dto.MemberDto">
+		UPDATE MEMBER SET NICKNAME = #{nickname}, MEMBERPHOTO = #{memberPhotoName}
+		WHERE EMAIL = #{email}
+	</update>
 	
 	<!-- 닉네임 중복 확인 -->
 	<select id="nickCheck" parameterType="com.a.dto.MemberDto" resultType="java.lang.Integer">
@@ -26,7 +31,7 @@
 	
 	<!-- 닉네임 중복 확인 -->
 	<select id="memberSession" parameterType="java.lang.String" resultType="com.a.dto.MemberDto">
-		SELECT EMAIL,NICKNAME,AUTH,MEMBERDEL,POINT FROM MEMBER WHERE EMAIL = #{email}
+		SELECT EMAIL,NICKNAME,AUTH,MEMBERDEL,POINT,MEMBERPHOTONAME FROM MEMBER WHERE EMAIL = #{email}
 	</select>
 	
 	<!-- 네이버 이메일 체크 후 정보 가져감 -->

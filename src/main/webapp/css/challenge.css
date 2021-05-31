@@ -289,9 +289,12 @@ video{
 
 /* 페이징 디자인 */
 .page-item.disabled .page-link {
- border-radius: 50px;
+ 	border-radius: 50px;
 }
 
+.page-item:first-child .page-link{
+	border-radius: 50px;
+}
 .page-item:last-child .page-link {
 	border-radius: 50px;
 }

@@ -9,6 +9,10 @@ public interface memberDao {
 
 	// 회원가입 추가 정보
 	public int memberInfoPro(MemberDto dto) throws Exception;
+	
+	// 회원정보 수정
+	public void memberModify(MemberDto dto) throws Exception;
+	
 	// 닉네임 중복 확인
 	public int nickCheck(MemberDto dto) throws Exception;
 	// 네이버 이메일 가입 확인(중복)

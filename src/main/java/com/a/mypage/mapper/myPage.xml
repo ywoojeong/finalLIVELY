@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mypage">
+<mapper namespace="myPage">
+	
+	<select id="getNowCh" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT NOWCNT.*,
+			(SELECT 
+			COUNT(*) AS TOTAL
+			FROM CHALLENGEMEMBER CM
+			INNER JOIN CHALLENGE CG
+			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+			) AS NOWCNT2
+		FROM 
+			(SELECT 
+			COUNT(*) AS TOTAL
+			FROM CHALLENGEMEMBER CM
+			INNER JOIN CHALLENGE CG
+			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+			WHERE CM.EMAIL = #{email}
+			) NOWCNT
+	</select>
+	
+	<select id="getCompleCh" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT NOWCNT.*,
+			(SELECT 
+			COUNT(*) AS TOTAL
+			FROM CHALLENGEMEMBER CM
+			INNER JOIN CHALLENGE CG
+			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+			) AS NOWCNT2
+		FROM 
+			(SELECT 
+			COUNT(*) AS TOTAL
+			FROM CHALLENGEMEMBER CM
+			INNER JOIN CHALLENGE CG
+			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+			WHERE CM.EMAIL = #{email}
+			) NOWCNT
+	</select>
+	
+	
 	
 </mapper>

@@ -18,4 +18,7 @@ public interface challengeService {
 	
 	//챌린지 생성한 사람의 데이
 	public Map<String, Object> createChallengeMember(String email);
+	
+	//챌린지 디테일 하나 가져오기 challengeDetail
+	public challengeDto challengeDetail(int challengeseq);
 }

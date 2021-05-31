@@ -28,11 +28,6 @@
 	             <tr>
 	                 <td><a href="#" class="g-signin2" onClick="onSignIn()"><img src="image/googlelogin.svg"/></a></td>
 	             </tr>
-	             <!-- 
-	             <tr>
-	                 <td><a href="memberInfo.do">이거당</a></td>
-	             </tr>
-	              -->
 	         </tbody>
 	     </table>
 	 </form>

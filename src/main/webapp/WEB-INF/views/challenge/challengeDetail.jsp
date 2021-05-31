@@ -18,13 +18,38 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
+
+//오늘날짜
+//날짜 제어
+	let now = new Date();
+	let year = now.getFullYear();
+	let month = now.getMonth();
+	let day = now.getDate();
+	
+	let nowDate = new Date(year, month, day);
+	let startDate = ${challDto.challengestart};
+	let startDateD = new Date(startDate);
+	console.log("시작 날짜"+startDateD)
+//	console.log("오늘 날짜"+nowDate)
+		let millisec = startDate.getTime() - nowDate.getTime();
+	let limitDate = millisec / (1000*60*60*24);
+	console.log("limitDate 날짜 차이"+limitDate);
+
+	if(limitDate<0){
+		$("#limitD").val("시작중인 챌린지");				
+	}else if(limitDate==0){
+		$("#limitD").val("오늘부터 시작");		
+	}else{
+		$("#limitD").val(limitDate+"일 뒤부터 시작");		
+	}
+
 </script>
 
  
 <div class="backDiv" style="background-image: url('image/challenge1.png')">
 	<div class="container challHeader">
 		<div>
-			<h1>하루에 1L씩 물먹기</h1>
+			<h1>${challDto.challengetitle}</h1>
 			<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
 				<div onclick="checkChallenge(this)">
 				 	<img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
@@ -32,9 +57,9 @@ $(document).ready(function(){
 			</a>
 		
 		</div>
-		<p>내일부터 시작 | 모집 마감</p>
-		<label>평일 매일</label><label>3주 동안</label><span class="period">05.11(화) ~ 05.28(금)</span><br>
-		<span class="explain">평일 매일 3주동안, 하루에 1번 18시에 인증해야 합니다.</span>
+		<p id="limitD"></p>
+		<label>${challDto.identifyday }</label><label>${challDto.challengeperiod }주 동안</label><span class="period">05.11(화) ~ 05.28(금)</span><br>
+		<span class="explain">${challDto.identifyday } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 	</div>
 </div>
 
@@ -44,12 +69,12 @@ $(document).ready(function(){
 		<tr>
 			<td><i class="fas fa-coins"></i></td>
 			<td>참가 포인트</td>
-			<td>100 point</td>
+			<td>${challDto.pointcount } point</td>
 		</tr>
 		<tr>
 			<td><i class="fas fa-user"></i></td>
 			<td>참가 인원</td>
-			<td><span style="padding-right: 50px;">54명</span> 
+			<td><span style="padding-right: 50px;">${challDto.challengemember }명</span> 
 				<% for(int i=0;i<5;i++){ %>
 					<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
 				<%} %>
@@ -65,7 +90,7 @@ $(document).ready(function(){
 
 	<label class="challengetext">챌린지 소개</label>
 	<div class="challengetextMain">
-		어떤 챌린지 인지 소개해보세용
+		${challDto.challengetext }
 	</div>
 	<!-- 참가 설명 -->
 	<div class="row pointExplain">
@@ -87,8 +112,30 @@ $(document).ready(function(){
 			</table>
 		</div>
 		<div class="col-sm-6">
-			<label>챌린지 인증 방법</label>
-			<p><span class="highlight">9:00 ~ 9:05사이</span>에 버튼을 눌러주세요</p>
+			<label>챌린지 인증 시간</label>
+			<p><span class="highlight">${challDto.identifytime }:00 ~ ${challDto.identifytime}:05사이</span>에 이미지를 올려주세요</p>
+		</div>
+	</div>
+	<!-- 챌린지 인증방법 -->
+	<div class="certify">
+		<label class="challengetext">챌린지 인증방법</label>
+		<div class="row" style="padding-left: 23px">
+			<div class="col-sm-8" style="display: flex;">
+				<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }" style="width: 300px">
+				<div style="margin-left: 20px;width: 400px">
+					<c:choose>
+						 <c:when test="${challDto.certify eq 'none'}">
+      						자유롭게 인증해 주세요.
+   						 </c:when>
+   						 <c:otherwise>
+      						${challDto.certify }
+   						 </c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				인증샷 넣을까?
+			</div>
 		</div>
 	</div>
 	<!-- 주의사항 -->		
@@ -102,7 +149,7 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 				<td style="font-weight: 500;">인증 빈도</td>
-				<td>평일 매일</td>
+				<td>${challDto.identifyday }</td>
 			</tr>
 			<tr>
 				<td style="font-weight: 500;">하루 인증 횟수</td>
@@ -585,6 +632,7 @@ $('.like-review').click(function(){
 	if(eventE==0){
 	   $(this).html('<i class="fa fa-heart"></i> You liked');
 	   $(this).children('.fa-heart').addClass('animate-like');
+	   //테이블 FOLLOW : FOLLOW
 	    eventE++; 	    
 	}else{
 		$(this).html('<i class="fa fa-heart"></i>like');
