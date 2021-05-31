@@ -31,18 +31,40 @@ public class challengeRestController {
 	
 	//챌린지 insert
 	@RequestMapping(value = "challengeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeInsert(challengeDto dto, String dateWeek[], @RequestParam("uploadFile")  MultipartFile uploadFile, HttpServletRequest req) throws Exception{
-	
+	public String challengeInsert(challengeDto dto, String dateWeek[], @RequestParam("uploadFile")  MultipartFile uploadFile,  @RequestParam("uploadFileCer")  MultipartFile uploadFileCer, HttpServletRequest req) throws Exception{
+		//System.out.println("챌린지 파일이 받아와 지나요?:"+uploadFile);
+		//System.out.println("파일이 받아와지나요?(인증방법) : "+ uploadFileCer);
 		String dateStr = Arrays.toString(dateWeek);
 		
-		String filename = uploadFile.getOriginalFilename();
-		String saveFileName=fileManagement.FileUploader(uploadFile);
-		System.out.println("파일 이름:"+filename+" "+"암호화 파일 이름 : "+ saveFileName);
-		dto.setChallengephoto(filename);
-		dto.setChallengesavephoto(saveFileName);
+		if(!uploadFile.isEmpty()){
+			String filename = uploadFile.getOriginalFilename();
+			String saveFileName=fileManagement.FileUploader(uploadFile);
+			System.out.println("전체 파일파일 이름:"+filename+" "+"암호화 파일 이름 : "+ saveFileName);
+			dto.setChallengephoto(filename);
+			dto.setChallengesavephoto(saveFileName);			
+		}else {
+			dto.setChallengephoto("0");
+			dto.setChallengesavephoto("0");	
+		}
+		
+		if(!uploadFileCer.isEmpty()){
+			String certifyfilename = uploadFileCer.getOriginalFilename();
+			String certifysaveFileName=fileManagement.FileUploader(uploadFileCer);
+			System.out.println("인증방법 파일 이름:"+certifyfilename+" "+"암호화 파일 이름 : "+ certifysaveFileName);
+			dto.setCertifyphoto(certifyfilename);
+			dto.setCertifysavephoto(certifysaveFileName);
+		}else {
+			dto.setCertifyphoto("0");
+			dto.setCertifysavephoto("0");	
+		}
+		
+		if(dto.getCertify()==null || dto.getCertify().equals("")) {
+			dto.setCertify("none");
+		}
+		
 		dto.setIdentifyday(dateStr);
 	
-		System.out.println(dateStr);
+		System.out.println("요일 들어간거String "+dateStr);
 		System.out.println(dto.toString());
 		
 		boolean success = service.challengeInsert(dto);

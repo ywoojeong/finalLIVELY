@@ -41,6 +41,13 @@ public class challengeDaoImpl implements challengeDao {
 		
 		return sqlSession.selectOne(namespace+"createChallengeMember", email);
 	}
+
+	@Override
+	public challengeDto challengeDetail(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"challengeDetail", challengeseq);
+	}
+	
 	
 	
 	

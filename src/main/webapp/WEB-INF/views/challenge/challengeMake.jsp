@@ -72,7 +72,8 @@ $(document).ready(function(){
 	              <label for="newImg">
 		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
 		            </label>
-		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.png'">	 			
+		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.png'">
+		            <p style="font-size: 10pt; color:#5e5e5e;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
 	 		</div>
 	 		<div class="col-sm-8 challData p-5"> 
 	 			<table class="table-borderless table-responsive challTable">
@@ -143,7 +144,6 @@ $(document).ready(function(){
 							 </div> 		
 	 					</td>
 	 				</tr>
-	 				
 	 				<tr>
 	 					<td>
 	 						<label for="identifyTime">인증시간</label>
@@ -162,6 +162,20 @@ $(document).ready(function(){
 	 						</div>
 	 					</td>
 	 				</tr>
+	 				 				
+	 				<tr>
+	 					<td>
+	 						<label for="certifyPhoto">인증 방법(선택)</label>
+	 						<label for="newImg2">
+		                  <img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/noneImage.png">
+				            </label>
+				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none" onerror="this.src='./image/noneImage.png'">
+	 					</td>
+	 					<td>
+	 						<textarea class="form-control form-control-sm" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
+	 					</td>
+	 				</tr>
+	 				
 	 				<tr>
 	 					<td colspan="2">
 	 						<label for="challengeTitle">챌린지 제목</label>
@@ -218,8 +232,37 @@ function handleImgFileSelect(e) {
         reader.readAsDataURL(f);
     });
 }
+</script>
+<script>
+var sel_file2;
+
+$(document).ready(function() {
+    $("#newImg2").on("change", handleImgFileSelect);
+}); 
 
 
+function handleImgFileSelect(e) {
+    var files1 = e.target.files;
+    var filesArr1 = Array.prototype.slice.call(files1);
+
+    filesArr1.forEach(function(f1) {
+        if(!f1.type.match("image.*")) {
+            alert("확장자는 이미지 확장자만 가능합니다.");
+            return;
+        }
+
+        sel_file2 = f1;
+
+        var reader1 = new FileReader();
+        reader1.onload = function(e) {
+            $("#chall_Img2").attr("src", e.target.result);
+        }
+        reader1.readAsDataURL(f1);
+    });
+}
+</script>
+
+<script>
 //onchange 인증빈도 제어
 function challengeFreChange(val){
  	$("input:checkbox[name='dateWeek']").attr('checked', false);
@@ -243,12 +286,6 @@ function challengeFreChange(val){
 	}
 }
 
-//체크박스 제어하기 주3일 >> 3개까지만 . event.preventDefault();
-
- $("input:checkbox[name='dateWeek']:checked").each(function() {
-	 var tmpVal = $(this).val();
-	    console.log(tmpVal);
- });
 
 
 //date 2021-05-23형식으로 바꾸기(문자열)
@@ -341,11 +378,21 @@ function challengeMake(){
 	
 	//인증빈도 비 선택 시 제어
 	var identifyfrequency = $("select[name=identifyfrequency]").val();
-	//alert(identifyfrequency);
+	console.log("오긴 하냐?"+identifyfrequency)
 	if (identifyfrequency==0 || identifyfrequency==null){
 		alert("인증 빈도를 선택해 주세요");
 		return false;
+	}else if(identifyfrequency<=6 && identifyfrequency>=1){
+		console.log("인증빈도 얼만데 이자식아"+identifyfrequency)
+		let checkLen = $("input:checkbox[name=dateWeek]:checked").length;
+		console.log("몇개 선택인지 당장말해"+checkLen)		
+			if(checkLen!=identifyfrequency){
+				alert("인증빈도에 맞는 요일을 선택해 주세요.("+identifyfrequency+"일까지 선택 가능)");
+				return false;
+		
+		}
 	}
+		
 
 	//인증시간 비 선택 시 제어 identifyTime
 	var identifytime = $("select[name=identifytime]").val();
@@ -386,17 +433,18 @@ function challengeMake(){
 		alert("간단한 챌린지 소개글을 적어주세요.");
 		return false;
 	}
-		
-	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
-	if ($('input[name="uploadFile"]').get(0).files[0] == undefined) {
-		alert("챌린지 이미지를 생성해 주세요.");
-		return false;
-	}
+	
+// 	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)
+// 	if ($('input[name="uploadFile"]').get(0).files[0] == undefined) {
+// 		alert("챌린지 이미지를 생성해 주세요.");
+// 		return false;
+// 	}
 	
 	//데이터 보내기		
 	let params = new FormData($("#challengeFrm")[0]);
 	//alert(params);
 	params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
+	params.append('uploadFileCer', $('input[name="uploadFileCer"]').get(0).files[0]);
 	//input file추가
 	alert(params);
 	

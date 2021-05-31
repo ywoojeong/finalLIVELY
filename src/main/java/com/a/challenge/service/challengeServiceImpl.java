@@ -40,6 +40,12 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.createChallengeMember(email);	
 	}
+
+	@Override
+	public challengeDto challengeDetail(int challengeseq) {
+		// TODO Auto-generated method stub
+		return dao.challengeDetail(challengeseq);
+	}
 	
 	
 

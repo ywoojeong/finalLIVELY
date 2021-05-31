@@ -6,20 +6,13 @@
 	<insert id="challengeInsert" parameterType="com.a.dto.challengeDto">
 		
 		INSERT INTO CHALLENGE(CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT,CHALLENGESTART, CHALLENGEEND,CHALLENGEPERIOD,
-						IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, RATINGAVG, CHALLENGESTOP, CHALLENGEDEL, 
+						IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, CERTIFYPHOTO, CERTIFYSAVEPHOTO, CERTIFY, RATINGAVG, CHALLENGESTOP, CHALLENGEDEL, 
 						HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL)
 		VALUES(CHAL_SEQ.NEXTVAL, #{category}, #{challengetitle}, #{challengetext}, #{challengestart}, #{challengeend}, #{challengeperiod}, 
-				#{identifyfrequency}, #{identifyday}, #{identifytime}, #{challengephoto}, #{challengesavephoto}, 0, 0, 0,
-				(SELECT M.AUTH FROM MEMBER M, CHALLENGE C WHERE M.EMAIL = C.EMAIL WHERE C.EMAIL = #{email}), #{pointcount}, 0, #{email})
+				#{identifyfrequency}, #{identifyday}, #{identifytime}, #{challengephoto}, #{challengesavephoto}, #{certifyphoto}, #{certifysavephoto},#{certify}, 0.0, 0, 0,
+				(SELECT M.AUTH FROM MEMBER M, CHALLENGE C WHERE M.EMAIL = C.EMAIL AND C.EMAIL = #{email}), #{pointcount}, 0, #{email})
 		
 	</insert>
-	
-	<!-- HEADERNUM UPDATE -->
-	<update id="headerNum" parameterType="java.lang.Integer">
-		UPDATE (SELECT C.HEADERNUM, M.AUTH FROM CHALLENGE C, MEMBER M WHERE C.EMAIL = M.EMAIL)
-		SET C.HEADERNUM = M.AUTH
-		WHERE
-	</update>
 	
 	<!-- hotChallengeData 데이터 전부 가져오기 java.util.Map(param은 start end search category   -->
 	<select id="hotChallengeData" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
@@ -47,7 +40,7 @@
 	
 	<!-- challengeDataCount 글의 총 수 가져오기 paramMap search / category-->
 	<select id="challengeDataCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-	 	SELECT COUNT(*)
+	 	SELECT NVL(COUNT(*), 0)
 	 	FROM CHALLENGE
 	  	WHERE 1=1 
 	  		AND CHALLENGESTOP = 0 
@@ -67,6 +60,13 @@
 		WHERE C.EMAIL = M.EMAIL
 			AND C.EMAIL = #{email}
 	</select>
-
+	
+	<!-- 챌린지 한개 가져오기 challengeDetail //parameter : challengeseq -->
+	<select id="challengeDetail" parameterType="java.lang.Integer" resultType="com.a.dto.challengeDto">
+		SELECT CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD, IDENTIFYFREQUENCY,
+				IDENTIFYDAY, IDENTIFYTIME, CHALLENGESAVEPHOTO, CERTIFYSAVEPHOTO, CERTIFY, RATINGAVG, POINTCOUNT, EMAIL
+		FROM CHALLENGE
+		WHERE CHALLENGESEQ = #{challengeseq}
+	</select>
 	
 </mapper>
