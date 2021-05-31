@@ -8,6 +8,10 @@ import com.a.dto.MemberDto;
 public interface memberService {
 
 	public int nickCheck(MemberDto dto) throws Exception;
+	
+	// 회원정보 수정
+	public void memberModify(MemberDto dto) throws Exception;
+	
 	public boolean memberInfoPro(MemberDto dto) throws Exception;
 	public Map<String, Object> naverConnectionCheck(Map<String, Object> apiJson) throws SQLException; 
 	Integer setNaverConnection (Map<String, Object> paramMap) throws SQLException;

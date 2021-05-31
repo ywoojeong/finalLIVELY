@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Controller
-//@RequestMapping("/member")
 public class memberController {
 	
 	@Autowired
@@ -41,10 +40,7 @@ public class memberController {
 	return "introTiles";		
 	}
 	
-	/*
-	 정연우
-	 home으로 이동
-	 */
+	// 홈으로 이동
 	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String memberlogin2(Model model, HttpSession session) {
 		System.out.print("홈으로 이동");
@@ -55,10 +51,8 @@ public class memberController {
 		return "home/home";
 	}
 	
-	/*
-	 정연우
-	 member 로그인페이지 이동
-	*/
+	
+	//member 로그인페이지 이동
 	@RequestMapping(value = "memberLogin.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String memberLogin(Model model, HttpSession session) {
 		String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);

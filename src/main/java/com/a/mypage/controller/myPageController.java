@@ -30,15 +30,28 @@ public class myPageController {
    @RequestMapping(value="myMainPage2.do", method = {RequestMethod.POST,RequestMethod.GET})
    public String myMainPage2(HttpSession session,Model model) throws Exception{
       System.out.println("myMainPage2로 넘어가기!");
-      /*
+      
       MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
       String email = memberInfo.getEmail();
       System.out.println("email ==>"+email);
       Map<String, Object> nowChallenge = myService.getNowCh(email);
-      Integer nowPercent = Integer.parseInt(String.valueOf(nowChallenge.get("NOWCNT2"))) * 100 / Integer.parseInt(String.valueOf(nowChallenge.get("TOTAL")));
-      System.out.println("nowPercent ==>"+nowPercent);
+      
+      Integer nowPercent = 0;
+      
+      if(nowChallenge!=null && !String.valueOf(nowChallenge.get("TOTAL")).equals("0")) {
+    	  nowPercent = Integer.parseInt(String.valueOf(nowChallenge.get("NOWCNT2"))) * 100 / Integer.parseInt(String.valueOf(nowChallenge.get("TOTAL")));    	  
+    	  System.out.println("nowPercent ==>"+nowPercent);
+      }
       model.addAttribute("nowPercent", nowPercent);
-      */
+      
+      //완료한 챌린지
+      Map<String, Object> compleChallenge = myService.getCompleCh(email);
+      System.out.println("compleChallenge : " + compleChallenge);
+      Integer complePercent = Integer.parseInt(String.valueOf(nowChallenge.get("TOTAL"))) * 100 - nowPercent; 
+      System.out.println("complePercent : " + complePercent);
+      
+      model.addAttribute("complePercent", complePercent);
+      
       return "myPage/myMainPage2";
    }
 }

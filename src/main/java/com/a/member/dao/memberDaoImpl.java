@@ -22,7 +22,13 @@ public class memberDaoImpl implements memberDao {
 	public int memberInfoPro(MemberDto dto) throws Exception {
 		return sql.insert("member.memberInfoPro", dto);
 	}
-
+	
+	// 회원정보 수정
+	@Override
+	public void memberModify(MemberDto dto) throws Exception {
+		sql.selectOne("member.memberModify", dto);
+	}
+	
 	// 닉넴임 중복 확인
 	@Override
 	public int nickCheck(MemberDto dto) throws Exception {

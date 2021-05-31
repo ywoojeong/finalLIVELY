@@ -12,11 +12,14 @@ public class myPageDaoImpl implements myPageDao {
 	
 	@Autowired
 	SqlSession sql;
-
+	
 	@Override
 	public Map<String, Object> getNowCh(String email) throws SQLException {
 		return sql.selectOne("myPage.getNowCh", email);
 	}
 	
-	
+	@Override
+	public Map<String, Object> getCompleCh(String email) throws SQLException {
+		return sql.selectOne("myPage.getCompleCh", email);
+	}
 }
