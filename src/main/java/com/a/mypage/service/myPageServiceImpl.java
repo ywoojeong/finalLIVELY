@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.a.dto.MemberDto;
 import com.a.mypage.dao.myPageDao;
 
 @Service
@@ -22,5 +23,10 @@ public class myPageServiceImpl implements myPageService{
 	@Override
 	public Map<String, Object> getCompleCh(String email) throws SQLException {
 		return mypagedao.getCompleCh(email);
+	}
+	
+	@Override
+	public MemberDto memberModifyInfo(String email) throws SQLException {
+		return mypagedao.memberModifyInfo(email);
 	}
 }

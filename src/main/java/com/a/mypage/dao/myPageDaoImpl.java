@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.a.dto.MemberDto;
+
 @Repository
 public class myPageDaoImpl implements myPageDao {
 	
@@ -21,5 +23,10 @@ public class myPageDaoImpl implements myPageDao {
 	@Override
 	public Map<String, Object> getCompleCh(String email) throws SQLException {
 		return sql.selectOne("myPage.getCompleCh", email);
+	}
+	
+	@Override
+	public MemberDto memberModifyInfo(String email) throws SQLException {
+		return sql.selectOne("member.memberModifyInfo", email);
 	}
 }

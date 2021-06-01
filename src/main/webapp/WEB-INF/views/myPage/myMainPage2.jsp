@@ -5,7 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
  
-<%MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");%>
+<%
+MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+	System.out.println(memberInfo.toString());
+%>
 
 <link rel="stylesheet" href="./css/element.css" />
 <link rel="stylesheet" href="./css/myMainPage2.css" />
@@ -15,7 +18,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="member_box">
-                <img class="userWrap"/>
+                <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfo.memberPhotoName}" />
                 <h5>${memberInfo.nickname}</h5>
                 <p style="font-size: 15px;">0 Point</p>
                 
@@ -304,12 +307,20 @@
 						<div class="profile">
 							<p>PHOTO</p>
 							<!-- 이미지 미리보기 -->
-							<div id="previewId" class="memberImg"><img src="기본이미지" onerror="this.style.display='none'" /></div>
+							<%-- 
+							<label for="newImg">
+                  				<img id="bookImg" style="height: 400px;" class="img-responsive bookimg" src="./upload/<%=book.getBookimage() %>">
+               					<input type="hidden" name="oldfile" value="<%=book.getBookimage() %>">
+           					</label>
+            				<input type="file" name="bookimage" id="newImg" style="display: none; width: 100%;">
+							 --%>
+							<div id="previewId" class="memberImg"><img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfo.memberPhotoName}" style="width: 168px;" /></div>
+							<!-- <div id="previewId" class="memberImg"><img src="기본이미지" onerror="this.style.display='none'" /></div> -->
 							
 							<!-- 이미지 업로드 부분 -->
 							<p style="border: none;">
-							<button type="button" class="btnImg"><label for="memberPhoto">이미지 update</label></button>
-							<input type="file" id="memberPhoto" name="memberPhoto" onchange="previewImage(this,'previewId')" value="" style="display: none;"> 
+							<button type="button" class="btnImg"><label for=uploadFile>이미지 update</label></button>
+							<input type="file" id="uploadFile" name="uploadFile" onchange="previewImage(this,'previewId')" value="" style="display: none;"> 
 							</p>							
 							
 							<!-- 닉네임 -->
@@ -548,13 +559,13 @@ function memModifyCheck() {
         return false;
     }
     
-    var memberPhoto = $('input[name="memberPhoto"]').get(0).files[0];
+    var uploadFile = $('input[name="uploadFile"]').get(0).files[0];
     var nickname = $("#nickname").val()
     
     var formData = new FormData();
     formData.append('email', '${memberInfo.email}');
     formData.append('nickname', nickname);
-    formData.append('memberPhoto', memberPhoto);
+    formData.append('uploadFile', uploadFile);
 
     $.ajax({
 		type : 'POST',

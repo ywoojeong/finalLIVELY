@@ -32,6 +32,5 @@ public interface memberDao {
 	public MemberDto memberGoogleLoginPro (Map<String, Object> paramMap) throws SQLException;
 	public Integer memberGoogleRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	
-	// Session
-	public MemberDto memberSession(String email) throws SQLException;
+	
 }
