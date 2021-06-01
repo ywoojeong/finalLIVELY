@@ -9,7 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <!-- jsp태그 -->
 <jsp:useBean id="now" class="java.util.Date" />
-
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
@@ -18,7 +17,7 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challWish.email}"+"${user.email}")
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}")
 </script>
 
  
@@ -26,7 +25,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challWish.email}"+"${u
 	<div class="container challHeader">
 		<div>
 			<h1>${challDto.challengetitle}  
-				<c:if test="${user.email != null }">
+				<c:if test="${user.email != null && challDto.limitdate<=0}">
 					
 			 			<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
 
@@ -35,7 +34,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challWish.email}"+"${u
 				
 				<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
 					<c:choose>
-						<c:when test="${user.email != null && challWish.email==null}">
+						<c:when test="${user.email != null && challWish.email eq null}">
 							<div id="likeChallenge">
 								<img  onclick="checkChallenge()" class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
 							</div>
@@ -574,21 +573,54 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challWish.email}"+"${u
   </div>
 
 	<!-- start join 모달 -->
-  <div class="modal" id="myModal3">
+  <div class="modal" id="myModal3" style="top: 90px;">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <!-- Modal body -->
-        <div class="modal-body" style="height: 500px">
+        <div class="modal-body" style="height: 650px">
          	 <button type="button" class="close" data-dismiss="modal">×</button>
 			<div class="joinStart">
 				<h1>${challDto.challengetitle}</h1>
 				<img class="decoWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }"  onerror="this.src='image/user_80px.jpg'">
 				<h5><font style="text-decoration: underline;">${user.nickname }</font> 님</h5>
 				<h3>챌린지 참가 포인트는</h3>
-				<h4  class="highlight"><%-- ${challDto.point } --%>350 point</h4>
+				<h4  class="highlight">${challDto.pointcount } point</h4>
+				<table class="pointTo">
+					<col width="30px"><col width="150px"><col width="80px">
+					<tr>
+						<td><i class="fas fa-user"></i></td>
+						<td>참가 인원</td>
+						<td><span>${challDto.challengemember }명</span></td>
+					</tr>
+					<tr>
+						<td><i class="fas fa-coins"></i></td>
+						<td>전체 포인트</td>
+						<td><c:out value="${challDto.pointcount * challDto.challengemember }"/> point</td>
+					</tr>
+				</table>
+				<table class="pointTable">
+					<col width="30px"><col width="150px"><col width="250px">
+					
+					<tr>
+						<td colspan="3"><span class="highlight" style="font-size: 13pt;font-weight: 600">달성률에 따라 환급이 달라집니다.</span></td>
+					</tr>
+					<tr>
+						<td colspan="2">100% 성공</td>
+						<td style="text-align:right"><c:out value="${challDto.pointcount * 2 }"/> point</td>
+					</tr>
+					<tr>
+						<td colspan="2">85%이상 성공</td>
+						<td style="text-align:right"><c:out value="${challDto.pointcount * 1.5 }"/> point</td>
+					</tr>
+					<tr>
+						<td colspan="2">100% 성공</td>
+						<td style="text-align:right">포인트 차감</td>
+					</tr>
+				</table>
 				<p>한번 참여 시 포인트 환불이나 취소가 불가합니다.</p>
 			</div>
+			
 			
         </div>
         
@@ -669,16 +701,14 @@ const endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
 console.log("시작 날짜"+startDate)
 console.log("끝 날짜"+endDate)
 //console.log("오늘 날짜"+nowDate)
-	let millisec = startDate.getTime() - nowDate.getTime();
-let limitDate = millisec / (1000*60*60*24);
-console.log("limitDate 날짜 차이"+limitDate);
-console.log(document.getElementById('limitD'));
-if(limitDate<0){
-	$("#limitD").text("시작중인 챌린지");
-}else if(limitDate==0){
+
+//시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
+if("${challDto.limitdate}">0){
+	$("#limitD").text("시작중인 챌린지 | 모집 마감");
+}else if("${challDto.limitdate}"==0){
 	$("#limitD").text("오늘부터 시작");
 }else{
-	$("#limitD").text(limitDate+"일 뒤부터 시작");
+	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
 //periodDate 05.11(화)~05.28(금)

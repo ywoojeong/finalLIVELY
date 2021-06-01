@@ -735,7 +735,7 @@ background-color: #2196F3;
 	display: flex;
 	flex-direction: column;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 25px;
 }
 .decoWrap{ 
 	border-radius: 50%;
@@ -761,12 +761,28 @@ background-color: #2196F3;
 .joinStart h4{
 	font-size: 25pt;
 	 display: inline;
-   	 box-shadow: inset 0 -15px 0 #eb98ed;
+   	 box-shadow: inset 0 -15px 0 rgb(203 152 237 / 60%);
+   	 margin-bottom: 25px;
 }
 .joinStart p{
 	color: #c2c2c2;
     font-weight: 300;
-    font-size: 10pt;
-    margin-top: 44px;
+    font-size: 11pt;
+}
+
+.joinStart .pointTable{
+	background-color: #e9e9eaff;
+	width: 100%;
+}
+.joinStart .pointTable td{
+	padding:6px 18px 6px 18px;
+}
+
+.joinStart .pointTo{
+	margin-bottom: 20px;	
+}
+.joinStart .pointTo td{
+	padding-top:5px;
+	font-weight: 600;
 }
 /*///////////////////////////////////*/
