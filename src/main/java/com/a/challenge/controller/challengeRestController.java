@@ -32,8 +32,8 @@ public class challengeRestController {
 	//챌린지 insert
 	@RequestMapping(value = "challengeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String challengeInsert(challengeDto dto, String dateWeek[], @RequestParam("uploadFile")  MultipartFile uploadFile,  @RequestParam("uploadFileCer")  MultipartFile uploadFileCer, HttpServletRequest req) throws Exception{
-		//System.out.println("챌린지 파일이 받아와 지나요?:"+uploadFile);
-		//System.out.println("파일이 받아와지나요?(인증방법) : "+ uploadFileCer);
+		System.out.println("챌린지 파일이 받아와 지나요?:"+uploadFile);
+		System.out.println("파일이 받아와지나요?(인증방법) : "+ uploadFileCer);
 		String dateStr = Arrays.toString(dateWeek);
 		
 		if(!uploadFile.isEmpty()){
@@ -117,4 +117,31 @@ public class challengeRestController {
 	//challengeReviewInsert 리뷰작성데이터
 	
 	
+	//챌린지 찜하기 challengelikeInsert
+	@RequestMapping(value = "challengelikeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengelikeInsert(@RequestParam Map<String,Object> likeData) throws Exception{
+		
+		boolean success = service.challengelikeInsert(likeData);
+		String msg = "";
+		if(success) {
+			msg="SUCCESS";
+		}else {
+			msg="FAIL";
+		}
+		return msg;
+	}
+	
+	//챌린지 찜하기 challengelikeDelete
+		@RequestMapping(value = "challengelikeDelete.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String challengelikeDelete(@RequestParam Map<String,Object> likeData) throws Exception{
+			
+			boolean success = service.challengelikeDelete(likeData);
+			String msg = "";
+			if(success) {
+				msg="SUCCESS";
+			}else {
+				msg="FAIL";
+			}
+			return msg;
+		}
 }

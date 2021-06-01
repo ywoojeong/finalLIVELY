@@ -60,7 +60,7 @@ $(document).ready(function(){
 	 <header class="challengeHeader">
 	 		<img class="userWrap" src="https://th.bing.com/th/id/OIP.wTFsSYLWKoHwmv9OOZIp9wHaHa?pid=ImgDet&w=500&h=500&rs=1">
 	 	<h4>${memberInfo.nickname} 님,</h4>
-	 	<p>관심있는 주제로 챌린지를 생성해 보세요.</p>
+	 	<p>생성한 챌린지를 수정하세요.</p>
 	 </header>
 
 	 <div class="">
@@ -70,9 +70,10 @@ $(document).ready(function(){
 	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
 	              <label for="newImg">
+	            	 <% %>
 		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
 		            </label>
-		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.jpg'">
+		            <input type="file" name="uploadFile" id="newImg" style="display: none" ">
 		            <p style="font-size: 10pt; color:#5e5e5e;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
 	 		</div>
 	 		<div class="col-sm-8 challData p-5"> 

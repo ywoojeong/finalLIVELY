@@ -43,25 +43,24 @@ public class challengeController {
 	public String challengeMake(Model model, HttpSession session) {
 		
 		
-			MemberDto member = (MemberDto)session.getAttribute("memberInfo");
-		
-		 //*{NICKNAME=LemonLime, GOOGLELOGIN=112957813385668127996, EMAIL=final.5623@gmail.com}
-		
-		 //model.addAttribute("memberInfo",member);
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");
+		MemberDto user = service.userData(member.getEmail());
 
-	    model.addAttribute("memberInfo", member);	//${NICKNAME}, ${}   
+		model.addAttribute("user", user);
 		return "challenge/challengeMake";
 	}
 	
 	
 	//챌린지 디테일 페이지로 이돌(challengeseq가지고)
 	@RequestMapping(value = "challengeDetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String challengeDetail(Model model, int challengeseq) {
-		
+	public String challengeDetail(Model model, int challengeseq, HttpSession session) {
+		System.out.println("오긴왔냐??");
 		challengeDto challDto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
 		//받아오면 set으로 dto에 넣어주기(배열로)
 		
+	
+		//System.out.println(member.toString());
 		//IDENTIFYFREQUENCY
 		if(challDto.getIdentifyfrequency()==9) {
 			challDto.setIdentifyday("매일"); 
@@ -83,8 +82,37 @@ public class challengeController {
 		 * String dateWeek =
 		 * 
 		 */
-	
+		
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
+		MemberDto user = service.userData(member.getEmail());
+		if(member!=null && !member.getEmail().equals("")) {
+			Map<String, Object> WishParam = new HashMap<String, Object>();
+			WishParam.put("challengeseq", challengeseq);
+			WishParam.put("email", member.getEmail());
+			
+			Map<String, Object> challWish = service.challengelikeSeq(WishParam);
+			if(challWish != null && !challWish.get("email").equals("")) {
+				model.addAttribute("challWish", challWish);
+			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());										
+			}		
+		}
+
 		model.addAttribute("challDto", challDto);
+		model.addAttribute("user", user);
 		return "challenge/challengeDetail";
+	}
+	
+	
+	//챌린지 수정 페이지로 이동
+	@RequestMapping(value = "challengeUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeUpdate(Model model, HttpSession session, int challengeseq) {
+		
+		MemberDto mem = (MemberDto) session.getAttribute("memberInfo");
+		challengeDto challenge = service.challengeDetail(challengeseq);
+		
+		model.addAttribute("memberInfo", mem);
+		model.addAttribute("challenge", challenge);	
+	
+		return "challenge/challengeUpdate";
 	}
 }

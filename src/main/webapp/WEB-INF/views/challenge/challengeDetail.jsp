@@ -18,47 +18,39 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-
-//오늘날짜
-//날짜 제어
-	let now = new Date();
-	let year = now.getFullYear();
-	let month = now.getMonth();
-	let day = now.getDate();
-	
-	let nowDate = new Date(year, month, day);
-	let startDate = ${challDto.challengestart};
-	let startDateD = new Date(startDate);
-	console.log("시작 날짜"+startDateD)
-//	console.log("오늘 날짜"+nowDate)
-		let millisec = startDate.getTime() - nowDate.getTime();
-	let limitDate = millisec / (1000*60*60*24);
-	console.log("limitDate 날짜 차이"+limitDate);
-
-	if(limitDate<0){
-		$("#limitD").val("시작중인 챌린지");				
-	}else if(limitDate==0){
-		$("#limitD").val("오늘부터 시작");		
-	}else{
-		$("#limitD").val(limitDate+"일 뒤부터 시작");		
-	}
-
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challWish.email}"+"${user.email}")
 </script>
 
  
-<div class="backDiv" style="background-image: url('image/challenge1.png')">
+<div class="backDiv" style="background-image: url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
 	<div class="container challHeader">
 		<div>
-			<h1>${challDto.challengetitle}</h1>
-			<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
-				<div onclick="checkChallenge(this)">
-				 	<img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
-				</div>
-			</a>
-		
+			<h1>${challDto.challengetitle}  
+				<c:if test="${user.email != null }">
+					
+			 			<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
+
+				</c:if>
+			</h1>
+				
+				<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
+					<c:choose>
+						<c:when test="${user.email != null && challWish.email==null}">
+							<div id="likeChallenge">
+								<img  onclick="checkChallenge()" class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
+							</div>
+						</c:when>
+						<c:when test="${user.email != null && user.email eq challWish.email}">
+							<div id="likeChallenge">
+								<img onclick="checkDelChallenge()" src='image/checkFill.svg' class='checkImg'>
+							</div>
+						</c:when>
+					</c:choose>
+				</a>
 		</div>
+
 		<p id="limitD"></p>
-		<label>${challDto.identifyday }</label><label>${challDto.challengeperiod }주 동안</label><span class="period">05.11(화) ~ 05.28(금)</span><br>
+		<label>${challDto.identifyday }</label><label>${challDto.challengeperiod }주 동안</label><span class="period" id="periodDate"></span><br>
 		<span class="explain">${challDto.identifyday } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 	</div>
 </div>
@@ -508,14 +500,10 @@ $(document).ready(function(){
       
         <!-- Modal body -->
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          
+          <button type="button" class="close" data-dismiss="modal">×</button>         
           <div class="reviewSummerNote">
-		        <h3>후기 작성</h3>
-		       
-		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>
-					
-					
+		        <h3>후기 작성</h3>		       
+		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>					
 					<!-- RATING - Form -->
 					<form id="rateFrm" class="rating-form" action="#" method="post" name="rating-movie">
 					  <fieldset class="form-group">
@@ -563,35 +551,19 @@ $(document).ready(function(){
          					   <i class="fa fa-star"></i>
 					        </span>
 					        <span class="ir">1</span>
-					      </label>
-					      
+					      </label>					      
 					      <div class="form-action">
 					        <input class="btn-reset" type="reset" value="Reset" />   
-					      </div>
-					
+					      </div>					
 					      <div class="form-output">
 					        ? / 5
-					      </div>
-					      
-					    </div>
-					    
-					  </fieldset>
-					  
-				
+					      </div>					      
+					    </div>					    
+					  </fieldset>			
                      <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-
 		        </form>
-					  
-				
-					
-					
-					
-							              		 
-
    			</div>
-
-        </div>
-        
+        </div>        
         <!-- Modal footer -->
         <div class="modal-footer" style="justify-content: center">
           <button type="button" name="save" onclick="save()" class="btn" style="width: 200px">후기 작성</button>
@@ -600,6 +572,36 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
+
+	<!-- start join 모달 -->
+  <div class="modal" id="myModal3">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal body -->
+        <div class="modal-body" style="height: 500px">
+         	 <button type="button" class="close" data-dismiss="modal">×</button>
+			<div class="joinStart">
+				<h1>${challDto.challengetitle}</h1>
+				<img class="decoWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }"  onerror="this.src='image/user_80px.jpg'">
+				<h5><font style="text-decoration: underline;">${user.nickname }</font> 님</h5>
+				<h3>챌린지 참가 포인트는</h3>
+				<h4  class="highlight"><%-- ${challDto.point } --%>350 point</h4>
+				<p>한번 참여 시 포인트 환불이나 취소가 불가합니다.</p>
+			</div>
+			
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="justify-content: center">
+          <button type="button" class="btn">CHALLENGE 도전</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
   
 
 <!-- 결과 차트 js -->
@@ -626,6 +628,64 @@ $(".meter > span").each(function () {
     );
 });
 
+//date 05.11(화)형식으로 바꾸기(문자열)
+function dateToMonth(date) {
+
+	var month = date.getMonth()+1;
+    if (month < 10)  {
+        month = '0' + month;
+    }
+
+    var date = date.getDate();
+    if (date < 10) {
+        date = '0' + date;
+    }
+    
+ 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
+    
+     var today = new Date(date).getDay();
+     console.log("겟데이"+today)
+     var todayLabel = week[today];
+     
+     return month + '.' + date +"("+todayLabel+")";
+}
+
+
+//날짜 제어
+let now = new Date();
+let year = now.getFullYear();
+let month = now.getMonth();
+let day = now.getDate();
+
+let nowDate = new Date(year, month, day);
+let startdate = "${challDto.challengestart}";
+let enddate = "${challDto.challengeend}";
+let startdateSub = startdate.substring(0, 10);
+let enddateSub = enddate.substring(0, 10);
+const strArr = startdateSub.split('-');
+const startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+const strArr2 = enddateSub.split('-');
+const endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
+console.log("시작 날짜"+startDate)
+console.log("끝 날짜"+endDate)
+//console.log("오늘 날짜"+nowDate)
+	let millisec = startDate.getTime() - nowDate.getTime();
+let limitDate = millisec / (1000*60*60*24);
+console.log("limitDate 날짜 차이"+limitDate);
+console.log(document.getElementById('limitD'));
+if(limitDate<0){
+	$("#limitD").text("시작중인 챌린지");
+}else if(limitDate==0){
+	$("#limitD").text("오늘부터 시작");
+}else{
+	$("#limitD").text(limitDate+"일 뒤부터 시작");
+}
+
+//periodDate 05.11(화)~05.28(금)
+console.log(dateToMonth(startDate)+" ~ "+dateToMonth(endDate));
+$("#periodDate").text(dateToMonth(startDate)+" ~ "+dateToMonth(endDate))
+
+
 	var eventE=0;
 //like버튼 누르면 제어
 $('.like-review').click(function(){
@@ -634,6 +694,7 @@ $('.like-review').click(function(){
 	   $(this).children('.fa-heart').addClass('animate-like');
 	   //테이블 FOLLOW : FOLLOW
 	    eventE++; 	    
+	  
 	}else{
 		$(this).html('<i class="fa fa-heart"></i>like');
 		$(this).children('.fa-heart').addClass('animate-like');
@@ -641,20 +702,50 @@ $('.like-review').click(function(){
 	}
 });
 
-var checkChall = 0;
+// var checkChall = 0;
 //찜하기 버튼 제어 checkChallenge()
 // <img class="checkImg" src="image/check.svg" style="height: 55px;opacity: 70%;">
-function checkChallenge(id){
-	//alert(id);
-	if(checkChall==0){
-		id.innerHTML = "<img src='image/checkFill.svg' class='checkImg'>";
-// 		$(this).attr("src", "image/checkFill.svg");
-		checkChall++;
-	}else{
-		id.innerHTML = "<img src='image/check.svg' class='checkImg' onmouseover=\"this.src='image/checkhover.svg'\" onmouseout=\"this.src='image/check.svg'\">";
-		checkChall--;
+function checkChallenge(){
+	
+	let id = document.getElementById("likeChallenge");
+	 $.ajax({
+		 type:"get",
+		 url:"challengelikeInsert.do",
+		 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
+		 success:function(msg){
+	    		if(msg=="SUCCESS"){
+	    			alert("찜하기 성공 ");
+	    		}
+	    	},
+	   		error:function(){
+	   			alert("찜하기 에러");
+	   		}, 
+	   		complete:function(){
+	   			id.innerHTML = "<img onclick=\"checkDelChallenge()\" src='image/checkFill.svg' class='checkImg'>";
+	   		}
+	    });	 
+}	
+
+function checkDelChallenge(){
+	
+		let id = document.getElementById("likeChallenge");
+		 $.ajax({
+			 type:"get",
+			 url:"challengelikeDelete.do",
+			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
+			 success:function(msg){
+		    		if(msg=="SUCCESS"){
+		    			alert("찜하기 삭제 성공 ");
+		    		}
+		    	},
+		   		error:function(){
+		   			alert("찜하기 에러");
+		   		},
+		    	complete:function(){
+		   			id.innerHTML = "<img onclick='checkChallenge()' class='checkImg' src='image/check.svg' onmouseover=\"this.src='image/checkhover.svg'\" onmouseout=\"this.src='image/check.svg'\">";
+		   		}	
+		    });	   
 	}
-}
 
 
 //후기 작성 저장 전송전 필드 체크 이벤트 리스너

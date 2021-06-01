@@ -10,7 +10,7 @@
 						HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL)
 		VALUES(CHAL_SEQ.NEXTVAL, #{category}, #{challengetitle}, #{challengetext}, #{challengestart}, #{challengeend}, #{challengeperiod}, 
 				#{identifyfrequency}, #{identifyday}, #{identifytime}, #{challengephoto}, #{challengesavephoto}, #{certifyphoto}, #{certifysavephoto},#{certify}, 0.0, 0, 0,
-				(SELECT M.AUTH FROM MEMBER M, CHALLENGE C WHERE M.EMAIL = C.EMAIL AND C.EMAIL = #{email}), #{pointcount}, 0, #{email})
+				(SELECT AUTH FROM MEMBER WHERE EMAIL = #{email}), #{pointcount}, 0, #{email})
 		
 	</insert>
 	
@@ -54,8 +54,8 @@
 	</select>
 	
 	<!-- 생성한 멤버의 데이터 가져오기 -->
-	<select id="createChallengeMember"  parameterType="java.lang.String" resultType="java.util.Map">
-		SELECT C.CHALLENGESEQ, M.EMAIL, M.NICKNAME, M.AUTH, M.MEMBERPHOTO
+	<select id="createChallengeMember"  parameterType="java.lang.String" resultType="com.a.util.lowerKeyMap">
+		SELECT C.CHALLENGESEQ, M.EMAIL, M.NICKNAME, M.AUTH, M.MEMBERPHOTONAME, M.POINT 
 		FROM CHALLENGE C, MEMBER M
 		WHERE C.EMAIL = M.EMAIL
 			AND C.EMAIL = #{email}
@@ -69,4 +69,32 @@
 		WHERE CHALLENGESEQ = #{challengeseq}
 	</select>
 	
+	<!-- 챌린지 찜하기 challengelikeInsert -->
+	<insert id="challengelikeInsert" parameterType="java.util.Map">
+		INSERT INTO CHALLENGEWISH(WISHSEQ, WISH, CHALLENGESEQ, EMAIL)
+		VALUES(WISH_SEQ.NEXTVAL, 1, #{challengeseq}, #{email})
+	</insert>
+	
+	<!-- 챌린지 찜하기 challengelikeDelete -->
+	<delete id="challengelikeDelete"  parameterType="java.util.Map">
+		DELETE FROM CHALLENGEWISH
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND EMAIL =  #{email}
+	</delete>
+	
+	<!-- 챌린지 찜하기 내데이터 가져오기 challengelikeSeq -->
+	<select id="challengelikeSeq" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
+		SELECT WISHSEQ, WISH, CHALLENGESEQ, EMAIL
+		FROM CHALLENGEWISH
+		WHERE EMAIL=#{email} AND CHALLENGESEQ = #{challengeseq}	
+	</select>
+	
+	<!-- 세션에 담긴 한사람 데이터가져오기 -->
+	<select id="userData" parameterType="java.lang.String" resultType="com.a.dto.MemberDto">
+		SELECT *
+		FROM MEMBER
+		WHERE EMAIL = #{email}
+	</select>
+	
+
 </mapper>
