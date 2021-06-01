@@ -16,7 +16,7 @@ public interface memberService {
 	public Map<String, Object> naverConnectionCheck(Map<String, Object> apiJson) throws SQLException; 
 	Integer setNaverConnection (Map<String, Object> paramMap) throws SQLException;
 	Integer memberNaverRegisterPro (Map<String, Object> paramMap) throws SQLException;
-	MemberDto memberNaverLoginPro (Map<String, Object> paramMap) throws SQLException;
+	MemberDto memberNaverLoginPro (Map<String, Object> apiJson) throws SQLException;
 	
 	
 	Map<String, Object> kakaoConnectionCheck (Map<String, Object> paramMap) throws SQLException;
@@ -29,5 +29,5 @@ public interface memberService {
 	MemberDto memberGoogleLoginPro (Map<String, Object> paramMap) throws SQLException;
 	Integer memberGoogleRegisterPro (Map<String, Object> paramMap) throws SQLException;
 	
-	public MemberDto memberSession(String email) throws SQLException;
+	
 }

@@ -5,22 +5,22 @@
 	<!-- 회원가입 추가 정보 -->
  	<insert id="memberInfoPro" parameterType="com.a.dto.MemberDto">
  		<if test="flag == 'naver'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhotoName}, #{naverLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{naverLogin}, 3, 0, 0)
 		</if>
 		<if test="flag == 'google'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, googleLogin, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhotoName}, #{googleLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, googleLogin, AUTH, MEMBERDEL, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{googleLogin}, 3, 0, 0)
 		</if>
 		<if test="flag == 'kakao'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, KAKAOLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, KAKAOLOGIN, AUTH, MEMBERDEL, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 0)
 		</if>
 	</insert>
 	
 	<!-- 회원정보수정 -->
 	<update id="memberModify" parameterType="com.a.dto.MemberDto">
-		UPDATE MEMBER SET NICKNAME = #{nickname}, MEMBERPHOTO = #{memberPhotoName}
+		UPDATE MEMBER SET NICKNAME = #{nickname}, MEMBERPHOTONAME = #{memberPhotoName}
 		WHERE EMAIL = #{email}
 	</update>
 	
@@ -29,14 +29,9 @@
 		SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickname}
 	</select>
 	
-	<!-- 닉네임 중복 확인 -->
-	<select id="memberSession" parameterType="java.lang.String" resultType="com.a.dto.MemberDto">
-		SELECT EMAIL,NICKNAME,AUTH,MEMBERDEL,POINT,MEMBERPHOTONAME FROM MEMBER WHERE EMAIL = #{email}
-	</select>
-	
 	<!-- 네이버 이메일 체크 후 정보 가져감 -->
 	<select id="naverConnectionCheck" resultType="java.util.Map" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME,NAVERLOGIN FROM MEMBER 
+		SELECT EMAIL,NICKNAME,NAVERLOGIN,MEMBERPHOTO, POINT,AUTH FROM MEMBER 
 		WHERE EMAIL = #{email}
 	</select>
 	
@@ -53,7 +48,7 @@
 	
 	<!-- 네이버 로그인 -->
 	<select id="memberNaverLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
+		SELECT EMAIL,NICKNAME,AUTH,MEMBERPHOTO, POINT FROM MEMBER 
 		WHERE EMAIL = #{email} AND NAVERLOGIN = #{naverLogin}
 	</select>
 	
@@ -91,7 +86,7 @@
 	</update>
 	
 	<select id="memberGoogleLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
-		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
+		SELECT EMAIL,NICKNAME,AUTH,MEMBERPHOTO,MEMBERPHOTONAME,MEMBERDEL,POINT FROM MEMBER 
 		WHERE EMAIL = #{EMAIL} AND GOOGLELOGIN = #{GOOGLELOGIN}
 	</select>
 	<!-- 

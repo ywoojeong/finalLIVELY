@@ -40,16 +40,30 @@ public class memberController {
 	return "introTiles";		
 	}
 	
-	// 홈으로 이동
-	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
-	public String memberlogin2(Model model, HttpSession session) {
-		System.out.print("홈으로 이동");
+	/*
+	// 멤버 정보를 가진 애
+	@RequestMapping(value="memberModifyInfo.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberModifyInfo(Model model, HttpSession session, MemberDto dto) throws SQLException {
+		System.out.print("수정창으로  이동");
+		System.out.println(dto.toString());
+		MemberDto memberModifyInfo = service.memberModifyInfo(dto.getEmail());
+		System.out.println("memberModifyInfo : " + memberModifyInfo);
+		model.addAttribute("memberModifyInfo", memberModifyInfo);
 		
-		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
-		model.addAttribute("memberInfo", memberInfo);
-		
-		return "home/home";
+		return "myPage/myMainPage2";
 	}
+	*/
+	
+	// 홈으로 이동
+		@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
+		public String memberlogin2(Model model, HttpSession session) {
+			System.out.print("홈으로 이동");
+			
+			MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+			model.addAttribute("memberInfo", memberInfo);
+			
+			return "home/home";
+		}
 	
 	
 	//member 로그인페이지 이동
@@ -76,7 +90,7 @@ public class memberController {
 	 정연우
 	 카카오 로그인 이동
 	*/
-	@RequestMapping(value="addInfo.do")
+	@RequestMapping(value="addInfo.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String setMemberInfo(Model model,HttpSession session,@RequestParam Map<String,Object> paramMap) {
 		System.out.println("set addInfo param ==>"+paramMap);
 		
@@ -118,6 +132,7 @@ public class memberController {
 		ObjectMapper objectMapper =new ObjectMapper();
 		Map<String, Object> apiJson = (Map<String, Object>) objectMapper.readValue(apiResult, Map.class).get("response");
 		apiJson.put("naverLogin", apiJson.get("id"));
+		System.out.println("##########dddd"+apiJson.toString());
 		//apiJson.put("password",apiJson.get("id"));
 		Map<String, Object> naverConnectionCheck = service.naverConnectionCheck(apiJson);
 		
@@ -133,11 +148,13 @@ public class memberController {
 		}else if(naverConnectionCheck.get("NAVERLOGIN") == null && naverConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
 			service.setNaverConnection(apiJson);
 			MemberDto loginCheck = service.memberNaverLoginPro(apiJson);
+			System.out.println("##############나다"+loginCheck.toString());
 			session.setAttribute("memberInfo", loginCheck);
 			System.out.println("네이버로그인 1 세션 : " + session);
 			System.out.println("네이버로그인 1 로그인체크 : " + loginCheck);
 		}else { //이미 연동이 되어있고 가입이 되어있을 때
 			MemberDto loginCheck = service.memberNaverLoginPro(apiJson);
+			System.out.println("##############나다2"+loginCheck.toString());
 			session.setAttribute("memberInfo", loginCheck);
 			System.out.println("네이버로그인 2 세션 : " + session);
 			System.out.println("네이버로그인 2 로그인체크 : " + loginCheck);
