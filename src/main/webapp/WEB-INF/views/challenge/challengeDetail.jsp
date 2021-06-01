@@ -17,20 +17,17 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}")
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}")
 </script>
 
- 
-<div class="backDiv" style="background-image: url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
+<div class="backDiv" style="background-image: url(' https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
 	<div class="container challHeader">
 		<div>
 			<h1>${challDto.challengetitle}  
-				<c:if test="${user.email != null && challDto.limitdate<=0}">
-					
-			 			<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
-
-				</c:if>
-			</h1>
+				<c:if test="${user.email != null && challDto.limitdate<=0 && challMem.email == null}">
+			 		<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>				
+			 	</c:if>
+			 </h1>
 				
 				<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
 					<c:choose>
@@ -112,7 +109,9 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		<label class="challengetext">챌린지 인증방법</label>
 		<div class="row" style="padding-left: 23px">
 			<div class="col-sm-8" style="display: flex;">
-				<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }" style="width: 300px">
+				<c:if test="${challDto.challengesavephoto != '0' }">
+					<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }" style="width: 300px">
+				</c:if>
 				<div style="margin-left: 20px;width: 400px">
 					<c:choose>
 						 <c:when test="${challDto.certify eq 'none'}">
@@ -504,7 +503,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		        <h3>후기 작성</h3>		       
 		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>					
 					<!-- RATING - Form -->
-					<form id="rateFrm" class="rating-form" action="#" method="post" name="rating-movie">
+					<form id="rateFrm" class="rating-form" action="#" method="post"">
 					  <fieldset class="form-group">
 					    
 					    <legend class="form-legend">Rating:</legend>
@@ -607,11 +606,11 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 					</tr>
 					<tr>
 						<td colspan="2">100% 성공</td>
-						<td style="text-align:right"><c:out value="${challDto.pointcount * 2 }"/> point</td>
+						<td style="text-align:right;font-weight: 600" ><c:out value="${challDto.pointcount * 2 }"/> point</td>
 					</tr>
 					<tr>
 						<td colspan="2">85%이상 성공</td>
-						<td style="text-align:right"><c:out value="${challDto.pointcount * 1.5 }"/> point</td>
+						<td style="text-align:right;font-weight: 600"><c:out value="${challDto.pointcount * 1.5 }"/> point</td>
 					</tr>
 					<tr>
 						<td colspan="2">100% 성공</td>
@@ -626,7 +625,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
         
         <!-- Modal footer -->
         <div class="modal-footer" style="justify-content: center">
-          <button type="button" class="btn">CHALLENGE 도전</button>
+          <button type="button" class="btn" onclick="startChallengeBtn()">CHALLENGE 도전</button>
         </div>
         
       </div>
@@ -732,9 +731,8 @@ $('.like-review').click(function(){
 	}
 });
 
-// var checkChall = 0;
+
 //찜하기 버튼 제어 checkChallenge()
-// <img class="checkImg" src="image/check.svg" style="height: 55px;opacity: 70%;">
 function checkChallenge(){
 	
 	let id = document.getElementById("likeChallenge");
@@ -744,7 +742,7 @@ function checkChallenge(){
 		 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 		 success:function(msg){
 	    		if(msg=="SUCCESS"){
-	    			alert("찜하기 성공 ");
+	    			//alert("찜하기 성공 ");
 	    		}
 	    	},
 	   		error:function(){
@@ -765,7 +763,7 @@ function checkDelChallenge(){
 			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 			 success:function(msg){
 		    		if(msg=="SUCCESS"){
-		    			alert("찜하기 삭제 성공 ");
+		    			//alert("찜하기 삭제 성공 ");
 		    		}
 		    	},
 		   		error:function(){
@@ -777,6 +775,30 @@ function checkDelChallenge(){
 		    });	   
 	}
 
+//챌린지 참여하기
+function startChallengeBtn(){
+	
+	$.ajax({
+		url:"challengeMemberInsert.do",
+		data:{"email":"${user.email}", "challengeseq":"${challDto.challengeseq}", "point":"${challDto.pointcount}"},
+		type:"post",
+		success:function(msg){
+			if(msg=="SUCCESS"){
+				alert("챌린지에 참여하였습니다. 열심히 활동해 보세요.");	
+			}else if(msg=="POINTFAIL"){
+				alert("포인트가 부족하여 챌린지에 참여할 수 없습니다.");
+			}
+			
+		}, error:function(){
+			alert("챌린지 멤버 넣기 실패");
+		}, 
+		complete:function(){
+			location.href="challengeDetail.do?challengeseq=${challDto.challengeseq}";
+		}
+		
+		
+	});
+}
 
 //후기 작성 저장 전송전 필드 체크 이벤트 리스너
 function save(){
@@ -798,7 +820,7 @@ function save(){
     //폼 서밋
 	//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
     
-    let dataFrm = document.getElementById("rateFrm").serialize();
+    let dataFrm = $("#rateFrm").serialize();
     $.ajax({
     	type:"post",
     	url:"challengeReviewInsert.do",
@@ -810,10 +832,14 @@ function save(){
     	},
    		error:function(){
    			alert("후기 작성 에러");
-   		}	
+   		},
+   		complete:function(){
+   			rating.setRate(0);
+   			document.querySelector('.review_textarea').value = '';
+   			$('#myModal2').modal("hide"); 
+   		}
     });
-	rating.setRate(0);
-	document.querySelector('.review_textarea').value = '';
+	
 }
 
 

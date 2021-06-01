@@ -14,6 +14,8 @@ body{
 	height:400px;
 	background-size:cover;	
 	position: relative;
+/* 	filter:blur(3px); */
+
 }
 
 /* header */

@@ -72,6 +72,31 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+"userData", email);
 	}
+
+	@Override
+	public int challengeMemberInsert(Map<String, Object> memParam) {
+		
+		return sqlSession.insert(namespace+"challengeMemberInsert", memParam);
+	}
+
+	@Override
+	public int memberPointReducation(Map<String, Object> memParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+"memberPointReducation", memParam);
+	}
+
+	@Override
+	public Map<String, Object> challengeMember(Map<String, Object> likeData) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"challengeMember", likeData);
+	}
+
+	@Override
+	public int challengeMemberCountUp(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+"challengeMemberCountUp", challengeseq);
+	}
+	
 	
 	
 	
