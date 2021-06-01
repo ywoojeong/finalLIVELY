@@ -19,5 +19,8 @@ public class myPageServiceImpl implements myPageService{
 		return mypagedao.getNowCh(email);
 	}
 	
-	
+	@Override
+	public Map<String, Object> getCompleCh(String email) throws SQLException {
+		return mypagedao.getCompleCh(email);
+	}
 }

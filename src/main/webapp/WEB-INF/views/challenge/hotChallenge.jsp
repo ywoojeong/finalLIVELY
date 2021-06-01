@@ -210,9 +210,9 @@ function getChallengeList(pageNumber, categoryNumber){
 			     			+"<div class='challCardImg'>"
  			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>";
 		     				if(challenge.challengesavephoto=="0"){
-	     				 		data +="<img  src='image/challenge1.png'>"
+	     				 		data +="<img  src='./image/challenge2.jpg'>";
 		     				}else{
-		     					data +="<img src='"+challenge.challengesavephoto+"'>";
+		     					data +="<img src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+challenge.challengesavephoto+"'>";
 		     				}
 			     	data+=   "</a>"
 								+"</div>"

@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @RestController
-/* @RequestMapping("/member") */
 public class memberRestController {
 
 	@Autowired
@@ -48,7 +47,17 @@ public class memberRestController {
 		}
 		return msg;
 	}
-
+	
+	// 회원정보 수정
+	@RequestMapping(value="memberModify.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberModify (MemberDto dto, HttpSession session) throws Exception {
+		System.out.println("회원정보 수정");
+		String memberPhotoName = fileManagement.FileUploader(dto.getMemberPhoto());
+		dto.setMemberPhotoName(memberPhotoName);
+		service.memberModify(dto);
+		
+		return "memModifyCheck";
+	}
 
 	// 회원가입 추가 정보
 	@RequestMapping(value="memberInfoPro.do", method = {RequestMethod.POST,RequestMethod.GET}) 

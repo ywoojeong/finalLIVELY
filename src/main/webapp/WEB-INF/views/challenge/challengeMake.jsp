@@ -72,7 +72,7 @@ $(document).ready(function(){
 	              <label for="newImg">
 		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
 		            </label>
-		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.png'">
+		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.jpg'">
 		            <p style="font-size: 10pt; color:#5e5e5e;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
 	 		</div>
 	 		<div class="col-sm-8 challData p-5"> 
@@ -167,9 +167,9 @@ $(document).ready(function(){
 	 					<td>
 	 						<label for="certifyPhoto">인증 방법(선택)</label>
 	 						<label for="newImg2">
-		                  <img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/noneImage.png">
+		                  <img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/certifyNone.jpg">
 				            </label>
-				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none" onerror="this.src='./image/noneImage.png'">
+				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none">
 	 					</td>
 	 					<td>
 	 						<textarea class="form-control form-control-sm" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
@@ -234,14 +234,14 @@ function handleImgFileSelect(e) {
 }
 </script>
 <script>
-var sel_file2;
+var sel_file1;
 
 $(document).ready(function() {
-    $("#newImg2").on("change", handleImgFileSelect);
+    $("#newImg2").on("change", handleImgFileSelect1);
 }); 
 
 
-function handleImgFileSelect(e) {
+function handleImgFileSelect1(e) {
     var files1 = e.target.files;
     var filesArr1 = Array.prototype.slice.call(files1);
 

@@ -46,6 +46,26 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.challengeDetail(challengeseq);
 	}
+
+	@Override
+	public boolean challengelikeInsert(Map<String, Object> likeData) {
+		int count = dao.challengelikeInsert(likeData);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean challengelikeDelete(Map<String, Object> likeData) {
+		int count = dao.challengelikeDelete(likeData);
+		return count>0?true:false;
+	}
+
+	@Override
+	public Map<String, Object> challengelikeSeq(Map<String, Object> likeData) {
+		// TODO Auto-generated method stub
+		return dao.challengelikeSeq(likeData);
+	}
+	
+	
 	
 	
 

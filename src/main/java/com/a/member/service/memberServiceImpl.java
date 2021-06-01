@@ -22,7 +22,15 @@ public class memberServiceImpl implements memberService {
 		int count = memberDao.memberInfoPro(dto);
 		return count>0?true:false;
 	}
-
+	
+	
+	// 회원정보 수정
+	@Override
+	public void memberModify(MemberDto dto) throws Exception {
+		memberDao.memberModify(dto);
+	}
+	
+	
 	// 닉네임 중복 체크
 	@Override
 	public int nickCheck(MemberDto dto) throws Exception {
