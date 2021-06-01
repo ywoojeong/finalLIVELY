@@ -1,6 +1,8 @@
 package com.a.challenge.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,13 +45,10 @@ public class challengeController {
 	public String challengeMake(Model model, HttpSession session) {
 		
 		
-			MemberDto member = (MemberDto)session.getAttribute("memberInfo");
-		
-		 //*{NICKNAME=LemonLime, GOOGLELOGIN=112957813385668127996, EMAIL=final.5623@gmail.com}
-		
-		 //model.addAttribute("memberInfo",member);
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");
+		MemberDto user = service.userData(member.getEmail());
 
-	    model.addAttribute("memberInfo", member);	//${NICKNAME}, ${}   
+		model.addAttribute("user", user);
 		return "challenge/challengeMake";
 	}
 	
@@ -80,27 +79,60 @@ public class challengeController {
 			}
 		}
 		
-		//[1,2,3,4,5,6,7] >> 데이터화..?
+		//limitDate제어 (오늘시간 - challengestart)
+		Date nowDate = new Date(System.currentTimeMillis());
+		System.out.println("현재시간 어케 나와"+nowDate);
+		try {
+		SimpleDateFormat startformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date startParse = startformat.parse(challDto.getChallengestart());
+		System.out.println("파싱한 데이터 : "+startParse);
+		
+		long milisec = nowDate.getTime() - startParse.getTime();
+		int limitDate = (int) (milisec / (1000*60*60*24));
+		System.out.println("일수 차이" +limitDate);
+		challDto.setLimitdate(limitDate);
+		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+	
 		/*
 		 * String dateWeek =
 		 * 
 		 */
 		
-		MemberDto member = (MemberDto)session.getAttribute("memberInfo");				 
-//		if(member!=null || !member.getEmail().equals("")) {
-//			Map<String, Object> likeData = new HashMap<String, Object>();
-//			likeData.put("challengeseq", challengeseq);
-//			likeData.put("email", member.getEmail());
-//			
-//			Map<String, Object> challLike = new HashMap<String, Object>();
-//			challLike = service.challengelikeSeq(likeData);
-//			model.addAttribute("challLike", challLike);
-//			
-//		}
-
-	
-	    model.addAttribute("memberInfo", member);
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
+		
+		if(member!=null && !member.getEmail().equals("")) {
+			Map<String, Object> WishParam = new HashMap<String, Object>();
+			WishParam.put("challengeseq", challengeseq);
+			WishParam.put("email", member.getEmail());
+			
+			Map<String, Object> challWish = service.challengelikeSeq(WishParam);
+			if(challWish != null && !challWish.get("email").equals("")) {
+				model.addAttribute("challWish", challWish);
+			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());		
+			}
+			
+			MemberDto user = service.userData(member.getEmail());
+			model.addAttribute("user", user);
+		}
 		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";
+	}
+	
+	
+	//챌린지 수정 페이지로 이동
+	@RequestMapping(value = "challengeUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeUpdate(Model model, HttpSession session, int challengeseq) {
+		
+		MemberDto mem = (MemberDto) session.getAttribute("memberInfo");
+		challengeDto challenge = service.challengeDetail(challengeseq);
+		
+		model.addAttribute("memberInfo", mem);
+		model.addAttribute("challenge", challenge);	
+	
+		return "challenge/challengeUpdate";
 	}
 }

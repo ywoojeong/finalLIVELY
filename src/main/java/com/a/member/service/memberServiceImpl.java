@@ -53,8 +53,8 @@ public class memberServiceImpl implements memberService {
 	}
 
 	@Override
-	public MemberDto memberNaverLoginPro(Map<String, Object> paramMap) throws SQLException {
-		return memberDao.memberNaverLoginPro(paramMap);
+	public MemberDto memberNaverLoginPro(Map<String, Object> apiJson) throws SQLException {
+		return memberDao.memberNaverLoginPro(apiJson);
 	}
 
 	@Override
@@ -97,10 +97,7 @@ public class memberServiceImpl implements memberService {
 		return memberDao.memberGoogleRegisterPro(paramMap);
 	}
 
-	@Override
-	public MemberDto memberSession(String email) throws SQLException {
-		return memberDao.memberSession(email);
-	}
+	
 	
 	
 }

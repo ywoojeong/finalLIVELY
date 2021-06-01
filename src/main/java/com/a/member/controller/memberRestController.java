@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.a.common.NaverLoginBO;
 import com.a.dto.MemberDto;
@@ -50,25 +51,38 @@ public class memberRestController {
 	
 	// 회원정보 수정
 	@RequestMapping(value="memberModify.do", method = {RequestMethod.POST,RequestMethod.GET})
-	public String memberModify (MemberDto dto, HttpSession session) throws Exception {
+	public String memberModify (MemberDto dto, Model model, HttpSession session, @RequestParam("uploadFile")  MultipartFile memberPhoto) throws Exception {
 		System.out.println("회원정보 수정");
-		String memberPhotoName = fileManagement.FileUploader(dto.getMemberPhoto());
+		System.out.println("회원정보 수정 memberPhoto : " + memberPhoto);
+		String memberPhotoName = fileManagement.FileUploader(memberPhoto);
+		System.out.println("회원정보 수정 memberPhotoName : " + memberPhotoName);
+		String memberPh2 = memberPhoto.getOriginalFilename();
+		System.out.println("회원정보 수정 memberPhotoName : " + memberPhotoName);
 		dto.setMemberPhotoName(memberPhotoName);
-		service.memberModify(dto);
+		dto.setMemberPhoto(memberPh2);
 		
+		/*
+		String filename = memberPhoto.getOriginalFilename();
+		String saveFileName = fileManagement.FileUploader(memberPhoto);
+		dto.setMemberphoto(filename);
+		dto.setMemberPhotoName(saveFileName);
+		service.memberModify(dto);
+		*/
 		return "memModifyCheck";
 	}
 
 	// 회원가입 추가 정보
 	@RequestMapping(value="memberInfoPro.do", method = {RequestMethod.POST,RequestMethod.GET}) 
-	public String memberInfo(MemberDto dto, HttpSession session) throws Exception {
+	public String memberInfoPro(MemberDto dto, HttpSession session,  @RequestParam("uploadFile")  MultipartFile memberPhoto) throws Exception {
 		System.out.println("회원가입 정보 추가 + memberInfoPro.do"); 
 		
 		System.out.println(dto.getEmail());
 		System.out.println(dto.getNickname());
 		System.out.println(dto.getFlag());
-		String memberPhotoName = fileManagement.FileUploader(dto.getMemberPhoto());
+		String memberPhotoName = fileManagement.FileUploader(memberPhoto);
+		String memberPh = memberPhoto.getOriginalFilename();
 		dto.setMemberPhotoName(memberPhotoName);
+		dto.setMemberPhoto(memberPh);
 		System.out.println("memberDto 값 2:" + dto);
 		
 		session.invalidate();
@@ -84,6 +98,7 @@ public class memberRestController {
 		}
 	 }
 	 
+	/*
 	// 네이버 회원 가입 부분
 	@RequestMapping(value="memberNaverRegisterPro.do", method = {RequestMethod.POST, RequestMethod.GET}) 
 	public Map<String, Object> memberNaverRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
@@ -104,7 +119,7 @@ public class memberRestController {
 		}
 		return resultMap;
 	}
-	
+	*/
 	
 	
 	
@@ -134,7 +149,7 @@ public class memberRestController {
 		
 		return resultMap;
 	}
-	
+	/*
 	// 회원가입 분류
 	@RequestMapping(value="/memberSnsRegisterPro.do", method=RequestMethod.POST)
 	public Map<String, Object> memberSnsRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
@@ -180,6 +195,7 @@ public class memberRestController {
 		}
 		return resultMap;
 	}
+	*/
 	
 	// 구글 로그인
 	@RequestMapping(value="/googleLoginPro.do",  method = {RequestMethod.GET,RequestMethod.POST})

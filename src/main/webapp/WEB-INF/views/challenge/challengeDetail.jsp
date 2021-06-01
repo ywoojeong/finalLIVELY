@@ -9,7 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <!-- jsp태그 -->
 <jsp:useBean id="now" class="java.util.Date" />
-
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
@@ -18,23 +17,37 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}")
 </script>
 
  
 <div class="backDiv" style="background-image: url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
 	<div class="container challHeader">
 		<div>
-			<h1>${challDto.challengetitle}</h1>
-			<c:if test="${memberInfo.email != null }">
-			<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
-				<div onclick="checkChallenge(this)" id="likeChallenge">
-				 	<img class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
-				</div>
-			</a>
-			</c:if>
-		
+			<h1>${challDto.challengetitle}  
+				<c:if test="${user.email != null && challDto.limitdate<=0}">
+					
+			 			<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
+
+				</c:if>
+			</h1>
+				
+				<a href="#" data-toggle="popover" data-trigger="hover" data-content="챌린지를 찜하세요" style="margin-right: 30px;">
+					<c:choose>
+						<c:when test="${user.email != null && challWish.email eq null}">
+							<div id="likeChallenge">
+								<img  onclick="checkChallenge()" class="checkImg" src="image/check.svg" onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
+							</div>
+						</c:when>
+						<c:when test="${user.email != null && user.email eq challWish.email}">
+							<div id="likeChallenge">
+								<img onclick="checkDelChallenge()" src='image/checkFill.svg' class='checkImg'>
+							</div>
+						</c:when>
+					</c:choose>
+				</a>
 		</div>
+
 		<p id="limitD"></p>
 		<label>${challDto.identifyday }</label><label>${challDto.challengeperiod }주 동안</label><span class="period" id="periodDate"></span><br>
 		<span class="explain">${challDto.identifyday } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
@@ -486,14 +499,10 @@ $(document).ready(function(){
       
         <!-- Modal body -->
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          
+          <button type="button" class="close" data-dismiss="modal">×</button>         
           <div class="reviewSummerNote">
-		        <h3>후기 작성</h3>
-		       
-		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>
-					
-					
+		        <h3>후기 작성</h3>		       
+		           <p class="title_star">후기는 수정할 수 없습니다. 신중하게 작성해 주세요.</p>					
 					<!-- RATING - Form -->
 					<form id="rateFrm" class="rating-form" action="#" method="post" name="rating-movie">
 					  <fieldset class="form-group">
@@ -541,35 +550,19 @@ $(document).ready(function(){
          					   <i class="fa fa-star"></i>
 					        </span>
 					        <span class="ir">1</span>
-					      </label>
-					      
+					      </label>					      
 					      <div class="form-action">
 					        <input class="btn-reset" type="reset" value="Reset" />   
-					      </div>
-					
+					      </div>					
 					      <div class="form-output">
 					        ? / 5
-					      </div>
-					      
-					    </div>
-					    
-					  </fieldset>
-					  
-				
+					      </div>					      
+					    </div>					    
+					  </fieldset>			
                      <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-
 		        </form>
-					  
-				
-					
-					
-					
-							              		 
-
    			</div>
-
-        </div>
-        
+        </div>        
         <!-- Modal footer -->
         <div class="modal-footer" style="justify-content: center">
           <button type="button" name="save" onclick="save()" class="btn" style="width: 200px">후기 작성</button>
@@ -578,6 +571,69 @@ $(document).ready(function(){
       </div>
     </div>
   </div>
+
+	<!-- start join 모달 -->
+  <div class="modal" id="myModal3" style="top: 90px;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal body -->
+        <div class="modal-body" style="height: 650px">
+         	 <button type="button" class="close" data-dismiss="modal">×</button>
+			<div class="joinStart">
+				<h1>${challDto.challengetitle}</h1>
+				<img class="decoWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }"  onerror="this.src='image/user_80px.jpg'">
+				<h5><font style="text-decoration: underline;">${user.nickname }</font> 님</h5>
+				<h3>챌린지 참가 포인트는</h3>
+				<h4  class="highlight">${challDto.pointcount } point</h4>
+				<table class="pointTo">
+					<col width="30px"><col width="150px"><col width="80px">
+					<tr>
+						<td><i class="fas fa-user"></i></td>
+						<td>참가 인원</td>
+						<td><span>${challDto.challengemember }명</span></td>
+					</tr>
+					<tr>
+						<td><i class="fas fa-coins"></i></td>
+						<td>전체 포인트</td>
+						<td><c:out value="${challDto.pointcount * challDto.challengemember }"/> point</td>
+					</tr>
+				</table>
+				<table class="pointTable">
+					<col width="30px"><col width="150px"><col width="250px">
+					
+					<tr>
+						<td colspan="3"><span class="highlight" style="font-size: 13pt;font-weight: 600">달성률에 따라 환급이 달라집니다.</span></td>
+					</tr>
+					<tr>
+						<td colspan="2">100% 성공</td>
+						<td style="text-align:right"><c:out value="${challDto.pointcount * 2 }"/> point</td>
+					</tr>
+					<tr>
+						<td colspan="2">85%이상 성공</td>
+						<td style="text-align:right"><c:out value="${challDto.pointcount * 1.5 }"/> point</td>
+					</tr>
+					<tr>
+						<td colspan="2">100% 성공</td>
+						<td style="text-align:right">포인트 차감</td>
+					</tr>
+				</table>
+				<p>한번 참여 시 포인트 환불이나 취소가 불가합니다.</p>
+			</div>
+			
+			
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="justify-content: center">
+          <button type="button" class="btn">CHALLENGE 도전</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
   
 
 <!-- 결과 차트 js -->
@@ -645,16 +701,14 @@ const endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
 console.log("시작 날짜"+startDate)
 console.log("끝 날짜"+endDate)
 //console.log("오늘 날짜"+nowDate)
-	let millisec = startDate.getTime() - nowDate.getTime();
-let limitDate = millisec / (1000*60*60*24);
-console.log("limitDate 날짜 차이"+limitDate);
-console.log(document.getElementById('limitD'));
-if(limitDate<0){
-	$("#limitD").text("시작중인 챌린지");
-}else if(limitDate==0){
+
+//시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
+if("${challDto.limitdate}">0){
+	$("#limitD").text("시작중인 챌린지 | 모집 마감");
+}else if("${challDto.limitdate}"==0){
 	$("#limitD").text("오늘부터 시작");
 }else{
-	$("#limitD").text(limitDate+"일 뒤부터 시작");
+	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
 //periodDate 05.11(화)~05.28(금)
@@ -678,36 +732,37 @@ $('.like-review').click(function(){
 	}
 });
 
-var checkChall = 0;
+// var checkChall = 0;
 //찜하기 버튼 제어 checkChallenge()
 // <img class="checkImg" src="image/check.svg" style="height: 55px;opacity: 70%;">
-function checkChallenge(id){
-	//alert(id);
-	if(checkChall==0){
-		id.innerHTML = "<img src='image/checkFill.svg' class='checkImg'>";
-// 		$(this).attr("src", "image/checkFill.svg");
-		checkChall++;
-		 $.ajax({
-			 type:"get",
-			 url:"challengelikeInsert.do",
-			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${memberInfo.email}"},
-			 success:function(msg){
-		    		if(msg=="SUCCESS"){
-		    			alert("찜하기 성공 ");
-		    		}
-		    	},
-		   		error:function(){
-		   			alert("찜하기 에러");
-		   		}	
-		    });	   
+function checkChallenge(){
+	
+	let id = document.getElementById("likeChallenge");
+	 $.ajax({
+		 type:"get",
+		 url:"challengelikeInsert.do",
+		 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
+		 success:function(msg){
+	    		if(msg=="SUCCESS"){
+	    			alert("찜하기 성공 ");
+	    		}
+	    	},
+	   		error:function(){
+	   			alert("찜하기 에러");
+	   		}, 
+	   		complete:function(){
+	   			id.innerHTML = "<img onclick=\"checkDelChallenge()\" src='image/checkFill.svg' class='checkImg'>";
+	   		}
+	    });	 
+}	
 
-	}else{
-		id.innerHTML = "<img src='image/check.svg' class='checkImg' onmouseover=\"this.src='image/checkhover.svg'\" onmouseout=\"this.src='image/check.svg'\">";
-		checkChall--;
+function checkDelChallenge(){
+	
+		let id = document.getElementById("likeChallenge");
 		 $.ajax({
 			 type:"get",
 			 url:"challengelikeDelete.do",
-			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${memberInfo.email}"},
+			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 			 success:function(msg){
 		    		if(msg=="SUCCESS"){
 		    			alert("찜하기 삭제 성공 ");
@@ -715,10 +770,12 @@ function checkChallenge(id){
 		    	},
 		   		error:function(){
 		   			alert("찜하기 에러");
+		   		},
+		    	complete:function(){
+		   			id.innerHTML = "<img onclick='checkChallenge()' class='checkImg' src='image/check.svg' onmouseover=\"this.src='image/checkhover.svg'\" onmouseout=\"this.src='image/check.svg'\">";
 		   		}	
 		    });	   
 	}
-}
 
 
 //후기 작성 저장 전송전 필드 체크 이벤트 리스너

@@ -98,10 +98,7 @@ public class memberDaoImpl implements memberDao {
 		return sql.insert("member.memberGoogleRegisterPro", paramMap);
 	}
 
-	@Override
-	public MemberDto memberSession(String email) throws SQLException {
-		return sql.selectOne("member.memberSession", email);
-	}
+	
 	
 	
 }

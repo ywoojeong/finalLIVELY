@@ -29,8 +29,8 @@
 				<h2>PHOTO</h2>
 				<!-- 이미지 업로드 부분 -->
 				<p style="border: none;">
-				<input type="file" id="memberPhoto" name="memberPhoto" onchange="previewImage(this,'previewId')" style="display: none;"> 
-				<button type="button" class="btnImg"><label for="memberPhoto">이미지 update</label></button>
+				<input type="file" id="uploadFile" name="uploadFile" onchange="previewImage(this,'previewId')" style="display: none;"> 
+				<button type="button" class="btnImg"><label for="uploadFile">이미지 update</label></button>
 				</p>
 				
 				<!-- 이미지 미리보기 -->
@@ -99,19 +99,21 @@ function register() {
         return false;
     }
     
-    var memberPhoto = $('input[name="memberPhoto"]').get(0).files[0];
+    var uploadFile = $('input[name="uploadFile"]').get(0).files[0];
     var email = $("#email").val()
     var nickname = $("#nickname").val()
     var naverLogin = $("#naverLogin").val()
     var kakaoLogin = $("#kakaoLogin").val()
     var googleLogin = $("#googleLogin").val()
+    var memberPhotoName = $("#memberPhotoName").val()
     console.log(googleLogin)
     
     var flag = $("#flag").val()
     var formData = new FormData();
     formData.append('email', email);
     formData.append('nickname', nickname);
-    formData.append('memberPhoto', memberPhoto);
+    formData.append('uploadFile', uploadFile);
+    formData.append('memberPhotoName', memberPhotoName);
     formData.append('naverLogin', naverLogin);
     formData.append('kakaoLogin', kakaoLogin);
     formData.append('googleLogin', googleLogin);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.a.challenge.dao.challengeDao;
+import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 
 @Service
@@ -63,6 +64,12 @@ public class challengeServiceImpl implements challengeService {
 	public Map<String, Object> challengelikeSeq(Map<String, Object> likeData) {
 		// TODO Auto-generated method stub
 		return dao.challengelikeSeq(likeData);
+	}
+
+	@Override
+	public MemberDto userData(String email) {
+		// TODO Auto-generated method stub
+		return dao.userData(email);
 	}
 	
 	
