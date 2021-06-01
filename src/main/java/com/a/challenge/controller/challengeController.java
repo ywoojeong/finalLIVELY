@@ -43,13 +43,10 @@ public class challengeController {
 	public String challengeMake(Model model, HttpSession session) {
 		
 		
-			MemberDto member = (MemberDto)session.getAttribute("memberInfo");
-		
-		 //*{NICKNAME=LemonLime, GOOGLELOGIN=112957813385668127996, EMAIL=final.5623@gmail.com}
-		
-		 //model.addAttribute("memberInfo",member);
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");
+		MemberDto user = service.userData(member.getEmail());
 
-	    model.addAttribute("memberInfo", member);	//${NICKNAME}, ${}   
+		model.addAttribute("user", user);
 		return "challenge/challengeMake";
 	}
 	
@@ -86,21 +83,36 @@ public class challengeController {
 		 * 
 		 */
 		
-		MemberDto member = (MemberDto)session.getAttribute("memberInfo");				 
-//		if(member!=null || !member.getEmail().equals("")) {
-//			Map<String, Object> likeData = new HashMap<String, Object>();
-//			likeData.put("challengeseq", challengeseq);
-//			likeData.put("email", member.getEmail());
-//			
-//			Map<String, Object> challLike = new HashMap<String, Object>();
-//			challLike = service.challengelikeSeq(likeData);
-//			model.addAttribute("challLike", challLike);
-//			
-//		}
+		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
+		MemberDto user = service.userData(member.getEmail());
+		if(member!=null && !member.getEmail().equals("")) {
+			Map<String, Object> WishParam = new HashMap<String, Object>();
+			WishParam.put("challengeseq", challengeseq);
+			WishParam.put("email", member.getEmail());
+			
+			Map<String, Object> challWish = service.challengelikeSeq(WishParam);
+			if(challWish != null && !challWish.get("email").equals("")) {
+				model.addAttribute("challWish", challWish);
+			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());										
+			}		
+		}
 
-	
-	    model.addAttribute("memberInfo", member);
 		model.addAttribute("challDto", challDto);
+		model.addAttribute("user", user);
 		return "challenge/challengeDetail";
+	}
+	
+	
+	//챌린지 수정 페이지로 이동
+	@RequestMapping(value = "challengeUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeUpdate(Model model, HttpSession session, int challengeseq) {
+		
+		MemberDto mem = (MemberDto) session.getAttribute("memberInfo");
+		challengeDto challenge = service.challengeDetail(challengeseq);
+		
+		model.addAttribute("memberInfo", mem);
+		model.addAttribute("challenge", challenge);	
+	
+		return "challenge/challengeUpdate";
 	}
 }

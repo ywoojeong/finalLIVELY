@@ -54,8 +54,8 @@
 	</select>
 	
 	<!-- 생성한 멤버의 데이터 가져오기 -->
-	<select id="createChallengeMember"  parameterType="java.lang.String" resultType="java.util.Map">
-		SELECT C.CHALLENGESEQ, M.EMAIL, M.NICKNAME, M.AUTH, M.MEMBERPHOTO
+	<select id="createChallengeMember"  parameterType="java.lang.String" resultType="com.a.util.lowerKeyMap">
+		SELECT C.CHALLENGESEQ, M.EMAIL, M.NICKNAME, M.AUTH, M.MEMBERPHOTONAME, M.POINT 
 		FROM CHALLENGE C, MEMBER M
 		WHERE C.EMAIL = M.EMAIL
 			AND C.EMAIL = #{email}
@@ -86,7 +86,15 @@
 	<select id="challengelikeSeq" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
 		SELECT WISHSEQ, WISH, CHALLENGESEQ, EMAIL
 		FROM CHALLENGEWISH
-		WHERE EMAIL=#{email} AND CHALLENGESEQ = #{challengeseq}
+		WHERE EMAIL=#{email} AND CHALLENGESEQ = #{challengeseq}	
 	</select>
+	
+	<!-- 세션에 담긴 한사람 데이터가져오기 -->
+	<select id="userData" parameterType="java.lang.String" resultType="com.a.dto.MemberDto">
+		SELECT *
+		FROM MEMBER
+		WHERE EMAIL = #{email}
+	</select>
+	
 
 </mapper>

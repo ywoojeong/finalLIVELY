@@ -1,5 +1,9 @@
 /*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+/*영어 포인트 폰트 font-family: 'Raleway', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*네비 포인트 폰트 Krona One  font-family: 'Krona One', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
 
 body{
 	font-family: 'Noto Sans KR', sans-serif;
@@ -28,6 +32,15 @@ body{
 	justify-content: space-between;
 	margin-top: 20px;
 	margin-bottom: 12px;	
+}
+
+.challStartBtn{
+    width: 122px;
+    height: 34px;
+    font-weight: 600;
+    font-size: 11pt;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
 }
 
 .checkImg{
@@ -716,3 +729,44 @@ background-color: #2196F3;
 }
 
 /*///////////////////////////////*/
+
+/*챌린지 참가 모달 */
+.joinStart{
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+.decoWrap{ 
+	border-radius: 50%;
+    height: 130px;
+    width: 130px;
+    overflow: hidden;
+    vertical-align: middle;
+    align-items: center;
+    border: 5px inset #8b63da;
+    padding: 6px;
+}
+.joinStart h1{
+	font-size: 25pt;
+    margin-bottom: 30px;
+}
+.joinStart h5{
+	margin: 20px 0 18px 0;
+}
+.joinStart h3{
+	margin-bottom: 0;
+    font-size: 13pt;
+}
+.joinStart h4{
+	font-size: 25pt;
+	 display: inline;
+   	 box-shadow: inset 0 -15px 0 #eb98ed;
+}
+.joinStart p{
+	color: #c2c2c2;
+    font-weight: 300;
+    font-size: 10pt;
+    margin-top: 44px;
+}
+/*///////////////////////////////////*/

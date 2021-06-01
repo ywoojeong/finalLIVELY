@@ -3,6 +3,7 @@ package com.a.challenge.service;
 import java.util.List;
 import java.util.Map;
 
+import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 
 public interface challengeService {
@@ -30,4 +31,7 @@ public interface challengeService {
 	
 	//챌린지 데이터 가져오기 challengelikeSeq
 	public Map<String, Object> challengelikeSeq(Map<String, Object> likeData);
+	
+	//세션에 담긴 사람 데이터 가져오기 userData
+	public MemberDto userData(String email);
 }

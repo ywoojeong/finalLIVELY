@@ -71,7 +71,7 @@
 	  			</div>
 		    	
 		    	<%for(int i=0;i<7;i++) {%>
-		    	  <div id="category<%=i %>" class="container tab-pane active"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
+		    	  <div id="category<%=i %>" class="container tab-pane"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
 
 				    	<!-- 카드 -->
 				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto; width: 94%">
@@ -149,7 +149,7 @@ function categoryBtn(categoryNumber){
 	$('#searchBtn').click(function(){
 		getChallengeListCount(PageNumber, categoryNumber);		//카테고리 번호
 		getChallengeList(0, categoryNumber);
-		$("#_search").val("");
+		/* $("#_search").val(""); */
 	});
 	
 }
@@ -162,12 +162,11 @@ function getChallengeList(pageNumber, categoryNumber){
 		data:{'nowpageNumber':pageNumber, 'search':$("#_search").val(), 'category':categoryNumber},
 		success:function(list){
 			//alert("전체 리스트 불러오기"+list.length);
-	     	
 			$(".dataId").remove();
 			
 			if(list.length==0){
 				console.log("왜안들어와")
-				let data = "<h5>챌린지가 없습니다. 챌린지를 생성해 주세요.<h5>"
+				let data = "<h5 class='dataId'>챌린지가 없습니다. 챌린지를 생성해 주세요.<h5>"
 				$("#dataMain"+categoryNumber).append(data);
 			}
 			
@@ -239,7 +238,7 @@ function getChallengeList(pageNumber, categoryNumber){
 			alert("리스트 불러오는 error");
 		}, 
 		complete:function(){
-			
+			$("#category"+categoryNumber).addClass("active");
 		}
 	});		
 		

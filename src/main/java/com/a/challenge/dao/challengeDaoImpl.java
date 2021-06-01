@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 
 @Repository
@@ -64,6 +65,12 @@ public class challengeDaoImpl implements challengeDao {
 	public Map<String, Object> challengelikeSeq(Map<String, Object> likeData) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+"challengelikeSeq", likeData);
+	}
+
+	@Override
+	public MemberDto userData(String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"userData", email);
 	}
 	
 	
