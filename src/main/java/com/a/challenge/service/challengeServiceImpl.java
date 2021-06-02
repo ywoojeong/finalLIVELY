@@ -95,6 +95,12 @@ public class challengeServiceImpl implements challengeService {
 		int count = dao.challengeMemberCountUp(challengeseq);
 		return count>0?true:false;
 	}
+
+	@Override
+	public List<Map<String, Object>> challengeAllMember(int challengeseq) {
+		// TODO Auto-generated method stub
+		return dao.challengeAllMember(challengeseq);
+	}
 	
 	
 	

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.a.challenge.service.challengeService;
 import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
+import com.a.util.dataUtil;
 
 @Controller
 public class challengeController {
@@ -80,14 +82,22 @@ public class challengeController {
 		}
 		
 		//limitDate제어 (오늘시간 - challengestart)
-		Date nowDate = new Date(System.currentTimeMillis());
-		System.out.println("현재시간 어케 나와"+nowDate);
+		//Date nowDate = new Date();
+		Calendar cal = Calendar.getInstance();
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+		String date = String.valueOf(cal.get(Calendar.DATE));
+		System.out.println("시간 int 모양"+year+" "+month+" "+ date);
 		try {
 		SimpleDateFormat startformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date startParse = startformat.parse(challDto.getChallengestart());
 		System.out.println("파싱한 데이터 : "+startParse);
 		
-		long milisec = nowDate.getTime() - startParse.getTime();
+		Date nowDate = startformat.parse(year+"-"+dataUtil.two(month)+"-"+dataUtil.two(date)+" 00:00:00");
+		System.out.println("현재시간 어케 나와"+nowDate);
+			
+		
+		long milisec = startParse.getTime()-nowDate.getTime();
 		int limitDate = (int) (milisec / (1000*60*60*24));
 		System.out.println("일수 차이" +limitDate);
 		challDto.setLimitdate(limitDate);
@@ -101,6 +111,15 @@ public class challengeController {
 		 * String dateWeek =
 		 * 
 		 */
+		
+		//챌린지 전체 멤버 가져오기
+		List<Map<String, Object>> challengeMember = service.challengeAllMember(challengeseq);
+//		if(challengeMember != null) {
+//			model.addAttribute("challengeMember", challengeMember);
+//		}
+		for(int i=0;i<challengeMember.size();i++) {
+			System.out.println(challengeMember.toString());
+		}
 		
 		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
 		
@@ -124,6 +143,8 @@ public class challengeController {
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
 		}
+		
+		model.addAttribute("challengeMember", challengeMember);
 		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";
 	}

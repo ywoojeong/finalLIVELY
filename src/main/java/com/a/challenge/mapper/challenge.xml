@@ -98,8 +98,8 @@
 	
 	<!-- 챌린지 멤버 insert challengeMemberInsert -->
 	<insert id="challengeMemberInsert" parameterType="java.util.Map">
-		INSERT INTO CHALLENGEMEMBER(CHALLENGMEMSEQ, IDENTIFY, CHALLENGESEQ, EMAIL)
-		VALUES(CHALMEM_SEQ.NEXTVAL, 0, #{challengeseq}, #{email})
+		INSERT INTO CHALLENGEMEMBER(CHALLENGMEMSEQ, IDENTIFY, SUCCESS, CHALLENGESEQ, EMAIL)
+		VALUES(CHALMEM_SEQ.NEXTVAL, 0, 0,  #{challengeseq}, #{email})
 	</insert>
 	
 	<!-- 챌린지 가입 시 포인트 차감memberPointReducation -->
@@ -119,8 +119,17 @@
 	<!-- 챌린지 멤버 수 증가시키기 -->
 	<update id="challengeMemberCountUp" parameterType="java.util.Map">
 		UPDATE CHALLENGE
-		SET CHALLENGEMEMBER = ${challengemember)+1
+		SET CHALLENGEMEMBER = ${challengemember}+1
 		WHERE CHALLENGESEQ = #{challengeseq}	
 	</update>
+	
+	<!-- 챌린지 멤버  전체 가입정보 가져오기 -->
+	<select id="challengeAllMember" parameterType="java.lang.Integer" resultType="com.a.util.lowerKeyMap">
+		SELECT CM.CHALLENGMEMSEQ, M.EMAIL, M.NICKNAME, M.MEMBERPHOTONAME, M.POINT, CM.CHALLENGESEQ, CM.IDENTIFY
+		FROM MEMBER M, CHALLENGEMEMBER CM
+		WHERE M.EMAIL = CM.EMAIL
+			AND CM.CHALLENGESEQ = #{challengeseq}
+		ORDER BY CM.CHALLENGMEMSEQ DESC
+	</select>
 
 </mapper>

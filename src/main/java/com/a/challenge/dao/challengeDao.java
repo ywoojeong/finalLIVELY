@@ -46,4 +46,8 @@ public interface challengeDao {
 	
 	//챌린지 멤버 업데이트
 	public int challengeMemberCountUp(int challengeseq);
+	
+	//챌린지 가입멤버리스트 challengeAllMember
+	public List<Map<String, Object>> challengeAllMember(int challengeseq);
+
 }
