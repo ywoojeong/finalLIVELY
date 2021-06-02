@@ -11,5 +11,5 @@ public interface myPageService {
 	
 	public Map<String, Object> getCompleCh(String email) throws SQLException;
 
-	public MemberDto memberModifyInfo(String email) throws SQLException;
+	public Map<String, Object> memberInfoData(String email) throws SQLException;
 }

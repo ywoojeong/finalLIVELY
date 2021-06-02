@@ -66,8 +66,9 @@ public class memberRestController {
 		String saveFileName = fileManagement.FileUploader(memberPhoto);
 		dto.setMemberphoto(filename);
 		dto.setMemberPhotoName(saveFileName);
-		service.memberModify(dto);
 		*/
+		
+		service.memberModify(dto);
 		return "memModifyCheck";
 	}
 

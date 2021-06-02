@@ -41,8 +41,8 @@
 	</select>
 	
 	<!-- 회원 정보 -->
-	<select id="memberModifyInfo" parameterType="java.lang.String" resultType="com.a.dto.MemberDto">
-		SELECT * FROM MEMBER WHERE EMAIL = #{email}
+	<select id="memberInfoData" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT * FROM MEMBER WHERE EMAIL = #{value}
 	</select>
 	
 </mapper>
