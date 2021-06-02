@@ -70,10 +70,10 @@ $(document).ready(function(){
 	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
 	              <label for="newImg">
-		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
+		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.jpg">
 		            </label>
 		            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/noneImage.jpg'">
-		            <p style="font-size: 10pt; color:#5e5e5e;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
+		            <p style="font-size: 10pt; color:#b8b8b8;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
 	 		</div>
 	 		<div class="col-sm-8 challData p-5"> 
 	 			<table class="table-borderless table-responsive challTable">
@@ -446,7 +446,7 @@ function challengeMake(){
 	params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
 	params.append('uploadFileCer', $('input[name="uploadFileCer"]').get(0).files[0]);
 	//input file추가
-	alert(params);
+	//alert(params);
 	
 	$.ajax({
 		url:"challengeInsert.do",

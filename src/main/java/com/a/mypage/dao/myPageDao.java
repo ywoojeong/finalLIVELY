@@ -12,5 +12,5 @@ public interface myPageDao {
 	public Map<String, Object> getCompleCh(String email) throws SQLException;
 	
 	// 멤버 정보
-	public MemberDto memberModifyInfo(String email) throws SQLException;
+	public Map<String, Object> memberInfoData(String email) throws SQLException;
 }

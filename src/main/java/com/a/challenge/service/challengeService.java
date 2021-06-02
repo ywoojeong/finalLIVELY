@@ -34,4 +34,16 @@ public interface challengeService {
 	
 	//세션에 담긴 사람 데이터 가져오기 userData
 	public MemberDto userData(String email);
+	
+	//챌린지 가입하기
+	public boolean challengeMemberInsert(Map<String, Object> memParam);
+	
+	//포인트 업데이트
+	public boolean memberPointReducation(Map<String, Object> memParam);
+	
+	//챌린지 가입한 한사람 데려오기
+	public Map<String, Object> challengeMember(Map<String, Object> likeData);
+	
+	//챌린지 멤버 업데이트
+	public boolean challengeMemberCountUp(int challengeseq);
 }

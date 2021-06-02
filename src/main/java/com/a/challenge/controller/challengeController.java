@@ -109,12 +109,18 @@ public class challengeController {
 			WishParam.put("challengeseq", challengeseq);
 			WishParam.put("email", member.getEmail());
 			
+			//찜하기 멤버 
 			Map<String, Object> challWish = service.challengelikeSeq(WishParam);
 			if(challWish != null && !challWish.get("email").equals("")) {
 				model.addAttribute("challWish", challWish);
 			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());		
 			}
 			
+			Map<String, Object> challMem = service.challengeMember(WishParam);
+			if(challMem != null && !challMem.get("email").equals("")) {
+				model.addAttribute("challMem", challMem);
+			}
+			//세션에 담은 유저 데이터
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
 		}
