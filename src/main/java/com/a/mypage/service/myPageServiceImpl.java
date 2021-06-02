@@ -29,4 +29,19 @@ public class myPageServiceImpl implements myPageService{
 	public Map<String, Object> memberInfoData(String email) throws SQLException {
 		return mypagedao.memberInfoData(email);
 	}
+	
+	@Override
+	public int memberWishCount(String email) throws SQLException {
+		return mypagedao.memberWishCount(email);
+	}
+	
+	@Override
+	public int memberNowCount(String email) throws SQLException {
+		return mypagedao.memberNowCount(email);
+	}
+	
+	@Override
+	public Map<String, Object> memNowCntList(String email) throws SQLException {
+		return mypagedao.memNowCntList(email);
+	}
 }

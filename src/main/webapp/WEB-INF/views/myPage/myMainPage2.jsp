@@ -17,15 +17,16 @@
                 <h5>${memberInfoData.NICKNAME}</h5>
                 <p style="font-size: 15px;"><span>${memberInfoData.POINT}</span> Point</p>
                 
-                <!-- 회원정보수정 모달 -->
+                <!-- 회원정보수정 모달 -->	
                 <a class="modalBtn" data-toggle="modal" data-target="#myModal3">
                 	<button type="button" id="memUpdateBtn" class="memModify">회원정보 수정</button>
                 </a>
                 <div class="member_link">
                     <div class="cut_item">
                         <div class="cut_text">찜한챌린지</div>
-                        <div class="cut_icon"><a><i class="far fa-heart fa-3x"></i></a></div>
-                        <div class="cut_count">0</div>
+                        <img style="width: 45px;" src='image/checkBlack.svg'/>
+                        <!-- <div class="cut_icon"><img src='image/checkBlack.svg'/></div> -->
+                        <div class="cut_count">${memberWishCount}</div>
                     </div>
                     <div class="cut_item">
                         <div class="cut_text">성공챌린지</div>
@@ -79,13 +80,13 @@
 		                                        <div class="col-sm-4">
 		                                            <h5>참가중</h5>
 		                                            <div class="easypiechart" id="easypiechart-part" data-percent="${nowPercent}" >
-		                                                <span class="percent"><c:out value="${nowPercent}"></c:out>%</span>
+		                                                <span class="percent"><c:out value="${memberNowCount}"></c:out>건</span>
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-sm-4">
 		                                            <h5>완료</h5>
-		                                            <div class="easypiechart" id="easypiechart-finish" data-percent="${complePercent}" >
-		                                                <span class="percent"><c:out value="${complePercent}"></c:out>%</span>
+		                                            <div class="easypiechart" id="easypiechart-finish" data-percent="${100 - nowPercent}" >
+		                                                <span class="percent"><c:out value="${100 - nowPercent}"></c:out>%</span>
 		                                            </div>
 		                                        </div>
 		                                    </div>

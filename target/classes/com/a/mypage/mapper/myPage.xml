@@ -9,7 +9,7 @@
 			FROM CHALLENGEMEMBER CM
 			INNER JOIN CHALLENGE CG
 			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
-			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE AND CM.EMAIL = #{email}
 			) AS NOWCNT2
 		FROM 
 			(SELECT 
@@ -43,6 +43,32 @@
 	<!-- 회원 정보 -->
 	<select id="memberInfoData" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT * FROM MEMBER WHERE EMAIL = #{value}
+	</select>
+	
+	<!-- 내가 찜한 챌린지 갯수-->
+	<select id="memberWishCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CHALLENGEWISH
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 내가 진행중인 챌린지 갯수 -->
+	<select id="memberNowCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS memNowCnt
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
+	</select>
+	
+	<!-- 내가 진행준일 챌린지 리스트 -->
+	<select id="memNowCntList" resultType="java.util.Map">
+		SELECT CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
 	</select>
 	
 </mapper>

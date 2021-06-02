@@ -29,4 +29,19 @@ public class myPageDaoImpl implements myPageDao {
 	public Map<String, Object> memberInfoData(String email) throws SQLException {
 		return sql.selectOne("myPage.memberInfoData", email);
 	}
+	
+	@Override
+	public int memberWishCount(String email) throws SQLException {
+		return sql.selectOne("myPage.memberWishCount", email);
+	}
+	
+	@Override
+	public int memberNowCount(String email) throws SQLException {
+		return sql.selectOne("myPage.memberNowCount", email);
+	}
+	
+	@Override
+	public Map<String, Object> memNowCntList(String email) throws SQLException {
+		return sql.selectOne("myPage.memNowCntList", email);
+	}
 }

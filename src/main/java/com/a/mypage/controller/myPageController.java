@@ -24,11 +24,27 @@ public class myPageController {
 	@RequestMapping(value="myMainPage2.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String myMainPage2(HttpSession session, Model model) throws Exception{
 		System.out.println("myMainPage2로 넘어가기!");
+		
 
 		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 		String email = memberInfo.getEmail();
 		System.out.println("email ==>"+email);
 		Map<String, Object> nowChallenge = myService.getNowCh(email);
+		
+		// 멤버 찜하기 갯수
+		int memberWishCount = myService.memberWishCount(email);
+		System.out.println("찜하기 갯수 찍히니 : " + memberWishCount);
+		model.addAttribute("memberWishCount", memberWishCount);
+		
+		// 멤버 진행중인 챌린지 갯수
+		int memberNowCount = myService.memberNowCount(email);
+		System.out.println("진행중인 챌린지 갯수 찍히니 : " + memberNowCount);
+		model.addAttribute("memberNowCount", memberNowCount);
+		
+		// 멤버 진행중인 챌린지 리스트
+		Map<String, Object> memNowCntList = myService.memNowCntList(email);
+		System.out.println("진행중인 챌린지 리스트 데려오니 : " + memNowCntList);
+		model.addAttribute("memNowCntList", memNowCntList);
 		
 		// 멤버 정보를 담고있는 애 memberInfoData
 		Map<String, Object> memberInfoData = myService.memberInfoData(email);
@@ -38,7 +54,7 @@ public class myPageController {
 		Integer nowPercent = 0;
       
 		if(nowChallenge!=null && !String.valueOf(nowChallenge.get("TOTAL")).equals("0")) {
-			nowPercent = Integer.parseInt(String.valueOf(nowChallenge.get("NOWCNT2"))) * 100 / Integer.parseInt(String.valueOf(nowChallenge.get("TOTAL")));    	  
+			nowPercent = Integer.parseInt(String.valueOf(nowChallenge.get("NOWCNT2"))) * 100 / Integer.parseInt(String.valueOf(nowChallenge.get("TOTAL")));
 			System.out.println("nowPercent ==>"+nowPercent);
 		}
 		
@@ -54,4 +70,5 @@ public class myPageController {
       
 		return "myPage/myMainPage2";
 	}
+	
 }
