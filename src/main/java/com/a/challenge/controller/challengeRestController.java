@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.a.challenge.service.challengeService;
+import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 import com.a.util.FileManagement;
 
@@ -143,5 +145,40 @@ public class challengeRestController {
 				msg="FAIL";
 			}
 			return msg;
+		}
+		
+		//challengeMemberInsert챌린지 멤버 넣기
+		@RequestMapping(value = "challengeMemberInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String challengeMemberInsert(@RequestParam Map<String,Object> memParam) throws Exception{
+		
+			String msg = "";
+			System.out.println(memParam.toString());
+			//포인트 차감
+			//포인트가 없으면?
+			String email = String.valueOf(memParam.get("email"));
+			int point = Integer.parseInt(String.valueOf(memParam.get("point")));
+			int challengeseq = Integer.parseInt(String.valueOf(memParam.get("challengeseq")));
+			
+			MemberDto mem = service.userData(email);
+			
+			if(mem.getPoint()>=point) {
+				//챌린지 멤버 넣기
+				boolean success = service.challengeMemberInsert(memParam);
+				//포인트 차감
+				boolean pointS = service.memberPointReducation(memParam);
+				System.out.println("포인트 차감이 성공했나요?? "+pointS);
+				//챌린지 전체인원 수 +1
+				boolean countUp = service.challengeMemberCountUp(challengeseq);
+				System.out.println("멤버전체인원증가 성공했나요?? "+countUp);
+								
+				if(success) {
+					msg = "SUCCESS";
+				}else {
+					msg = "FAIL";
+				}		
+			}else {				
+				msg="POINTFAIL";
+			}	
+		 return msg;	
 		}
 }

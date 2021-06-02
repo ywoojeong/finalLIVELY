@@ -71,6 +71,32 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.userData(email);
 	}
+
+	@Override
+	public boolean challengeMemberInsert(Map<String, Object> memParam) {
+		int count = dao.challengeMemberInsert(memParam);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean memberPointReducation(Map<String, Object> memParam) {
+		int count = dao.memberPointReducation(memParam);
+		return count>0?true:false;
+	}
+
+	@Override
+	public Map<String, Object> challengeMember(Map<String, Object> likeData) {
+		// TODO Auto-generated method stub
+		return dao.challengeMember(likeData);
+	}
+
+	@Override
+	public boolean challengeMemberCountUp(int challengeseq) {
+		int count = dao.challengeMemberCountUp(challengeseq);
+		return count>0?true:false;
+	}
+	
+	
 	
 	
 	

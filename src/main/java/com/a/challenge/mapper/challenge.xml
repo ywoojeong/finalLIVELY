@@ -96,5 +96,31 @@
 		WHERE EMAIL = #{email}
 	</select>
 	
+	<!-- 챌린지 멤버 insert challengeMemberInsert -->
+	<insert id="challengeMemberInsert" parameterType="java.util.Map">
+		INSERT INTO CHALLENGEMEMBER(CHALLENGMEMSEQ, IDENTIFY, CHALLENGESEQ, EMAIL)
+		VALUES(CHALMEM_SEQ.NEXTVAL, 0, #{challengeseq}, #{email})
+	</insert>
+	
+	<!-- 챌린지 가입 시 포인트 차감memberPointReducation -->
+	<update id="memberPointReducation" parameterType="java.util.Map">
+		UPDATE MEMBER
+		SET POINT = POINT-${point}
+		WHERE EMAIL = #{email}	
+	</update>
+	
+	<!-- 해당 챌린지 가입한 사람 본인 challengeMember -->
+	<select id="challengeMember" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
+		SELECT *
+		FROM CHALLENGEMEMBER
+		WHERE EMAIL = #{email} AND CHALLENGESEQ = #{challengeseq}
+	</select>
+	
+	<!-- 챌린지 멤버 수 증가시키기 -->
+	<update id="challengeMemberCountUp" parameterType="java.util.Map">
+		UPDATE CHALLENGE
+		SET CHALLENGEMEMBER = ${challengemember)+1
+		WHERE CHALLENGESEQ = #{challengeseq}	
+	</update>
 
 </mapper>

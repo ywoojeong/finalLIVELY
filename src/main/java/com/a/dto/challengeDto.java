@@ -41,6 +41,7 @@ public class challengeDto {
 	private String challengestart;
 	private String challengeend;
 	private String challengeperiod;
+	private int limitdate;  //며칠 남았나...(현재시각 - 시작일)
 	private int identifyfrequency; //인증 빈도
 	private String identifyday; //월 화 수 목 금 토 일
 	private String identifytime;
@@ -62,7 +63,7 @@ public class challengeDto {
 	}
 
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
-			String challengestart, String challengeend, String challengeperiod, int identifyfrequency,
+			String challengestart, String challengeend, String challengeperiod, int limitdate, int identifyfrequency,
 			String identifyday, String identifytime, String challengephoto, String challengesavephoto,
 			String certifyphoto, String certifysavephoto, String certify, double ratingavg, int challengestop,
 			int challengedel, int headernum, int pointcount, int challengemember, String email) {
@@ -74,6 +75,7 @@ public class challengeDto {
 		this.challengestart = challengestart;
 		this.challengeend = challengeend;
 		this.challengeperiod = challengeperiod;
+		this.limitdate = limitdate;
 		this.identifyfrequency = identifyfrequency;
 		this.identifyday = identifyday;
 		this.identifytime = identifytime;
@@ -145,6 +147,14 @@ public class challengeDto {
 
 	public void setChallengeperiod(String challengeperiod) {
 		this.challengeperiod = challengeperiod;
+	}
+
+	public int getLimitdate() {
+		return limitdate;
+	}
+
+	public void setLimitdate(int limitdate) {
+		this.limitdate = limitdate;
 	}
 
 	public int getIdentifyfrequency() {
@@ -271,9 +281,9 @@ public class challengeDto {
 	public String toString() {
 		return "challengeDto [challengeseq=" + challengeseq + ", category=" + category + ", challengetitle="
 				+ challengetitle + ", challengetext=" + challengetext + ", challengestart=" + challengestart
-				+ ", challengeend=" + challengeend + ", challengeperiod=" + challengeperiod + ", identifyfrequency="
-				+ identifyfrequency + ", identifyday=" + identifyday + ", identifytime=" + identifytime
-				+ ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto
+				+ ", challengeend=" + challengeend + ", challengeperiod=" + challengeperiod + ", limitdate=" + limitdate
+				+ ", identifyfrequency=" + identifyfrequency + ", identifyday=" + identifyday + ", identifytime="
+				+ identifytime + ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto
 				+ ", certifyphoto=" + certifyphoto + ", certifysavephoto=" + certifysavephoto + ", certify=" + certify
 				+ ", ratingavg=" + ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel
 				+ ", headernum=" + headernum + ", pointcount=" + pointcount + ", challengemember=" + challengemember
