@@ -172,7 +172,7 @@ $(document).ready(function(){
 				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none">
 	 					</td>
 	 					<td>
-	 						<textarea class="form-control form-control-sm" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
+	 						<textarea class="form-control form-control-sm" wrap="hard" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
 	 					</td>
 	 				</tr>
 	 				
@@ -185,7 +185,7 @@ $(document).ready(function(){
 	 				<tr >
 	 					<td colspan="2" class="content">
 	 						<label for="challengeContent">챌린지 소개</label>
-	 						<textarea rows="8" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext"></textarea>
+	 						<textarea rows="8" cols="5" wrap="hard" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext"></textarea>
 	 					</td>
 	 				</tr>
 	 			</table>	 				
@@ -205,6 +205,8 @@ $(document).ready(function(){
  
 
 <script>
+
+
 //이미지 미리보기
 var sel_file;
 
@@ -432,6 +434,19 @@ function challengeMake(){
 	if($("#_challengetext").val()==null || $("#_challengetext").val()==""){
 		alert("간단한 챌린지 소개글을 적어주세요.");
 		return false;
+	}else{
+		//textarea 줄바꿈 만들기
+		var str = document.getElementById("_challengetext").value;
+		str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		document.getElementById("_challengetext").value = str;
+	}
+	
+	//챌린지 인증방법 기입 제어
+	if($("#_certify").val()!=null || $("#_certify").val()!=""){
+		//textarea 줄바꿈 만들기
+		var str = document.getElementById("_certify").value;
+		str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+		document.getElementById("_certify").value = str;	
 	}
 	
 // 	//챌린지 이미지 비 선택시 제어(대체 이미지 넣기)

@@ -96,6 +96,12 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+"challengeMemberCountUp", challengeseq);
 	}
+
+	@Override
+	public List<Map<String, Object>> challengeAllMember(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"challengeAllMember", challengeseq);
+	}
 	
 	
 	

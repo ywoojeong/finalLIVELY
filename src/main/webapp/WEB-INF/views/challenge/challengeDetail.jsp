@@ -9,6 +9,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  <!-- jsp태그 -->
 <jsp:useBean id="now" class="java.util.Date" />
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
@@ -17,14 +20,14 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}")
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd"+"${challengemember.length}");
 </script>
 
 <div class="backDiv" style="background-image: url(' https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
 	<div class="container challHeader">
 		<div>
 			<h1>${challDto.challengetitle}  
-				<c:if test="${user.email != null && challDto.limitdate<=0 && challMem.email == null}">
+				<c:if test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
 			 		<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>				
 			 	</c:if>
 			 </h1>
@@ -61,7 +64,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		</tr>
 		<tr>
 			<td><i class="fas fa-user"></i></td>
-			<td>참가 인원</td>
+			<td>참가 인원 <fmt:formatNumber value="${fn:length(challengemember)}" pattern="#" /></td>
 			<td><span style="padding-right: 50px;">${challDto.challengemember }명</span> 
 				<% for(int i=0;i<5;i++){ %>
 					<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
@@ -572,7 +575,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
   </div>
 
 	<!-- start join 모달 -->
-  <div class="modal" id="myModal3" style="top: 90px;">
+  <div class="modal" id="myModal3">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -659,28 +662,6 @@ $(".meter > span").each(function () {
     );
 });
 
-//date 05.11(화)형식으로 바꾸기(문자열)
-function dateToMonth(date) {
-
-	var month = date.getMonth()+1;
-    if (month < 10)  {
-        month = '0' + month;
-    }
-
-    var date = date.getDate();
-    if (date < 10) {
-        date = '0' + date;
-    }
-    
- 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
-    
-     var today = new Date(date).getDay();
-     console.log("겟데이"+today)
-     var todayLabel = week[today];
-     
-     return month + '.' + date +"("+todayLabel+")";
-}
-
 
 //날짜 제어
 let now = new Date();
@@ -689,20 +670,28 @@ let month = now.getMonth();
 let day = now.getDate();
 
 let nowDate = new Date(year, month, day);
-let startdate = "${challDto.challengestart}";
+let startdate = "${challDto.challengestart}"; //yyyy-MM-dd 00:00:00.0
 let enddate = "${challDto.challengeend}";
 let startdateSub = startdate.substring(0, 10);
 let enddateSub = enddate.substring(0, 10);
-const strArr = startdateSub.split('-');
-const startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-const strArr2 = enddateSub.split('-');
-const endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
+let strArr = startdateSub.split('-');
+let startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+let strArr2 = enddateSub.split('-');
+let endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
+
+let syear = strArr[0];
+let smonth = strArr[1];
+let sday = strArr[2];
+let eyear = strArr2[0];
+let emonth = strArr2[1];
+let eday = strArr2[2];
+
 console.log("시작 날짜"+startDate)
 console.log("끝 날짜"+endDate)
 //console.log("오늘 날짜"+nowDate)
 
 //시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
-if("${challDto.limitdate}">0){
+if("${challDto.limitdate}"<0){
 	$("#limitD").text("시작중인 챌린지 | 모집 마감");
 }else if("${challDto.limitdate}"==0){
 	$("#limitD").text("오늘부터 시작");
@@ -710,9 +699,33 @@ if("${challDto.limitdate}">0){
 	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
+
+//date 05.11(화)형식으로 바꾸기(문자열)
+function dateToMonth(Dyear, Dmonth, Dday) {
+	console.log("들어오는 날짜 33333"+year+month+day)
+	
+	let nowDate = new Date(Dyear, Dmonth-1, Dday);
+	var month = nowDate.getMonth();
+    if (month < 10)  {
+        month = '0' + month;
+    }
+
+    var date = nowDate.getDate();
+    if (date < 10) {
+        date = '0' + date;
+    }
+    
+ 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
+     var today = nowDate.getDay();
+
+     var todayLabel = week[today];
+     console.log("결과는??? "+ month + '.' + date +"("+todayLabel+")")
+     return month + '.' + date +"("+todayLabel+")";
+}
+
 //periodDate 05.11(화)~05.28(금)
-console.log(dateToMonth(startDate)+" ~ "+dateToMonth(endDate));
-$("#periodDate").text(dateToMonth(startDate)+" ~ "+dateToMonth(endDate))
+console.log(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday));
+$("#periodDate").text(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday))
 
 
 	var eventE=0;
