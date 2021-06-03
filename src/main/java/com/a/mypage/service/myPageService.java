@@ -1,6 +1,7 @@
 package com.a.mypage.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import com.a.dto.MemberDto;
@@ -20,5 +21,12 @@ public interface myPageService {
 	public int memberNowCount(String email) throws SQLException;
 	
 	// 멤버 진행중인 챌린지 리스트
-	public Map<String, Object> memNowCntList(String email) throws SQLException;
+	public List<Map<String, Object>> memNowCntList(String email) throws SQLException;
+	
+	public int memEndCount(String email) throws SQLException;
+	
+	public List<Map<String, Object>> memChallList(Map<String, Object> getChallInfo) throws SQLException;
+	
+	public List<Map<String, Object>> memCategoryCount(String email) throws SQLException;
+
 }

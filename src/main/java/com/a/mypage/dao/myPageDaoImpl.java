@@ -1,6 +1,7 @@
 package com.a.mypage.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,7 +42,22 @@ public class myPageDaoImpl implements myPageDao {
 	}
 	
 	@Override
-	public Map<String, Object> memNowCntList(String email) throws SQLException {
-		return sql.selectOne("myPage.memNowCntList", email);
+	public List<Map<String, Object>> memNowCntList(String email) throws SQLException {
+		return sql.selectList("myPage.memNowCntList", email);
+	}
+	
+	@Override
+	public int memEndCount(String email) throws SQLException {
+		return sql.selectOne("myPage.memEndCount", email);
+	}
+	
+	@Override
+	public List<Map<String, Object>> memChallList(Map<String, Object> getChallInfo) throws SQLException {
+		return sql.selectList("myPage.memChallList", getChallInfo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> memCategoryCount(String email) throws SQLException {
+		return sql.selectList("myPage.memCategoryCount", email);
 	}
 }
