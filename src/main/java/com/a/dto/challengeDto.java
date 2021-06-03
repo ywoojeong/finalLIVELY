@@ -44,6 +44,7 @@ public class challengeDto {
 	private int limitdate;  //며칠 남았나...(현재시각 - 시작일)
 	private int identifyfrequency; //인증 빈도
 	private String identifyday; //월 화 수 목 금 토 일
+	private String identifydayS; //평일 매일
 	private String identifytime;
 	private String challengephoto;
 	private String challengesavephoto; 	//파일 이름 암호화
@@ -64,9 +65,9 @@ public class challengeDto {
 
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
 			String challengestart, String challengeend, String challengeperiod, int limitdate, int identifyfrequency,
-			String identifyday, String identifytime, String challengephoto, String challengesavephoto,
-			String certifyphoto, String certifysavephoto, String certify, double ratingavg, int challengestop,
-			int challengedel, int headernum, int pointcount, int challengemember, String email) {
+			String identifyday, String identifydayS, String identifytime, String challengephoto,
+			String challengesavephoto, String certifyphoto, String certifysavephoto, String certify, double ratingavg,
+			int challengestop, int challengedel, int headernum, int pointcount, int challengemember, String email) {
 		super();
 		this.challengeseq = challengeseq;
 		this.category = category;
@@ -78,6 +79,7 @@ public class challengeDto {
 		this.limitdate = limitdate;
 		this.identifyfrequency = identifyfrequency;
 		this.identifyday = identifyday;
+		this.identifydayS = identifydayS;
 		this.identifytime = identifytime;
 		this.challengephoto = challengephoto;
 		this.challengesavephoto = challengesavephoto;
@@ -171,6 +173,14 @@ public class challengeDto {
 
 	public void setIdentifyday(String identifyday) {
 		this.identifyday = identifyday;
+	}
+
+	public String getIdentifydayS() {
+		return identifydayS;
+	}
+
+	public void setIdentifydayS(String identifydayS) {
+		this.identifydayS = identifydayS;
 	}
 
 	public String getIdentifytime() {
@@ -282,12 +292,12 @@ public class challengeDto {
 		return "challengeDto [challengeseq=" + challengeseq + ", category=" + category + ", challengetitle="
 				+ challengetitle + ", challengetext=" + challengetext + ", challengestart=" + challengestart
 				+ ", challengeend=" + challengeend + ", challengeperiod=" + challengeperiod + ", limitdate=" + limitdate
-				+ ", identifyfrequency=" + identifyfrequency + ", identifyday=" + identifyday + ", identifytime="
-				+ identifytime + ", challengephoto=" + challengephoto + ", challengesavephoto=" + challengesavephoto
-				+ ", certifyphoto=" + certifyphoto + ", certifysavephoto=" + certifysavephoto + ", certify=" + certify
-				+ ", ratingavg=" + ratingavg + ", challengestop=" + challengestop + ", challengedel=" + challengedel
-				+ ", headernum=" + headernum + ", pointcount=" + pointcount + ", challengemember=" + challengemember
-				+ ", email=" + email + "]";
+				+ ", identifyfrequency=" + identifyfrequency + ", identifyday=" + identifyday + ", identifydayS="
+				+ identifydayS + ", identifytime=" + identifytime + ", challengephoto=" + challengephoto
+				+ ", challengesavephoto=" + challengesavephoto + ", certifyphoto=" + certifyphoto
+				+ ", certifysavephoto=" + certifysavephoto + ", certify=" + certify + ", ratingavg=" + ratingavg
+				+ ", challengestop=" + challengestop + ", challengedel=" + challengedel + ", headernum=" + headernum
+				+ ", pointcount=" + pointcount + ", challengemember=" + challengemember + ", email=" + email + "]";
 	}
 
 	

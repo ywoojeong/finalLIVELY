@@ -2,6 +2,7 @@ package com.a.challenge.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,21 +62,32 @@ public class challengeController {
 		System.out.println("오긴왔냐??");
 		challengeDto challDto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
-		//받아오면 set으로 dto에 넣어주기(배열로)
 		
-	
+		//받아오면 set으로 dto에 넣어주기(배열로)
+		String identifyDay = challDto.getIdentifyday();
+		System.out.println(identifyDay);
+		identifyDay = identifyDay.replace(" ", "");
+		String identifyDayArr[] =  identifyDay.split(",");
+		System.out.println(identifyDayArr.toString());
+		for(int i=0;i<identifyDayArr.length;i++) {
+			System.out.println("String split : "+identifyDayArr[i]);
+		}
+		int indentifyDate[] = Arrays.stream(identifyDayArr).mapToInt(Integer::parseInt).toArray();
+		System.out.println(indentifyDate.toString());
+		model.addAttribute("indentifyDate", Arrays.toString(indentifyDate));
+		
 		//System.out.println(member.toString());
 		//IDENTIFYFREQUENCY
 		if(challDto.getIdentifyfrequency()==9) {
-			challDto.setIdentifyday("매일"); 
+			challDto.setIdentifydayS("매일"); 
 		}else if(challDto.getIdentifyfrequency()==8) {
-			challDto.setIdentifyday("주말"); 
+			challDto.setIdentifydayS("주말"); 
 		}else if(challDto.getIdentifyfrequency()==7) {
-			challDto.setIdentifyday("평일 매일"); 
+			challDto.setIdentifydayS("평일 매일"); 
 		}else {
 			for(int i=6;i>0;i--){
 				if(i==challDto.getIdentifyfrequency()){
-					challDto.setIdentifyday("주 "+i+"회");
+					challDto.setIdentifydayS("주 "+i+"회");
 				}
 				
 			}
@@ -114,12 +126,12 @@ public class challengeController {
 		
 		//챌린지 전체 멤버 가져오기
 		List<Map<String, Object>> challengeMember = service.challengeAllMember(challengeseq);
-//		if(challengeMember != null) {
-//			model.addAttribute("challengeMember", challengeMember);
-//		}
-		for(int i=0;i<challengeMember.size();i++) {
-			System.out.println(challengeMember.toString());
-		}
+				
+		/*
+		 * for(int i=0;i<challengeMember.size();i++) {
+		 * System.out.println(challengeMember.toString()); }
+		 */
+		
 		
 		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
 		
@@ -135,14 +147,31 @@ public class challengeController {
 			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());		
 			}
 			
+			//챌린지 만든사람의 정보
 			Map<String, Object> challMem = service.challengeMember(WishParam);
 			if(challMem != null && !challMem.get("email").equals("")) {
 				model.addAttribute("challMem", challMem);
 			}
-			//세션에 담은 유저 데이터
+			
+			
+			
+			/*
+			 * for(int i=0;i<challengeMember.size();i++) {
+			 * System.out.println("팔로잉 멤버"+followingMember.toString()); }
+			 */
+		
+			//세션에 담은 유저 데이터(로그인한사람)
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
+			
+//			//좋아요 멤버 전체
+//			List<Map<String, Object>> followingMember = service.followAllMember(user.getEmail());
+//			if(followingMember != null) {
+//				model.addAttribute("followingMember", followingMember);
+//			}
 		}
+		
+		
 		
 		model.addAttribute("challengeMember", challengeMember);
 		model.addAttribute("challDto", challDto);
@@ -162,4 +191,5 @@ public class challengeController {
 	
 		return "challenge/challengeUpdate";
 	}
+	
 }

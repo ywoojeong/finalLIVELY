@@ -63,8 +63,7 @@
 	
 	<!-- 챌린지 한개 가져오기 challengeDetail //parameter : challengeseq -->
 	<select id="challengeDetail" parameterType="java.lang.Integer" resultType="com.a.dto.challengeDto">
-		SELECT CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD, IDENTIFYFREQUENCY,
-				IDENTIFYDAY, IDENTIFYTIME, CHALLENGESAVEPHOTO, CERTIFYSAVEPHOTO, CERTIFY, RATINGAVG, POINTCOUNT, EMAIL
+		SELECT *
 		FROM CHALLENGE
 		WHERE CHALLENGESEQ = #{challengeseq}
 	</select>
@@ -75,7 +74,7 @@
 		VALUES(WISH_SEQ.NEXTVAL, 1, #{challengeseq}, #{email})
 	</insert>
 	
-	<!-- 챌린지 찜하기 challengelikeDelete -->
+	<!-- 챌린지 찜하기 삭제 challengelikeDelete -->
 	<delete id="challengelikeDelete"  parameterType="java.util.Map">
 		DELETE FROM CHALLENGEWISH
 		WHERE CHALLENGESEQ = #{challengeseq}
@@ -119,7 +118,7 @@
 	<!-- 챌린지 멤버 수 증가시키기 -->
 	<update id="challengeMemberCountUp" parameterType="java.util.Map">
 		UPDATE CHALLENGE
-		SET CHALLENGEMEMBER = ${challengemember}+1
+		SET CHALLENGEMEMBER = CHALLENGEMEMBER+1
 		WHERE CHALLENGESEQ = #{challengeseq}	
 	</update>
 	
@@ -131,5 +130,63 @@
 			AND CM.CHALLENGESEQ = #{challengeseq}
 		ORDER BY CM.CHALLENGMEMSEQ DESC
 	</select>
+	
+	<!-- 팔로우 증가 followInsert-->
+	<insert id="followInsert" parameterType="java.util.Map">
+		INSERT INTO FOLLOW(FOLLOWSEQ, FOLLOW, FOLLOWEMAIL, FOLLOWINGEMAIL)
+		VALUES(FOLL_SEQ.NEXTVAL, 1, #{followemail}, #{followingemail})
+	</insert>
+	
+	<!--팔로우 삭제 followDelete -->
+	<delete id="followDelete"  parameterType="java.util.Map">
+		DELETE FROM FOLLOW
+		WHERE FOLLOWEMAIL = #{followemail}
+			AND FOLLOWINGEMAIL = #{followingemail}
+	</delete>
+	
+	<!-- 내가 한 팔로잉 데이터 전체 -->
+<!-- 	<select id="followAllMember" parameterType="java.lang.String" resultType="com.a.util.lowerKeyMap"> -->
 
+<!-- 	</select> -->
+	
+	<!-- 리뷰 넣기 challengeReviewInsert -->
+	<insert id="challengeReviewInsert" parameterType="java.util.Map">
+		INSERT INTO CHALLENGECOMMENT(CHALCOMSEQ, CHALCOMCONTENT, CHALCOMDATE,CHALCOMRATING, CHALCOMDEL,CHALLENGESEQ, EMAIL, CHALLLIKE)
+		VALUES(CHALCOM_SEQ.NEXTVAL, #{revcontent}, SYSDATE, #{rating}, 0, #{challengeseq}, #{email}, 0)
+	</insert>
+	
+	<!-- 리뷰 좋아요+1 -->
+	<update id="challengeReviewLike" parameterType="java.lang.Integer">
+		UPDATE CHALLENGECOMMENT
+		SET CHALLLIKE = CHALLLIKE+1
+		WHERE CHALCOMSEQ = #{chalcomseq}
+	</update>
+	
+	<!-- 리뷰 좋아요 해제 -->
+	<update id="challengeReviewUnLike" parameterType="java.lang.Integer">
+		UPDATE CHALLENGECOMMENT
+		SET CHALLLIKE = CHALLLIKE-1
+		WHERE CHALCOMSEQ = #{chalcomseq}
+	</update>
+	
+	<!-- 리뷰 전체 가져오기 -->
+	<select id="challengereviewAll" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
+		SELECT CC.CHALCOMSEQ, CC.CHALCOMCONTENT, CC.CHALCOMDATE, CC.CHALCOMRATING, CC.CHALLENGESEQ, CC.EMAIL, CC.CHALLLIKE, M.NICKNAME, M.MEMBERPHOTONAME
+		FROM CHALLENGECOMMENT CC, MEMBER M
+		WHERE CC.EMAIL = M.EMAIL
+			AND CC.CHALLENGESEQ = #{challengeseq}
+		<choose>
+			<when test="number == 0">
+				ORDER BY CHALCOMDATE DESC
+			</when>
+			<when test="number == 1">
+				 ORDER BY CC.CHALLLIKE DESC, CC.CHALCOMDATE DESC
+			</when>
+			<when test="number == 2">
+				ORDER BY CC.CHALCOMRATING DESC, CC.CHALCOMDATE DESC
+			</when>
+		</choose>
+	</select>
+	
+		
 </mapper>

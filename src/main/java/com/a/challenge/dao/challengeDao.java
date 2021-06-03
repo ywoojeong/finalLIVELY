@@ -49,5 +49,25 @@ public interface challengeDao {
 	
 	//챌린지 가입멤버리스트 challengeAllMember
 	public List<Map<String, Object>> challengeAllMember(int challengeseq);
-
+	
+	//팔로우 넣기 followInsert
+	public int followInsert(Map<String, Object> followParam);
+	
+	//팔로우 삭제 followDelete
+	public int followDelete(Map<String, Object> followParam);
+	
+	//내가한 팔로잉 전체
+	public List<Map<String, Object>> followAllMember(String email);
+	
+	//리뷰 넣기
+	public int challengeReviewInsert(Map<String, Object> revParam);
+	
+	//리뷰 좋아요 업데이트 challengeReviewLike
+	public int challengeReviewLike(int chalcomseq);
+	
+	//리뷰 좋아요 해제 challengeReviewUnLike
+	public int challengeReviewUnLike(int chalcomseq);
+	
+	//해당 리뷰 전체 가져오기
+	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam);
 }

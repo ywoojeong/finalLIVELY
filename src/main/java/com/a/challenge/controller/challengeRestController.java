@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class challengeRestController {
 		System.out.println("챌린지 파일이 받아와 지나요?:"+uploadFile);
 		System.out.println("파일이 받아와지나요?(인증방법) : "+ uploadFileCer);
 		String dateStr = Arrays.toString(dateWeek);
+		dateStr = dateStr.substring(1, dateStr.length()-1);
+		System.out.println(dateStr);
 		
 		if(!uploadFile.isEmpty()){
 			String filename = uploadFile.getOriginalFilename();
@@ -117,7 +120,18 @@ public class challengeRestController {
 	}
 	
 	//challengeReviewInsert 리뷰작성데이터
-	
+	@RequestMapping(value = "challengeReviewInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String challengeReviewInsert(@RequestParam Map<String,Object> revParam) throws Exception{
+		System.out.println(revParam.toString());
+		boolean success = service.challengeReviewInsert(revParam);
+		String msg = "";
+		if(success) {
+			msg="SUCCESS";
+		}else {
+			msg="FAIL";
+		}
+		return msg;
+	}
 	
 	//챌린지 찜하기 challengelikeInsert
 	@RequestMapping(value = "challengelikeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -180,5 +194,96 @@ public class challengeRestController {
 				msg="POINTFAIL";
 			}	
 		 return msg;	
+		}
+		
+		//팔로우 넣기 followInsert
+		@RequestMapping(value = "followInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String followInsert(@RequestParam Map<String,Object> followParam) {
+			System.out.println(followParam.toString());
+			
+			boolean success = service.followInsert(followParam);
+			
+			String msg = "";
+			if(success) {
+				msg = "SUCCESS";
+			}else {
+				msg = "FAIL";
+			}		
+		
+			return msg;	
+			
+		}
+		
+		//팔로우 삭제 followDelete
+		@RequestMapping(value = "followDelete.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String followDelete(@RequestParam Map<String,Object> followParam) {
+			//System.out.println(followParam);
+			System.out.println(followParam.toString());
+			
+			boolean success = service.followDelete(followParam);
+			
+			String msg = "";
+			
+			if(success) {
+				msg = "SUCCESS";
+			}else {
+				msg = "FAIL";
+			}		
+		
+			return msg;	
+		}
+		
+//		@RequestMapping(value = "followData.do", method = {RequestMethod.GET, RequestMethod.POST})
+//		public List<Map<String, Object>> followData(String email){
+//			System.out.println("followData.do들어오기 : "+email);
+//			//팔로우 전체 멤버 (로그인한사람의)가져오기
+//			List<Map<String, Object>> followingMember = service.followAllMember(email);
+//			System.out.println("followData.do갔다오기");
+//			return followingMember;
+//		}
+	
+		
+		//후기 좋아요 업데이트 challengeReviewLike
+		@RequestMapping(value = "challengeReviewLike.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String challengeReviewLike(int chalcomseq) {
+			//System.out.println(followParam);
+			boolean success = service.challengeReviewLike(chalcomseq);
+			
+			String msg = "";
+			
+			if(success) {
+				msg = "SUCCESS";
+			}else {
+				msg = "FAIL";
+			}		
+		
+			return msg;	
+		
+		}
+		//후기 좋아요 해제 challengeReviewUnLike
+		@RequestMapping(value = "challengeReviewUnLike.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String challengeReviewUnLike(int chalcomseq) {
+			//System.out.println(followParam);
+			boolean success = service.challengeReviewUnLike(chalcomseq);
+			
+			String msg = "";
+			
+			if(success) {
+				msg = "SUCCESS";
+			}else {
+				msg = "FAIL";
+			}		
+		
+			return msg;	
+		
+		}
+		
+		//후기 전체 데이터 가져오기 challengereviewAll
+		@RequestMapping(value = "challengereviewAll.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public List<Map<String, Object>> challengereviewAll(@RequestParam Map<String,Object> revParam){
+			
+			List<Map<String, Object>> revAll = service.challengereviewAll(revParam);
+						
+			return revAll;
 		}
 }
