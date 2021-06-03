@@ -58,4 +58,16 @@ public interface challengeDao {
 	
 	//내가한 팔로잉 전체
 	public List<Map<String, Object>> followAllMember(String email);
+	
+	//리뷰 넣기
+	public int challengeReviewInsert(Map<String, Object> revParam);
+	
+	//리뷰 좋아요 업데이트 challengeReviewLike
+	public int challengeReviewLike(int chalcomseq);
+	
+	//리뷰 좋아요 해제 challengeReviewUnLike
+	public int challengeReviewUnLike(int chalcomseq);
+	
+	//해당 리뷰 전체 가져오기
+	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam);
 }

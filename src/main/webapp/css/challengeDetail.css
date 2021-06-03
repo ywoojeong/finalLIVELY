@@ -18,6 +18,16 @@ body{
 
 }
 
+#idendate{
+	padding-left: 0;
+    margin-bottom: 0;
+}
+#idendate> li{
+	list-style-type: none;
+	display: inline;
+	color:#5e5e5e;
+}
+
 /* header */
 .challHeader{
 	position:absolute;
