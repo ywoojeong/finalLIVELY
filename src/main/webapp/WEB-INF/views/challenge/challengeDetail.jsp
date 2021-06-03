@@ -11,7 +11,6 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
@@ -20,7 +19,7 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd"+"${challengemember.length}");
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉멤버"+"${followingMember }");
 </script>
 
 <div class="backDiv" style="background-image: url(' https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
@@ -49,8 +48,8 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		</div>
 
 		<p id="limitD"></p>
-		<label>${challDto.identifyday }</label><label>${challDto.challengeperiod }주 동안</label><span class="period" id="periodDate"></span><br>
-		<span class="explain">${challDto.identifyday } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
+		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주 동안</label><span class="period" id="periodDate"></span><br>
+		<span class="explain">${challDto.identifydayS } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 	</div>
 </div>
 
@@ -64,11 +63,21 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		</tr>
 		<tr>
 			<td><i class="fas fa-user"></i></td>
-			<td>참가 인원 <fmt:formatNumber value="${fn:length(challengemember)}" pattern="#" /></td>
+			<td>참가 인원</td>
 			<td><span style="padding-right: 50px;">${challDto.challengemember }명</span> 
-				<% for(int i=0;i<5;i++){ %>
-					<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
-				<%} %>
+				<c:choose>
+				<c:when test="${challengeMember != null && fn:length(challengeMember) <= 5}">
+					<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
+						<img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }" onerror="this.src='image/user_80px.jpg'">
+					</c:forEach>
+				</c:when>
+				<c:when test="${challengeMember != null && fn:length(challengeMember) >= 5 }">
+					<c:forEach var="challUser" items="${challengeMember}" begin="0" end="5">
+						<img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }" onerror="this.src='image/user_80px.jpg'">
+					</c:forEach>
+				</c:when>
+				</c:choose>
+				
 				<a class="modalBtn" data-toggle="modal" data-target="#myModal">
 					<i style="color:#cfcbd2" class="fas fa-angle-right"></i>
 				</a>
@@ -138,11 +147,11 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 			<col width="200px"><col width="300px">
 			<tr>
 				<td style="font-weight: 500;">인증 가능 요일</td>
-				<td>월 화 수 목 금 토 일</td>
+				<td id="idendate"><span>월</span> 화 수 목 금 토 일</td>
 			</tr>
 			<tr>
 				<td style="font-weight: 500;">인증 빈도</td>
-				<td>${challDto.identifyday }</td>
+				<td>${challDto.identifydayS }</td>
 			</tr>
 			<tr>
 				<td style="font-weight: 500;">하루 인증 횟수</td>
@@ -469,19 +478,44 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 <!--         	 <button type="button" class="close" data-dismiss="modal">×</button> -->
 			<table>
 				<col width="60px"><col width="200px"><col width="205px">
-				<tr>
-					<td>
-							<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'">
-					</td>
-					<td>
-						user이름
-					</td>
-					<td align="right">
-						<button class="btn btn-secondary like-review" style="background-color:#ed2553">
-						    <i class="fa fa-heart" aria-hidden="true"></i> Like
-						  </button>
-					</td>
-				</tr>
+				<c:if test="${challengeMember != null}">
+					<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
+						<tr>
+							<td>
+								<img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }" onerror="this.src='image/user_80px.jpg'">
+							</td>
+							<td>
+								${challUser.nickname }
+							</td>
+							<td align="right">
+<%-- 								<c:if test="${user.email != null && challUser.email != user.email}"> --%>
+<!-- 									<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLike()"> -->
+<!-- 								   		<i class="fa fa-heart" aria-hidden="true"></i> Like -->
+<!-- 								 	</button> -->
+<%-- 								</c:if> --%>
+<%-- 								<c:if test=""> --%>
+								
+<%-- 								</c:if> --%>
+<%-- 								<c:choose> --%>
+<%-- 									<c:when test="${user.email != null && challUser.email != user.email}"> --%>
+										
+<%-- 							 		</c:when> --%>
+								 		
+<%--  								 		<c:forEach var="followUser" items="${followingMember}" varStatus="status"> --%>
+<%-- 									 		<c:when test="${user.email != null && user.email eq followUser.followemail}"> --%>
+<%-- 									 			<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLikeDel('${challUser.email}')"> --%>
+<!-- 									   			 	<i class="fa fa-heart" aria-hidden="true"></i> You Liked -->
+<!-- 									 			</button> -->
+<%-- 									 		</c:when> --%>
+<%-- 								 		 </c:forEach> --%>
+<%-- 								 	</c:choose> --%>
+								 		
+								
+
+							</td>							
+						</tr>
+					</c:forEach>
+				</c:if>
 			</table>   
         </div>
         
@@ -663,6 +697,23 @@ $(".meter > span").each(function () {
 });
 
 
+//요일 class제어 indentifyDate
+//console.log("배열로 안와?"+${indentifyDate})
+//let indentifyDate = new Array(${indentifyDate})
+let indentifyDate =new Array(${challDto.identifyday});
+let weekAll = new Array('일', '월', '화', '수', '목', '금', '토');
+$.each(indentifyDate, function(i, val){
+	
+	console.log("출력이 되나요?" + weekAll[val-1])
+	let str = "월 화 수 목 금 토 일";
+	str.indexOf(weekAll[val-1]);
+	console.log(str.indexOf(weekAll[val-1]))
+	if(weekAll[val-1])
+	$("#idendate:contains('"+weekAll[val-1]+"')").css("color","red");
+	console.log($("#idendate:contains("+weekAll[val-1]+")").text())
+});
+
+
 //날짜 제어
 let now = new Date();
 let year = now.getFullYear();
@@ -702,12 +753,11 @@ if("${challDto.limitdate}"<0){
 
 //date 05.11(화)형식으로 바꾸기(문자열)
 function dateToMonth(Dyear, Dmonth, Dday) {
-	console.log("들어오는 날짜 33333"+year+month+day)
 	
 	let nowDate = new Date(Dyear, Dmonth-1, Dday);
 	var month = nowDate.getMonth();
     if (month < 10)  {
-        month = '0' + month;
+        month = '0' + (month+1);
     }
 
     var date = nowDate.getDate();
@@ -719,16 +769,15 @@ function dateToMonth(Dyear, Dmonth, Dday) {
      var today = nowDate.getDay();
 
      var todayLabel = week[today];
-     console.log("결과는??? "+ month + '.' + date +"("+todayLabel+")")
      return month + '.' + date +"("+todayLabel+")";
 }
 
 //periodDate 05.11(화)~05.28(금)
-console.log(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday));
 $("#periodDate").text(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday))
 
 
-	var eventE=0;
+
+/* 	var eventE=0;
 //like버튼 누르면 제어
 $('.like-review').click(function(){
 	if(eventE==0){
@@ -743,14 +792,110 @@ $('.like-review').click(function(){
 		eventE--;   
 	}
 });
+ */
+//  console.log("들어오냐고")
+//  $(document).ready(function(){
+// 	console.log("들어오냐고")
+// 	 $.ajax({
+// 		 type:"post",
+// 		 url:"followData.do",
+// 		 data:{"email":"${user.email}"},
+// 		 success:function(likeMemberList){
+// 			console.log("success 좋아요 인간아" + likeMemberList.length)
+			
+// 			 let data = "";
+// 			 $.each(likeMemberList, function(i, likeUser){
+// 				 console.log(likeUser.followemail)
+// 			 		if(${user.email} !=null && likeUser.followingemail == null){
+// 			 			data = "<button class='btn btn-secondary like-review' style='background-color:#ed2553' onclick=\"userLike('${challUser.email}')\">"
+// 			 				+	"<i id='likeI' class='fa fa-heart' aria-hidden='true'>Like</i>"
+// 			 				+ "</button>";
 
+// 			 		}else if(${user.email} !=null && ${user.email} == followUser.followemail){
+// 			 			$("#likeI").text("");
+// 			 			data = "<button class='btn btn-secondary like-review' style='background-color:#ed2553' onclick=\"userLikeDel('${challUser.email}')\">"
+// 			 				+	"<i id='likeI' class='fa fa-heart' aria-hidden='true'>You Liked</i>"
+// 			 				+ "</button>";
+// 			 		}
+				 	
+				 	
+
+// 			 }
+			 
+// 		 }, 
+// 		 error:function(){
+// 			 alert("데이터 가져오기 실패");
+// 		 }
+		 
+// 	 });
+//  });
+ 
+ 
+//  //좋아요 버튼 제어
+// function userLike(followinguser){
+// 	 let ddd = ${challUser.email }
+// 	 console.log("FDfdsgdg"+ddd)
+// 	 let id = document.getElementById('_like-review');
+	 
+// 	 $.ajax({
+// 		 type:"post",
+// 		 url:"followInsert.do",
+// 		 data:{"followemail":"${user.email}", "followingemail":followinguser},
+// 		 success:function(msg){
+// 	    		if(msg=="SUCCESS"){
+// 	    			alert("좋아요 성공 ");
+// 	    		}
+// 	    	},
+// 	   		error:function(){
+// 	   			alert("좋아요 에러");
+// 	   		}, 
+// 	   		complete:function(){
+// 	   			id.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i> You Liked";
+// 		   		$('#_like-review').children('.fa-heart').addClass('animate-like');
+// 		   		console.log( $('#_like-review').prop("onclick"))
+// // 	   		    $('#_like-review').prop("onclick", null);
+// 	   		    $("#_like-review").attr("onclick","userLikeDel('ywoo0309@gamil.com')");
+// 	   		 console.log( $('#_like-review').attr("onclick"))
+// 	   		}
+// 	    });	 
+//  }
+ 
+//  function userLikeDel(followinguser){
+
+// 	 let id = document.getElementById('_like-review');
+
+// 	 $.ajax({
+// 		 type:"post",
+// 		 url:"followDelete.do",
+// 		 data:{"followemail":"${user.email}", "followingemail":followinguser},
+// 		 success:function(msg){
+// 			 console.log(msg)
+// 	    		if(msg=="SUCCESS"){
+// 	    			alert("좋아요 삭제 성공 ");
+// 	    		}
+// 	    	},
+// 	   		error:function(){
+// 	   			alert("좋아요 삭제 에러");
+// 	   		}, 
+// 	   		complete:function(){
+// 	   			id.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i>Like";
+// 		   		$('#_like-review').children('.fa-heart').addClass('animate-like');
+// 		   		 $('#_like-review').prop("onclick", null);
+// 	   		   $("#_like-review").prop("onclick", "userLike()");
+
+
+// 	   		}
+// 	    });	 
+//  }
+ 
+ 
 
 //찜하기 버튼 제어 checkChallenge()
 function checkChallenge(){
 	
 	let id = document.getElementById("likeChallenge");
 	 $.ajax({
-		 type:"get",
+		 type:"post",
 		 url:"challengelikeInsert.do",
 		 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 		 success:function(msg){
@@ -771,7 +916,7 @@ function checkDelChallenge(){
 	
 		let id = document.getElementById("likeChallenge");
 		 $.ajax({
-			 type:"get",
+			 type:"post",
 			 url:"challengelikeDelete.do",
 			 data:{"challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 			 success:function(msg){

@@ -102,6 +102,25 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"challengeAllMember", challengeseq);
 	}
+
+	@Override
+	public int followInsert(Map<String, Object> followParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+"followInsert", followParam);
+	}
+
+	@Override
+	public int followDelete(Map<String, Object> followParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+"followDelete", followParam);
+	}
+
+	@Override
+	public List<Map<String, Object>> followAllMember(String email) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"followAllMember", email);
+	}
+	
 	
 	
 	

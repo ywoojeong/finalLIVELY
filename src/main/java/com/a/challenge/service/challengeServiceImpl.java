@@ -101,6 +101,24 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.challengeAllMember(challengeseq);
 	}
+
+	@Override
+	public boolean followInsert(Map<String, Object> followParam) {
+		int count = dao.followInsert(followParam);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean followDelete(Map<String, Object> followParam) {
+		int count = dao.followDelete(followParam);
+		return count>0?true:false;
+	}
+
+	@Override
+	public List<Map<String, Object>> followAllMember(String email) {
+		// TODO Auto-generated method stub
+		return dao.followAllMember(email);
+	}
 	
 	
 	
