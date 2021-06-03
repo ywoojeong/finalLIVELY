@@ -2,9 +2,11 @@ package com.a.challenge.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.a.challenge.service.challengeService;
 import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
+import com.a.util.dataUtil;
 
 @Controller
 public class challengeController {
@@ -59,35 +62,54 @@ public class challengeController {
 		System.out.println("오긴왔냐??");
 		challengeDto challDto = service.challengeDetail(challengeseq);
 		//챌린지 가능 요일 받아오기(없어도 맞게 처리하기, 있으면 가져오기)
-		//받아오면 set으로 dto에 넣어주기(배열로)
 		
-	
+		//받아오면 set으로 dto에 넣어주기(배열로)
+		String identifyDay = challDto.getIdentifyday();
+		System.out.println(identifyDay);
+		identifyDay = identifyDay.replace(" ", "");
+		String identifyDayArr[] =  identifyDay.split(",");
+		System.out.println(identifyDayArr.toString());
+		for(int i=0;i<identifyDayArr.length;i++) {
+			System.out.println("String split : "+identifyDayArr[i]);
+		}
+		int indentifyDate[] = Arrays.stream(identifyDayArr).mapToInt(Integer::parseInt).toArray();
+		System.out.println(indentifyDate.toString());
+		model.addAttribute("indentifyDate", Arrays.toString(indentifyDate));
+		
 		//System.out.println(member.toString());
 		//IDENTIFYFREQUENCY
 		if(challDto.getIdentifyfrequency()==9) {
-			challDto.setIdentifyday("매일"); 
+			challDto.setIdentifydayS("매일"); 
 		}else if(challDto.getIdentifyfrequency()==8) {
-			challDto.setIdentifyday("주말"); 
+			challDto.setIdentifydayS("주말"); 
 		}else if(challDto.getIdentifyfrequency()==7) {
-			challDto.setIdentifyday("평일 매일"); 
+			challDto.setIdentifydayS("평일 매일"); 
 		}else {
 			for(int i=6;i>0;i--){
 				if(i==challDto.getIdentifyfrequency()){
-					challDto.setIdentifyday("주 "+i+"회");
+					challDto.setIdentifydayS("주 "+i+"회");
 				}
 				
 			}
 		}
 		
 		//limitDate제어 (오늘시간 - challengestart)
-		Date nowDate = new Date(System.currentTimeMillis());
-		System.out.println("현재시간 어케 나와"+nowDate);
+		//Date nowDate = new Date();
+		Calendar cal = Calendar.getInstance();
+		String year = String.valueOf(cal.get(Calendar.YEAR));
+		String month = String.valueOf(cal.get(Calendar.MONTH)+1);
+		String date = String.valueOf(cal.get(Calendar.DATE));
+		System.out.println("시간 int 모양"+year+" "+month+" "+ date);
 		try {
 		SimpleDateFormat startformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date startParse = startformat.parse(challDto.getChallengestart());
 		System.out.println("파싱한 데이터 : "+startParse);
 		
-		long milisec = nowDate.getTime() - startParse.getTime();
+		Date nowDate = startformat.parse(year+"-"+dataUtil.two(month)+"-"+dataUtil.two(date)+" 00:00:00");
+		System.out.println("현재시간 어케 나와"+nowDate);
+			
+		
+		long milisec = startParse.getTime()-nowDate.getTime();
 		int limitDate = (int) (milisec / (1000*60*60*24));
 		System.out.println("일수 차이" +limitDate);
 		challDto.setLimitdate(limitDate);
@@ -101,6 +123,15 @@ public class challengeController {
 		 * String dateWeek =
 		 * 
 		 */
+		
+		//챌린지 전체 멤버 가져오기
+		List<Map<String, Object>> challengeMember = service.challengeAllMember(challengeseq);
+				
+		/*
+		 * for(int i=0;i<challengeMember.size();i++) {
+		 * System.out.println(challengeMember.toString()); }
+		 */
+		
 		
 		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
 		
@@ -116,14 +147,33 @@ public class challengeController {
 			//	 System.out.print("챌린지 데이터 받아오기"+challWish.toString());		
 			}
 			
+			//챌린지 만든사람의 정보
 			Map<String, Object> challMem = service.challengeMember(WishParam);
 			if(challMem != null && !challMem.get("email").equals("")) {
 				model.addAttribute("challMem", challMem);
 			}
-			//세션에 담은 유저 데이터
+			
+			
+			
+			/*
+			 * for(int i=0;i<challengeMember.size();i++) {
+			 * System.out.println("팔로잉 멤버"+followingMember.toString()); }
+			 */
+		
+			//세션에 담은 유저 데이터(로그인한사람)
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
+			
+//			//좋아요 멤버 전체
+//			List<Map<String, Object>> followingMember = service.followAllMember(user.getEmail());
+//			if(followingMember != null) {
+//				model.addAttribute("followingMember", followingMember);
+//			}
 		}
+		
+		
+		
+		model.addAttribute("challengeMember", challengeMember);
 		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";
 	}
@@ -141,4 +191,5 @@ public class challengeController {
 	
 		return "challenge/challengeUpdate";
 	}
+	
 }

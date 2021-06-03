@@ -26,7 +26,7 @@ public class myPageDaoImpl implements myPageDao {
 	}
 	
 	@Override
-	public MemberDto memberModifyInfo(String email) throws SQLException {
-		return sql.selectOne("member.memberModifyInfo", email);
+	public Map<String, Object> memberInfoData(String email) throws SQLException {
+		return sql.selectOne("myPage.memberInfoData", email);
 	}
 }

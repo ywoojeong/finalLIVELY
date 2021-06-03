@@ -4,11 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
- 
-<%
-MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
-	System.out.println(memberInfo.toString());
-%>
 
 <link rel="stylesheet" href="./css/element.css" />
 <link rel="stylesheet" href="./css/myMainPage2.css" />
@@ -18,9 +13,9 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
     <div class="row">
         <div class="col-sm-3">
             <div class="member_box">
-                <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfo.memberPhotoName}" />
-                <h5>${memberInfo.nickname}</h5>
-                <p style="font-size: 15px;">0 Point</p>
+                <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfoData.MEMBERPHOTONAME}" />
+                <h5>${memberInfoData.NICKNAME}</h5>
+                <p style="font-size: 15px;"><span>${memberInfoData.POINT}</span> Point</p>
                 
                 <!-- 회원정보수정 모달 -->
                 <a class="modalBtn" data-toggle="modal" data-target="#myModal3">
@@ -52,13 +47,13 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
             <!-- 탭부분 -->
             <!-- Nav pills -->
 		    <ul class="nav nav-pills" role="tablist">
-		        <li class="nav-item">
+		        <li class="nav-items">
 		            <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
 		        </li>
-		        <li class="nav-item">
+		        <li class="nav-items">
 		            <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth">월간리포트</a>
 		        </li>
-		        <li class="nav-item">
+		        <li class="nav-items">
 		            <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
 		        </li>
 		    </ul>
@@ -106,10 +101,10 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 					                <!-- 탭안에 탭 -->
 					                <ul class="nav nav-pills" role="tablist">
 								        <li class="nav-item">
-								            <a class="nav-link active" data-toggle="pill" href="#chall_befor">진행전</a>
+								            <a class="nav-link active" data-toggle="pill" href="#chall_befor">진행 전</a>
 								        </li>
 								        <li class="nav-item">
-								            <a class="nav-link" data-toggle="pill" href="#chall_ing">진행중</a>
+								            <a class="nav-link" data-toggle="pill" href="#chall_ing">진행 중</a>
 								        </li>
 								        <li class="nav-item">
 								            <a class="nav-link" data-toggle="pill" href="#chall_after">진행완료</a>
@@ -193,7 +188,7 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
                     <div class="row">
                     	<div class="col-sm-12">
 	                        <div class="member_daily">
-	                        	<p>오늘 진행중인 챌린지</p>
+	                        	<span class="d-daily">오늘 진행중인 챌린지</span>
 	                        	<!-- 캘린더 아래 데일리 부분 -->
 	                        	<div class="row">
 		                        	<%for(int i=0; i<2; i++) {
@@ -307,15 +302,8 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 						<div class="profile">
 							<p>PHOTO</p>
 							<!-- 이미지 미리보기 -->
-							<%-- 
-							<label for="newImg">
-                  				<img id="bookImg" style="height: 400px;" class="img-responsive bookimg" src="./upload/<%=book.getBookimage() %>">
-               					<input type="hidden" name="oldfile" value="<%=book.getBookimage() %>">
-           					</label>
-            				<input type="file" name="bookimage" id="newImg" style="display: none; width: 100%;">
-							 --%>
-							<div id="previewId" class="memberImg"><img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfo.memberPhotoName}" style="width: 168px;" /></div>
-							<!-- <div id="previewId" class="memberImg"><img src="기본이미지" onerror="this.style.display='none'" /></div> -->
+							
+							<div id="previewId" class="memberImg"><img class="showImage" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfoData.MEMBERPHOTONAME}" style="width: 168px;" /></div>
 							
 							<!-- 이미지 업로드 부분 -->
 							<p style="border: none;">
@@ -326,7 +314,7 @@ MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 							<!-- 닉네임 -->
 							<p>NICKNAME</p>
 							<p>
-							<input type="text"  class="form-control form-control" id="nickname" name="nickname" value="${memberInfo.nickname}">
+							<input type="text"  class="form-control form-control" id="nickname" name="nickname" value="${memberInfoData.NICKNAME}">
 							<input type="hidden" name="nicknameCheck" id="nicknameCheck" value="">
 							<button type="button" onclick="nickCheck()" class="btnCheck">닉네임 중복 확인</button>
 							</p>
@@ -633,8 +621,9 @@ function previewImage(targetObj, previewId) {
             if (prevImg) {
                 preview.removeChild(prevImg);
             }
-
-            var img = document.createElement("img"); /*크롬은 div에 이미지가 뿌려지지 않는다. 그래서 자식Element를 만든다.*/
+			
+            /*
+            var img = document.createElement("img"); 크롬은 div에 이미지가 뿌려지지 않는다. 그래서 자식Element를 만든다.
             img.id = "prev_" + previewId;
             img.classList.add("obj");
             img.file = file;
@@ -642,12 +631,14 @@ function previewImage(targetObj, previewId) {
             img.style.height = '168px';
             
             preview.appendChild(img);
-
+			*/
+			
             if (window.FileReader) { // FireFox, Chrome, Opera 확인.
                 var reader = new FileReader();
                 reader.onloadend = (function(aImg) {
                     return function(e) {
-                        aImg.src = e.target.result;
+//                        aImg.src = e.target.result;
+                        $(".showImage").attr("src", e.target.result);
                     };
                 })(img);
                 reader.readAsDataURL(file);
