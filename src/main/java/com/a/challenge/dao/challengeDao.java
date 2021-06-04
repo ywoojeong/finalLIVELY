@@ -62,12 +62,28 @@ public interface challengeDao {
 	//리뷰 넣기
 	public int challengeReviewInsert(Map<String, Object> revParam);
 	
-	//리뷰 좋아요 업데이트 challengeReviewLike
+	//리뷰 좋아요
+	public int commentLike (Map<String, Object> likeParam);
+	
+	//리뷰 좋아요 해제
+	public int commentLikeDel (Map<String, Object> likeParam);
+	
+	//리뷰 테이블에  +1
 	public int challengeReviewLike(int chalcomseq);
 	
-	//리뷰 좋아요 해제 challengeReviewUnLike
+	//리뷰테이블에 -1
 	public int challengeReviewUnLike(int chalcomseq);
 	
 	//해당 리뷰 전체 가져오기
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam);
+	
+	//리뷰 결과 데이터 가져오기
+	public int reviewCountAll(int challengeseq);
+	public Double reviewAvg(int challengeseq);
+	public int rateFive(int challengeseq);
+	public int rateFour(int challengeseq);
+	public int rateThree(int challengeseq);
+	public int rateTwo(int challengeseq);
+	public int rateOne(int challengeseq);
+	
 }

@@ -128,6 +128,18 @@ public class challengeDaoImpl implements challengeDao {
 	}
 
 	@Override
+	public int commentLike(Map<String, Object> likeParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+"commentLike", likeParam);
+	}
+
+	@Override
+	public int commentLikeDel(Map<String, Object> likeParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+"commentLikeDel", likeParam);
+	}
+	
+	@Override
 	public int challengeReviewLike(int chalcomseq) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+"challengeReviewLike", chalcomseq);
@@ -136,13 +148,55 @@ public class challengeDaoImpl implements challengeDao {
 	@Override
 	public int challengeReviewUnLike(int chalcomseq) {
 		// TODO Auto-generated method stub
-		return sqlSession.update(namespace+"challengeReviewUnLike", chalcomseq);
+		return  sqlSession.update(namespace+"challengeReviewUnLike", chalcomseq);
 	}
 
 	@Override
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"challengereviewAll", revParam);
+	}
+
+	@Override
+	public int reviewCountAll(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"reviewCountAll", challengeseq);
+	}
+
+	@Override
+	public Double reviewAvg(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"reviewAvg", challengeseq);
+	}
+
+	@Override
+	public int rateFive(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"rateFive", challengeseq);
+	}
+
+	@Override
+	public int rateFour(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"rateFour", challengeseq);
+	}
+
+	@Override
+	public int rateThree(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"rateThree", challengeseq);
+	}
+
+	@Override
+	public int rateTwo(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"rateTwo", challengeseq);
+	}
+
+	@Override
+	public int rateOne(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"rateOne", challengeseq);
 	}
 	
 	
