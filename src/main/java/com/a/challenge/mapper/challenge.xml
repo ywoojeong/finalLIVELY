@@ -149,5 +149,44 @@
 
 <!-- 	</select> -->
 	
-
+	<!-- 리뷰 넣기 challengeReviewInsert -->
+	<insert id="challengeReviewInsert" parameterType="java.util.Map">
+		INSERT INTO CHALLENGECOMMENT(CHALCOMSEQ, CHALCOMCONTENT, CHALCOMDATE,CHALCOMRATING, CHALCOMDEL,CHALLENGESEQ, EMAIL, CHALLLIKE)
+		VALUES(CHALCOM_SEQ.NEXTVAL, #{revcontent}, SYSDATE, #{rating}, 0, #{challengeseq}, #{email}, 0)
+	</insert>
+	
+	<!-- 리뷰 좋아요+1 -->
+	<update id="challengeReviewLike" parameterType="java.lang.Integer">
+		UPDATE CHALLENGECOMMENT
+		SET CHALLLIKE = CHALLLIKE+1
+		WHERE CHALCOMSEQ = #{chalcomseq}
+	</update>
+	
+	<!-- 리뷰 좋아요 해제 -->
+	<update id="challengeReviewUnLike" parameterType="java.lang.Integer">
+		UPDATE CHALLENGECOMMENT
+		SET CHALLLIKE = CHALLLIKE-1
+		WHERE CHALCOMSEQ = #{chalcomseq}
+	</update>
+	
+	<!-- 리뷰 전체 가져오기 -->
+	<select id="challengereviewAll" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
+		SELECT CC.CHALCOMSEQ, CC.CHALCOMCONTENT, CC.CHALCOMDATE, CC.CHALCOMRATING, CC.CHALLENGESEQ, CC.EMAIL, CC.CHALLLIKE, M.NICKNAME, M.MEMBERPHOTONAME
+		FROM CHALLENGECOMMENT CC, MEMBER M
+		WHERE CC.EMAIL = M.EMAIL
+			AND CC.CHALLENGESEQ = #{challengeseq}
+		<choose>
+			<when test="number == 0">
+				ORDER BY CHALCOMDATE DESC
+			</when>
+			<when test="number == 1">
+				 ORDER BY CC.CHALLLIKE DESC, CC.CHALCOMDATE DESC
+			</when>
+			<when test="number == 2">
+				ORDER BY CC.CHALCOMRATING DESC, CC.CHALCOMDATE DESC
+			</when>
+		</choose>
+	</select>
+	
+		
 </mapper>

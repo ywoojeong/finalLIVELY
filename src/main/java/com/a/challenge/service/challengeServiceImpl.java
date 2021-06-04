@@ -119,6 +119,31 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.followAllMember(email);
 	}
+
+	@Override
+	public boolean challengeReviewInsert(Map<String, Object> revParam) {
+		// TODO Auto-generated method stub
+		return dao.challengeReviewInsert(revParam)>0?true:false;
+	}
+
+	@Override
+	public boolean challengeReviewLike(int chalcomseq) {
+		// TODO Auto-generated method stub
+		return dao.challengeReviewLike(chalcomseq)>0?true:false;
+	}
+
+	@Override
+	public boolean challengeReviewUnLike(int chalcomseq) {
+		// TODO Auto-generated method stub
+		return dao.challengeReviewUnLike(chalcomseq)>0?true:false;
+	}
+
+	@Override
+	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam) {
+		// TODO Auto-generated method stub
+		return dao.challengereviewAll(revParam);
+	}
+	
 	
 	
 	

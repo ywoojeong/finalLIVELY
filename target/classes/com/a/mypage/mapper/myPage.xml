@@ -9,7 +9,7 @@
 			FROM CHALLENGEMEMBER CM
 			INNER JOIN CHALLENGE CG
 			ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
-			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+			WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE AND CM.EMAIL = #{email}
 			) AS NOWCNT2
 		FROM 
 			(SELECT 
@@ -43,6 +43,69 @@
 	<!-- 회원 정보 -->
 	<select id="memberInfoData" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT * FROM MEMBER WHERE EMAIL = #{value}
+	</select>
+	
+	<!-- 내가 찜한 챌린지 갯수-->
+	<select id="memberWishCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CHALLENGEWISH
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 내가 진행중인 챌린지 갯수 -->
+	<select id="memberNowCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS memNowCnt
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
+	</select>
+	
+	<!-- 내가 진행준일 챌린지 리스트 -->
+	<select id="memNowCntList" resultType="java.util.Map">
+		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
+	</select>
+	
+	<!-- 내 챌린지 리스트 전체 가져오기-->
+	<select id="memChallList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE CM.EMAIL = #{email}
+			<choose>
+				<when test="name == 0">
+				AND	CG.CHALLENGESTART > SYSDATE AND CG.CHALLENGEEND > SYSDATE
+				</when>
+				<when test="name == 1">
+				AND	SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+				</when>
+				<when test="name == 2">
+				AND	SYSDATE > CG.CHALLENGESTART AND SYSDATE > CG.CHALLENGEEND
+				</when>
+			</choose>
+		
+	</select>
+	
+	<!-- 종료 된 챌린지 -->
+	<select id="memEndCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM CHALLENGE
+		WHERE SYSDATE > CHALLENGEEND AND EMAIL = #{email}
+	</select>
+	
+	<!-- 카테고리 갯수 가져오기 -->
+	<select id="memCategoryCount" parameterType="java.lang.String" resultType="java.util.Map"> 
+		SELECT COUNT(*) AS TOTAL, CG.CATEGORY 
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE CM.EMAIL = #{email}
+		GROUP BY CG.CATEGORY
 	</select>
 	
 </mapper>
