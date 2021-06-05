@@ -188,5 +188,76 @@
 		</choose>
 	</select>
 	
+	<!-- 후기 결과 갯수와..등등...가져오기 -->
+	<select id="reviewCountAll" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COMMENTCOUNT
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+	</select>
+	
+	<select id="reviewAvg" parameterType="java.lang.Integer" resultType="java.lang.Double">
+		SELECT ROUND(AVG(CHALCOMRATING), 1) AS COMMENTSUM
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+	</select>
+	
+	<select id="rateFive" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS RATEFIVE
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND CHALCOMRATING = 5
+	</select>
+	
+	<select id="rateFour" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS RATEFOUR
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND CHALCOMRATING = 4
+	</select>
+	
+	<select id="rateThree" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS RATETHREE
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND CHALCOMRATING = 3
+	</select>
+	
+	<select id="rateTwo" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS RATEFOUR
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND CHALCOMRATING = 2
+	</select>
+	
+	<select id="rateOne" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS RATEONE
+		FROM CHALLENGECOMMENT
+		WHERE CHALLENGESEQ = #{challengeseq}
+			AND CHALCOMRATING = 1
+	</select>
+	<!-- ///////////////////////////////////////// -->
+	
+	<!-- 후기 좋아요 추가 -->
+	<insert id="commentLike" parameterType="java.util.Map">
+		INSERT INTO COMMENTLIKE(CLIKESEQ, COMMENTLIKE, LIKEEMAIL, CHALCOMSEQ)
+		VALUES(CLIKE_SEQ.NEXTVAL, 1, #{email}, #{chalcomseq})
+	</insert>
+	
+	<!--후기 좋아요 삭제-->
+	<delete id="commentLikeDel" parameterType="java.util.Map">
+		DELETE FROM COMMENTLIKE
+		WHERE LIKEEMAIL = #{email}
+			AND CHALCOMSEQ = #{chalcomseq}
+			AND COMMENTLIKE = 1
+	</delete>
+	
+	<!-- 후기 있나 없나 확인 -->
+	<select id="commentLikeCheck" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM COMMENTLIKE
+		WHERE LIKEEMAIL = #{email}
+			AND CHALCOMSEQ = #{chalcomseq}
+	</select>
+	
 		
 </mapper>

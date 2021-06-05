@@ -62,12 +62,22 @@ public interface challengeService {
 	//리뷰 넣기
 	public boolean challengeReviewInsert(Map<String, Object> revParam);
 	
-	//리뷰 좋아요 업데이트 challengeReviewLike
+	//리뷰 좋아요
+	public boolean commentLike (Map<String, Object> likeParam);
+	
+	//리뷰 좋아요 해제
+	public boolean commentLikeDel (Map<String, Object> likeParam);
+	
+	//리뷰 테이블에  +1
 	public boolean challengeReviewLike(int chalcomseq);
 	
-	//리뷰 좋아요 해제 challengeReviewUnLike
+	//리뷰테이블에 -1
 	public boolean challengeReviewUnLike(int chalcomseq);
+		
 	
 	//해당 리뷰 전체 가져오기
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam);
+	
+	//리뷰 결과 한번에
+	public Map<String, Object> reviewResult(int challengeseq);
 }

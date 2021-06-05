@@ -244,14 +244,18 @@ public class challengeRestController {
 	
 		
 		//후기 좋아요 업데이트 challengeReviewLike
-		@RequestMapping(value = "challengeReviewLike.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String challengeReviewLike(int chalcomseq) {
+		@RequestMapping(value = "commentLike.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String commentLike(@RequestParam Map<String,Object> likeParam) {
 			//System.out.println(followParam);
-			boolean success = service.challengeReviewLike(chalcomseq);
+			int chalcomseq =  Integer.parseInt(likeParam.get("chalcomseq").toString());
+			
+			boolean success = service.commentLike(likeParam);
 			
 			String msg = "";
 			
 			if(success) {
+				boolean s = service.challengeReviewLike(chalcomseq);
+				System.out.println("아성공인가요? "+s);
 				msg = "SUCCESS";
 			}else {
 				msg = "FAIL";
@@ -261,14 +265,18 @@ public class challengeRestController {
 		
 		}
 		//후기 좋아요 해제 challengeReviewUnLike
-		@RequestMapping(value = "challengeReviewUnLike.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String challengeReviewUnLike(int chalcomseq) {
+		@RequestMapping(value = "commentLikeDel.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String commentLikeDel(@RequestParam Map<String,Object> likeParam) {
+			
+			int chalcomseq =  Integer.parseInt(likeParam.get("chalcomseq").toString());
 			//System.out.println(followParam);
-			boolean success = service.challengeReviewUnLike(chalcomseq);
+			boolean success = service.commentLikeDel(likeParam);
 			
 			String msg = "";
 			
 			if(success) {
+				boolean s = service.challengeReviewUnLike(chalcomseq);
+				System.out.println("1빼는게 성공인가요? "+s);
 				msg = "SUCCESS";
 			}else {
 				msg = "FAIL";
@@ -286,4 +294,8 @@ public class challengeRestController {
 						
 			return revAll;
 		}
+		
+		
+		
+		
 }

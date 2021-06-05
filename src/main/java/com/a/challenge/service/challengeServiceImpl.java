@@ -1,6 +1,7 @@
 package com.a.challenge.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -127,9 +128,22 @@ public class challengeServiceImpl implements challengeService {
 	}
 
 	@Override
+	public boolean commentLike(Map<String, Object> likeParam) {
+		// TODO Auto-generated method stub
+		return dao.commentLike(likeParam)>0?true:false;
+	}
+
+	@Override
+	public boolean commentLikeDel(Map<String, Object> likeParam) {
+		// TODO Auto-generated method stub
+		return dao.commentLikeDel(likeParam)>0?true:false;
+	}
+
+	
+	@Override
 	public boolean challengeReviewLike(int chalcomseq) {
 		// TODO Auto-generated method stub
-		return dao.challengeReviewLike(chalcomseq)>0?true:false;
+		return  dao.challengeReviewLike(chalcomseq)>0?true:false;
 	}
 
 	@Override
@@ -142,6 +156,20 @@ public class challengeServiceImpl implements challengeService {
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam) {
 		// TODO Auto-generated method stub
 		return dao.challengereviewAll(revParam);
+	}
+
+	@Override
+	public Map<String, Object> reviewResult(int challengeseq) {
+		Map<String, Object> reviewResult = new HashMap<String, Object>();
+		reviewResult.put("reviewCountAll", dao.reviewCountAll(challengeseq));
+		reviewResult.put("reviewAvg", dao.reviewAvg(challengeseq));
+		reviewResult.put("rateFive", dao.rateFive(challengeseq));
+		reviewResult.put("rateFour", dao.rateFour(challengeseq));
+		reviewResult.put("rateThree", dao.rateThree(challengeseq));
+		reviewResult.put("rateTwo", dao.rateTwo(challengeseq));
+		reviewResult.put("rateOne", dao.rateOne(challengeseq));
+		
+		return reviewResult;
 	}
 	
 	
