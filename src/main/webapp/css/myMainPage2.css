@@ -17,6 +17,7 @@
   padding-top: 160px;
   border: #a6a6a6 solid 1px;
   height: 400px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,6 +124,7 @@
 	height: 130px;
 	width: 670px;
 	margin-top: 25px;
+	margin: 20px auto;
 }
 
 .easypiechart-panel {
@@ -178,6 +180,35 @@
 	padding : 2px 5px 2px 5px;
 	margin-bottom: 6px;
 }
+/* 제안하기 포인트 버튼 부분 */
+.point-btn-hover {
+    width: 230px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    letter-spacing: 4px;
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.point-btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.point-btn-hover:focus {
+    outline: none;
+}
 .point-btn-hover.color-Yellow {
     /* background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7); */
     background-image: linear-gradient(to right, #ffd622, #fff16b, #ffd622, #fff16b);
@@ -190,36 +221,35 @@
     margin-top: 50px;
     box-shadow: 0 4px 13px 0 rgb(166 162 169 / 70%);
     border-radius: 0px;
+    width: 77%;
 }
 .suggest-card-body{
-    height: 90px;
-    width: 600px;
+    height: 140px;
     display: flex;
 }
 .suggest-category{
 	font-size: 13px;
-	margin-left: 50px;
-	padding-top: 20px;
 	margin-bottom: 2px;
 	color: #828282;
 }
 .suggest-title{
 	font-size: 20px;
-	margin-left: 50px;
 }
 .suggest-like{
-	width: 60px;
+	width: 90px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	margin-top: 5px;
-    margin-left: 350px;
+    margin-left: 280px;
 }
 .suggest-like>p{
 	margin-bottom: 0;
 	font-size: 10pt;
 	margin-top: 5px;
+}
+.suggest-text{
+	margin: auto;
 }
 .myChartCls{
 	margin: auto;
@@ -316,4 +346,18 @@ label{
 .d-daily{
 	box-shadow: inset 0 -15px 0 #fff16b;
 	font-size: 20px;
+}
+/* 제안하기 영역 */
+.applyBox{
+	border: 1px solid #ccc;
+}
+.commentTable{
+	text-align: center;
+}
+.applyBbs{
+	padding-top: 20px;
+    padding-left: 20px;
+}
+.applyCom{
+	margin-bottom: 20px;
 }

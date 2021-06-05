@@ -61,5 +61,13 @@ public class myPageServiceImpl implements myPageService{
 		return mypagedao.memCategoryCount(email);
 	}
 	
+	@Override
+	public List<Map<String, Object>> memDailyChallList(Map<String, Object> getDailyChallInfo) throws SQLException {
+		return mypagedao.memDailyChallList(getDailyChallInfo);
+	}
 	
+	@Override
+	public boolean writeSuggest(Map<String, Object> param) throws SQLException {
+		return mypagedao.writeSuggest(param)>0?true:false;
+	}
 }

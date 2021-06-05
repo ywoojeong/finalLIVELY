@@ -30,4 +30,8 @@ public interface myPageDao {
 	public List<Map<String, Object>> memChallList(Map<String, Object> getChallInfo) throws SQLException;
 	
 	public List<Map<String, Object>> memCategoryCount(String email) throws SQLException;
+	
+	public List<Map<String, Object>> memDailyChallList(Map<String, Object> getDailyChallInfo) throws SQLException;
+	
+	public int writeSuggest(Map<String, Object> param) throws SQLException;
 }
