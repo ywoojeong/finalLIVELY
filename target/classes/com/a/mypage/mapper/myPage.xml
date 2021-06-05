@@ -108,4 +108,29 @@
 		GROUP BY CG.CATEGORY
 	</select>
 	
+	<!-- 오늘 진행중인 챌린지 리스트 가져오기 -->
+	<select id="memDailyChallList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE, CG.CHALLENGESAVEPHOTO
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CHALLENGESTART AND CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
+	</select>
+	
+	<!-- 제안하기 작성 -->
+	<insert id="writeSuggest" parameterType="java.util.Map">
+		INSERT INTO SUGGESTBBS(SUGGESTBBSSEQ, SUGGESTBBSCATEGORY, SUGGESTBBSTITLE, SUGGESTBBSCONTENT, SUGGESTBBSDEL, LIKESEQ, EMAIL)
+		VALUES(SUG_SEQ.NEXTVAL, #{scategory}, #{suggesttitle}, #{suggestcontent}, 0, 0, #{email})
+	</insert>
+	
+	<!-- 제안하기 꺼내오기 -->
+	
+	
+	<!-- like... -->
+	<select id="suggestMyLike" resultType="java.util.Map">
+		
+	</select>
+	
+	
 </mapper>

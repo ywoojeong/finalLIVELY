@@ -60,4 +60,14 @@ public class myPageDaoImpl implements myPageDao {
 	public List<Map<String, Object>> memCategoryCount(String email) throws SQLException {
 		return sql.selectList("myPage.memCategoryCount", email);
 	}
+	
+	@Override
+	public List<Map<String, Object>> memDailyChallList(Map<String, Object> getDailyChallInfo) throws SQLException {
+		return sql.selectList("myPage.memDailyChallList", getDailyChallInfo);
+	}
+	
+	@Override
+	public int writeSuggest(Map<String, Object> param) throws SQLException {
+		return sql.insert("myPage.writeSuggest", param);
+	}
 }
