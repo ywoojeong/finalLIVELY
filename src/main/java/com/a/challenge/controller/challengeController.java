@@ -171,8 +171,11 @@ public class challengeController {
 //			}
 		}
 		
-		
-		
+		//후기 결과 데이터
+		Map<String, Object> reviewResult = service.reviewResult(challengeseq);
+		System.out.println("후기 데이터 "+reviewResult.toString());
+
+		model.addAttribute("reviewResult", reviewResult);
 		model.addAttribute("challengeMember", challengeMember);
 		model.addAttribute("challDto", challDto);
 		return "challenge/challengeDetail";

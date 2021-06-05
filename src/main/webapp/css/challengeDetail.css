@@ -25,7 +25,8 @@ body{
 #idendate> li{
 	list-style-type: none;
 	display: inline;
-	color:#5e5e5e;
+	color:#969696;
+	font-weight: 500;
 }
 
 /* header */

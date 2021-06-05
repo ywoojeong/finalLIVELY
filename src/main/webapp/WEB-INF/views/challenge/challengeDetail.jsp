@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉멤버"+"${followingMember }");
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉멤버"+"${followingMember }"+"dsFdfdsgfsg"+"${reviewResult}");
 </script>
 
 <div class="backDiv"
@@ -58,11 +58,8 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		</div>
 
 		<p id="limitD"></p>
-		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주
-			동안</label><span class="period" id="periodDate"></span><br> <span
-			class="explain">${challDto.identifydayS }
-			${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에
-			인증해야 합니다.</span>
+		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
+		 <span	class="explain">${challDto.identifydayS }${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 	</div>
 </div>
 
@@ -339,9 +336,21 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 				<div class="row review">
 					<div class="col-sm-6 text-center"
 						style="border-right: 1px solid #edf0f2">
-						<h1 style="margin-top: 12px">4.6</h1>
+						<c:if test="${reviewResult.reviewAvg !=null}">
+						<h1 style="margin-top: 12px">${reviewResult.reviewAvg }</h1>
+							<c:forEach begin="0" end="4" var="i" step="1" varStatus="status">
+								<c:if test="${reviewResult.reviewAvg>status.index && reviewResult.reviewAvg<=status.index+1 }">
+									<img src="image/star${status.index+1 }.png" style="height: 30px;">
+								</c:if>
+							</c:forEach>
 						<img src="image/star1.png" style="height: 30px;">
-						<p style="color: #878787">35 건</p>
+						<p style="color: #878787">${reviewResult.reviewCountAll } 건</p>
+						</c:if>
+						<c:if test="${reviewResult.reviewAvg ==null}">
+							<h1 style="margin-top: 12px">0.0</h1>
+							<img src="image/star1.png" style="height: 30px;">
+							<p style="color: #878787">0 건</p>
+						</c:if>	
 					</div>
 					<div class="col-sm-6 text-center progressMain">
 						<table>
@@ -354,12 +363,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<div class="progress">
 										<div class="progress-bar six-sec-ease-in-out"
 											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 65%;">
-											<span>65%</span>
+											aria-valuemax="100" style="width: ${reviewResult.rateFive/reviewResult.reviewCountAll *100 }%;">
+										
 										</div>
 									</div>
 								</td>
-								<td class="proTd">85%</td>
+								<td class="proTd">
+									<c:if test="${reviewResult.reviewCountAll !=0 }">
+										<fmt:formatNumber value="${reviewResult.rateFive/reviewResult.reviewCountAll}" type="percent"/>
+									</c:if>			
+								</td>
 							</tr>
 							<tr>
 								<td class="proTd1">4점</td>
@@ -367,12 +380,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<div class="progress">
 										<div class="progress-bar six-sec-ease-in-out"
 											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 65%;">
-											<span>65%</span>
+											aria-valuemax="100" style="width: ${reviewResult.rateFour/reviewResult.reviewCountAll *100 }%;">
+
 										</div>
 									</div>
 								</td>
-								<td class="proTd">85%</td>
+								<td class="proTd">
+									<c:if test="${reviewResult.reviewCountAll !=0 }">
+										<fmt:formatNumber value="${reviewResult.rateFour/reviewResult.reviewCountAll}" type="percent"/>
+									</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td class="proTd1">3점</td>
@@ -380,12 +397,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<div class="progress">
 										<div class="progress-bar six-sec-ease-in-out"
 											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 65%;">
+											aria-valuemax="100" style="width: ${reviewResult.rateThree/reviewResult.reviewCountAll *100 }%;">
 											<span>65%</span>
 										</div>
 									</div>
 								</td>
-								<td class="proTd">85%</td>
+								<td class="proTd">
+									<c:if test="${reviewResult.reviewCountAll !=0 }">
+										<fmt:formatNumber value="${reviewResult.rateThree/reviewResult.reviewCountAll}" type="percent"/>
+									</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td class="proTd1">2점</td>
@@ -393,12 +414,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<div class="progress">
 										<div class="progress-bar six-sec-ease-in-out"
 											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 65%;">
-											<span>65%</span>
+											aria-valuemax="100" style="width: ${reviewResult.rateTwo/reviewResult.reviewCountAll *100 }%;">
+							
 										</div>
 									</div>
 								</td>
-								<td class="proTd">85%</td>
+								<td class="proTd">
+									<c:if test="${reviewResult.reviewCountAll !=0 }">
+										<fmt:formatNumber value="${reviewResult.rateTwo/reviewResult.reviewCountAll}" type="percent"/>
+									</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td class="proTd1">1점</td>
@@ -406,19 +431,22 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<div class="progress">
 										<div class="progress-bar six-sec-ease-in-out"
 											role="progressbar" aria-valuenow="60" aria-valuemin="0"
-											aria-valuemax="100" style="width: 65%;">
-											<span>65%</span>
+											aria-valuemax="100" style="width: ${reviewResult.rateOne/reviewResult.reviewCountAll *100 }%;">
 										</div>
 									</div>
 								</td>
-								<td class="proTd">85%</td>
+								<td class="proTd">
+									<c:if test="${reviewResult.reviewCountAll !=0 }">
+										<fmt:formatNumber value="${reviewResult.rateOne/reviewResult.reviewCountAll}" type="percent"/>
+									</c:if>
+								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 				<!--//////////////////// 후기 전체 끝//////////////////// -->
 				<div class="reviewBbs">
-					<p style="margin-bottom: 0">253개 후기가 있습니다</p>
+					<p style="margin-bottom: 0">${reviewResult.reviewCountAll }개 후기가 있습니다</p>
 					<!-- 정렬  네비 -->
 					<div class="reviewNav">
 						<ul class="nav" role="tablist">
@@ -791,6 +819,11 @@ if("${challDto.limitdate}"<0){
 	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
+//날짜 출력하기
+
+
+
+출처: https://trendfollow.tistory.com/26 [낙낙™ 트렌드]
 
 //date 05.11(화)형식으로 바꾸기(문자열)
 function dateToMonth(Dyear, Dmonth, Dday) {
@@ -1033,14 +1066,13 @@ function save(){
    			alert("후기 작성 에러");
    		},
    		complete:function(){
-   			rating.setRate(0);
-   			document.getElementsByClassName('review_textarea').value = '';
-   			$('#myModal2').modal("hide"); 
+   			location.href="challengeDetail.do?challengeseq=${challDto.challengeseq}";
    		}
     });
 	
 }
-Review(0);
+
+Review(0);	
 //후기 작성 아작스 데려오기
 function Review(number){
 	
@@ -1051,15 +1083,13 @@ function Review(number){
 		type:"post",
 		success:function(revlist){
 				//alert("sdsd");
-			$("#Review"+number).remove();
-			
+			// $("#Review"+number).remove();
+			let data = "";
 			if(revlist.length==0){
-				let data = "<h5 class='reviewUser'>아직 등록된 후기가 없습니다. 후기를 작성해 주세요</h5>"
-				$("#revData"+number).append(data);
+				data += "<p class='reviewUser'>아직 등록된 후기가 없습니다. 후기를 작성해 주세요</p>"	
 			}
-	
+
 			$.each(revlist, function(i, review){
-				
 				//날짜 포맷제어
 				console.log(review.chalcomdate)
 				let revd = new Date(review.chalcomdate);
@@ -1071,7 +1101,7 @@ function Review(number){
 				
 				let revDate = year+"."+month+"."+day;
 				
-				let data = "<div id='revData'>"
+				data += "<div id='revData'>"
 						+   "<div class='reviewUser'>"
 						+    "<div class='reviewUserImg'>"
 						+    "<img class='userWrap60' src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+review.memberphotoname+"' onerror=\"this.src='image/user_80px.jpg'\">"
@@ -1082,24 +1112,70 @@ function Review(number){
 						+ 	 "<div>"+review.chalcomcontent+"</div>"
 						+    "</div>"
      					+    "<div class='reviewUserLike'>"
-     					+    "<i class='far fa-thumbs-up fa-2x'></i>"
-						+    "<p>"+review.challlike+" likes</p>"
+     					+    "<i class='far fa-thumbs-up fa-2x' onclick=\"commentLike(this)\"></i>"
+						+    "<p id=>"+review.challlike+" likes</p>"
 						+    "</div></div><hr></div>";
- 					//<!-- <i class="fas fa-thumbs-up fa-2x"></i> -->				
-			$("#Review"+number).append(data);	
+ 					//<!-- <i class="fas fa-thumbs-up fa-2x"></i> -->	
+ 					//console.log("fdsfsdfdsff"+data)
+				
 			});
+			//console.log("완성"+data)
+			$("#Review"+number).html(data);	
 			
 		},
 		error:function(){
 			alert("후기 가져오기 실패");
 		},
 		complete:function(){
- //			$("#Review"+number).addClass("active");
+ 			$("#Review"+number).addClass("active");
 		}
 	});
 }
 
+//후기 좋아요 버튼
+function commentLike(commentseq){
+	alert(commentseq);
+	//alert(commentseq)
+	$.ajax({
+		url:"commentLike.do",
+		data:{"email":'${user.email}', "chalcomseq":commentseq},
+		type:"post",
+		success:function(msg){
+			//alert(msg);
+			//.reviewUserLike
+			$(".reviewUserLike").html = "<i class='far fa-thumbs-up fa-2x' onclick='commentLikeDel("+commentseq+")'></i>"
+										+    "<p>"+review.challlike+" likes</p>";	
+			$(this).children('i').removeClass('far fa-thumbs-up fa-2x');
+			$(this).children('i').addClass("fas fa-thumbs-up fa-2x");
+		},
+		error:function(){
+			alert("후기 좋아요 버튼 에러");
+		},
+		complete:function(){
+		
+		}
+	});
+}
 
+//후기 좋아요 해제
+function commentLikeDel(commentseq){
+	alert(commentseq)
+	$.ajax({
+		url:"commentLikeDel.do",
+		data:{"email":'${user.email}', "chalcomseq":commentseq},
+		type:"post",
+		success:function(msg){
+			//alert(msg);
+			$("#commlike").html("<i class='far fa-thumbs-up fa-2x' onclick='commentLike(this)'></i>");
+		},
+		error:function(){
+			alert("후기 좋아요 삭제 실패");
+		},
+		complete:function(){
+			
+		}
+	});
+}
 //후기 작성 버튼 제어
 /*var userid = $("#_userid").val();
 
