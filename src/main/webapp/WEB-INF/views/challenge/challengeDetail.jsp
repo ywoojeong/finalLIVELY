@@ -59,7 +59,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 		<p id="limitD"></p>
 		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
-		 <span	class="explain">${challDto.identifydayS }${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
+		 <span	class="explain">${challDto.identifydayS } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 	</div>
 </div>
 
@@ -129,8 +129,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		<div class="col-sm-6">
 			<label>챌린지 인증 시간</label>
 			<p>
-				<span class="highlight">${challDto.identifytime }:00 ~
-					${challDto.identifytime}:05사이</span>에 이미지를 올려주세요
+				<span class="highlight timeData"></span>에 이미지를 올려주세요
 			</p>
 		</div>
 	</div>
@@ -247,19 +246,20 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 							<img src="image/mytrophy1.svg"
 								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
 						</div>
-						<span class="d-none d-sm-block"> <%
- 	for (int i = 0; i < 5; i++) {
- %> <img
-							src="image/identify1.png" style="background-color: #8b63da">
+						<span class="d-none d-sm-block"> 
+						<%	for (int i = 0; i < 5; i++) {
+ 						%>
+ 						 <img src="image/identify1.png" style="background-color: #8b63da">
 							<%
 								}
-							%> <%
- 	for (int i = 0; i < 14 - 5; i++) {
- %> <img src="image/identify1.png"
-							style="background-color: white"> <%
- 	}
- %> <span
-							style="font-size: 11pt; color: #7a777d; margin-left: 10px;">5/14회</span>
+							%>
+							 <%for (int i = 0; i < 14 - 5; i++) {
+							 %> 
+							 <img src="image/identify1.png"	style="background-color: white"> 
+							 <%
+							 	}
+							 %> 
+							 <span style="font-size: 11pt; color: #7a777d; margin-left: 10px;">5/14회</span>
 						</span>
 					</div>
 				</div>
@@ -268,7 +268,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 				<div class="grade">
 					<h3>TOP3 순위</h3>
 					<div class="row text-center"
-						style="width: 80%; margin: 30px auto 20px auto";>
+						style="width: 80%; margin: 30px auto 20px auto">
 						<div class="col-sm-4 gradeTop"
 							style="color: #e6ba1e; border-right: 1px solid #edf0f2">
 							<h5 style="font-size: 13pt; margin-bottom: 0">1위</h5>
@@ -334,21 +334,21 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 				<!-- ///////////////후기 작성 끝////////////////// -->
 				<div class="row review">
-					<div class="col-sm-6 text-center"
-						style="border-right: 1px solid #edf0f2">
+					<div class="col-sm-6" style="border-right: 1px solid #edf0f2;display:flex;flex-direction: column;align-items: center;">
 						<c:if test="${reviewResult.reviewAvg !=null}">
 						<h1 style="margin-top: 12px">${reviewResult.reviewAvg }</h1>
-							<c:forEach begin="0" end="4" var="i" step="1" varStatus="status">
-								<c:if test="${reviewResult.reviewAvg>status.index && reviewResult.reviewAvg<=status.index+1 }">
-									<img src="image/star${status.index+1 }.png" style="height: 30px;">
-								</c:if>
-							</c:forEach>
-						<img src="image/star1.png" style="height: 30px;">
+						<div style="background-color: #f2f2f2;width: 150px" >
+							<div style="background-color: #8b63da; width: ${reviewResult.reviewAvg/5*100}%">
+								<img src="image/star.png" style="width: 150px">
+							</div>
+						</div>
 						<p style="color: #878787">${reviewResult.reviewCountAll } 건</p>
 						</c:if>
 						<c:if test="${reviewResult.reviewAvg ==null}">
 							<h1 style="margin-top: 12px">0.0</h1>
-							<img src="image/star1.png" style="height: 30px;">
+							<div style="background-color: #f2f2f2;width: 150px">
+								<img src="image/star.png" style="width: 150px">
+							</div>
 							<p style="color: #878787">0 건</p>
 						</c:if>	
 					</div>
@@ -710,8 +710,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 						<tr>
 							<td colspan="3"><span class="highlight"
-								style="font-size: 13pt; font-weight: 600">달성률에 따라 환급이
-									달라집니다.</span></td>
+								style="font-size: 13pt; font-weight: 600">달성률에 따라 환급이 달라집니다.</span></td>
 						</tr>
 						<tr>
 							<td colspan="2">100% 성공</td>
@@ -772,15 +771,13 @@ $(".meter > span").each(function () {
 });
 
 
-//요일 class제어 indentifyDate
-
-let indentifyDate =new Array(${challDto.identifyday});
-
-$.each(indentifyDate, function(i, val){
-	$("#idendate li:nth-child("+val+")").css("font-weight", "500");
-	$("#idendate li:nth-child("+val+")").css("color", "black");
-	console.log(val);
-});
+let timeData =  '${challDto.identifytime }';
+let timeD = "";
+if(timeData<10){
+	$(".timeData").text("0"+timeData+":00 ~ "+"0"+timeData+":05 사이");	
+}else{
+	$(".timeData").text(timeData+":00 ~ "+timeData+":05 사이");	
+}
 
 
 //날짜 제어
@@ -794,21 +791,50 @@ let startdate = "${challDto.challengestart}"; //yyyy-MM-dd 00:00:00.0
 let enddate = "${challDto.challengeend}";
 let startdateSub = startdate.substring(0, 10);
 let enddateSub = enddate.substring(0, 10);
-let strArr = startdateSub.split('-');
-let startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-let strArr2 = enddateSub.split('-');
-let endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
+let startDate = new Date(startdateSub);
+let endDate = new Date(enddateSub);
 
-let syear = strArr[0];
-let smonth = strArr[1];
-let sday = strArr[2];
-let eyear = strArr2[0];
-let emonth = strArr2[1];
-let eday = strArr2[2];
+// let strArr = startdateSub.split('-');
+// let startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+// let strArr2 = enddateSub.split('-');
+// let endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
 
 console.log("시작 날짜"+startDate)
 console.log("끝 날짜"+endDate)
 //console.log("오늘 날짜"+nowDate)
+
+//전체 기간 날짜로 제어하기 배열로 날짜
+let allDay = [];
+while(startDate.getTime() <= endDate.getTime()){
+		
+		let mon = (startDate.getMonth()+1);
+		mon = mon < 10 ? '0'+mon : mon;
+		var ssday = startDate.getDate();
+		ssday = ssday < 10 ? '0'+ssday : ssday;
+		var ssday = startDate.getDate();
+		ssday = ssday < 10 ? '0'+ssday : ssday;
+		let identyFy ='${challDto.identifytime}';
+		identyFy = identyFy < 10 ? '0'+identyFy : identyFy;
+		console.log(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00");
+ 		allDay.push(new Date(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00"));
+ 		startDate.setDate(startDate.getDate() + 1);
+}
+
+//요일 class제어 indentifyDate
+
+let indentifyDate =new Array(${challDto.identifyday});
+
+$.each(indentifyDate, function(i, val){
+	$("#idendate li:nth-child("+val+")").css("font-weight", "500");
+	$("#idendate li:nth-child("+val+")").css("color", "black");
+	console.log(val);
+});
+
+
+//allDay에서 요일만 출력해서 날짜와 매칭
+let selectDay = [];
+
+
 
 //시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
 if("${challDto.limitdate}"<0){
@@ -819,16 +845,13 @@ if("${challDto.limitdate}"<0){
 	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
-//날짜 출력하기
-
-
-
-출처: https://trendfollow.tistory.com/26 [낙낙™ 트렌드]
+//periodDate 05.11(화)~05.28(금)
+$("#periodDate").text(dateToMonth(startdateSub)+" ~ "+dateToMonth(enddateSub))
 
 //date 05.11(화)형식으로 바꾸기(문자열)
-function dateToMonth(Dyear, Dmonth, Dday) {
-	
-	let nowDate = new Date(Dyear, Dmonth-1, Dday);
+function dateToMonth(date) {
+	console.log("date모양 뭐야"+date)
+	let nowDate = new Date(date);
 	var month = nowDate.getMonth();
     if (month < 10)  {
         month = '0' + (month+1);
@@ -845,9 +868,6 @@ function dateToMonth(Dyear, Dmonth, Dday) {
      var todayLabel = week[today];
      return month + '.' + date +"("+todayLabel+")";
 }
-
-//periodDate 05.11(화)~05.28(금)
-$("#periodDate").text(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday))
 
 
 
@@ -1075,8 +1095,7 @@ function save(){
 Review(0);	
 //후기 작성 아작스 데려오기
 function Review(number){
-	
-	
+
 	$.ajax({
 		url:"challengereviewAll.do",
 		data:{"number":number, "challengeseq":"${challDto.challengeseq}"},
@@ -1091,7 +1110,7 @@ function Review(number){
 
 			$.each(revlist, function(i, review){
 				//날짜 포맷제어
-				console.log(review.chalcomdate)
+				//console.log(review.chalcomdate)
 				let revd = new Date(review.chalcomdate);
 				let year = revd.getFullYear();
 				let month = (revd.getMonth()+1);
@@ -1101,6 +1120,8 @@ function Review(number){
 				
 				let revDate = year+"."+month+"."+day;
 				
+				let percent = review.chalcomrating / 5 *100;
+				
 				data += "<div id='revData'>"
 						+   "<div class='reviewUser'>"
 						+    "<div class='reviewUserImg'>"
@@ -1108,11 +1129,16 @@ function Review(number){
      					+    "<p>"+review.nickname+"</p>"
 	     				+    "</div>"
 	     				+    "<div class='reviewUserText'>"
-						+    "<img src='image/star1.png' style='height: 17px;'><span>"+revDate+"</span>"
-						+ 	 "<div>"+review.chalcomcontent+"</div>"
+						+    "<div style='width: 83px;background-color: #f2f2f2;float:left;'>"
+						+    "<div style='background-color:#8b63da; width: "+percent+"%'>"
+						+    "<img src='image/star.png' style='width: 83px'>"
+						+   "</div>"
+						+  "</div>"
+						+  "<span>"+revDate+"</span>"
+						+ 	 "<div style='margin-top:5px'>"+review.chalcomcontent+"</div>"
 						+    "</div>"
      					+    "<div class='reviewUserLike'>"
-     					+    "<i class='far fa-thumbs-up fa-2x' onclick=\"commentLike(this)\"></i>"
+     					+    "<img src='image/commentlike.svg' style='height:45px;' onclick=\"commentLike(this)\">"
 						+    "<p id=>"+review.challlike+" likes</p>"
 						+    "</div></div><hr></div>";
  					//<!-- <i class="fas fa-thumbs-up fa-2x"></i> -->	
