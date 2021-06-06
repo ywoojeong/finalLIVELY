@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
+import org.apache.tiles.request.collection.KeySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,7 +92,7 @@ public class challengeRestController {
 		System.out.println(searchParam.toString());
  		//paging 처리
 		int sn = Integer.parseInt(searchParam.get("nowpageNumber").toString());
-		int startPage = sn * 9 + 1;	//1  11
+		int startPage = sn * 9 + 1;	//1  9
 		int endPage = (sn+1) * 9; 		//10 20
  
 		searchParam.put("startPage", startPage);
@@ -99,10 +100,8 @@ public class challengeRestController {
 		System.out.println("가기전 searchParam"+searchParam.toString());
 		
 		 List<Map<String, Object>> challengeList = service.hotChallengeData(searchParam);
-//		 if(challengeList==null) {
-//			 System.out.println("데이터 없음"); 
-//		 }
-//		 System.out.println("갔다온 리스트 : "+challengeList.toString());
+
+		 System.out.println("갔다온 리스트 : "+challengeList.toString());
 
 	 return challengeList;
 	}
@@ -233,20 +232,16 @@ public class challengeRestController {
 			return msg;	
 		}
 		
-//		@RequestMapping(value = "followData.do", method = {RequestMethod.GET, RequestMethod.POST})
-//		public List<Map<String, Object>> followData(String email){
-//			System.out.println("followData.do들어오기 : "+email);
-//			//팔로우 전체 멤버 (로그인한사람의)가져오기
-//			List<Map<String, Object>> followingMember = service.followAllMember(email);
-//			System.out.println("followData.do갔다오기");
-//			return followingMember;
-//		}
-	
 		
-		//후기 좋아요 업데이트 challengeReviewLike
+		//후기 좋아요 업데이트 challengeReviewLike  
 		@RequestMapping(value = "commentLike.do", method = {RequestMethod.GET, RequestMethod.POST})
 		public String commentLike(@RequestParam Map<String,Object> likeParam) {
-			//System.out.println(followParam);
+			System.out.println(likeParam);
+			
+			//commentLikeCheck
+			
+			
+			
 			int chalcomseq =  Integer.parseInt(likeParam.get("chalcomseq").toString());
 			
 			boolean success = service.commentLike(likeParam);
@@ -289,13 +284,39 @@ public class challengeRestController {
 		//후기 전체 데이터 가져오기 challengereviewAll
 		@RequestMapping(value = "challengereviewAll.do", method = {RequestMethod.GET, RequestMethod.POST})
 		public List<Map<String, Object>> challengereviewAll(@RequestParam Map<String,Object> revParam){
+			System.out.println(revParam.toString());
 			
 			List<Map<String, Object>> revAll = service.challengereviewAll(revParam);
+			
+			if(revParam.get("email") !=null) {
+				
+				int likeC = 0;
+				
+				for(Map<String, Object> item : revAll){
+					/* 매 루프마다 "item"(List 배열의 한개 항목) 가 가지고 있는 맵 엔트리(Entry) 개수 만큼 루프문 실행 */
+					for(Map.Entry<String, Object> review: item.entrySet()){
+						/*맵 엔트리 키(key) 저장*/
+						String key = review.getKey();
 						
+						/*맵 엔트리에 값(value) 저장*/
+						Object value = review.getValue();
+					
+						/*키(key)값이 "NAME" 인 엔트리(Entry)의 경우 myValue 에 값(value)을 저장*/
+	
+						if(key.equals("chalcomseq")){
+							int chalcomseq = Integer.parseInt(value.toString());
+							Map<String, Object> likeParam = new HashMap<String, Object>();
+							likeParam.put("email", revParam.get("email"));
+							likeParam.put("chalcomseq", chalcomseq);
+							likeC = service.commentLikeCheck(likeParam);
+						}	
+					}
+					item.put("likecheck",likeC);
+				}	
+			}
+			System.out.println(revAll.toString());
 			return revAll;
-		}
-		
-		
+		}	
 		
 		
 }

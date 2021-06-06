@@ -153,16 +153,33 @@ public class challengeController {
 				model.addAttribute("challMem", challMem);
 			}
 			
-			
-			
-			/*
-			 * for(int i=0;i<challengeMember.size();i++) {
-			 * System.out.println("팔로잉 멤버"+followingMember.toString()); }
-			 */
-		
 			//세션에 담은 유저 데이터(로그인한사람)
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
+			
+			int followcheck = 0; 
+			//팔로잉 체크
+			for(Map<String, Object> item : challengeMember){
+				/* 매 루프마다 "item"(List 배열의 한개 항목) 가 가지고 있는 맵 엔트리(Entry) 개수 만큼 루프문 실행 */
+				for(Map.Entry<String, Object> challmem: item.entrySet()){
+					/*맵 엔트리 키(key) 저장*/
+					String key = challmem.getKey();
+				
+					/*맵 엔트리에 값(value) 저장*/
+					Object value = challmem.getValue();
+		
+					if(key.equals("email")){
+						String followingemail = value.toString();
+						Map<String, Object> followParam = new HashMap<String, Object>();
+						followParam.put("followemail", member.getEmail());
+						followParam.put("followingemail", followingemail);
+						followcheck = service.followCheck(followParam);
+						System.out.println("가따오긴하니?");
+					}	
+				}
+				item.put("followcheck",followcheck);
+			}
+			System.out.println("팔로잉 멤버 :"+challengeMember.toString());
 			
 //			//좋아요 멤버 전체
 //			List<Map<String, Object>> followingMember = service.followAllMember(user.getEmail());

@@ -43,6 +43,10 @@ a {
     color:black;
 }
 
+/*모달 바디*/
+.modal-content{
+	border-radius: 0px;
+}
 
 
 /* 네비바 디자인*/

@@ -13,8 +13,11 @@ public interface challengeService {
 	
 	//hot챌린지 전체 가져오기
 	public List<Map<String, Object>> hotChallengeData(Map<String,Object> searchParam);
+	
+	//new전체 글 가져오기 newChallengeData
+	public List<Map<String, Object>> newChallengeData(Map<String,Object> searchParam);
 
-	//hot 챌린지 전체 글 수
+	//챌린지 전체 글 수
 	public int challengeDataCount(Map<String,Object> searchParam);
 	
 	//챌린지 생성한 사람의 데이
@@ -56,8 +59,8 @@ public interface challengeService {
 	//팔로우 삭제 followDelete
 	public boolean followDelete(Map<String, Object> followParam);
 	
-	//내가한 팔로잉 전체
-	public List<Map<String, Object>> followAllMember(String email);
+	//팔로우 확인하기
+	public int followCheck(Map<String, Object> followParam);
 	
 	//리뷰 넣기
 	public boolean challengeReviewInsert(Map<String, Object> revParam);
@@ -74,6 +77,8 @@ public interface challengeService {
 	//리뷰테이블에 -1
 	public boolean challengeReviewUnLike(int chalcomseq);
 		
+	//리뷰 좋아요 있나 없나 확인
+	public int commentLikeCheck( Map<String,Object> revParam);
 	
 	//해당 리뷰 전체 가져오기
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam);
