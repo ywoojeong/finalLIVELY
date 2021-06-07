@@ -70,4 +70,34 @@ public class myPageDaoImpl implements myPageDao {
 	public int writeSuggest(Map<String, Object> param) throws SQLException {
 		return sql.insert("myPage.writeSuggest", param);
 	}
+	
+	@Override
+	public List<Map<String, Object>> suggestList(Map<String, Object> param) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.selectList("myPage.suggestList", param);
+	}
+	
+	@Override
+	public int suggestMyLikeDel(Map<String, Object> myLikeParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.delete("myPage.suggestMyLikeDel", myLikeParam);
+	}
+	
+	@Override
+	public int suggestMyLikeInsert(Map<String, Object> likeParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.insert("myPage.suggestMyLikeInsert", likeParam);
+	}
+	
+	@Override
+	public int writeComment(Map<String, Object> commentParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.insert("myPage.writeComment", commentParam);
+	}
+	
+	@Override
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.selectList("myPage.commentList", suggestbbsseq);
+	}
 }

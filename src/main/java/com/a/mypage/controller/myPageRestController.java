@@ -1,5 +1,6 @@
 package com.a.mypage.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,18 +90,93 @@ public class myPageRestController {
 		return msg;
 	}
 	
-	// 좋아요 안좋아요
-	/*
+	// 좋아요 list
 	@RequestMapping(value = "suggestMyLike.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String suggestMyLike(@RequestParam int sugSeq, HttpSession session) {
-		Map<String,Object> resultMap = null;
-	    Map<String,Object> sugSeqMap = new HashMap<>();
-	    int sugIndex = sugSeq;
-	    int memIndex = 0;
-	    
-	    Map<String,Object> userInfo = (Map<String, Object>) session.getAttribute("userInfo");
-	    memIndex = Integer.parseInt(userInfo.get("sugSeq").toString());
-	    
+	public List<Map<String, Object>> suggestMyLike(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
+		
+		System.out.println("myLikeParam -> " + myLikeParam);
+		System.out.println(myLikeParam.toString());
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		String email = memberInfo.getEmail();
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("email", email);
+		
+		List<Map<String, Object>> suggestList = myService.suggestList(param);
+		System.out.println("suggestList :" + suggestList.toString());
+		/*
+		boolean likeDel = myService.suggestMyLikeDel(myLikeParam);
+		System.out.println("myLikeParam : " + myLikeParam);
+		*/
+		return suggestList;
 	}
-	*/
+	
+	// 좋아요 delete
+	@RequestMapping(value = "suggestMyLikeDel.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String suggestMyLikeDel(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
+		System.out.println("myLikeParam -> " + myLikeParam);
+		System.out.println(myLikeParam.toString());
+		
+		boolean likeDel = myService.suggestMyLikeDel(myLikeParam);
+		System.out.println("myLikeParam : " + myLikeParam);
+		String msg = "";
+		if(likeDel) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+	
+	// 좋아요 insert
+	@RequestMapping(value = "suggestMyLikeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String suggestMyLikeInsert(@RequestParam Map<String,Object> likeParam, HttpSession session) throws SQLException {
+		System.out.println("myLikeParam -> " + likeParam);
+		System.out.println(likeParam.toString());
+		
+		boolean likeInsert = myService.suggestMyLikeInsert(likeParam);
+		System.out.println("likeParam : " + likeParam);
+		String msg = "";
+		if(likeInsert) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+	
+	// 댓글 insert
+	@RequestMapping(value = "writeComment.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String writeComment(@RequestParam Map<String,Object> commentParam) throws SQLException {
+		System.out.println("commentParam -> " + commentParam);
+		System.out.println(commentParam.toString());
+		
+		boolean commentInsert = myService.writeComment(commentParam);
+		System.out.println("commentParam : " + commentParam);
+		String msg = "";
+		if(commentInsert) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+
+	// 댓글 데려오기
+	@RequestMapping(value = "commentList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+		
+		System.out.println("tydgjgjhgsuggestbbsseq :" + suggestbbsseq);
+		
+		/*
+		 * Map<String, Object> param = new HashMap<String, Object>(); param.put("email",
+		 * email); System.out.println("commentList param:" + param);
+		 */
+		List<Map<String, Object>> commentList = myService.commentList(suggestbbsseq);
+		System.out.println("commentList :" + commentList.toString());
+		
+		return commentList;
+	}
+
 }

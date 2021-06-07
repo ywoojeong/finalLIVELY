@@ -55,9 +55,9 @@ nav a:first-child {
         <li class="nav-item">
           <a class="nav-link" href="newChallenge.do">NEW CHALLENGE</a>
         </li>
-        <li class="nav-item">
+<!--         <li class="nav-item">
           <a class="nav-link" href="myMainPage2.do">마이페이지탭</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="javascript:signOut();">log out</a>
         </li>

@@ -34,4 +34,14 @@ public interface myPageDao {
 	public List<Map<String, Object>> memDailyChallList(Map<String, Object> getDailyChallInfo) throws SQLException;
 	
 	public int writeSuggest(Map<String, Object> param) throws SQLException;
+	
+	public List<Map<String, Object>> suggestList(Map<String, Object> param) throws SQLException;
+	
+	public int suggestMyLikeDel(Map<String, Object> myLikeParam) throws SQLException;
+	
+	public int suggestMyLikeInsert(Map<String,Object> likeParam) throws SQLException;
+	
+	public int writeComment(Map<String,Object> commentParam) throws SQLException;
+	
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException;
 }
