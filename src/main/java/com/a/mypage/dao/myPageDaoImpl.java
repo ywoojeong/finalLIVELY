@@ -88,4 +88,16 @@ public class myPageDaoImpl implements myPageDao {
 		// TODO Auto-generated method stub
 		return sql.insert("myPage.suggestMyLikeInsert", likeParam);
 	}
+	
+	@Override
+	public int writeComment(Map<String, Object> commentParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.insert("myPage.writeComment", commentParam);
+	}
+	
+	@Override
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.selectList("myPage.commentList", suggestbbsseq);
+	}
 }

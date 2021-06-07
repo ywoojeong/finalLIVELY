@@ -38,4 +38,8 @@ public interface myPageService {
 	public boolean suggestMyLikeDel(Map<String,Object> myLikeParam) throws SQLException;
 	
 	public boolean suggestMyLikeInsert(Map<String,Object> likeParam) throws SQLException;
+	
+	public boolean writeComment(Map<String,Object> commentParam) throws SQLException;
+	
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException;
 }

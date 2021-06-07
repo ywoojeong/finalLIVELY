@@ -90,7 +90,7 @@ public class myPageRestController {
 		return msg;
 	}
 	
-	// 좋아요 안좋아요
+	// 좋아요 list
 	@RequestMapping(value = "suggestMyLike.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<Map<String, Object>> suggestMyLike(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
 		
@@ -112,6 +112,7 @@ public class myPageRestController {
 		return suggestList;
 	}
 	
+	// 좋아요 delete
 	@RequestMapping(value = "suggestMyLikeDel.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String suggestMyLikeDel(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
 		System.out.println("myLikeParam -> " + myLikeParam);
@@ -128,6 +129,7 @@ public class myPageRestController {
 		return msg;
 	}
 	
+	// 좋아요 insert
 	@RequestMapping(value = "suggestMyLikeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String suggestMyLikeInsert(@RequestParam Map<String,Object> likeParam, HttpSession session) throws SQLException {
 		System.out.println("myLikeParam -> " + likeParam);
@@ -142,6 +144,39 @@ public class myPageRestController {
 			msg="fail";
 		}
 		return msg;
+	}
+	
+	// 댓글 insert
+	@RequestMapping(value = "writeComment.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String writeComment(@RequestParam Map<String,Object> commentParam) throws SQLException {
+		System.out.println("commentParam -> " + commentParam);
+		System.out.println(commentParam.toString());
+		
+		boolean commentInsert = myService.writeComment(commentParam);
+		System.out.println("commentParam : " + commentParam);
+		String msg = "";
+		if(commentInsert) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+
+	// 댓글 데려오기
+	@RequestMapping(value = "commentList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+		
+		System.out.println("tydgjgjhgsuggestbbsseq :" + suggestbbsseq);
+		
+		/*
+		 * Map<String, Object> param = new HashMap<String, Object>(); param.put("email",
+		 * email); System.out.println("commentList param:" + param);
+		 */
+		List<Map<String, Object>> commentList = myService.commentList(suggestbbsseq);
+		System.out.println("commentList :" + commentList.toString());
+		
+		return commentList;
 	}
 
 }

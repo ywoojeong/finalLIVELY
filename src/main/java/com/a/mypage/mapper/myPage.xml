@@ -124,9 +124,6 @@
 		VALUES(SUG_SEQ.NEXTVAL, #{scategory}, #{suggesttitle}, #{suggestcontent}, 0, 0, #{email})
 	</insert>
 	
-	<!-- 제안하기 꺼내오기 -->
-	
-	
 	<!-- like... -->
 	<insert id="suggestMyLikeInsert" parameterType="java.util.Map">
 		INSERT INTO MYLIKE(LIKESEQ, SUGGESTBBSSEQ, EMAIL)
@@ -140,6 +137,7 @@
 		AND SUGGESTBBSSEQ = #{suggestbbsseq}
 	</delete>
 	
+	<!-- 제안하기 꺼내오기 -->
 	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT SBS.*,
 		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
@@ -151,6 +149,19 @@
 		ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
 		WHERE SBS.SUGGESTBBSDEL = 0
 	</select>
-
+	
+	<!-- 댓글 insert -->
+	<insert id="writeComment" parameterType="java.util.Map">
+		INSERT INTO SUGGESTCOMMENT(SUGCOMSEQ, SUGCOMCONTENT, SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ, EMAIL)
+		VALUES(SCOM_SEQ.NEXTVAL, #{sugcomcontent}, CURRENT_DATE, 0, #{suggestbbsseq}, #{email})
+	</insert>
+	
+	<!-- 댓글 꺼내오기 -->
+	<select id="commentList" parameterType="java.lang.Integer" resultType="java.util.Map">
+		SELECT SUGCOMCONTENT, SUGCOMDATE FROM SUGGESTCOMMENT WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
+	</select>
+	
+	
+	
 	
 </mapper>

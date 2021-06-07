@@ -269,14 +269,15 @@
 	                        	<div class="applyCom">
 	                        		<table class="commentTable">
 	                        			<colgroup>
-	                        				<col width="100px">
-	                        				<col width="400px">
+	                        				<col width="500px">
 	                        				<col width="100px">
 	                        			</colgroup>
 		                        		<tr>
-								            <td class="commentNick">닉네임</td>
 								            <td class="commentContent">댓글내용</td>
 								            <td class="commentTime">작성시간</td>
+								        </tr>
+								        <tr>
+								        	<td><a>댓글 작성하기</a></td>
 								        </tr>
 									</table>
 	                        	</div>
@@ -389,6 +390,39 @@
     </div>
   </div>
 </div>
+
+<!-- 댓글쓰기 모달 -->
+<div class="modal" id="myModal4" >
+  <div class="modal-dialog modal-lg" style="top:30%">
+    <div class="modal-content">
+    
+      <!-- Modal body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <div class="commSummerNote">
+	      <h3>제안 작성</h3>
+	      <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>          
+           <form id="commForm" class="commForm" method="post">
+           		<input type="hidden" name="email" value="${memberInfoData.EMAIL}">
+           		<input type="hidden" name="suggestbbsseq" id="suggestSeq" >
+				<div class="comm_contents" style="background-color: white">
+					<textarea class="comm_textarea"  id="commentnote" name="sugcomcontent"></textarea>
+				</div> 
+           </form>
+       	</div>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="justify-content: center">
+        <button type="button" name="saveComment" id="saveComment" onclick="saveComment()" class="btn btn-Card" style="width: 200px">작성 완료</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
 </div>
 
 <!-- 원형 차트 js -->
@@ -549,6 +583,38 @@ $(document).ready(function() {
          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
          lang: "ko-KR",               // 한글 설정
          placeholder: "제안을 작성해주세요",   //placeholder      
+         //툴바 변경
+          toolbar: [
+              // [groupName, [list of button]]
+              ['fontname',['fontname']],
+              ['fontsize',['fontsize']],
+              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+              ['color', ['forecolor','color']],
+              ['para', ['ul', 'ol', 'paragraph']]
+            ],
+          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+    });
+      
+});
+// 코멘트 노트
+$(document).ready(function() {
+    $('.chatrow').on( 'keyup', 'textarea', function (e){
+      $(this).css('height', 'auto' );
+      $(this).height( this.scrollHeight );
+    });
+    $('.wrap').find( 'textarea' ).keyup();
+   
+    
+     //써머노트
+    $('#commentnote').summernote({
+         height: 150,
+         /* width:, */
+         minHeight: 100,             // 최소 높이
+         maxHeight: null,             // 최대 높이
+         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+         lang: "ko-KR",               // 한글 설정
+         placeholder: "다양한 인증 방법을 댓글로 작성해주세요",   //placeholder      
          //툴바 변경
           toolbar: [
               // [groupName, [list of button]]
@@ -905,14 +971,13 @@ function likeSuggest(){
 	    	}	
 	    		
 	    	data += "<div class='suggestCard'>"
-	    		+	"<div class='suggest-card-body' onclick='test()'>"
-	    		+	"<div class='suggest-text' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
+	    		+	"<div class='suggest-card-body' >"
+	    		+	"<div class='suggest-text'onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
 	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
 	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
 	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
 	    		+	"</div>"
 	    		+	"<div class='suggest-like'>"
-	    		
 	    		+like
 	    		+	"<p class='like"+list[i].SUGGESTBBSSEQ+"'>"+list[i].LIKECNT+"</p>"
 	    		+	"</div> </div> </div>"
@@ -926,16 +991,24 @@ function likeSuggest(){
 	            +	"<div class='applyCom'>"
 	            +		"<table class='commentTable'>"
 	            +			"<colgroup>"
-	            +				"<col width='100px'>"
-	            +				"<col width='400px'>"
+	            +				"<col width='500px'>"
 	            +				"<col width='100px'>"
 	            +			"</colgroup><tr>"
-				+	            "<td class='commentNick'>닉네임</td>"
 				+	            "<td class='commentContent'>댓글내용</td>"
 				+	            "<td class='commentTime'>작성시간</td>"
-				+	        "</tr></table></div></div></div>"
+				+	        "</tr>"
+				+			"<tr>"
+        		+				"<td><a class='modalBtn' data-toggle='modal' onclick='saveComment("+list[i].SUGGESTBBSSEQ+")' data-target='#myModal4'>"
+        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
+        		+					"</a> </td> </tr>"
+        		+			"</table></div></div></div>";
+        		// 댓글 쓸때 seq를 modal로 보내줌
+        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
+        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
+        		
 	    	}
 	    	$(".suggestBox").html(data);
+
 	    },
         error:function(){
            alert("리스트 불러오는 error");
@@ -988,10 +1061,6 @@ function unLike(seq){
 	});
 }
 
-//onclick 확인
-function test(){
-	console.log("okok")
-}
 
 // 카테고리 변환 
 function setCategory(category){
@@ -1012,5 +1081,75 @@ function setCategory(category){
      }
 	return categoryName;
 }
+
+// 제안하기 쪽 댓글 작성
+function saveComment(seq) {
+	console.log("saveComment---------------->")
+	console.log(seq)
+	var commentText = $('.comm_textarea').val();
+
+	if(commentText.length < 10){
+		alert('10자 이상 작성해주세요');
+		$("#commentText").focus()
+		return false;
+	}
+	 
+	 let dataFrm = $("#commForm").serialize();
+		console.log("dataFrm :" + dataFrm)
+	$.ajax({
+		type:'POST',
+		url:"writeComment.do",
+		data:dataFrm,
+		success:function(msg){
+			if(msg=="success"){
+				alert("작성 완료되었습니다");
+				location.href="myMainPage2.do"
+			}
+		},
+		error:function(xhr, status, error){
+			alert("작성 실패"+error);
+		}
+	});
+}
+
+//댓글 리스트 가져오기
+function commentListSel(seq){
+	console.log("commentListSel seq")
+	console.log(seq)
+	console.log(typeof(seq))
+	$.ajax({
+		url:"./commentList.do",
+		type:"get",
+	    data: {"suggestbbsseq":seq},
+	    success:function(list){
+	    	console.log("commentListSel")
+	    	console.log(list)
+	    	var data = "";
+	    	for(var i=0; i<list.length; i++){
+
+	    	data += "<table class='commentTable'>"
+	            +			"<colgroup>"
+	            +				"<col width='500px'>"
+	            +				"<col width='100px'>"
+	            +			"</colgroup><tr>"
+				+	            "<td class='commentContent'>"+list[i].SUGCOMCONTENT+"</td>"
+				+	            "<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
+				+	        "</tr>"
+				+			"<tr>"
+        		+				"<td><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
+        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
+        		+					"</a> </td> </tr>"
+        		+			"</table>"
+        		
+        		$(".applyCom").html(data);
+	    	}
+
+	    },
+        error:function(){
+           alert("commentList 불러오는 error");
+	   	}
+	});
+}
+
 
 </script>
