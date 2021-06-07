@@ -221,9 +221,10 @@
     margin-top: 50px;
     box-shadow: 0 4px 13px 0 rgb(166 162 169 / 70%);
     border-radius: 0px;
-    width: 77%;
+    width: 100%;
 }
 .suggest-card-body{
+	width: 600px;
     height: 140px;
     display: flex;
 }
@@ -236,12 +237,12 @@
 	font-size: 20px;
 }
 .suggest-like{
-	width: 90px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-top: 5px;
-    margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 45px;
+    margin-left: 496px;
+    position: absolute;
 }
 .suggest-like>p{
 	margin-bottom: 0;
@@ -250,6 +251,14 @@
 }
 .suggest-text{
 	margin: auto;
+    width: 100%;
+    margin-left: 50px;
+    position: relative;
+}
+.suggest-text>p{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .myChartCls{
 	margin: auto;

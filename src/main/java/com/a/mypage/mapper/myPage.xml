@@ -128,9 +128,29 @@
 	
 	
 	<!-- like... -->
-	<select id="suggestMyLike" resultType="java.util.Map">
-		
-	</select>
+	<insert id="suggestMyLikeInsert" parameterType="java.util.Map">
+		INSERT INTO MYLIKE(LIKESEQ, SUGGESTBBSSEQ, EMAIL)
+		VALUES(LIKE_SEQ.NEXTVAL, #{suggestbbsseq}, #{email})
+	</insert>
 	
+	<!-- 좋아요 삭제 -->
+	<delete id="suggestMyLikeDel" parameterType="java.util.Map">
+		DELETE FROM MYLIKE
+		WHERE EMAIL = #{email}
+		AND SUGGESTBBSSEQ = #{suggestbbsseq}
+	</delete>
+	
+	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SBS.*,
+		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+		CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
+		FROM SUGGESTBBS SBS
+		LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+		ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+		LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+		ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+		WHERE SBS.SUGGESTBBSDEL = 0
+	</select>
+
 	
 </mapper>

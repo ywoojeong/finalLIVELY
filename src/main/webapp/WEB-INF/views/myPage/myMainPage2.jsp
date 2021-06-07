@@ -57,7 +57,7 @@
                   <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
               </li>
               <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
+                  <a class="nav-link" data-toggle="pill" href="#menu2" onclick="likeSuggest()">제안하기</a>
               </li>
           </ul>
          
@@ -238,8 +238,9 @@
                         <!-- 제안하기 --> 
                         
                         <%-- <%for(int i=0;i<3;i++) {%> --%>
+                        <div class="suggestBox">
                         <div class="suggestCard">
-                           <div class="suggest-card-body" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="suggest-card-body" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                               <div class="suggest-text">
                                  <p class="suggest-category">카테고리</p>
                                  <p class="suggest-title">챌린지 이름</p>
@@ -250,6 +251,7 @@
                                  <p>123</p>
                               </div>
                            </div>
+                        </div>
                         </div>
                         <!-- 제안하기 텍스트 박스 -->
                         <div class="collapse" id="collapseExample" style="width: 77%">
@@ -745,20 +747,8 @@ function challengeBtn(name){
          $.each(list, function(i, challenge){
             console.log(i)
             console.log(challenge)
-            let category = "";
-            if(challenge.CATEGORY ==1){
-               category = "건강";
-            }else if(challenge.CATEGORY ==2){
-               category = "역량";
-            }else if(challenge.CATEGORY ==3){
-               category = "정서";
-            }else if(challenge.CATEGORY ==4){
-               category = "자산";
-            }else if(challenge.CATEGORY ==5){
-               category = "생활";
-            }else if(challenge.CATEGORY ==6){
-               category = "취미";
-            }
+            
+            var categoryName = setCategory(challenge.CATEGORY);
             
             let dateTotal="";
             if(challenge.IDENTIFYFREQUENCY==9){
@@ -768,7 +758,7 @@ function challengeBtn(name){
             }else if(challenge.IDENTIFYFREQUENCY==7){
                dateTotal = "주말";
             }else{
-               for(i=6;i>0;i--){
+               for(var i=6;i>0;i--){
                   if(i==challenge.IDENTIFYFREQUENCY){
                      dateTotal="주 "+i+"회";
                   }   
@@ -777,7 +767,7 @@ function challengeBtn(name){
          
             data +=   "<div class='card dataId' >"
                   +   "<div class='card-body'>"
-                  +   "<p class='card-text'><span class='category1'>" + category+" </span><span class='category2'>" + dateTotal + "</span><span class='category3'>"+challenge.CHALLENGEPERIOD+"주 동안 </span></p>"
+                  +   "<p class='card-text'><span class='category1'>" + categoryName +" </span><span class='category2'>" + dateTotal + "</span><span class='category3'>"+challenge.CHALLENGEPERIOD+"주 동안 </span></p>"
                   +   "<h4 class='card-title'>"+challenge.CHALLENGETITLE+"</h4>"
                   +   "<a href='challengeDetail.do?challengeseq=" + challenge.CHALLENGESEQ + "' class='btn btn-Card' style='margin-left: 470px; margin-top: -45px;'>해당챌린지 가기</a>"
                   +   "</div>   </div>";
@@ -794,10 +784,7 @@ function challengeBtn(name){
       },
       error:function(){
          alert("리스트 불러오는 error");
-      }/* , 
-      complete:function(){
-         $("#category"+categoryNumber).addClass("active");
-      } */
+      }
    });      
 }
 </script>
@@ -818,20 +805,8 @@ function dailyChallBtn(number){
 	   		$.each(list, function(i, dailyChall){
 	               console.log(i)
 	               console.log(dailyChall)
-	               let category = "";
-	               if(dailyChall.CATEGORY ==1){
-	                  category = "건강";
-	               }else if(dailyChall.CATEGORY ==2){
-	                  category = "역량";
-	               }else if(dailyChall.CATEGORY ==3){
-	                  category = "정서";
-	               }else if(dailyChall.CATEGORY ==4){
-	                  category = "자산";
-	               }else if(dailyChall.CATEGORY ==5){
-	                  category = "생활";
-	               }else if(dailyChall.CATEGORY ==6){
-	                  category = "취미";
-	               }
+	               
+	               var categoryName = setCategory(dailyChall.CATEGORY);
 	               
 	               let dateTotal="";
 	               if(dailyChall.IDENTIFYFREQUENCY==9){
@@ -853,7 +828,7 @@ function dailyChallBtn(number){
 	               		+ 	"<img class='card-img-top' src='https://www.w3schools.com/bootstrap4/img_avatar1.png' alt='Card image' style='width:100%'>"
 	               		+ 	"<div class='card-body'>"
 	               		+ 	"<p class='card-title'>" + dailyChall.CHALLENGETITLE + "</p>"
-	               		+ 	"<p class='card-text'><span class='category4'>" + category + "</span><span class='category5'>" + dateTotal + "</span><span class='category6'>" + dailyChall.CHALLENGEPERIOD + "주 동안 </span></p>"
+	               		+ 	"<p class='card-text'><span class='category4'>" + categoryName + "</span><span class='category5'>" + dateTotal + "</span><span class='category6'>" + dailyChall.CHALLENGEPERIOD + "주 동안 </span></p>"
 	               		+ 	"<a href='challengeDetail.do?challengeseq="+dailyChall.CHALLENGESEQ+"' class='btn btn-Card' style='margin-left:115px;margin-top:8px; padding:3px 7px;'>CHALLENGE</a>"
 	               		+ 	"</div>   </div>   </div>";
 	               		
@@ -910,6 +885,132 @@ function saveSuggest() {
 	});
 }
 
-// 제안하기 가져오기
+/* 제안하기 가져오기 */
+function likeSuggest(){
+	$.ajax({
+		url:"./suggestMyLike.do",
+	    type:"get",
+	    data: {},
+	    success:function(list){
+	    	console.log(list)
+	    	var data = "";
+	    	for(var i=0; i<list.length; i++){
+	    	var categoryName = setCategory(list[i].SUGGESTBBSCATEGORY);
+	    	console.log("category ==>"+categoryName)
+	    	var like = ""
+	    	if(list[i].LIKECHECK == "1"){
+	    		like = "<i class='fas fa-thumbs-up fa-2x unlike"+list[i].SUGGESTBBSSEQ+"' onclick='unLike("+list[i].SUGGESTBBSSEQ+")'></i>"
+	    	}else{
+	    		like = "<i class='far fa-thumbs-up fa-2x youlike"+list[i].SUGGESTBBSSEQ+"' onclick='youLike("+list[i].SUGGESTBBSSEQ+")'></i>"
+	    	}	
+	    		
+	    	data += "<div class='suggestCard'>"
+	    		+	"<div class='suggest-card-body' onclick='test()'>"
+	    		+	"<div class='suggest-text' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
+	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
+	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
+	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
+	    		+	"</div>"
+	    		+	"<div class='suggest-like'>"
+	    		
+	    		+like
+	    		+	"<p class='like"+list[i].SUGGESTBBSSEQ+"'>"+list[i].LIKECNT+"</p>"
+	    		+	"</div> </div> </div>"
+		    	+	"<div class='collapse' id='collapseExample"+i+"' style='width: 100%'>"
+	        	+	"<div class='applyBox'>"
+	            +	"<div class='applyBbs' style='height: 50px;'>"
+	            /* +			"<p style='margin-top: 0;'>"+list[i].SUGGESTBBSCONTENT+"</p>"	 */
+	            +	list[i].SUGGESTBBSCONTENT	
+	            +	"</div>"
+	            +	"<hr class='hhr' width='100%'>"
+	            +	"<div class='applyCom'>"
+	            +		"<table class='commentTable'>"
+	            +			"<colgroup>"
+	            +				"<col width='100px'>"
+	            +				"<col width='400px'>"
+	            +				"<col width='100px'>"
+	            +			"</colgroup><tr>"
+				+	            "<td class='commentNick'>닉네임</td>"
+				+	            "<td class='commentContent'>댓글내용</td>"
+				+	            "<td class='commentTime'>작성시간</td>"
+				+	        "</tr></table></div></div></div>"
+	    	}
+	    	$(".suggestBox").html(data);
+	    },
+        error:function(){
+           alert("리스트 불러오는 error");
+	   	}
+	});
+}
+// 좋아요 insert 
+function youLike(seq){
+	var cnt = $(".like"+seq).text()
+	console.log(cnt)
+	console.log(typeof(cnt))
+	$(".like"+seq).text(parseInt(cnt) +1)
+	$(".youlike"+seq).replaceWith("<i class='fas fa-thumbs-up fa-2x unlike"+ seq +"' onclick='unLike("+seq+")'></i>")
+	
+	$.ajax({
+		url:"./suggestMyLikeInsert.do",
+	    type:"get",
+	    data: {"email":'${memberInfoData.EMAIL}' ,"suggestbbsseq":seq},
+	    success:function(data){
+	    	alert("cntLike 불러오는 success");
+	    },
+	    error:function(){
+			alert("cntLike 불러오는 error");
+		}
+	});
+}
+
+// 좋아요 delete
+function unLike(seq){
+	
+	var cnt = $(".like"+seq).text()
+	console.log("cnt")
+	console.log(cnt)
+	$(".like"+seq).text(cnt -1)
+	$(".unlike"+seq).replaceWith("<i class='far fa-thumbs-up fa-2x youlike"+seq+"' onclick='youLike("+seq+")'></i>")
+	
+	$.ajax({
+		url:"./suggestMyLikeDel.do",
+	    type:"get",
+	    data:{"email":'${memberInfoData.EMAIL}' ,"suggestbbsseq":seq},
+	    success:function(data){
+	    	
+	    	alert("unLike 불러오는 success");
+//	    	alert(JSON.stringify(data));
+		
+	    },
+	    error:function(){
+			alert("unLike 불러오는 error");
+		}
+	});
+}
+
+//onclick 확인
+function test(){
+	console.log("okok")
+}
+
+// 카테고리 변환 
+function setCategory(category){
+	console.log("category ===>"+category)
+	var categoryName = ""
+	if(category ==1){
+		categoryName = "건강";
+     }else if(category ==2){
+    	 categoryName = "역량";
+     }else if(category ==3){
+    	 categoryName = "정서";
+     }else if(category ==4){
+    	 categoryName = "자산";
+     }else if(category ==5){
+    	 categoryName = "생활";
+     }else if(category ==6){
+    	 categoryName = "취미";
+     }
+	return categoryName;
+}
 
 </script>
