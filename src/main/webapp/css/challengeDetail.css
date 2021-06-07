@@ -15,6 +15,7 @@ body{
 	background-size:cover;	
 	position: relative;
 /* 	filter:blur(3px); */
+	background-position: 50% 30%;
 
 }
 
@@ -807,18 +808,23 @@ background-color: #2196F3;
 
 /*인증 받는 모달*/
 .identifyModal{
-	padding: 35px;
+	padding: 35px 35px 20px 35px;
 }
 .dataRow{
 	display: flex;
     justify-content: center;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
 }
-.dataRow div{
-	 display: flex;
-	 align-items: flex-end;
-	 justify-content: center;
+.dataFont{
+	    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background-color: rgba(203 152 237 / 0.2);
+    padding: 10px 0 10px 0;
+    width: 90%;
+    box-shadow: 0 2px 6px 0 rgb(166 162 169 / 41%);
 }
 
 .decoWrap60{ 
@@ -831,17 +837,68 @@ background-color: #2196F3;
     border: 3px inset #8b63da;
     padding: 3px;
     object-fit: cover;
-    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.idenImg{
+.identImg{
 	width: 300px; 
-	height:250px;
+	height:249px;
 	opacity: 0.8;
     margin-top: 6px;
     font-size: 11pt;
-    object-fit:scale-down; 
+    object-fit:contain; 
     box-shadow: 0 4px 13px 0 rgba(166,162,169, 0.70);
 }
-	
+
+
+.dataPercent{
+	    font-size: 13pt;
+    font-weight: 500;
+}
+.dataPercent:before, .dataPercent:after{
+ 	content: " ";
+    position: absolute;
+    width: 50px;
+    height: 7px;
+    border-top: 2px solid #222222;
+    border-bottom: 1px solid #222222;	
+}
+.dataPercent:before{
+	margin: 10px 0 0 -63px;
+}
+
+.dataPercent:after{
+	margin: 10px 0 0 12px;
+}
+
+.dataPercent{
+	letter-spacing: 3px;
+}
+
+
+.round{ 
+	background-color:rgba(203 152 237 / 0.5); 
+	border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
+    vertical-align: middle;
+    align-items: center;
+    margin-right: 10px;
+      margin-left: 10px;
+    position: relative;
+     box-shadow: inset -4px -7px 0 rgb(203 152 237 / 70%);
+}
+.round>span{
+	position: absolute;
+	left: 18%;
+	top: 21% ;
+	font-size: 20pt;
+	font-weight: 600;
+}
+
+.identifyImg{
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
 }

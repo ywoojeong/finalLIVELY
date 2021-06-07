@@ -1,5 +1,6 @@
 package com.a.challenge.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.StyledEditorKit.BoldAction;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.tiles.request.collection.KeySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -318,5 +320,38 @@ public class challengeRestController {
 			return revAll;
 		}	
 		
+		//챌린지 멤버 가져오기 
+		@RequestMapping(value = "challengeAll.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public List<Map<String, Object>> challengeAll(int challengeseq){
 		
+			List<Map<String, Object>> challengeMember = service.challengeAllMember(challengeseq);
+			return challengeMember;
+		}
+		
+		//인증방법 insert indentifyInsert
+		@RequestMapping(value = "insertIdentify.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String insertIdentify(@RequestParam Map<String,Object> identParam, @RequestParam("uploadFile")  MultipartFile uploadFile){
+			System.out.println("인증방법 파일이 받아와 지나요?:"+identParam.toString());
+			
+			try {
+			String filename = uploadFile.getOriginalFilename();
+			String saveFileName = fileManagement.FileUploader(uploadFile);
+			identParam.put("certifyPhoto", filename);
+			identParam.put("certifyPhotoname", saveFileName);
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("데이터 들어갔나요?:"+identParam.toString());
+			String msg = "";
+			boolean success = service.identifyInsert(identParam);
+			
+			if(success) {	
+				msg = "SUCCESS";
+			}else {
+				msg = "FAIL";
+			}		
+			return msg;	
+		}
 }

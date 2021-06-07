@@ -85,4 +85,13 @@ public interface challengeService {
 	
 	//리뷰 결과 한번에
 	public Map<String, Object> reviewResult(int challengeseq);
+	
+	//인증 insert indentifyInsert
+	public boolean identifyInsert(Map<String, Object> certParam);
+	
+	//인증 데이터 전체 가져오기
+	public List<Map<String, Object>> identifyAll(String email);
+	
+	//인증 되었는지 체크
+	public int identifyCheck(String email);
 }

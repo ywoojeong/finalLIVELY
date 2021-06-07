@@ -181,7 +181,7 @@
 	<!-- 리뷰 넣기 challengeReviewInsert -->
 	<insert id="challengeReviewInsert" parameterType="java.util.Map">
 		INSERT INTO CHALLENGECOMMENT(CHALCOMSEQ, CHALCOMCONTENT, CHALCOMDATE,CHALCOMRATING, CHALCOMDEL,CHALLENGESEQ, EMAIL, CHALLLIKE)
-		VALUES(CHALCOM_SEQ.NEXTVAL, #{revcontent}, SYSDATE, #{rating}, 0, #{challengeseq}, #{email}, 0)
+		VALUES(CHALCOM_SEQ.NEXTVAL, #{revcontent}, CURRENT_DATE, #{rating}, 0, #{challengeseq}, #{email}, 0)
 	</insert>
 	
 	<!-- 리뷰 좋아요+1 -->
@@ -287,6 +287,31 @@
 		WHERE LIKEEMAIL = #{email}
 			AND CHALCOMSEQ = #{chalcomseq}
 			 AND COMMENTLIKE = 1
+	</select>
+	
+	<!-- 인증방법 -->
+	
+	<insert id="identifyInsert" parameterType="java.util.Map">
+		INSERT INTO CERTIFY(CERTIFYSEQ, CERTIFYPHOTO, CERTIFYPHOTONAME, CERTIFYDATE, EMAIL, CHALLENGESEQ)
+		VALUES(CERT_SEQ.NEXTVAL, #{certifyPhoto}, #{certifyPhotoname}, CURRENT_DATE, #{email}, #{challengeseq})
+	</insert>
+	
+	<!-- 인증 되엇는지 체크 -->
+	<select id="identifyCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+		<![CDATA[ 
+		SELECT COUNT(*) AS CERTIFYCHECK
+		FROM CERTIFY
+		WHERE CERTIFYDATE >= TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD HH24'), 'YYYY-MM-DD HH24')
+			AND CERTIFYDATE <= TO_DATE(TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD HH24'), 'YYYY-MM-DD HH24')+(300/86400)
+			AND EMAIL = #{email}	
+		 ]]>
+	</select>
+	
+	<!-- 인증 다 불러오기 -->
+	<select id="identifyAll" resultType="com.a.util.lowerKeyMap">
+		SELECT CERTIFYSEQ, CERTIFYPHOTO, CERTIFYPHOTONAME, CERTIFYDATE, EMAIL, CHALLENGESEQ
+		FROM CERTIFY
+		WHERE EMAIL = #{email}	
 	</select>
 	
 		

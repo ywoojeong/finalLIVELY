@@ -21,6 +21,7 @@ import com.a.challenge.service.challengeService;
 import com.a.dto.MemberDto;
 import com.a.dto.challengeDto;
 import com.a.util.dataUtil;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.IntData;
 
 @Controller
 public class challengeController {
@@ -119,19 +120,8 @@ public class challengeController {
 		}
 		
 	
-		/*
-		 * String dateWeek =
-		 * 
-		 */
-		
 		//챌린지 전체 멤버 가져오기
 		List<Map<String, Object>> challengeMember = service.challengeAllMember(challengeseq);
-				
-		/*
-		 * for(int i=0;i<challengeMember.size();i++) {
-		 * System.out.println(challengeMember.toString()); }
-		 */
-		
 		
 		MemberDto member = (MemberDto)session.getAttribute("memberInfo");	
 		
@@ -175,17 +165,24 @@ public class challengeController {
 						followParam.put("followingemail", followingemail);
 						followcheck = service.followCheck(followParam);
 						System.out.println("가따오긴하니?");
+						
+						//인증 데이터 보내주기
+						List<Map<String, Object>> identify = service.identifyAll(followingemail);
+						model.addAttribute("identify",identify);
+						
+						//내이메일이랑 멤버이메일이랑 같을 때 인증한거 보내주기 challengeMember
+						if(followingemail.equals(member.getEmail())) {
+							int identifycheck =  service.identifyCheck(member.getEmail());
+							model.addAttribute("identifycheck", identifycheck);
+							System.out.println("identifycheck"+ identifycheck);
+						}
+						
 					}	
 				}
 				item.put("followcheck",followcheck);
 			}
 			System.out.println("팔로잉 멤버 :"+challengeMember.toString());
-			
-//			//좋아요 멤버 전체
-//			List<Map<String, Object>> followingMember = service.followAllMember(user.getEmail());
-//			if(followingMember != null) {
-//				model.addAttribute("followingMember", followingMember);
-//			}
+
 		}
 		
 		//후기 결과 데이터

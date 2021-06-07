@@ -183,6 +183,25 @@ public class challengeServiceImpl implements challengeService {
 		
 		return reviewResult;
 	}
+
+	@Override
+	public boolean identifyInsert(Map<String, Object> certParam) {
+		// TODO Auto-generated method stub
+		return dao.identifyInsert(certParam)>0?true:false;
+	}
+
+	@Override
+	public List<Map<String, Object>> identifyAll(String email) {
+		// TODO Auto-generated method stub
+		return dao.identifyAll(email);
+	}
+
+	@Override
+	public int identifyCheck(String email) {
+		// TODO Auto-generated method stub
+		return dao.identifyCheck(email);
+	}
+	
 	
 	
 	

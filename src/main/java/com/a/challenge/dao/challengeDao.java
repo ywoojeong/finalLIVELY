@@ -92,4 +92,13 @@ public interface challengeDao {
 	public int rateTwo(int challengeseq);
 	public int rateOne(int challengeseq);
 	
+	//인증 insert indentifyInsert
+	public int identifyInsert(Map<String, Object> certParam);
+	
+	//인증 데이터 전체 가져오기
+	public List<Map<String, Object>> identifyAll(String email);
+	
+	//인증 되었는지 체크
+	public int identifyCheck(String email);
+	
 }
