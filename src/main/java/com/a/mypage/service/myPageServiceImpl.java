@@ -61,5 +61,31 @@ public class myPageServiceImpl implements myPageService{
 		return mypagedao.memCategoryCount(email);
 	}
 	
+	@Override
+	public List<Map<String, Object>> memDailyChallList(Map<String, Object> getDailyChallInfo) throws SQLException {
+		return mypagedao.memDailyChallList(getDailyChallInfo);
+	}
 	
+	@Override
+	public boolean writeSuggest(Map<String, Object> param) throws SQLException {
+		return mypagedao.writeSuggest(param)>0?true:false;
+	}
+	
+	@Override
+	public List<Map<String, Object>> suggestList(Map<String, Object> param) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.suggestList(param);
+	}
+	
+	@Override
+	public boolean suggestMyLikeDel(Map<String, Object> myLikeParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.suggestMyLikeDel(myLikeParam)>0?true:false;
+	}
+	
+	@Override
+	public boolean suggestMyLikeInsert(Map<String, Object> likeParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.suggestMyLikeInsert(likeParam)>0?true:false;
+	}
 }

@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 //	$("#pro1").css("width", "80%");
 });
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉멤버"+"${followingMember }"+"dsFdfdsgfsg"+"${reviewResult}");
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}");
 </script>
 
 <div class="backDiv"
@@ -29,21 +29,28 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 	<div class="container challHeader">
 		<div>
 			<h1>${challDto.challengetitle}
-				<c:if
-					test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
+				<c:if test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
 					<button type="button" class="btn challStartBtn" data-toggle="modal"
 						data-target="#myModal3">START JOIN</button>
 				</c:if>
+				<span id="identifyBtn">
+				
+				</span>
+
+ 				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
+ 					<c:if test="${user.email != null && challUser.email==user.email}">
+ 						<a href="#" data-toggle="popover" data-trigger="hover"	data-content="인증 사진을 올리세요."> 
+ 							<img data-toggle="modal" data-target="#myModal4" src="image/identify.svg" style="height: 48px;margin-top: -8px;margin-left: 15px" onmouseover="this.src='image/identifyhover.svg'" onmouseout="this.src='image/identify.svg'">
+ 						</a>	
+ 					</c:if>		 
+ 				</c:forEach> 
 			</h1>
 
-			<a href="#" data-toggle="popover" data-trigger="hover"
-				data-content="챌린지를 찜하세요" style="margin-right: 30px;"> <c:choose>
+			<a href="#" data-toggle="popover" data-trigger="hover"	data-content="챌린지를 찜하세요" style="margin-right: 30px;">
+				 <c:choose>
 					<c:when test="${user.email != null && challWish.email eq null}">
 						<div id="likeChallenge">
-							<img onclick="checkChallenge()" class="checkImg"
-								src="image/check.svg"
-								onmouseover="this.src='image/checkhover.svg'"
-								onmouseout="this.src='image/check.svg'">
+							<img onclick="checkChallenge()" class="checkImg" src="image/check.svg"	onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
 						</div>
 					</c:when>
 					<c:when
@@ -59,7 +66,8 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 		<p id="limitD"></p>
 		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
-		 <span	class="explain">${challDto.identifydayS }${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
+		 <span	class="explain">${challDto.identifydayS } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
+		 
 	</div>
 </div>
 
@@ -67,7 +75,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 	<table class="attend">
 		<col width="30px">
 		<col width="100px">
-		<col width="500px">
+		<col width="300px">
 		<tr>
 			<td><i class="fas fa-coins"></i></td>
 			<td>참가 포인트</td>
@@ -100,12 +108,11 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 					<i style="color: #cfcbd2" class="fas fa-angle-right"></i>
 			</a></td>
 		</tr>
-
-
 	</table>
 
 	<label class="challengetext">챌린지 소개</label>
 	<div class="challengetextMain">${challDto.challengetext }</div>
+	
 	<!-- 참가 설명 -->
 	<div class="row pointExplain">
 		<div class="col-sm-6">
@@ -129,8 +136,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		<div class="col-sm-6">
 			<label>챌린지 인증 시간</label>
 			<p>
-				<span class="highlight">${challDto.identifytime }:00 ~
-					${challDto.identifytime}:05사이</span>에 이미지를 올려주세요
+				<span class="highlight timeData"></span>에 이미지를 올려주세요
 			</p>
 		</div>
 	</div>
@@ -247,19 +253,20 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 							<img src="image/mytrophy1.svg"
 								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
 						</div>
-						<span class="d-none d-sm-block"> <%
- 	for (int i = 0; i < 5; i++) {
- %> <img
-							src="image/identify1.png" style="background-color: #8b63da">
+						<span class="d-none d-sm-block"> 
+						<%	for (int i = 0; i < 5; i++) {
+ 						%>
+ 						 <img src="image/identify1.png" style="background-color: #8b63da">
 							<%
 								}
-							%> <%
- 	for (int i = 0; i < 14 - 5; i++) {
- %> <img src="image/identify1.png"
-							style="background-color: white"> <%
- 	}
- %> <span
-							style="font-size: 11pt; color: #7a777d; margin-left: 10px;">5/14회</span>
+							%>
+							 <%for (int i = 0; i < 14 - 5; i++) {
+							 %> 
+							 <img src="image/identify1.png"	style="background-color: white"> 
+							 <%
+							 	}
+							 %> 
+							 <span style="font-size: 11pt; color: #7a777d; margin-left: 10px;">5/14회</span>
 						</span>
 					</div>
 				</div>
@@ -268,7 +275,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 				<div class="grade">
 					<h3>TOP3 순위</h3>
 					<div class="row text-center"
-						style="width: 80%; margin: 30px auto 20px auto";>
+						style="width: 80%; margin: 30px auto 20px auto">
 						<div class="col-sm-4 gradeTop"
 							style="color: #e6ba1e; border-right: 1px solid #edf0f2">
 							<h5 style="font-size: 13pt; margin-bottom: 0">1위</h5>
@@ -334,21 +341,21 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 				<!-- ///////////////후기 작성 끝////////////////// -->
 				<div class="row review">
-					<div class="col-sm-6 text-center"
-						style="border-right: 1px solid #edf0f2">
+					<div class="col-sm-6" style="border-right: 1px solid #edf0f2;display:flex;flex-direction: column;align-items: center;">
 						<c:if test="${reviewResult.reviewAvg !=null}">
 						<h1 style="margin-top: 12px">${reviewResult.reviewAvg }</h1>
-							<c:forEach begin="0" end="4" var="i" step="1" varStatus="status">
-								<c:if test="${reviewResult.reviewAvg>status.index && reviewResult.reviewAvg<=status.index+1 }">
-									<img src="image/star${status.index+1 }.png" style="height: 30px;">
-								</c:if>
-							</c:forEach>
-						<img src="image/star1.png" style="height: 30px;">
+						<div style="background-color: #f2f2f2;width: 150px" >
+							<div style="background-color: #8b63da; width: ${reviewResult.reviewAvg/5*100}%">
+								<img src="image/star.png" style="width: 150px">
+							</div>
+						</div>
 						<p style="color: #878787">${reviewResult.reviewCountAll } 건</p>
 						</c:if>
 						<c:if test="${reviewResult.reviewAvg ==null}">
 							<h1 style="margin-top: 12px">0.0</h1>
-							<img src="image/star1.png" style="height: 30px;">
+							<div style="background-color: #f2f2f2;width: 150px">
+								<img src="image/star.png" style="width: 150px">
+							</div>
 							<p style="color: #878787">0 건</p>
 						</c:if>	
 					</div>
@@ -518,8 +525,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									<p>LemonLime</p>
 									<div class="userTextMain2">
 										<div>채팅한 데이터를 넣어놓는데 만약에 길어지면 어떻게 되는 지 너무 궁금하군요?호호호</div>
-										<span><fmt:formatDate value="${now}"
-												pattern="MM-dd HH:mm" /></span>
+										<span><fmt:formatDate value="${now}" pattern="MM-dd HH:mm" /></span>
 									</div>
 								</div>
 							</div>
@@ -553,8 +559,8 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		<div class="modal-content">
 
 			<!-- Modal body -->
-			<div class="modal-body">
-				<!--         	 <button type="button" class="close" data-dismiss="modal">×</button> -->
+			<div class="modal-body" id="userMain">
+			
 				<table>
 					<col width="60px">
 					<col width="200px">
@@ -567,23 +573,17 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 									src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }"
 									onerror="this.src='image/user_80px.jpg'"></td>
 								<td>${challUser.nickname }</td>
-								<td align="right">
-									<%-- 								<c:if test="${user.email != null && challUser.email != user.email}"> --%>
-									<!-- 									<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLike()"> -->
-									<!-- 								   		<i class="fa fa-heart" aria-hidden="true"></i> Like -->
-									<!-- 								 	</button> --> <%-- 								</c:if> --%> <%-- 								<c:if test=""> --%>
-
-									<%-- 								</c:if> --%> <%-- 								<c:choose> --%> <%-- 									<c:when test="${user.email != null && challUser.email != user.email}"> --%>
-
-									<%-- 							 		</c:when> --%> <%--  								 		<c:forEach var="followUser" items="${followingMember}" varStatus="status"> --%>
-									<%-- 									 		<c:when test="${user.email != null && user.email eq followUser.followemail}"> --%>
-									<%-- 									 			<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLikeDel('${challUser.email}')"> --%>
-									<!-- 									   			 	<i class="fa fa-heart" aria-hidden="true"></i> You Liked -->
-									<!-- 									 			</button> --> <%-- 									 		</c:when> --%>
-									<%-- 								 		 </c:forEach> --%> <%-- 								 	</c:choose> --%>
-
-
-
+								<td align="right" id="followBtn">
+									<c:if test="${user.email != null && user.email != challUser.email && challUser.followcheck == 0}">
+										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLike('${challUser.email}')">
+									   		<i class="fa fa-heart" aria-hidden="true"></i> Like 
+										</button> 
+									</c:if>
+									<c:if test="${user.email != null && challUser.followcheck == 1}">
+										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLikeDel('${challUser.email}')">
+									   		<i class="fa fa-heart" aria-hidden="true"></i> You Liked
+										</button> 
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>
@@ -710,18 +710,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 						<tr>
 							<td colspan="3"><span class="highlight"
-								style="font-size: 13pt; font-weight: 600">달성률에 따라 환급이
-									달라집니다.</span></td>
+								style="font-size: 13pt; font-weight: 600">달성률에 따라 환급이 달라집니다.</span></td>
 						</tr>
 						<tr>
 							<td colspan="2">100% 성공</td>
-							<td style="text-align: right; font-weight: 600"><c:out
-									value="${challDto.pointcount * 2 }" /> point</td>
+							<td style="text-align: right; font-weight: 600"><c:out value="${challDto.pointcount * 2 }" /> point</td>
 						</tr>
 						<tr>
 							<td colspan="2">85%이상 성공</td>
-							<td style="text-align: right; font-weight: 600"><c:out
-									value="${challDto.pointcount * 1.5 }" /> point</td>
+							<td style="text-align: right; font-weight: 600">
+							<fmt:parseNumber value="${challDto.pointcount * 1.5 }" integerOnly="true"/> point</td>
 						</tr>
 						<tr>
 							<td colspan="2">100% 성공</td>
@@ -736,13 +734,53 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 			<!-- Modal footer -->
 			<div class="modal-footer" style="justify-content: center">
-				<button type="button" class="btn" onclick="startChallengeBtn()">CHALLENGE
-					도전</button>
+				<button type="button" class="btn" onclick="startChallengeBtn()">CHALLENGE 도전</button>
 			</div>
 
 		</div>
 	</div>
 </div>
+
+
+<!-- 인증 사진 올리기 모달 -->
+<!-- start join 모달 -->
+<div class="modal" id="myModal4" style="top:19%">
+	<div class="modal-dialog   modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal body -->
+			<div class="modal-body ">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<div class="row identifyModal">
+					<div class='col-sm-6'>
+				            <span style="font-weight: 500;font-size: 12pt;padding-left: 71px">인증 사진을 올려주세요</span>			
+						<label for="newImg">
+		                  <img id="chall_Img" class="img-responsive idenImg" src="./image/identifyNone.jpg">
+			            </label>
+			            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/identifyNone.jpg'">
+					</div>
+					
+					<div class='col-sm-6 dataRow'>
+						<div>
+							<img class="decoWrap60" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }" onerror="this.src='image/user_60px.jpg'">
+							<h5><font style="text-decoration: underline;">${user.nickname }</font>님	</h5>
+						</div>
+						<h4>현재까지 인증 횟수는</h4>
+						<h3><span class='highlight'>7/14</span>번 입니다.</h3>
+					</div>		
+				</div>
+				
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer" style="justify-content: center">
+				<button type="button" class="btn" onclick="insertIdentify()">인 증 하 기</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -758,6 +796,35 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 <!-- progress 바 채워지기 -->
 <script>
+//이미지 미리보기
+var sel_file;
+
+$(document).ready(function() {
+    $("#newImg").on("change", handleImgFileSelect);
+}); 
+
+
+function handleImgFileSelect(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+
+    filesArr.forEach(function(f) {
+        if(!f.type.match("image.*")) {
+            alert("확장자는 이미지 확장자만 가능합니다.");
+            return;
+        }
+
+        sel_file = f;
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#chall_Img").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(f);
+    });
+}
+
+
 //차트 모션 (progress)
 $(".meter > span").each(function () {
   $(this)
@@ -772,15 +839,13 @@ $(".meter > span").each(function () {
 });
 
 
-//요일 class제어 indentifyDate
-
-let indentifyDate =new Array(${challDto.identifyday});
-
-$.each(indentifyDate, function(i, val){
-	$("#idendate li:nth-child("+val+")").css("font-weight", "500");
-	$("#idendate li:nth-child("+val+")").css("color", "black");
-	console.log(val);
-});
+let timeData =  '${challDto.identifytime }';
+let timeD = "";
+if(timeData<10){
+	$(".timeData").text("0"+timeData+":00 ~ "+"0"+timeData+":05 사이");	
+}else{
+	$(".timeData").text(timeData+":00 ~ "+timeData+":05 사이");	
+}
 
 
 //날짜 제어
@@ -794,22 +859,73 @@ let startdate = "${challDto.challengestart}"; //yyyy-MM-dd 00:00:00.0
 let enddate = "${challDto.challengeend}";
 let startdateSub = startdate.substring(0, 10);
 let enddateSub = enddate.substring(0, 10);
-let strArr = startdateSub.split('-');
-let startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
-let strArr2 = enddateSub.split('-');
-let endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
+let startDate = new Date(startdateSub);
+let endDate = new Date(enddateSub);
 
-let syear = strArr[0];
-let smonth = strArr[1];
-let sday = strArr[2];
-let eyear = strArr2[0];
-let emonth = strArr2[1];
-let eday = strArr2[2];
+// let strArr = startdateSub.split('-');
+// let startDate = new Date(strArr[0], strArr[1]-1, strArr[2]);
+// let strArr2 = enddateSub.split('-');
+// let endDate = new Date(strArr2[0], strArr2[1]-1, strArr2[2]);
 
 console.log("시작 날짜"+startDate)
 console.log("끝 날짜"+endDate)
 //console.log("오늘 날짜"+nowDate)
 
+//전체 기간 날짜로 제어하기 배열로 날짜
+let allDay = [];
+while(startDate.getTime() <= endDate.getTime()){
+		
+		let mon = (startDate.getMonth()+1);
+		mon = mon < 10 ? '0'+mon : mon;
+		var ssday = startDate.getDate();
+		ssday = ssday < 10 ? '0'+ssday : ssday;
+		var ssday = startDate.getDate();
+		ssday = ssday < 10 ? '0'+ssday : ssday;
+		let identyFy ='${challDto.identifytime}';
+		identyFy = identyFy < 10 ? '0'+identyFy : identyFy;
+		console.log(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00");
+ 		allDay.push(new Date(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00"));
+ 		startDate.setDate(startDate.getDate() + 1);
+}
+//console.log("전체 요일"+allDay)
+//요일 class제어 indentifyDate
+
+let indentifyDate =new Array(${challDto.identifyday});
+
+$.each(indentifyDate, function(i, val){
+	$("#idendate li:nth-child("+val+")").css("font-weight", "500");
+	$("#idendate li:nth-child("+val+")").css("color", "black");
+});
+
+
+//allDay에서 요일만 출력해서 날짜와 매칭 indentifyDate
+let selectDay = [];
+let selectDayFive = [];
+
+	indentifyDate.forEach(function(date){
+		allDay.forEach(function(element){
+// 			 console.log("전체날짜의 요일 "+element.getDay()); 	
+			 if(element.getDay() == (date-1)){
+				 selectDay.push(element); 	
+			 }
+		});
+
+	});
+   
+//해당 유저만 버튼 보이게
+let challengeMember = new Array('${challengeMember}');
+let userId = '${user.email}';
+$.each(challengeMember, function(i, challUser){
+	selectDay.forEach(function(date){
+		if(userId != null && challUser == userId && now >= date && now <= date.setMinutes(date.getMinutes()+5)){
+			document.getElementById('identifyBtn').innerHTML = "<a data-toggle='popover' data-trigger='hover'	data-content='인증 사진을 올리세요.'>"
+															+  "<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\">"
+															+  "</a>";
+		}
+	});
+});
+	
+console.log("전체 날짜 확인"+selectDay)
 //시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
 if("${challDto.limitdate}"<0){
 	$("#limitD").text("시작중인 챌린지 | 모집 마감");
@@ -819,16 +935,13 @@ if("${challDto.limitdate}"<0){
 	$("#limitD").text("${challDto.limitdate}"+"일 뒤부터 시작");
 }
 
-//날짜 출력하기
-
-
-
-출처: https://trendfollow.tistory.com/26 [낙낙™ 트렌드]
+//periodDate 05.11(화)~05.28(금)
+$("#periodDate").text(dateToMonth(startdateSub)+" ~ "+dateToMonth(enddateSub))
 
 //date 05.11(화)형식으로 바꾸기(문자열)
-function dateToMonth(Dyear, Dmonth, Dday) {
-	
-	let nowDate = new Date(Dyear, Dmonth-1, Dday);
+function dateToMonth(date) {
+	console.log("date모양 뭐야"+date)
+	let nowDate = new Date(date);
 	var month = nowDate.getMonth();
     if (month < 10)  {
         month = '0' + (month+1);
@@ -846,123 +959,52 @@ function dateToMonth(Dyear, Dmonth, Dday) {
      return month + '.' + date +"("+todayLabel+")";
 }
 
-//periodDate 05.11(화)~05.28(금)
-$("#periodDate").text(dateToMonth(syear, smonth, sday)+" ~ "+dateToMonth(eyear, emonth, eday))
 
+//follow 추가
+function userLike(likeemail){
+	
+	$.ajax({
+		url:"followInsert.do",
+		data:{"followemail":'${user.email}', "followingemail":likeemail},
+		type:"post",
+		success:function(msg){
 
-
-/* 	var eventE=0;
-//like버튼 누르면 제어
-$('.like-review').click(function(){
-	if(eventE==0){
-	   $(this).html('<i class="fa fa-heart"></i> You liked');
-	   $(this).children('.fa-heart').addClass('animate-like');
-	   //테이블 FOLLOW : FOLLOW
-	    eventE++; 	    
-	  
-	}else{
-		$(this).html('<i class="fa fa-heart"></i>like');
-		$(this).children('.fa-heart').addClass('animate-like');
-		eventE--;   
-	}
-});
- */
-//  console.log("들어오냐고")
-//  $(document).ready(function(){
-// 	console.log("들어오냐고")
-// 	 $.ajax({
-// 		 type:"post",
-// 		 url:"followData.do",
-// 		 data:{"email":"${user.email}"},
-// 		 success:function(likeMemberList){
-// 			console.log("success 좋아요 인간아" + likeMemberList.length)
+			$("#_like-review").html("<i class='fa fa-heart' aria-hidden='true'></i> You Liked");
+			$("#_like-review").removeAttr('onclick');
+			$("#_like-review").attr("onclick","userLikeDel('"+likeemail+"')");
 			
-// 			 let data = "";
-// 			 $.each(likeMemberList, function(i, likeUser){
-// 				 console.log(likeUser.followemail)
-// 			 		if(${user.email} !=null && likeUser.followingemail == null){
-// 			 			data = "<button class='btn btn-secondary like-review' style='background-color:#ed2553' onclick=\"userLike('${challUser.email}')\">"
-// 			 				+	"<i id='likeI' class='fa fa-heart' aria-hidden='true'>Like</i>"
-// 			 				+ "</button>";
+		},
+		error:function(){
+			alert("후기 좋아요 버튼 에러");
+		},
+		complete:function(){			
+			
+		}
+	});
 
-// 			 		}else if(${user.email} !=null && ${user.email} == followUser.followemail){
-// 			 			$("#likeI").text("");
-// 			 			data = "<button class='btn btn-secondary like-review' style='background-color:#ed2553' onclick=\"userLikeDel('${challUser.email}')\">"
-// 			 				+	"<i id='likeI' class='fa fa-heart' aria-hidden='true'>You Liked</i>"
-// 			 				+ "</button>";
-// 			 		}
-				 	
-				 	
+}
 
-// 			 }
-			 
-// 		 }, 
-// 		 error:function(){
-// 			 alert("데이터 가져오기 실패");
-// 		 }
-		 
-// 	 });
-//  });
- 
- 
-//  //좋아요 버튼 제어
-// function userLike(followinguser){
-// 	 let ddd = ${challUser.email }
-// 	 console.log("FDfdsgdg"+ddd)
-// 	 let id = document.getElementById('_like-review');
-	 
-// 	 $.ajax({
-// 		 type:"post",
-// 		 url:"followInsert.do",
-// 		 data:{"followemail":"${user.email}", "followingemail":followinguser},
-// 		 success:function(msg){
-// 	    		if(msg=="SUCCESS"){
-// 	    			alert("좋아요 성공 ");
-// 	    		}
-// 	    	},
-// 	   		error:function(){
-// 	   			alert("좋아요 에러");
-// 	   		}, 
-// 	   		complete:function(){
-// 	   			id.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i> You Liked";
-// 		   		$('#_like-review').children('.fa-heart').addClass('animate-like');
-// 		   		console.log( $('#_like-review').prop("onclick"))
-// // 	   		    $('#_like-review').prop("onclick", null);
-// 	   		    $("#_like-review").attr("onclick","userLikeDel('ywoo0309@gamil.com')");
-// 	   		 console.log( $('#_like-review').attr("onclick"))
-// 	   		}
-// 	    });	 
-//  }
- 
-//  function userLikeDel(followinguser){
+//follow 삭제
+function userLikeDel(likeemail){
+	$.ajax({
+		url:"followDelete.do",
+		data:{"followemail":'${user.email}', "followingemail":likeemail},
+		type:"post",
+		success:function(msg){
 
-// 	 let id = document.getElementById('_like-review');
+			$("#_like-review").html("<i class='fa fa-heart' aria-hidden='true'></i> Like");
+			$("#_like-review").removeAttr('onclick');
+			$("#_like-review").attr("onclick","userLike('"+likeemail+"')");
+		},
+		error:function(){
+			alert("후기 좋아요 버튼 에러");
+		},
+		complete:function(){			
+			
+		}
+	});
 
-// 	 $.ajax({
-// 		 type:"post",
-// 		 url:"followDelete.do",
-// 		 data:{"followemail":"${user.email}", "followingemail":followinguser},
-// 		 success:function(msg){
-// 			 console.log(msg)
-// 	    		if(msg=="SUCCESS"){
-// 	    			alert("좋아요 삭제 성공 ");
-// 	    		}
-// 	    	},
-// 	   		error:function(){
-// 	   			alert("좋아요 삭제 에러");
-// 	   		}, 
-// 	   		complete:function(){
-// 	   			id.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i>Like";
-// 		   		$('#_like-review').children('.fa-heart').addClass('animate-like');
-// 		   		 $('#_like-review').prop("onclick", null);
-// 	   		   $("#_like-review").prop("onclick", "userLike()");
-
-
-// 	   		}
-// 	    });	 
-//  }
- 
- 
+}
 
 //찜하기 버튼 제어 checkChallenge()
 function checkChallenge(){
@@ -1075,23 +1117,22 @@ function save(){
 Review(0);	
 //후기 작성 아작스 데려오기
 function Review(number){
-	
-	
+
 	$.ajax({
 		url:"challengereviewAll.do",
-		data:{"number":number, "challengeseq":"${challDto.challengeseq}"},
+		data:{"number":number, "challengeseq":"${challDto.challengeseq}", "email":"${user.email}"},
 		type:"post",
 		success:function(revlist){
 				//alert("sdsd");
 			// $("#Review"+number).remove();
 			let data = "";
 			if(revlist.length==0){
-				data += "<p class='reviewUser'>아직 등록된 후기가 없습니다. 후기를 작성해 주세요</p>"	
+				data += "<p class='reviewUser'>아직 등록된 후기가 없습니다. 후기를 작성해 주세요</p>";	
 			}
 
 			$.each(revlist, function(i, review){
 				//날짜 포맷제어
-				console.log(review.chalcomdate)
+				//console.log(review.chalcomdate)
 				let revd = new Date(review.chalcomdate);
 				let year = revd.getFullYear();
 				let month = (revd.getMonth()+1);
@@ -1101,6 +1142,10 @@ function Review(number){
 				
 				let revDate = year+"."+month+"."+day;
 				
+				let percent = review.chalcomrating / 5 *100;
+				let userid = '${user.email}';
+				console.log("들어왓냐고 아이디"+userid)
+				
 				data += "<div id='revData'>"
 						+   "<div class='reviewUser'>"
 						+    "<div class='reviewUserImg'>"
@@ -1108,71 +1153,85 @@ function Review(number){
      					+    "<p>"+review.nickname+"</p>"
 	     				+    "</div>"
 	     				+    "<div class='reviewUserText'>"
-						+    "<img src='image/star1.png' style='height: 17px;'><span>"+revDate+"</span>"
-						+ 	 "<div>"+review.chalcomcontent+"</div>"
-						+    "</div>"
-     					+    "<div class='reviewUserLike'>"
-     					+    "<i class='far fa-thumbs-up fa-2x' onclick=\"commentLike(this)\"></i>"
-						+    "<p id=>"+review.challlike+" likes</p>"
-						+    "</div></div><hr></div>";
- 					//<!-- <i class="fas fa-thumbs-up fa-2x"></i> -->	
- 					//console.log("fdsfsdfdsff"+data)
-				
+						+    "<div style='width: 83px;background-color: #f2f2f2;float:left;'>"
+						+    "<div style='background-color:#8b63da; width: "+percent+"%'>"
+						+    "<img src='image/star.png' style='width: 83px'>"
+						+   "</div>"
+						+  "</div>"
+						+  "<span>"+revDate+"</span>"
+						+ 	 "<div style='margin-top:8px'>"+review.chalcomcontent+"</div>"
+						+    "</div>";     	
+     					if(review.likecheck ==0){
+     						data +=    "<div class='reviewUserLike'>"
+         					+    "<div id='reviewlikeBtn'>"
+							+    "<img src='image/commentlike.svg' style='height:40px;' onmouseover=\"this.src='image/commentlikeHover.svg'\" onmouseout=\"this.src='image/commentlike.svg'\" onclick=\"commentLike('"+review.chalcomseq+"', '"+number+"')\">"
+     							+ 	"</div>"
+     							+    "<p id=>"+review.challlike+" likes</p>"
+     							+    "</div>";
+     					}else if(review.likecheck ==1){
+     						data +=    "<div class='reviewUserLike'>"
+             					+    "<div id='reviewlikeBtn'>"
+     							+	"<img src='image/commentlikeFill.svg' style='height:40px;' onclick=\"commentLikeDel('"+review.chalcomseq+"', '"+number+"')\">"
+	     						+ 	"</div>"
+	 							+    "<p id=>"+review.challlike+" likes</p>"
+	 							+    "</div>";
+     					}
+     			data += "</div><hr></div>";
 			});
-			//console.log("완성"+data)
 			$("#Review"+number).html(data);	
-			
 		},
 		error:function(){
 			alert("후기 가져오기 실패");
-		},
+		}, 
 		complete:function(){
- 			$("#Review"+number).addClass("active");
+			$("#Review"+number).addClass("active");
 		}
 	});
 }
 
 //후기 좋아요 버튼
-function commentLike(commentseq){
-	alert(commentseq);
-	//alert(commentseq)
+function commentLike(commentseq, number){
+	let userid = '${user.email}';
+	
+	if(userid==null || userid == ""){
+		alert("로그인을 해주세요");
+		return false;
+	}
+	//alert(commentseq);
 	$.ajax({
 		url:"commentLike.do",
 		data:{"email":'${user.email}', "chalcomseq":commentseq},
 		type:"post",
 		success:function(msg){
-			//alert(msg);
-			//.reviewUserLike
-			$(".reviewUserLike").html = "<i class='far fa-thumbs-up fa-2x' onclick='commentLikeDel("+commentseq+")'></i>"
-										+    "<p>"+review.challlike+" likes</p>";	
-			$(this).children('i').removeClass('far fa-thumbs-up fa-2x');
-			$(this).children('i').addClass("fas fa-thumbs-up fa-2x");
+			//alert(msg);	
+			document.getElementById('reviewlikeBtn').innerHTML = "<img src='image/commentlikeFill.svg' style='height:40px;' onclick=\"commentLikeDel('"+commentseq+"', '"+number+"')\">";
 		},
 		error:function(){
 			alert("후기 좋아요 버튼 에러");
 		},
-		complete:function(){
-		
+		complete:function(){			
+			Review(number);
 		}
 	});
+
 }
 
 //후기 좋아요 해제
-function commentLikeDel(commentseq){
-	alert(commentseq)
+function commentLikeDel(commentseq, number){
+	//alert(commentseq)
 	$.ajax({
 		url:"commentLikeDel.do",
 		data:{"email":'${user.email}', "chalcomseq":commentseq},
 		type:"post",
 		success:function(msg){
 			//alert(msg);
-			$("#commlike").html("<i class='far fa-thumbs-up fa-2x' onclick='commentLike(this)'></i>");
+			document.getElementById('reviewlikeBtn').innerHTML = "<img src='image/commentlike.svg' style='height:40px;' onmouseover=\"this.src='image/commentlikeHover.svg'\" onmouseout=\"this.src='image/commentlike.svg'\" onclick=\"commentLike('"+commentseq+"', '"+number+"')\">";
 		},
 		error:function(){
 			alert("후기 좋아요 삭제 실패");
 		},
 		complete:function(){
-			
+			Review(number);
 		}
 	});
 }

@@ -82,28 +82,33 @@
 				    	
 		    	
 		    		<!-- 페이지네이션 -->
-		    				     
+		    				
+ 						<nav aria-label="Page navigation"> 
+							<ul class="pagination" id="pagination" style="justify-content: center">
+							</ul>
+ 						</nav> 
+  
 
-					  <ul class="pagination" id="_pagination"  style="justify-content: center">
-					    <li class="page-item">
-					      <a class="page-link"tabindex="-1">Previous</a>
-					    </li>
-					    
-					    <li class="page-item active"><a class="page-link">1</a></li>
-<!-- 					    <li class="page-item active"> -->
-<!-- 					      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
+<!-- 					  <ul class="pagination" id="_pagination"  style="justify-content: center"> -->
+<!-- 					    <li class="page-item"> -->
+<!-- 					      <a class="page-link"tabindex="-1">Previous</a> -->
 <!-- 					    </li> -->
-<!-- 					    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-					    <li class="page-item">
-					      <a class="page-link">Next</a>
-					    </li>
-				 	 </ul>
+					    
+<!-- 					    <li class="page-item active"><a class="page-link">1</a></li> -->
+<!--  					    <li class="page-item active"> --> 
+<!--  					      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
+<!--					    </li> -->
+<!--  					    <li class="page-item"><a class="page-link" href="#">3</a></li> --> 
+<!-- 					    <li class="page-item"> -->
+<!-- 					      <a class="page-link">Next</a> -->
+<!-- 					    </li> -->
+<!-- 				 	 </ul> -->
 
 			</div>	   	 
    </div>
 
 <!-- 페이지네이션 -->
-<script src="js/jquery.twbsPagination.js"></script>
+<script src="./js/jquery.twbsPagination.js"></script>
 
 
 <script type="text/javascript">
@@ -156,6 +161,7 @@ function categoryBtn(categoryNumber){
 
 //전체 리스트 불러오기
 function getChallengeList(pageNumber, categoryNumber){
+	console.log("페이지 불러오기 왜안됨?"+pageNumber+"  "+categoryNumber)
 	$.ajax({
 		url:"./hotChallengeData.do",
 		type:"get",
@@ -252,55 +258,69 @@ function getChallengeListCount(categoryNumber){
 		data:{'search':$("#_search").val(), 'category':categoryNumber},
 		success:function(count){//return이 글의 전체 수임
 			//alert("전체 글의 수 : "+count);
-			loadPaging(count);
+			loadPaging(count, categoryNumber);
 		},
 		error:function(){
 			alert("전체 글 수 에러error");
 		}
 	});
 }
+
+
 //페이징 처리하기
-function loadPaging(totalCount){
-	console.log("페이징 전체 글 수 : "+totalCount)
+function loadPaging(totalCount, categoryNumber){
+	
+
+	console.log("페이징 전체 글 수 : "+totalCount + "카테고리 번호"+categoryNumber)
+	let category = categoryNumber;
 	let pageSize = 9;
 	let nowPage= 1;
 	let _totalPages = totalCount / pageSize;
-	
+	console.log("토탈 페이지: "+_totalPages)
+
 	 if(totalCount % pageSize>0){
 		 _totalPages++;
+			console.log("토탈 페이지: "+_totalPages)
 	 }
-
+	 
 	//페이지 갱신 : 갱신해야 검색 페이징 가능
- 	 $(".pagination").twbsPagination('destroy');
+	var pageData = $('#pagination').data();
+	if( typeof(pageData.twbsPagination) != 'undefined' ){				
+		if( pageData.twbsPagination.options.totalPages != _totalPages ){
+			$('#pagination').twbsPagination('destroy');
+		}
+	}
 	
- 	 $(".pagination").twbsPagination('enable');
-	  console.log("페이징 버튼 누르면 "+_totalPages+" 페이지수"+nowPage)
-	 $(".pagination").twbsPagination({
+ 	 //$(".pagination").twbsPagination('enable');
+	  console.log("페이징 버튼 누르면 "+_totalPages+" 페이지수"+nowPage+"카테고리 번호"+categoryNumber)
+	 $("#pagination").twbsPagination({
 		startPage: nowPage,
-	 	totalPages:  _totalPages,
+	 	totalPages:  Math.floor(_totalPages),
 	 	visiblePages: 5,
 	 	initiateStartPageClick: false,
-// 	 	first:'<span sria-hidden="true">«</span>',
-// 	 	prev:"Previous",
-// 	 	next:"Next",
-// 	 	last:'<span sria-hidden="true">»</span>',
-// 		nextClass : "page-item next",	// 이전 페이지 CSS class
-// 	    prevClass : "page-item prev",	// 다음 페이지 CSS class
-// 	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
-// 	    firstClass : "page-item first",	// 첫 페이지 CSS class
+ 	 	first:'Previous',
+ 	 	prev:"<<",
+ 	 	next:">>",
+ 	 	last:'END',
+ 	 	initiateStartPageClick: true,
+	 	nextClass : "page-item next",	// 이전 페이지 CSS class
+	    prevClass : "page-item prev",	// 다음 페이지 CSS class
+	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
+	    firstClass : "page-item first",	// 첫 페이지 CSS class
 	    pageClass : "page-item",	// 페이지 버튼의 CSS class
 	    activeClass : "active",	// 클릭된 페이지 버튼의 CSS class
 	    disabledClass : "disabled",	// 클릭 안된 페이지 버튼의 CSS class
 	    anchorClass : "page-link",	//버튼 안의 앵커에 대한 CSS class
 	    
-	 	 initiateStartPageClick:false,	//처음 실행 시 아래가 실행 안된다.(onPageClick가 자동실행되지 않도록 해준다.)
+	// 	initiateStartPageClick:false,	//처음 실행 시 아래가 실행 안된다.(onPageClick가 자동실행되지 않도록 해준다.)
 	 	 onPageClick:function(event, pageNumber){	//페이지 넘버 클릭 시 들어오는 부분
+	
 	 		console.log("pageNumber 페이징 버튼 누르면 : "+pageNumber)
 	 		nowPage = pageNumber;	
-	 		getChallengeList(pageNumber-1);
+	 		getChallengeList(pageNumber-1, category);
+	 		console.log("pageNumber 페이징 버튼 누르면 : "+pageNumber + "카테고리 뭐여?" +category)
 	 	 }
 	 });
 
 }
 </script> 
-

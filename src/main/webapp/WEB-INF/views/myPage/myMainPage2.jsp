@@ -22,24 +22,25 @@
                 <a class="modalBtn" data-toggle="modal" data-target="#myModal3">
                    <button type="button" id="memUpdateBtn" class="memModify">회원정보 수정</button>
                 </a>
-                <div class="member_link">
-                    <div class="cut_item">
-                        <div class="cut_text">찜한챌린지</div>
-                        <img style="width: 45px;" src='image/checkBlack.svg'/>
-                        <!-- <div class="cut_icon"><img src='image/checkBlack.svg'/></div> -->
-                        <div class="cut_count">${memberWishCount}</div>
-                    </div>
-                    <div class="cut_item">
-                        <div class="cut_text">성공챌린지</div>
-                        <div class="cut_icon"><a><i class="fas fa-fire-alt fa-3x"></i></a></div>
-                        <div class="cut_count">0</div>
-                    </div>
-                    <div class="cut_item">
-                        <div class="cut_text">My팔로워</div>
-                        <div class="cut_icon"><a><i class="far fa-handshake fa-3x"></i></a></div>
-                        <div class="cut_count">0</div>
-                    </div>
-                </div>
+	                <div class="member_link" style="width: ">
+	                    <div class="cut_item">
+	                        <div class="cut_text">찜한챌린지</div>
+	                        <img style="width: 45px;" src='image/checkBlack.svg'/>
+	                        <!-- <div class="cut_icon"><img src='image/checkBlack.svg'/></div> -->
+	                        <div class="cut_count">${memberWishCount}</div>
+	                    </div>
+	                    <div class="cut_item">
+	                        <div class="cut_text">성공챌린지</div>
+	                        <div class="cut_icon"><a><i class="fas fa-fire-alt fa-3x"></i></a></div>
+	                        <div class="cut_count">0</div>
+	                    </div>
+	                    <div class="cut_item">
+	                        <div class="cut_text">My팔로워</div>
+	                        <div class="cut_icon"><a><i class="far fa-handshake fa-3x"></i></a></div>
+	                        <div class="cut_count">0</div>
+	                    </div>
+	                </div>
+	                
             </div>
         </div>
         
@@ -53,10 +54,10 @@
                   <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
               </li>
               <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth">월간리포트</a>
+                  <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
               </li>
               <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
+                  <a class="nav-link" data-toggle="pill" href="#menu2" onclick="likeSuggest()">제안하기</a>
               </li>
           </ul>
          
@@ -194,40 +195,41 @@
                            <div class="member_daily">
                               <span class="d-daily">오늘 진행중인 챌린지</span>
                               <!-- 캘린더 아래 데일리 부분 -->
-                              <div class="row">
                                  <%for(int i=0; i<2; i++) {
                                     for(int j=0; j<2; j++){%>
+                              	<div class="row" id="dailyCard<%=i%>">
                                        <div class="col-xs-12 col-sm-4">
-                                          <div class="card" style="width: 250px; height: 400px;">
+                                          <!-- <div class="card" style="width: 250px; height: 400px;">
                                               <div class="daily_card">
-                                           <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
-                                           <div class="card-body">
-                                             <p class="card-title">챌린지 이름</p>
-                                             <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
-                                             <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8   px; padding: 3px 7px;">CHALLENGE</a>
-                                           </div>
-                                       </div>
-                                           </div>
-                                 </div>
+	                                           <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
+	                                           <div class="card-body">
+	                                             <p class="card-title">챌린지 이름</p>
+	                                             <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
+	                                             <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8   px; padding: 3px 7px;">CHALLENGE</a>
+	                                           </div>
+                                       			</div>
+                                          </div> -->
+                                 	</div>
+                        		</div>
                                     <%} 
                                  }%>
-                        </div>
                            </div>
                         </div>
                     </div>
                 </div>
-               
+<!-- ////////////////////////////////////////////////// 여기서부터 제안하기 ///////////////////////////////////////////////// -->
                <!-- 제안하기 -->
                <div id="menu2" class="container tab-pane fade"><br>
                   <div class="row">
                        <div class="col-sm-12">
                            <div class="member_suggest">
                               <!-- 제안하기 버튼 (포인트버튼) -->
-                              <div class="pointButton">
-                                 <a class="modalBtn" data-toggle="modal" data-target="#myModal2">
-                              <button type="button" class="point-btn-hover color-Yellow" id="suggestMake" >제안하기</button><br><br>
-                           </a>
-                        </div>
+								<div class="pointButton">
+									<a class="modalBtn" data-toggle="modal" data-target="#myModal2">
+										<button type="button" class="point-btn-hover color-Yellow" id="writeSuggest" >제안하기</button><br><br>
+									</a>
+								</div>
+								
                         <!-- 메인 검색버튼 (타원)-->
                         <div class="md-form md-outline d-flex Search" align="right">
                            <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
@@ -235,12 +237,14 @@
                         </div>
                         <!-- 제안하기 --> 
                         
-                        <%for(int i=0;i<3;i++) {%>
-                        <div class="suggestCard" >
-                           <div class="suggest-card-body">
+                        <%-- <%for(int i=0;i<3;i++) {%> --%>
+                        <div class="suggestBox">
+                        <div class="suggestCard">
+                            <div class="suggest-card-body" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                               <div class="suggest-text">
                                  <p class="suggest-category">카테고리</p>
                                  <p class="suggest-title">챌린지 이름</p>
+                                 <p class="suggest-comment"><i class="far fa-comment"></i>댓글</p>
                               </div>
                               <div class="suggest-like">
                                  <i class="far fa-thumbs-up fa-2x"></i>
@@ -248,8 +252,37 @@
                               </div>
                            </div>
                         </div>
-                        <%} %>
-                        
+                        </div>
+                        <!-- 제안하기 텍스트 박스 -->
+                        <div class="collapse" id="collapseExample" style="width: 77%">
+                        	<div class="applyBox">
+	                        	<!-- 글 영역 -->
+	                        	<div class="applyBbs" style="height: 50px;">
+	                        		
+	                        			<p style="margin-top: 0;">여기 글이 들어갈거구요</p>
+	                        		
+	                        	</div>
+	                        	
+	                        	<hr class="hhr" width="100%">
+	                        	
+	                        	<!-- 댓글영역 -->
+	                        	<div class="applyCom">
+	                        		<table class="commentTable">
+	                        			<colgroup>
+	                        				<col width="100px">
+	                        				<col width="400px">
+	                        				<col width="100px">
+	                        			</colgroup>
+		                        		<tr>
+								            <td class="commentNick">닉네임</td>
+								            <td class="commentContent">댓글내용</td>
+								            <td class="commentTime">작성시간</td>
+								        </tr>
+									</table>
+	                        	</div>
+	                        </div>
+                        </div>
+                       <%--  <%} %> --%>
                            </div>
                         </div>
                     </div>
@@ -269,20 +302,37 @@
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal">×</button>
         
-        <div class="reviewSummerNote">
+        <div class="suggestSummerNote">
         <h3>제안 작성</h3>
-           <form name="reviewform" class="reviewform" method="post" action="/save">
             <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>          
-            <div class="review_contents" style="background-color: white">
-               <textarea class="review_textarea"  id="summernote" name="revcontent"></textarea>
-            </div> 
+           <form id="suggestForm" class="suggestForm" method="post">
+           		<input type="hidden" name="email" value="${memberInfoData.EMAIL}">
+           		<div class="titleC" style="display: flex;">
+					<div class="suggest_title" style="background-color: white">
+						<input type="text" class="form-control" id="title" name="suggesttitle" placeholder="제목" style="width: 480px">
+					</div>
+					<div>
+	 					<select class="form-control form-control-sm" name="scategory" id="_category" style="height: 38px;margin-left: 10px;margin-bottom: 5px;">
+	 						<option value="0">선택하세요</option>
+	 						<option value="1">건강</option>
+	 						<option value="2">역량</option>
+	 						<option value="3">정서</option>
+	 						<option value="4">자산</option>
+	 						<option value="5">생활</option>
+	 						<option value="6">취미</option>
+	 					</select>
+					</div>
+				</div>
+				<div class="suggest_contents" style="background-color: white">
+					<textarea class="suggest_textarea"  id="summernote" name="suggestcontent"></textarea>
+				</div> 
            </form>
        </div>
       </div>
       
       <!-- Modal footer -->
       <div class="modal-footer" style="justify-content: center">
-        <button type="button" name="save" id="save" class="btn btn-Card" style="width: 200px">작성 완료</button>
+        <button type="button" name="saveSuggest" id="saveSuggest" onclick="saveSuggest()" class="btn btn-Card" style="width: 200px">작성 완료</button>
       </div>
       
     </div>
@@ -339,7 +389,7 @@
     </div>
   </div>
 </div>
-
+</div>
 
 <!-- 원형 차트 js -->
 <script src="./js/easypiechart.js"></script>
@@ -498,7 +548,7 @@ $(document).ready(function() {
          maxHeight: null,             // 최대 높이
          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
          lang: "ko-KR",               // 한글 설정
-         placeholder: "댓글을 기입하세요",   //placeholder      
+         placeholder: "제안을 작성해주세요",   //placeholder      
          //툴바 변경
           toolbar: [
               // [groupName, [list of button]]
@@ -684,33 +734,21 @@ $(function(){
    challengeBtn('0');
 })
 function challengeBtn(name){
-   console.log(name)
+   console.log("name 값이 뭐니 : " + name)
    $.ajax({
       url:"./memChallList.do",
       type:"get",
       data: {"name":name},
       success:function(list){
-         
-         $("#dataId").remove();
-         console.log(list)
+// 역할이 없음        
+//         $("#dataId").remove();
+         console.log("리스트 값이 뭐니 : " + list)
          var data=""
          $.each(list, function(i, challenge){
             console.log(i)
             console.log(challenge)
-            let category = "";
-            if(challenge.CATEGORY ==1){
-               category = "건강";
-            }else if(challenge.CATEGORY ==2){
-               category = "역량";
-            }else if(challenge.CATEGORY ==3){
-               category = "정서";
-            }else if(challenge.CATEGORY ==4){
-               category = "자산";
-            }else if(challenge.CATEGORY ==5){
-               category = "생활";
-            }else if(challenge.CATEGORY ==6){
-               category = "취미";
-            }
+            
+            var categoryName = setCategory(challenge.CATEGORY);
             
             let dateTotal="";
             if(challenge.IDENTIFYFREQUENCY==9){
@@ -720,7 +758,7 @@ function challengeBtn(name){
             }else if(challenge.IDENTIFYFREQUENCY==7){
                dateTotal = "주말";
             }else{
-               for(i=6;i>0;i--){
+               for(var i=6;i>0;i--){
                   if(i==challenge.IDENTIFYFREQUENCY){
                      dateTotal="주 "+i+"회";
                   }   
@@ -729,7 +767,7 @@ function challengeBtn(name){
          
             data +=   "<div class='card dataId' >"
                   +   "<div class='card-body'>"
-                  +   "<p class='card-text'><span class='category1'>" + category+" </span><span class='category2'>" + dateTotal + "</span><span class='category3'>"+challenge.CHALLENGEPERIOD+"주 동안 </span></p>"
+                  +   "<p class='card-text'><span class='category1'>" + categoryName +" </span><span class='category2'>" + dateTotal + "</span><span class='category3'>"+challenge.CHALLENGEPERIOD+"주 동안 </span></p>"
                   +   "<h4 class='card-title'>"+challenge.CHALLENGETITLE+"</h4>"
                   +   "<a href='challengeDetail.do?challengeseq=" + challenge.CHALLENGESEQ + "' class='btn btn-Card' style='margin-left: 470px; margin-top: -45px;'>해당챌린지 가기</a>"
                   +   "</div>   </div>";
@@ -746,10 +784,233 @@ function challengeBtn(name){
       },
       error:function(){
          alert("리스트 불러오는 error");
-      }/* , 
-      complete:function(){
-         $("#category"+categoryNumber).addClass("active");
-      } */
+      }
    });      
 }
+</script>
+
+<script type="text/javascript">
+function dailyChallBtn(number){
+	console.log("number 값이 뭐니 : " + number)
+	
+	$.ajax({
+		url:"./memDailyChallList.do",
+	    type:"get",
+	    data: {"number":number},
+	    success:function(list){
+	    	
+	    	console.log("list 값이 뭐니? : " + list)
+	    	
+	    	var data = ""
+	   		$.each(list, function(i, dailyChall){
+	               console.log(i)
+	               console.log(dailyChall)
+	               
+	               var categoryName = setCategory(dailyChall.CATEGORY);
+	               
+	               let dateTotal="";
+	               if(dailyChall.IDENTIFYFREQUENCY==9){
+	                  dateTotal = "매일";
+	               }else if(dailyChall.IDENTIFYFREQUENCY==8){
+	                  dateTotal = "평일 매일";
+	               }else if(dailyChall.IDENTIFYFREQUENCY==7){
+	                  dateTotal = "주말";
+	               }else{
+	                  for(i=6;i>0;i--){
+	                     if(i==dailyChall.IDENTIFYFREQUENCY){
+	                        dateTotal="주 "+i+"회";
+	                     }   
+	                  }
+	               }
+	            	
+	               data += 	"<div class='card' style='width: 250px; height: 400px;'>"
+	            	   	+	"<div class='daily_card'>"
+	               		+ 	"<img class='card-img-top' src='https://www.w3schools.com/bootstrap4/img_avatar1.png' alt='Card image' style='width:100%'>"
+	               		+ 	"<div class='card-body'>"
+	               		+ 	"<p class='card-title'>" + dailyChall.CHALLENGETITLE + "</p>"
+	               		+ 	"<p class='card-text'><span class='category4'>" + categoryName + "</span><span class='category5'>" + dateTotal + "</span><span class='category6'>" + dailyChall.CHALLENGEPERIOD + "주 동안 </span></p>"
+	               		+ 	"<a href='challengeDetail.do?challengeseq="+dailyChall.CHALLENGESEQ+"' class='btn btn-Card' style='margin-left:115px;margin-top:8px; padding:3px 7px;'>CHALLENGE</a>"
+	               		+ 	"</div>   </div>   </div>";
+	               		
+	               	console.log("data가 뭐니" + data)
+	            });
+	            if(list.length < 1){
+	           	data += "<div class='daily_card'>"
+	           		+	"<div class='card-body'>"
+	           		+	"<h4>챌린지에 도전하세요!</h4>"
+	           		+	"</div> </div>";
+	            }
+	            $("#dailyCard"+number).html(data);
+	         },
+	         error:function(){
+	            alert("리스트 불러오는 error");
+	    	}
+	});
+}
+
+// 제안하기 작성하는 곳
+function saveSuggest() {
+//	var suggestTitle = $('.suggest_title').val();
+
+	var suggestText = $('.suggest_textarea').val();
+
+	/* 
+	if(suggestTitle.length < 5){
+		alert('5자 이상 작성해주세요');
+		$("#suggestTitle").focus()
+		return false;
+	}
+	 */
+	if(suggestText.length < 10){
+		alert('10자 이상 작성해주세요');
+		$("#suggestText").focus()
+		return false;
+	}
+	 
+	 let dataFrm = $("#suggestForm").serialize();
+		console.log("dataFrm :" + dataFrm)
+	$.ajax({
+		type:'POST',
+		url:"writeSuggest.do",
+		data:dataFrm,
+		success:function(msg){
+			if(msg=="success"){
+				alert("작성 완료되었습니다");
+				location.href="myMainPage2.do"
+			}
+		},
+		error:function(xhr, status, error){
+			alert("작성 실패"+error);
+		}
+	});
+}
+
+/* 제안하기 가져오기 */
+function likeSuggest(){
+	$.ajax({
+		url:"./suggestMyLike.do",
+	    type:"get",
+	    data: {},
+	    success:function(list){
+	    	console.log(list)
+	    	var data = "";
+	    	for(var i=0; i<list.length; i++){
+	    	var categoryName = setCategory(list[i].SUGGESTBBSCATEGORY);
+	    	console.log("category ==>"+categoryName)
+	    	var like = ""
+	    	if(list[i].LIKECHECK == "1"){
+	    		like = "<i class='fas fa-thumbs-up fa-2x unlike"+list[i].SUGGESTBBSSEQ+"' onclick='unLike("+list[i].SUGGESTBBSSEQ+")'></i>"
+	    	}else{
+	    		like = "<i class='far fa-thumbs-up fa-2x youlike"+list[i].SUGGESTBBSSEQ+"' onclick='youLike("+list[i].SUGGESTBBSSEQ+")'></i>"
+	    	}	
+	    		
+	    	data += "<div class='suggestCard'>"
+	    		+	"<div class='suggest-card-body' onclick='test()'>"
+	    		+	"<div class='suggest-text' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
+	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
+	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
+	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
+	    		+	"</div>"
+	    		+	"<div class='suggest-like'>"
+	    		
+	    		+like
+	    		+	"<p class='like"+list[i].SUGGESTBBSSEQ+"'>"+list[i].LIKECNT+"</p>"
+	    		+	"</div> </div> </div>"
+		    	+	"<div class='collapse' id='collapseExample"+i+"' style='width: 100%'>"
+	        	+	"<div class='applyBox'>"
+	            +	"<div class='applyBbs' style='height: 50px;'>"
+	            /* +			"<p style='margin-top: 0;'>"+list[i].SUGGESTBBSCONTENT+"</p>"	 */
+	            +	list[i].SUGGESTBBSCONTENT	
+	            +	"</div>"
+	            +	"<hr class='hhr' width='100%'>"
+	            +	"<div class='applyCom'>"
+	            +		"<table class='commentTable'>"
+	            +			"<colgroup>"
+	            +				"<col width='100px'>"
+	            +				"<col width='400px'>"
+	            +				"<col width='100px'>"
+	            +			"</colgroup><tr>"
+				+	            "<td class='commentNick'>닉네임</td>"
+				+	            "<td class='commentContent'>댓글내용</td>"
+				+	            "<td class='commentTime'>작성시간</td>"
+				+	        "</tr></table></div></div></div>"
+	    	}
+	    	$(".suggestBox").html(data);
+	    },
+        error:function(){
+           alert("리스트 불러오는 error");
+	   	}
+	});
+}
+// 좋아요 insert 
+function youLike(seq){
+	var cnt = $(".like"+seq).text()
+	console.log(cnt)
+	console.log(typeof(cnt))
+	$(".like"+seq).text(parseInt(cnt) +1)
+	$(".youlike"+seq).replaceWith("<i class='fas fa-thumbs-up fa-2x unlike"+ seq +"' onclick='unLike("+seq+")'></i>")
+	
+	$.ajax({
+		url:"./suggestMyLikeInsert.do",
+	    type:"get",
+	    data: {"email":'${memberInfoData.EMAIL}' ,"suggestbbsseq":seq},
+	    success:function(data){
+	    	alert("cntLike 불러오는 success");
+	    },
+	    error:function(){
+			alert("cntLike 불러오는 error");
+		}
+	});
+}
+
+// 좋아요 delete
+function unLike(seq){
+	
+	var cnt = $(".like"+seq).text()
+	console.log("cnt")
+	console.log(cnt)
+	$(".like"+seq).text(cnt -1)
+	$(".unlike"+seq).replaceWith("<i class='far fa-thumbs-up fa-2x youlike"+seq+"' onclick='youLike("+seq+")'></i>")
+	
+	$.ajax({
+		url:"./suggestMyLikeDel.do",
+	    type:"get",
+	    data:{"email":'${memberInfoData.EMAIL}' ,"suggestbbsseq":seq},
+	    success:function(data){
+	    	
+	    	alert("unLike 불러오는 success");
+//	    	alert(JSON.stringify(data));
+		
+	    },
+	    error:function(){
+			alert("unLike 불러오는 error");
+		}
+	});
+}
+
+//onclick 확인
+function test(){
+	console.log("okok")
+}
+
+// 카테고리 변환 
+function setCategory(category){
+	console.log("category ===>"+category)
+	var categoryName = ""
+	if(category ==1){
+		categoryName = "건강";
+     }else if(category ==2){
+    	 categoryName = "역량";
+     }else if(category ==3){
+    	 categoryName = "정서";
+     }else if(category ==4){
+    	 categoryName = "자산";
+     }else if(category ==5){
+    	 categoryName = "생활";
+     }else if(category ==6){
+    	 categoryName = "취미";
+     }
+	return categoryName;
+}
+
 </script>

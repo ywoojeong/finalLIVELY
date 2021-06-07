@@ -30,6 +30,12 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"hotChallengeData", searchParam);
 	}
+	
+	@Override
+	public List<Map<String, Object>> newChallengeData(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"hotChallengeData", searchParam);
+	}
 
 	@Override
 	public int challengeDataCount(Map<String, Object> searchParam) {
@@ -115,10 +121,11 @@ public class challengeDaoImpl implements challengeDao {
 		return sqlSession.delete(namespace+"followDelete", followParam);
 	}
 
+
 	@Override
-	public List<Map<String, Object>> followAllMember(String email) {
+	public int followCheck(Map<String, Object> followParam) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"followAllMember", email);
+		return sqlSession.selectOne(namespace+"followCheck", followParam);
 	}
 
 	@Override
@@ -155,6 +162,12 @@ public class challengeDaoImpl implements challengeDao {
 	public List<Map<String, Object>> challengereviewAll( Map<String,Object> revParam) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"challengereviewAll", revParam);
+	}
+
+	@Override
+	public int commentLikeCheck( Map<String,Object> revParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"commentLikeCheck", revParam);
 	}
 
 	@Override

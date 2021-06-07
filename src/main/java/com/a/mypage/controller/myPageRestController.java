@@ -1,15 +1,18 @@
 package com.a.mypage.controller;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a.dto.MemberDto;
@@ -35,6 +38,8 @@ public class myPageRestController {
 		return memNowCntList;
 	}
 	*/
+	
+	// 유저의 진행 전, 중, 후 챌린지 리스트를 데려옴
 	@RequestMapping(value = "memChallList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<Map<String, Object>> memChallList (String name, HttpSession session) throws Exception{
 		
@@ -51,4 +56,92 @@ public class myPageRestController {
 		System.out.println(memList.toString());
 		return memList;
 	}
+	
+	// 유저의 데일리 챌린지 불러옴 (리스트로 불러오기)
+	@RequestMapping(value = "memDailyChallList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> memDailyChallList (String number, HttpSession session) throws Exception{
+		System.out.println("number가 무엇일까 : " + number);
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		String email = memberInfo.getEmail();
+		
+		Map<String, Object> getDailyChallInfo = new HashMap<String, Object>();
+		getDailyChallInfo.put("email", email);
+		getDailyChallInfo.put("number", number);
+		
+		List<Map<String, Object>> memDailyList = myService.memChallList(getDailyChallInfo);
+		System.out.println(memDailyList.toString());
+		
+		return memDailyList;
+	}
+	
+	// 제안하기 insert
+	@RequestMapping(value = "writeSuggest.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String writeSuggest(@RequestParam Map<String,Object> param) throws Exception{
+		System.out.println("param이 뭐니 : " + param.toString());
+		
+		boolean finished = myService.writeSuggest(param);
+		String msg = "";
+		if(finished) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+	
+	// 좋아요 안좋아요
+	@RequestMapping(value = "suggestMyLike.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> suggestMyLike(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
+		
+		System.out.println("myLikeParam -> " + myLikeParam);
+		System.out.println(myLikeParam.toString());
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		String email = memberInfo.getEmail();
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("email", email);
+		
+		List<Map<String, Object>> suggestList = myService.suggestList(param);
+		System.out.println("suggestList :" + suggestList.toString());
+		/*
+		boolean likeDel = myService.suggestMyLikeDel(myLikeParam);
+		System.out.println("myLikeParam : " + myLikeParam);
+		*/
+		return suggestList;
+	}
+	
+	@RequestMapping(value = "suggestMyLikeDel.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String suggestMyLikeDel(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
+		System.out.println("myLikeParam -> " + myLikeParam);
+		System.out.println(myLikeParam.toString());
+		
+		boolean likeDel = myService.suggestMyLikeDel(myLikeParam);
+		System.out.println("myLikeParam : " + myLikeParam);
+		String msg = "";
+		if(likeDel) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+	
+	@RequestMapping(value = "suggestMyLikeInsert.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String suggestMyLikeInsert(@RequestParam Map<String,Object> likeParam, HttpSession session) throws SQLException {
+		System.out.println("myLikeParam -> " + likeParam);
+		System.out.println(likeParam.toString());
+		
+		boolean likeInsert = myService.suggestMyLikeInsert(likeParam);
+		System.out.println("likeParam : " + likeParam);
+		String msg = "";
+		if(likeInsert) {
+			msg="success";
+		}else {
+			msg="fail";
+		}
+		return msg;
+	}
+
 }

@@ -108,4 +108,49 @@
 		GROUP BY CG.CATEGORY
 	</select>
 	
+	<!-- 오늘 진행중인 챌린지 리스트 가져오기 -->
+	<select id="memDailyChallList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE, CG.CHALLENGESAVEPHOTO
+		FROM CHALLENGE CG
+		INNER JOIN CHALLENGEMEMBER CM
+		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+		WHERE SYSDATE > CHALLENGESTART AND CHALLENGEEND > SYSDATE
+		AND CM.EMAIL = #{email}
+	</select>
+	
+	<!-- 제안하기 작성 -->
+	<insert id="writeSuggest" parameterType="java.util.Map">
+		INSERT INTO SUGGESTBBS(SUGGESTBBSSEQ, SUGGESTBBSCATEGORY, SUGGESTBBSTITLE, SUGGESTBBSCONTENT, SUGGESTBBSDEL, LIKESEQ, EMAIL)
+		VALUES(SUG_SEQ.NEXTVAL, #{scategory}, #{suggesttitle}, #{suggestcontent}, 0, 0, #{email})
+	</insert>
+	
+	<!-- 제안하기 꺼내오기 -->
+	
+	
+	<!-- like... -->
+	<insert id="suggestMyLikeInsert" parameterType="java.util.Map">
+		INSERT INTO MYLIKE(LIKESEQ, SUGGESTBBSSEQ, EMAIL)
+		VALUES(LIKE_SEQ.NEXTVAL, #{suggestbbsseq}, #{email})
+	</insert>
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="suggestMyLikeDel" parameterType="java.util.Map">
+		DELETE FROM MYLIKE
+		WHERE EMAIL = #{email}
+		AND SUGGESTBBSSEQ = #{suggestbbsseq}
+	</delete>
+	
+	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SBS.*,
+		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+		CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
+		FROM SUGGESTBBS SBS
+		LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+		ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+		LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+		ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+		WHERE SBS.SUGGESTBBSDEL = 0
+	</select>
+
+	
 </mapper>
