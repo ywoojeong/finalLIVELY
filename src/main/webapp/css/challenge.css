@@ -288,7 +288,7 @@ video{
 }
 
 /* 페이징 디자인 */
- .page-item.disabled {
+ .page-item .disabled {
  	border-radius: 50px;
 }
 

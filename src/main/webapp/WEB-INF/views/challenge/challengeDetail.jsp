@@ -15,13 +15,9 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
 	rel="stylesheet">
 <script>
-$(document).ready(function(){
-	  $('[data-toggle="popover"]').popover();   
-//$(".chall-buttons").hide();
 
-//	$("#pro1").css("width", "80%");
-});
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}");
+console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${identify}")
 </script>
 
 <div class="backDiv"
@@ -33,17 +29,21 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 					<button type="button" class="btn challStartBtn" data-toggle="modal"
 						data-target="#myModal3">START JOIN</button>
 				</c:if>
-				<span id="identifyBtn">
-				
-				</span>
 
+					<a data-toggle='popover' data-trigger='hover' data-content='인증 사진을 올리세요.'>
+						<span id="identifyBtn">
+<!-- 							<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\"> -->
+						</span>
+					</a>
+
+<%-- 
  				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
  					<c:if test="${user.email != null && challUser.email==user.email}">
  						<a href="#" data-toggle="popover" data-trigger="hover"	data-content="인증 사진을 올리세요."> 
  							<img data-toggle="modal" data-target="#myModal4" src="image/identify.svg" style="height: 48px;margin-top: -8px;margin-left: 15px" onmouseover="this.src='image/identifyhover.svg'" onmouseout="this.src='image/identify.svg'">
  						</a>	
  					</c:if>		 
- 				</c:forEach> 
+ 				</c:forEach>  --%>
 			</h1>
 
 			<a href="#" data-toggle="popover" data-trigger="hover"	data-content="챌린지를 찜하세요" style="margin-right: 30px;">
@@ -97,16 +97,16 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 					</c:when>
 					<c:when
 						test="${challengeMember != null && fn:length(challengeMember) >= 5 }">
-						<c:forEach var="challUser" items="${challengeMember}" begin="0"
-							end="5">
+						<c:forEach var="challUser" items="${challengeMember}" begin="0"	end="5">
 							<img class="userWrap"
 								src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }"
 								onerror="this.src='image/user_80px.jpg'">
 						</c:forEach>
 					</c:when>
-				</c:choose> <a class="modalBtn" data-toggle="modal" data-target="#myModal">
-					<i style="color: #cfcbd2" class="fas fa-angle-right"></i>
-			</a></td>
+				</c:choose> 
+				<a class="modalBtn" data-toggle="modal" data-target="#myModal">
+					<i style="color: #cfcbd2" class="fas fa-angle-right"></i></a>
+			</td>
 		</tr>
 	</table>
 
@@ -142,26 +142,53 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 	</div>
 	<!-- 챌린지 인증방법 -->
 	<div class="certify">
-		<label class="challengetext">챌린지 인증방법</label>
-		<div class="row" style="padding-left: 23px">
-			<div class="col-sm-8" style="display: flex;">
-				<c:if test="${challDto.challengesavephoto != '0' }">
-					<img
-						src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }"
-						style="width: 300px">
-				</c:if>
-				<div style="margin-left: 20px; width: 400px">
-					<c:choose>
-						<c:when test="${challDto.certify eq 'none'}">
-      						자유롭게 인증해 주세요.
-   						 </c:when>
-						<c:otherwise>
-      						${challDto.certify }
-   						 </c:otherwise>
-					</c:choose>
+		<div class="row">
+			<div class='col-sm-8'>
+				<label class="challengetext">챌린지 인증방법</label>
+				<div style="padding-left: 23px">
+					<div style="display: flex;">
+						<c:if test="${challDto.challengesavephoto != '0' }">
+							<img
+								src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }"
+								style="width: 300px">
+						</c:if>
+						<div style="margin-left: 20px; width: 350px">
+							<c:choose>
+								<c:when test="${challDto.certify eq 'none'}">
+		      						자유롭게 인증해 주세요.
+		   						 </c:when>
+								<c:otherwise>
+		      						${challDto.certify }
+		   						 </c:otherwise>
+							</c:choose>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">인증샷 넣을까?</div>
+			<div class='col-sm-4' style="margin-left: -5px;padding-left: 0">
+				<label class="challengetext" style="margin-left: -9px">나의 인증 현황</label>
+				<div>
+					<div class='row'>
+						<c:choose>
+							<c:when	test="${identify != null && fn:length(identify) <= 12}">
+								<c:forEach var="identify" items="${identify}" varStatus="status">
+									<div class='col-sm-3' style="padding: 0 8px 16px 8px">
+										<img class='identifyImg' src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/${identify.certifyphotoname }'>
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:when	test="${identify != null && fn:length(identify) >= 12 }">
+								<c:forEach var="identify" items="${identify}" begin="0"	end="11">
+									<div class='col-sm-3' style="padding: 0 8px 16px 8px">
+										<img class='identifyImg' src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/${identify.certifyphotoname }'>
+									</div>
+								</c:forEach>
+								<a href='#'>이미지 모아보기</a>
+							</c:when>
+						</c:choose>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 주의사항 -->
@@ -507,10 +534,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 							for (int i = 0; i < 5; i++) {
 						%>
 						<div class="userCard">
-							<img class="userWrap" src=""
-								onerror="this.src='image/user_80px.jpg'"> <span>유저
-								이름</span>
-
+							<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'"> <span>유저 이름</span>
 						</div>
 						<%
 							}
@@ -741,7 +765,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 	</div>
 </div>
 
-
+<c:if test="${user.email != null}">
 <!-- 인증 사진 올리기 모달 -->
 <!-- start join 모달 -->
 <div class="modal" id="myModal4" style="top:19%">
@@ -750,28 +774,42 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 			<!-- Modal body -->
 			<div class="modal-body ">
-				<button type="button" class="close" data-dismiss="modal">×</button>
+			<form id="identFrm">
+					<input type="hidden" name="email" value="${user.email }">
+					<input type="hidden" name="challengeseq " value="${challDto.challengeseq }">
 				<div class="row identifyModal">
+				
 					<div class='col-sm-6'>
 				            <span style="font-weight: 500;font-size: 12pt;padding-left: 71px">인증 사진을 올려주세요</span>			
-						<label for="newImg">
-		                  <img id="chall_Img" class="img-responsive idenImg" src="./image/identifyNone.jpg">
+						<label for="identImg">
+		                  <img id="ident_Img" class="img-responsive identImg" src="./image/identifyNone.jpg">
 			            </label>
-			            <input type="file" name="uploadFile" id="newImg" style="display: none" onerror="this.src='./image/identifyNone.jpg'">
+			            <input type="file" name="uploadFile" id="identImg" style="display: none" onerror="this.src='./image/identifyNone.jpg'">
 					</div>
-					
+		
 					<div class='col-sm-6 dataRow'>
-						<div>
+						
+						<div class='dataFont'>
 							<img class="decoWrap60" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }" onerror="this.src='image/user_60px.jpg'">
 							<h5><font style="text-decoration: underline;">${user.nickname }</font>님	</h5>
 						</div>
-						<h4>현재까지 인증 횟수는</h4>
-						<h3><span class='highlight'>7/14</span>번 입니다.</h3>
+						<div style="margin-bottom: 40px">
+						    <span class="dataPercent">현재까지  <span class='highlight'>50%</span> 달성</span>
+						</div>
+						
+						<div style="display: flex;align-items: flex-end;">
+							<span style="font-size: 12pt;">인증 횟수는</span>
+							<div class="round">
+								<span>7 <span style="font-size: 13pt">/14</span></span>
+							</div>
+							<span style="font-size: 12pt;font-weight: 500;">회 입니다.</span>
+						</div>
 					</div>		
 				</div>
-				
+				<p style="text-align: center;color:#b1b1b1;margin-bottom: 0">인증은 변경이 불가하니 신중하게 올려주세요</p>
+			</form>
 			</div>
-
+	
 			<!-- Modal footer -->
 			<div class="modal-footer" style="justify-content: center">
 				<button type="button" class="btn" onclick="insertIdentify()">인 증 하 기</button>
@@ -780,7 +818,7 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 		</div>
 	</div>
 </div>
-
+</c:if>
 
 
 
@@ -796,11 +834,13 @@ console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestar
 
 <!-- progress 바 채워지기 -->
 <script>
+
 //이미지 미리보기
 var sel_file;
 
 $(document).ready(function() {
-    $("#newImg").on("change", handleImgFileSelect);
+    $("#identImg").on("change", handleImgFileSelect);
+    $('[data-toggle="popover"]').popover();   
 }); 
 
 
@@ -818,7 +858,7 @@ function handleImgFileSelect(e) {
 
         var reader = new FileReader();
         reader.onload = function(e) {
-            $("#chall_Img").attr("src", e.target.result);
+            $("#ident_Img").attr("src", e.target.result);
         }
         reader.readAsDataURL(f);
     });
@@ -883,7 +923,7 @@ while(startDate.getTime() <= endDate.getTime()){
 		ssday = ssday < 10 ? '0'+ssday : ssday;
 		let identyFy ='${challDto.identifytime}';
 		identyFy = identyFy < 10 ? '0'+identyFy : identyFy;
-		console.log(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00");
+		//console.log(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00");
  		allDay.push(new Date(startDate.getFullYear() + '-' + mon + '-' +  ssday+ " "+ identyFy+":00:00"));
  		startDate.setDate(startDate.getDate() + 1);
 }
@@ -901,7 +941,6 @@ $.each(indentifyDate, function(i, val){
 //allDay에서 요일만 출력해서 날짜와 매칭 indentifyDate
 let selectDay = [];
 let selectDayFive = [];
-
 	indentifyDate.forEach(function(date){
 		allDay.forEach(function(element){
 // 			 console.log("전체날짜의 요일 "+element.getDay()); 	
@@ -911,21 +950,46 @@ let selectDayFive = [];
 		});
 
 	});
+
    
 //해당 유저만 버튼 보이게
-let challengeMember = new Array('${challengeMember}');
-let userId = '${user.email}';
-$.each(challengeMember, function(i, challUser){
-	selectDay.forEach(function(date){
-		if(userId != null && challUser == userId && now >= date && now <= date.setMinutes(date.getMinutes()+5)){
-			document.getElementById('identifyBtn').innerHTML = "<a data-toggle='popover' data-trigger='hover'	data-content='인증 사진을 올리세요.'>"
-															+  "<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\">"
-															+  "</a>";
-		}
-	});
+let challenge = '${challengeMember}';
+let identifycheck = '${identifycheck}';
+console.log("체크되고싶습니다."+identifycheck)
+//challenge = challenge.substr(1, challenge.length-2);
+$.ajax({
+	url:"challengeAll.do",
+	type:"post",
+	data:{"challengeseq":'${challDto.challengeseq}'},
+	success:function(list){
+
+		let userId = '${user.email}';
+		$.each(list, function(i, challUser){
+
+			selectDay.forEach(function(date){
+				console.log("date   00:00   "+date)
+				let data = date;
+				let dataFive = new Date( data.setMinutes(date.getMinutes()+5));
+				console.log("date 00:00   "+date)
+				console.log("now   "+now)
+				console.log("dataFive   "+dataFive)
+				if(userId != null && challUser.email == userId && now >= date && now <= dataFive){
+						if(identifycheck == 0){
+							console.log("안들어왕눟매먀ㅜ헉무휴ㅓㄹㅇ미ㅏㅇ모헌모")
+							document.getElementById('identifyBtn').innerHTML = "<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\">";
+						}else if(identifycheck == 1){
+							$('#identifyBtn').hide();
+						}
+						
+				}
+			});
+		});
+		
+	}
 });
+
+
 	
-console.log("전체 날짜 확인"+selectDay)
 //시작중인 챌린지 오늘인지 며칠 뒤인지 보여주기
 if("${challDto.limitdate}"<0){
 	$("#limitD").text("시작중인 챌린지 | 모집 마감");
@@ -940,7 +1004,7 @@ $("#periodDate").text(dateToMonth(startdateSub)+" ~ "+dateToMonth(enddateSub))
 
 //date 05.11(화)형식으로 바꾸기(문자열)
 function dateToMonth(date) {
-	console.log("date모양 뭐야"+date)
+	//console.log("date모양 뭐야"+date)
 	let nowDate = new Date(date);
 	var month = nowDate.getMonth();
     if (month < 10)  {
@@ -1263,6 +1327,39 @@ if(userid == null){
    });
    
 }*/
+
+//인증 데이터 insert
+function insertIdentify(){
+	
+	if ($('input[name="uploadFile"]').get(0).files[0] == undefined) {
+ 		alert("인증 이미지를 올려주세요");
+ 		return false;
+	}
+	
+	let identParam = new FormData($("#identFrm")[0]);
+		identParam.append("uploadFile",  $('input[name="uploadFile"]').get(0).files[0]);
+	
+	$.ajax({
+		url:"insertIdentify.do",
+		type:"post",
+		data:identParam,
+		enctype:"multipart/form-data",	//파일업로드 설정데이터, 인코딩
+		processData:false,
+		contentType:false,
+		cache:false,	//파일 새고고침 시 저장할 것이냐(아니오)
+		success:function(msg){
+			alert('인증 사진을 등록했습니다.');
+			$("#identifyBtn").hide();
+		},
+		error:function(){
+			
+		}, 
+		complete:function(){
+			document.location.reload();
+		}
+		
+	});
+}
 </script>
 
 <script type="text/javascript">
