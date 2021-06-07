@@ -30,6 +30,12 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.hotChallengeData(searchParam);
 	}
+	
+	@Override
+	public List<Map<String, Object>> newChallengeData(Map<String, Object> searchParam) {
+		// TODO Auto-generated method stub
+		return dao.newChallengeData(searchParam);
+	}
 
 	@Override
 	public int challengeDataCount(Map<String, Object> searchParam) {
@@ -116,9 +122,9 @@ public class challengeServiceImpl implements challengeService {
 	}
 
 	@Override
-	public List<Map<String, Object>> followAllMember(String email) {
+	public int followCheck(Map<String, Object> followParam) {
 		// TODO Auto-generated method stub
-		return dao.followAllMember(email);
+		return dao.followCheck(followParam);
 	}
 
 	@Override
@@ -150,6 +156,12 @@ public class challengeServiceImpl implements challengeService {
 	public boolean challengeReviewUnLike(int chalcomseq) {
 		// TODO Auto-generated method stub
 		return dao.challengeReviewUnLike(chalcomseq)>0?true:false;
+	}
+	
+	@Override
+	public int commentLikeCheck(Map<String, Object> revParam) {
+		// TODO Auto-generated method stub
+		return dao.commentLikeCheck(revParam);
 	}
 
 	@Override

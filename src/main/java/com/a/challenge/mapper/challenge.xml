@@ -38,6 +38,31 @@
 	 	WHERE RNUM BETWEEN ${startPage} AND ${endPage}
 	</select>
 	
+	<!-- newChallengeData 데이터 전부 가져오기 java.util.Map(param은 start end search category   -->
+	<select id="newChallengeData" parameterType="java.util.Map" resultType="com.a.util.lowerKeyMap">
+	 	SELECT CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD,
+	 			  IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, RATINGAVG, HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, EMAIL,
+	 			  NICKNAME, AUTH, MEMBERPHOTO
+	 	FROM (SELECT ROW_NUMBER()OVER(ORDER BY CHALLENGESTART DESC) AS RNUM,
+				CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGETEXT, CHALLENGESTART, CHALLENGEEND, CHALLENGEPERIOD,
+	 			IDENTIFYFREQUENCY, IDENTIFYDAY, IDENTIFYTIME, CHALLENGEPHOTO, CHALLENGESAVEPHOTO, RATINGAVG, HEADERNUM, POINTCOUNT, CHALLENGEMEMBER, C.EMAIL,
+	 			 M.NICKNAME, M.AUTH, M.MEMBERPHOTO
+	  		  FROM CHALLENGE C, MEMBER M
+	  		  WHERE 1=1 
+	  		  		AND C.EMAIL = M.EMAIL
+		  		  		AND CHALLENGESTOP = 0 
+		  		  			AND CHALLENGEDEL = 0
+		  		  				<if test="category != 0"><!-- 안전성을 고려 -->
+				  					AND CATEGORY = ${category}
+				  				</if>
+					  		  	 	<if test="search != null and search != ''"><!-- 안전성을 고려 -->
+						  				 AND CHALLENGETITLE LIKE '%'||#{search}||'%'		  
+					  				</if>
+			ORDER BY CHALLENGESTART DESC)
+	 	WHERE RNUM BETWEEN ${startPage} AND ${endPage}
+	</select>
+	
+	
 	<!-- challengeDataCount 글의 총 수 가져오기 paramMap search / category-->
 	<select id="challengeDataCount" parameterType="java.util.Map" resultType="java.lang.Integer">
 	 	SELECT NVL(COUNT(*), 0)
@@ -144,10 +169,14 @@
 			AND FOLLOWINGEMAIL = #{followingemail}
 	</delete>
 	
-	<!-- 내가 한 팔로잉 데이터 전체 -->
-<!-- 	<select id="followAllMember" parameterType="java.lang.String" resultType="com.a.util.lowerKeyMap"> -->
-
-<!-- 	</select> -->
+	<!-- 팔로워 확인하기 challusercheck -->
+	<select id="followCheck" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT COUNT(FOLLOW)
+		FROM FOLLOW
+		WHERE FOLLOWEMAIL = #{followemail}
+			AND FOLLOWINGEMAIL = #{followingemail}
+	</select>
+	
 	
 	<!-- 리뷰 넣기 challengeReviewInsert -->
 	<insert id="challengeReviewInsert" parameterType="java.util.Map">
@@ -257,6 +286,7 @@
 		FROM COMMENTLIKE
 		WHERE LIKEEMAIL = #{email}
 			AND CHALCOMSEQ = #{chalcomseq}
+			 AND COMMENTLIKE = 1
 	</select>
 	
 		
