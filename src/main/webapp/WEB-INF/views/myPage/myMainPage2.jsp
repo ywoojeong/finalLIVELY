@@ -235,54 +235,9 @@
                            <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
                            <button type="button" class="btn btn-Search" >SEARCH</button>
                         </div>
-                        <!-- 제안하기 --> 
-                        
-                        <%-- <%for(int i=0;i<3;i++) {%> --%>
-                        <div class="suggestBox">
-                        <div class="suggestCard">
-                            <div class="suggest-card-body" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                              <div class="suggest-text">
-                                 <p class="suggest-category">카테고리</p>
-                                 <p class="suggest-title">챌린지 이름</p>
-                                 <p class="suggest-comment"><i class="far fa-comment"></i>댓글</p>
-                              </div>
-                              <div class="suggest-like">
-                                 <i class="far fa-thumbs-up fa-2x"></i>
-                                 <p>123</p>
-                              </div>
-                           </div>
-                        </div>
-                        </div>
-                        <!-- 제안하기 텍스트 박스 -->
-                        <div class="collapse" id="collapseExample" style="width: 77%">
-                        	<div class="applyBox">
-	                        	<!-- 글 영역 -->
-	                        	<div class="applyBbs" style="height: 50px;">
-	                        		
-	                        			<p style="margin-top: 0;">여기 글이 들어갈거구요</p>
-	                        		
-	                        	</div>
-	                        	
-	                        	<hr class="hhr" width="100%">
-	                        	
-	                        	<!-- 댓글영역 -->
-	                        	<div class="applyCom">
-	                        		<table class="commentTable">
-	                        			<colgroup>
-	                        				<col width="100px">
-	                        				<col width="400px">
-	                        				<col width="100px">
-	                        			</colgroup>
-		                        		<tr>
-								            <td class="commentNick">닉네임</td>
-								            <td class="commentContent">댓글내용</td>
-								            <td class="commentTime">작성시간</td>
-								        </tr>
-									</table>
-	                        	</div>
-	                        </div>
-                        </div>
-                       <%--  <%} %> --%>
+                        <!-- 제안하기 list 받는곳--> 
+                        <div class="suggestBox"></div>
+
                            </div>
                         </div>
                     </div>
@@ -389,6 +344,39 @@
     </div>
   </div>
 </div>
+
+<!-- 댓글쓰기 모달 -->
+<div class="modal" id="myModal4" >
+  <div class="modal-dialog modal-lg" style="top:30%">
+    <div class="modal-content">
+    
+      <!-- Modal body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <div class="commSummerNote">
+	      <h3>제안 작성</h3>
+	      <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>          
+           <form id="commForm" class="commForm" method="post">
+           		<input type="hidden" name="email" value="${memberInfoData.EMAIL}">
+           		<input type="hidden" name="suggestbbsseq" id="suggestSeq" >
+				<div class="comm_contents" style="background-color: white">
+					<textarea class="comm_textarea"  id="commentnote" name="sugcomcontent"></textarea>
+				</div> 
+           </form>
+       	</div>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="justify-content: center">
+        <button type="button" name="saveComment" id="saveComment" onclick="saveComment()" class="btn btn-Card" style="width: 200px">작성 완료</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
 </div>
 
 <!-- 원형 차트 js -->
@@ -403,7 +391,7 @@
 <script src="./js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
-
+<!-- 차트부분 js -->
 <script type="text/javascript">
 $(document).ready(function() {
    var getChart = JSON.parse('${memCategoryCount}');
@@ -455,6 +443,7 @@ $(document).ready(function() {
 
 </script>
 
+<!-- 캘린더 부분 js -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
    
@@ -531,6 +520,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<!-- 써머노트 2개 js -->
 <script type="text/javascript">
 $(document).ready(function() {
     $('.chatrow').on( 'keyup', 'textarea', function (e){
@@ -549,6 +539,38 @@ $(document).ready(function() {
          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
          lang: "ko-KR",               // 한글 설정
          placeholder: "제안을 작성해주세요",   //placeholder      
+         //툴바 변경
+          toolbar: [
+              // [groupName, [list of button]]
+              ['fontname',['fontname']],
+              ['fontsize',['fontsize']],
+              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+              ['color', ['forecolor','color']],
+              ['para', ['ul', 'ol', 'paragraph']]
+            ],
+          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+    });
+      
+});
+// 코멘트 노트
+$(document).ready(function() {
+    $('.chatrow').on( 'keyup', 'textarea', function (e){
+      $(this).css('height', 'auto' );
+      $(this).height( this.scrollHeight );
+    });
+    $('.wrap').find( 'textarea' ).keyup();
+   
+    
+     //써머노트
+    $('#commentnote').summernote({
+         height: 150,
+         /* width:, */
+         minHeight: 100,             // 최소 높이
+         maxHeight: null,             // 최대 높이
+         focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+         lang: "ko-KR",               // 한글 설정
+         placeholder: "다양한 인증 방법을 댓글로 작성해주세요",   //placeholder      
          //툴바 변경
           toolbar: [
               // [groupName, [list of button]]
@@ -905,14 +927,13 @@ function likeSuggest(){
 	    	}	
 	    		
 	    	data += "<div class='suggestCard'>"
-	    		+	"<div class='suggest-card-body' onclick='test()'>"
-	    		+	"<div class='suggest-text' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
+	    		+	"<div class='suggest-card-body' >"
+	    		+	"<div class='suggest-text'onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
 	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
 	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
 	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
 	    		+	"</div>"
 	    		+	"<div class='suggest-like'>"
-	    		
 	    		+like
 	    		+	"<p class='like"+list[i].SUGGESTBBSSEQ+"'>"+list[i].LIKECNT+"</p>"
 	    		+	"</div> </div> </div>"
@@ -923,19 +944,27 @@ function likeSuggest(){
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
 	            +	"<hr class='hhr' width='100%'>"
-	            +	"<div class='applyCom'>"
-	            +		"<table class='commentTable'>"
+	            +	"<div class='applyCom' onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")'>"
+	            +		"<table class='commentTable"+list[i].SUGGESTBBSSEQ+"'>"
 	            +			"<colgroup>"
-	            +				"<col width='100px'>"
-	            +				"<col width='400px'>"
+	            +				"<col width='500px'>"
 	            +				"<col width='100px'>"
 	            +			"</colgroup><tr>"
-				+	            "<td class='commentNick'>닉네임</td>"
-				+	            "<td class='commentContent'>댓글내용</td>"
-				+	            "<td class='commentTime'>작성시간</td>"
-				+	        "</tr></table></div></div></div>"
+				+	            "<td class='commentContent'></td>"
+				+	            "<td class='commentTime'></td>"
+				+	        "</tr>"
+				+			"<tr>"
+        		+				"<td><a class='modalBtn' data-toggle='modal' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' data-target='#myModal4'>"
+        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
+        		+					"</a> </td> </tr>"
+        		+			"</table></div></div></div>";
+        		// 댓글 쓸때 seq를 modal로 보내줌
+        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
+        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
+        		
 	    	}
 	    	$(".suggestBox").html(data);
+
 	    },
         error:function(){
            alert("리스트 불러오는 error");
@@ -988,10 +1017,6 @@ function unLike(seq){
 	});
 }
 
-//onclick 확인
-function test(){
-	console.log("okok")
-}
 
 // 카테고리 변환 
 function setCategory(category){
@@ -1012,5 +1037,80 @@ function setCategory(category){
      }
 	return categoryName;
 }
+
+//제안하기 쪽 댓글 작성
+function setCommentSeq(seq){
+   $("#suggestSeq").val(seq)
+}
+
+// 제안하기 쪽 댓글 작성
+function saveComment(seq) {
+	console.log("saveComment---------------->")
+	console.log(seq)
+	var commentText = $('.comm_textarea').val();
+
+	if(commentText.length < 10){
+		alert('10자 이상 작성해주세요');
+		$("#commentText").focus()
+		return false;
+	}
+	 
+	 let dataFrm = $("#commForm").serialize();
+		console.log("dataFrm :" + dataFrm)
+	$.ajax({
+		type:'POST',
+		url:"writeComment.do",
+		data:dataFrm,
+		success:function(msg){
+			if(msg=="success"){
+				alert("작성 완료되었습니다");
+				location.href="myMainPage2.do"
+			}
+		},
+		error:function(xhr, status, error){
+			alert("작성 실패"+error);
+		}
+	});
+}
+
+//댓글 리스트 가져오기
+function commentListSel(seq){
+	console.log("commentListSel seq")
+	console.log(seq)
+	console.log(typeof(seq))
+	$.ajax({
+		url:"./commentList.do",
+		type:"get",
+	    data: {"suggestbbsseq":seq},
+	    success:function(list){
+	    	console.log("commentListSel->>>>>>>>>>>>")
+	    	console.log(list)
+	    	var data = "";
+	    	for(var i=0; i<list.length; i++){
+	    	data += 	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"	
+	    		+			"<table class='commentTable'>"
+	            +			"<colgroup>"
+	            +				"<col width='500px'>"
+	            +				"<col width='100px'>"
+	            +			"</colgroup><tr>"
+				+	            "<td class='commentContent'>"+list[i].SUGCOMCONTENT+"</td>"
+				+	            "<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
+				+	        "</tr>"
+				+			"<tr>"
+        		+				"<td><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
+        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
+        		+					"</a> </td> </tr>"
+        		+			"</table></div>"
+        		
+	    	}
+        		$(".applyCom").html(data);
+
+	    },
+        error:function(){
+           alert("commentList 불러오는 error");
+	   	}
+	});
+}
+
 
 </script>

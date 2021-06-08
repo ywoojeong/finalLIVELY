@@ -88,4 +88,16 @@ public class myPageServiceImpl implements myPageService{
 		// TODO Auto-generated method stub
 		return mypagedao.suggestMyLikeInsert(likeParam)>0?true:false;
 	}
+	
+	@Override
+	public boolean writeComment(Map<String, Object> commentParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.writeComment(commentParam)>0?true:false;
+	}
+	
+	@Override
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.commentList(suggestbbsseq);
+	}
 }

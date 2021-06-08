@@ -40,4 +40,8 @@ public interface myPageDao {
 	public int suggestMyLikeDel(Map<String, Object> myLikeParam) throws SQLException;
 	
 	public int suggestMyLikeInsert(Map<String,Object> likeParam) throws SQLException;
+	
+	public int writeComment(Map<String,Object> commentParam) throws SQLException;
+	
+	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException;
 }
