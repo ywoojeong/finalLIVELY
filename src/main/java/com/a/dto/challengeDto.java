@@ -40,7 +40,7 @@ public class challengeDto {
 	private String challengetext;
 	private String challengestart;
 	private String challengeend;
-	private String challengeperiod;
+	private int challengeperiod;
 	private int limitdate;  //며칠 남았나...(현재시각 - 시작일)
 	private int identifyfrequency; //인증 빈도
 	private String identifyday; //월 화 수 목 금 토 일
@@ -64,7 +64,7 @@ public class challengeDto {
 	}
 
 	public challengeDto(int challengeseq, int category, String challengetitle, String challengetext,
-			String challengestart, String challengeend, String challengeperiod, int limitdate, int identifyfrequency,
+			String challengestart, String challengeend, int challengeperiod, int limitdate, int identifyfrequency,
 			String identifyday, String identifydayS, String identifytime, String challengephoto,
 			String challengesavephoto, String certifyphoto, String certifysavephoto, String certify, double ratingavg,
 			int challengestop, int challengedel, int headernum, int pointcount, int challengemember, String email) {
@@ -143,11 +143,11 @@ public class challengeDto {
 		this.challengeend = challengeend;
 	}
 
-	public String getChallengeperiod() {
+	public int getChallengeperiod() {
 		return challengeperiod;
 	}
 
-	public void setChallengeperiod(String challengeperiod) {
+	public void setChallengeperiod(int challengeperiod) {
 		this.challengeperiod = challengeperiod;
 	}
 
