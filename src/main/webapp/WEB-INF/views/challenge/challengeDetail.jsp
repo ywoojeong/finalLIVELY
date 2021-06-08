@@ -250,9 +250,64 @@ console.log("인증 데이터"+"${identify}")
 		<div class="tab-content">
 			<!-- 현재 결과 -->
 			<div id="home" class="container tab-pane active">
-				<c:if test="${user.email !=null && user.email == identifyResultUser.email}">
+				<div class="row">
+					<div class="col-sm-6">
+						<canvas id="totalChart"></canvas>
+					</div>
+					<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 30px">
+						<h2 style="margin-bottom: 20px">얼마나 달성되었나요?</h2>
+						<div style="position: relative;width: 200px">
+							<div style="left: 100%;width: 200px;background-color: #8b63da;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">인증 성공</h5>
+								<div style="width: 180px">인증에성공한뎅이터이터입니다. 길게 서술하면 어케됨?</div>
+							<div style="position: absolute;left: 100%;top:0%;width: 200px">
+								<div style="width: 200px;background-color: #fbc2eb;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">인증 해</h5>
+								<div style="width: 180px">인증을 받아야하는 데이터입니다. 길게 서술하면 어케됨?</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+					<div class="row">
+					<div class="col-sm-6">
+						<canvas id="totalChart1"></canvas>
+					</div>
+					<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 30px">
+						<h2 style="margin-bottom: 20px">얼마나 달성되었나요?</h2>
+						<div style="position: relative;width: 200px">
+							<div style="left: 100%;width: 200px;background-color: #8b63da;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">전체 인증 성공</h5>
+								<div style="width: 180px">인증에성공한뎅이터이터입니다. 길게 서술하면 어케됨?</div>
+							<div style="position: absolute;left: 100%;top:0%;width: 200px">
+								<div style="width: 200px;background-color: #fbc2eb;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">전체 인증 중</h5>
+								<div style="width: 180px">인증을 받아야하는 데이터입니다. 길게 서술하면 어케됨?</div>
+							</div>
+						</div>
+						<div style="position: relative;width: 200px">
+							<div style="left: 100%;width: 200px;background-color: #8b63da;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">내 인증 성공</h5>
+								<div style="width: 180px">인증에성공한뎅이터이터입니다. 길게 서술하면 어케됨?</div>
+							<div style="position: absolute;left: 100%;top:0%;width: 200px">
+								<div style="width: 200px;background-color: #fbc2eb;height: 40px"></div>
+								<h5 style="margin: 30px 0  5px 0">내 인증 해</h5>
+								<div style="width: 180px">인증을 받아야하는 데이터입니다. 길게 서술하면 어케됨?</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				
+				
+			
+			
+<%-- 				<c:if test="${user.email !=null && user.email == identifyResultUser.email}"> --%>
 					<!-- 달성되었나요? -->
-					<h1 class="resultHeader">얼마나 달성되었나요?</h1>
+<!-- 					<h1 class="resultHeader">얼마나 달성되었나요?</h1> -->
 					<div class="row resultChart">
 						<div class="col-sm-6" style="border-right: 1px solid #edf0f2">
 							<div class="card-panel text-center">
@@ -295,11 +350,11 @@ console.log("인증 데이터"+"${identify}")
 							</span>
 						</div>
 					</div>
-				</c:if>
+<%-- 				</c:if> --%>
 				<!-- 			<hr style="border-top: 2px solid rgba(203, 152, 237,0.2)"> -->
 				<!-- 순위 보여주기 -->
 				<div class="grade">
-					<h3>TOP3 순위</h3>
+					<h3>TOP 3</h3>
 					<div class="row text-center" style="width: 80%; margin: 30px auto 20px auto">
 						<c:choose>
 							<c:when test="${fn:length(challengeResult) >3 }">
@@ -331,9 +386,9 @@ console.log("인증 데이터"+"${identify}")
 					</div> 
 			
 					<div style="height: 20px; width: 80%; background-color: #e9e9eaff; box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2) inset; margin: 0 auto 50px auto;"></div>
-
+					<c:if test="${fn:length(challengeResult) > 0 }">
 					<h3 style="margin: 50px 0 0 140px; font-size: 16pt;">TOP 10</h3>
-					
+					</c:if>
 					<c:forEach var="result" items="${challengeResult}" varStatus="status">	
 						<div class="grade5">
 							<div class="topNumber">${result.rnum }</div>
@@ -831,6 +886,9 @@ console.log("인증 데이터"+"${identify}")
 <script src="./js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
+<!-- 차트.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <!-- progress 바 채워지기 -->
 <script>
@@ -863,7 +921,63 @@ function handleImgFileSelect(e) {
         reader.readAsDataURL(f);
     });
 }
+//파이차트?
+const data = {
+ 
+  datasets: [{
+    label: 'My First Dataset',
+    data: [2, 28],
+    backgroundColor: [
+      'rgb(251, 194, 235)',
+      'rgb(139, 99, 218)',
+    ],
+    hoverOffset: 1
+  }]
+};
+		
+		
+		
+ const config = {
+  type: 'doughnut',
+  data,
+  options: {}
+};		
+		
+  var myChart = new Chart(
+    document.getElementById('totalChart'),
+    config
+  );
+/////////////////////////////////////////////////////
 
+  const data1 = {
+		  datasets: [
+      {
+        label: 'Dataset 1',
+        data: [12, 24],
+        backgroundColor: [
+        	'Green', 'Blue'
+        ],
+      },
+      {
+        label: 'Dataset 2',
+        data: [10, 25],
+        backgroundColor: ['Green', 'Blue'],
+      }
+    ]
+  };
+				
+  const config1 = {
+		  type: 'doughnut',
+		  data: data1,
+		  options: {
+
+		  },
+		};
+
+  var myChart1 = new Chart(
+		    document.getElementById('totalChart1'),
+		    config1
+		  );
 
 //차트 모션 (progress)
 $(".meter > span").each(function () {

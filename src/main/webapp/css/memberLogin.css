@@ -10,7 +10,9 @@ html {
   align-items: center;
   position: relative;
 } */
-
+.abcRioButtonContentWrapper>span{
+	font-size: 18pt;
+}
 
 .abcRioButtonContents{
 	font-size: 19px;

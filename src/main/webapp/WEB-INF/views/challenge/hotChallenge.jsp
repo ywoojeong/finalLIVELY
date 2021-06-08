@@ -6,8 +6,6 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
  <!-- core tag -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
  
- 
- 
  <div class="" style="margin-top:70px;"> 
 	<div class="hotMain">
 		<video muted autoplay loop>
