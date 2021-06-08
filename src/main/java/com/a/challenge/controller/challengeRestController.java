@@ -348,6 +348,8 @@ public class challengeRestController {
 			boolean success = service.identifyInsert(identParam);
 			
 			if(success) {	
+				boolean succ = service.identifyUpdate(identParam);
+				System.out.println("인증 업데이트가 되었나요?? "+succ);
 				msg = "SUCCESS";
 			}else {
 				msg = "FAIL";

@@ -26,7 +26,7 @@
 	                 <td><a href="${naverUrl}"><img src="image/naverLogin.svg"/></a></td>
 	             </tr>
 	             <tr>
-	                 <td><a href="#" class="g-signin2" onClick="onSignIn()"><img src="image/googlelogin.svg"/></a></td>
+	                 <td><a href="#" class="g-signin2" data-width="300" data-height="43"  onClick="onSignIn()"><img src="image/googlelogin.svg"/></a></td>
 	             </tr>
 	         </tbody>
 	     </table>
