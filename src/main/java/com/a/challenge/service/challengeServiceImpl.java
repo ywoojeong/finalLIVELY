@@ -189,11 +189,18 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.identifyInsert(certParam)>0?true:false;
 	}
+	
 
 	@Override
-	public List<Map<String, Object>> identifyAll(String email) {
+	public boolean identifyUpdate(Map<String, Object> certParam) {
 		// TODO Auto-generated method stub
-		return dao.identifyAll(email);
+		return dao.identifyUpdate(certParam)>0?true:false;
+	}
+
+	@Override
+	public List<Map<String, Object>> identifyAll(Map<String, Object> certParam) {
+		// TODO Auto-generated method stub
+		return dao.identifyAll(certParam);
 	}
 
 	@Override
@@ -201,6 +208,26 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.identifyCheck(email);
 	}
+
+	@Override
+	public List<Map<String, Object>> identifyResult(int challengeseq) {
+		// TODO Auto-generated method stub
+		return dao.identifyResult(challengeseq);
+	}
+
+	@Override
+	public Map<String, Object> identifyResultUser(Map<String, Object> resultParam) {
+		// TODO Auto-generated method stub
+		return dao.identifyResultUser(resultParam);
+	}
+
+	@Override
+	public Map<String, Object> challResultAllOne(int challengeseq) {
+		// TODO Auto-generated method stub
+		return dao.challResultAllOne(challengeseq);
+	}
+	
+	
 	
 	
 	

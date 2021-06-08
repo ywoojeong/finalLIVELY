@@ -10,6 +10,46 @@ html {
   align-items: center;
   position: relative;
 } */
+
+
+.abcRioButtonContents{
+	font-size: 19px;
+}
+.abcRioButtonContentWrapper>div{
+	padding: 9px;
+	margin-left: 3px;
+}
+.abcRioButtonContents >span{
+	font-size: 13pt;
+}
+.abcRioButton{
+	height: 40px;
+	width: 300px;
+	    border-radius: 6px;
+	    border: 1px solid rgba(0 0 0 / 10%);
+	    box-shadow: none;
+}
+
+.abcRioButtonLightBlue{
+	height: 40px;
+	width: 300px;
+    border-radius: 6px;
+    border: 1px solid rgba(0 0 0 / 10%);
+    box-shadow: none;
+}
+.abcRioButton:hover{
+	box-shadow:none;
+}
+.abcRioButtonIcon{
+	padding: 9px;
+	margin-left: 3px;
+}
+.abcRioButtonIcon>div>svg{
+	width: 23px;
+	height: 23px;
+	margin:-2px;;
+}
+
 #loginForm table {
  position:absolute;
   top:25%;

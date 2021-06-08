@@ -17,7 +17,12 @@
 <script>
 
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto.challengestart}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}");
-console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${identify}")
+console.log("아오얘왜이래!  "+'${identifycheck}'+"챌위시?"+"${challWish}")
+console.log("결과 데이터 함 볼까?!  "+'${challengeResult}'+ "   "+ "${fn:length(challengeResult)}")
+console.log("전체 결과 데이터"+"${challResultAllOne}")
+console.log("나만의 데이터"+"${identifyResultUser}")
+
+console.log("인증 데이터"+"${identify}")
 </script>
 
 <div class="backDiv"
@@ -86,8 +91,7 @@ console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${i
 			<td>참가 인원</td>
 			<td><span style="padding-right: 50px;">${challDto.challengemember }명</span>
 				<c:choose>
-					<c:when
-						test="${challengeMember != null && fn:length(challengeMember) <= 5}">
+					<c:when	test="${challengeMember != null && fn:length(challengeMember) <= 5}">
 						<c:forEach var="challUser" items="${challengeMember}"
 							varStatus="status">
 							<img class="userWrap"
@@ -166,7 +170,9 @@ console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${i
 				</div>
 			</div>
 			<div class='col-sm-4' style="margin-left: -5px;padding-left: 0">
-				<label class="challengetext" style="margin-left: -9px">나의 인증 현황</label>
+				<c:if test="${fn:length(identify) != 0}">
+					<label class="challengetext" style="margin-left: -9px">나의 인증 현황</label>
+				</c:if>
 				<div>
 					<div class='row'>
 						<c:choose>
@@ -244,110 +250,105 @@ console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${i
 		<div class="tab-content">
 			<!-- 현재 결과 -->
 			<div id="home" class="container tab-pane active">
-
-				<!-- 달성되었나요? -->
-				<h1 class="resultHeader">얼마나 달성되었나요?</h1>
-				<div class="row resultChart">
-					<div class="col-sm-6" style="border-right: 1px solid #edf0f2">
-						<div class="card-panel text-center">
-							<div class="easypiechart" id="easypiechart-total"
-								data-percent="82">
-								<span class="percent">82%</span>
+				<c:if test="${user.email !=null && user.email == identifyResultUser.email}">
+					<!-- 달성되었나요? -->
+					<h1 class="resultHeader">얼마나 달성되었나요?</h1>
+					<div class="row resultChart">
+						<div class="col-sm-6" style="border-right: 1px solid #edf0f2">
+							<div class="card-panel text-center">
+								<div class="easypiechart" id="easypiechart-total"
+									data-percent="${challResultAllOne.percents }">
+									<span class="percent">${challResultAllOne.percents }%</span>
+								</div>
+								<h4>전체</h4>
 							</div>
-							<h4>전체</h4>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="card-panel text-center">
-							<div class="easypiechart" id="easypiechart-user"
-								data-percent="82">
-								<span class="percent">82%</span>
+						<div class="col-sm-6">
+							<div class="card-panel text-center">
+								<div class="easypiechart" id="easypiechart-user" data-percent="${identifyResultUser.percents}">
+									<span class="percent">${identifyResultUser.percents}%</span>
+								</div>
+								<h4>${identifyResultUser.nickname } 님</h4>
 							</div>
-							<h4>LemonLime 님</h4>
 						</div>
 					</div>
-				</div>
-
-				<!-- 인증 횟수는? -->
-				<!-- 			<hr style="border-top: 2px solid rgba(203, 152, 237,0.2)"> -->
-				<div class="identify text-center">
-					<img class="userWrap60" src=""
-						onerror="this.src='image/user_80px.jpg'"> <span>LemonLime님의
-						인증 횟수는?</span><br>
-					<div class="inCount">
-						<div style="display: flex; flex-direction: column;">
-							<h5 style="margin-bottom: 0; font-size: 13pt; color: #8b63da">8위</h5>
-							<img src="image/mytrophy1.svg"
-								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
+	
+					<!-- 인증 횟수는? -->
+					<!-- 			<hr style="border-top: 2px solid rgba(203, 152, 237,0.2)"> -->
+					<div class="identify text-center">
+						<img class="userWrap60" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${identifyResultUser.memberphotoname }" onerror="this.src='image/user_80px.jpg'"> 
+						<span>${identifyResultUser.nickname }님의 인증 횟수는?</span><br>
+						<div class="inCount">
+							<div style="display: flex; flex-direction: column;">
+							<c:forEach  var="result" items="${challengeResult }">
+								<c:if test="${result.email == user.email }">
+ 									<h5 style="margin-bottom: 0; font-size: 13pt; color: #8b63da">${result.rnum }위</h5> 
+ 								</c:if>
+ 							</c:forEach>
+								<img src="image/mytrophy1.svg" style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
+							</div>
+							<span class="d-none d-sm-block"> 
+							<c:forEach begin="1" end="${identifyResultUser.totalday}" varStatus="status">	
+								 <img src="image/identify1.png" style="background-color: #8b63da">
+							</c:forEach>
+								 <span style="font-size: 11pt; color: #7a777d; margin-left: 10px;">${identifyResultUser.identify } / ${identifyResultUser.totalday } 회</span>
+							</span>
 						</div>
-						<span class="d-none d-sm-block"> 
-						<%	for (int i = 0; i < 5; i++) {
- 						%>
- 						 <img src="image/identify1.png" style="background-color: #8b63da">
-							<%
-								}
-							%>
-							 <%for (int i = 0; i < 14 - 5; i++) {
-							 %> 
-							 <img src="image/identify1.png"	style="background-color: white"> 
-							 <%
-							 	}
-							 %> 
-							 <span style="font-size: 11pt; color: #7a777d; margin-left: 10px;">5/14회</span>
-						</span>
 					</div>
-				</div>
+				</c:if>
 				<!-- 			<hr style="border-top: 2px solid rgba(203, 152, 237,0.2)"> -->
 				<!-- 순위 보여주기 -->
 				<div class="grade">
 					<h3>TOP3 순위</h3>
-					<div class="row text-center"
-						style="width: 80%; margin: 30px auto 20px auto">
-						<div class="col-sm-4 gradeTop"
-							style="color: #e6ba1e; border-right: 1px solid #edf0f2">
-							<h5 style="font-size: 13pt; margin-bottom: 0">1위</h5>
-							<img src="image/gold1.svg"
-								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
-							<h5 style="margin-top: 10px;">LemonLime</h5>
-						</div>
-						<div class="col-sm-4 gradeTop"
-							style="color: #c7c7c7; border-right: 1px solid #edf0f2">
-							<h5 style="font-size: 13pt; margin-bottom: 0">2위</h5>
-							<img src="image/silver1.svg"
-								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
-							<h5 style="margin-top: 10px;">LemonLime</h5>
-						</div>
-						<div class="col-sm-4 gradeTop" style="color: #82590d;">
-							<h5 style="font-size: 13pt; margin-bottom: 0">3위</h5>
-							<img src="image/coper1.svg"
-								style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
-							<h5 style="margin-top: 10px;">LemonLime</h5>
-						</div>
-					</div>
+					<div class="row text-center" style="width: 80%; margin: 30px auto 20px auto">
+						<c:choose>
+							<c:when test="${fn:length(challengeResult) >3 }">
+								<c:forEach var="result" items="${challengeResult}" begin="0"	end="2" varStatus="status">	
+									<div class="col-sm-4 gradeTop${result.rnum}">
+										<h5 style="font-size: 13pt; margin-bottom: 0">${result.rnum}위</h5>
+										<img src="image/trophy${result.rnum }.svg" style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
+										<h5 style="margin-top: 10px;">${result.nickname }</h5>
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:when test="${fn:length(challengeResult) <=3 }">
+								<c:forEach var="result" items="${challengeResult}" varStatus="status">	
+									<div class="col-sm-4 gradeTop${result.rnum}">
+										<h5 style="font-size: 13pt; margin-bottom: 0">${result.rnum}위</h5>
+										<img src="image/trophy${result.rnum }.svg" style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
+										<h5 style="margin-top: 10px;">${result.nickname }</h5>
+									</div>
+								</c:forEach>
+								<c:forEach begin="${fn:length(challengeResult)+1}" end="3" varStatus="status">	
+									<div class="col-sm-4 gradeTop${status.index}">
+										<h5 style="font-size: 13pt; margin-bottom: 0">${status.index}위</h5>
+										<img src="image/trophy${status.index}.svg" style="height: 85px; filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.2));">
+										<h5 style="margin-top: 10px;">?</h5>
+									</div>
+								</c:forEach>
+							</c:when>
+						</c:choose>
+					</div> 
+			
+					<div style="height: 20px; width: 80%; background-color: #e9e9eaff; box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2) inset; margin: 0 auto 50px auto;"></div>
 
-					<div
-						style="height: 20px; width: 80%; background-color: #e9e9eaff; box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2) inset; margin: 0 auto 50px auto;"></div>
-
-					<h3 style="margin: 50px 0 0 140px; font-size: 16pt;">TOP5</h3>
-					<%
-						for (int i = 0; i < 5; i++) {
-					%>
-					<div class="grade5">
-						<div class="topNumber"><%=i + 1%></div>
-						<div class="proId">
-							<p>LemonLime</p>
-							<div style="display: flex">
-								<div class="meter red">
-									<span style="width: 80%"></span>
+					<h3 style="margin: 50px 0 0 140px; font-size: 16pt;">TOP 10</h3>
+					
+					<c:forEach var="result" items="${challengeResult}" varStatus="status">	
+						<div class="grade5">
+							<div class="topNumber">${result.rnum }</div>
+							<div class="proId">
+								<p>${result.nickname }</p>
+								<div style="display: flex">
+									<div class="meter red">
+										<span style="width:${result.percents}%"></span>
+									</div>
+									<span style="margin-left: 15px; font-size: 11pt; color: #bdbdbd">${result.identify } / ${result.totalday}회
+									</span>
 								</div>
-								<span style="margin-left: 15px; font-size: 11pt; color: #bdbdbd">5/14
-									회</span>
 							</div>
 						</div>
-					</div>
-					<%
-						}
-					%>
+					</c:forEach>
 				</div>
 
 			</div>
@@ -590,8 +591,7 @@ console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${i
 					<col width="200px">
 					<col width="205px">
 					<c:if test="${challengeMember != null}">
-						<c:forEach var="challUser" items="${challengeMember}"
-							varStatus="status">
+						<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
 							<tr>
 								<td><img class="userWrap"
 									src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challUser.memberphotoname }"
@@ -599,12 +599,12 @@ console.log("아오얘왜이래!  "+'${identifycheck}'+"호호인증사진"+"${i
 								<td>${challUser.nickname }</td>
 								<td align="right" id="followBtn">
 									<c:if test="${user.email != null && user.email != challUser.email && challUser.followcheck == 0}">
-										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLike('${challUser.email}')">
+										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" followingemail='${challUser.email}' onclick="userLike(this)">
 									   		<i class="fa fa-heart" aria-hidden="true"></i> Like 
 										</button> 
 									</c:if>
 									<c:if test="${user.email != null && challUser.followcheck == 1}">
-										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" onclick="userLikeDel('${challUser.email}')">
+										<button id="_like-review" class="btn btn-secondary like-review" style="background-color:#ed2553" followingemail='${challUser.email}' onclick="userLikeDel(this)">
 									   		<i class="fa fa-heart" aria-hidden="true"></i> You Liked
 										</button> 
 									</c:if>
@@ -967,17 +967,17 @@ $.ajax({
 		$.each(list, function(i, challUser){
 
 			selectDay.forEach(function(date){
-				console.log("date   00:00   "+date)
+				//console.log("date   00:00   "+date)
 				let data = date;
 				let dataFive = new Date( data.setMinutes(date.getMinutes()+5));
-				console.log("date 00:00   "+date)
+		/* 		console.log("date 00:00   "+date)
 				console.log("now   "+now)
-				console.log("dataFive   "+dataFive)
+				console.log("dataFive   "+dataFive) */
 				if(userId != null && challUser.email == userId && now >= date && now <= dataFive){
 						if(identifycheck == 0){
 							console.log("안들어왕눟매먀ㅜ헉무휴ㅓㄹㅇ미ㅏㅇ모헌모")
 							document.getElementById('identifyBtn').innerHTML = "<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\">";
-						}else if(identifycheck == 1){
+						}else{
 							$('#identifyBtn').hide();
 						}
 						
@@ -1025,8 +1025,10 @@ function dateToMonth(date) {
 
 
 //follow 추가
-function userLike(likeemail){
-	
+function userLike(me){
+
+	let likeemail = $(me).attr('followingemail');
+	console.log("dsfadsgds"+likeemail)
 	$.ajax({
 		url:"followInsert.do",
 		data:{"followemail":'${user.email}', "followingemail":likeemail},
@@ -1035,7 +1037,7 @@ function userLike(likeemail){
 
 			$("#_like-review").html("<i class='fa fa-heart' aria-hidden='true'></i> You Liked");
 			$("#_like-review").removeAttr('onclick');
-			$("#_like-review").attr("onclick","userLikeDel('"+likeemail+"')");
+			$("#_like-review").attr("onclick","userLikeDel(this)");
 			
 		},
 		error:function(){
@@ -1049,7 +1051,11 @@ function userLike(likeemail){
 }
 
 //follow 삭제
-function userLikeDel(likeemail){
+function userLikeDel(me){
+
+	let likeemail = $(me).attr('followingemail');
+	console.log("dsfadsgds"+likeemail)
+	
 	$.ajax({
 		url:"followDelete.do",
 		data:{"followemail":'${user.email}', "followingemail":likeemail},
@@ -1058,7 +1064,7 @@ function userLikeDel(likeemail){
 
 			$("#_like-review").html("<i class='fa fa-heart' aria-hidden='true'></i> Like");
 			$("#_like-review").removeAttr('onclick');
-			$("#_like-review").attr("onclick","userLike('"+likeemail+"')");
+			$("#_like-review").attr("onclick","userLike(this)");
 		},
 		error:function(){
 			alert("후기 좋아요 버튼 에러");
