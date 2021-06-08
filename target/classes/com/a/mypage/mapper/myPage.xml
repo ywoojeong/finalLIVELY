@@ -158,7 +158,8 @@
 	
 	<!-- 댓글 꺼내오기 -->
 	<select id="commentList" parameterType="java.lang.Integer" resultType="java.util.Map">
-		SELECT SUGCOMCONTENT, SUGCOMDATE FROM SUGGESTCOMMENT WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
+		SELECT SUGCOMSEQ, SUGCOMCONTENT, SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ FROM SUGGESTCOMMENT 
+		WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
 	</select>
 	
 	

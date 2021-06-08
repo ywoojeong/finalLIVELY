@@ -235,55 +235,9 @@
                            <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
                            <button type="button" class="btn btn-Search" >SEARCH</button>
                         </div>
-                        <!-- 제안하기 --> 
-                        
-                        <%-- <%for(int i=0;i<3;i++) {%> --%>
-                        <div class="suggestBox">
-                        <div class="suggestCard">
-                            <div class="suggest-card-body" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                              <div class="suggest-text">
-                                 <p class="suggest-category">카테고리</p>
-                                 <p class="suggest-title">챌린지 이름</p>
-                                 <p class="suggest-comment"><i class="far fa-comment"></i>댓글</p>
-                              </div>
-                              <div class="suggest-like">
-                                 <i class="far fa-thumbs-up fa-2x"></i>
-                                 <p>123</p>
-                              </div>
-                           </div>
-                        </div>
-                        </div>
-                        <!-- 제안하기 텍스트 박스 -->
-                        <div class="collapse" id="collapseExample" style="width: 77%">
-                        	<div class="applyBox">
-	                        	<!-- 글 영역 -->
-	                        	<div class="applyBbs" style="height: 50px;">
-	                        		
-	                        			<p style="margin-top: 0;">여기 글이 들어갈거구요</p>
-	                        		
-	                        	</div>
-	                        	
-	                        	<hr class="hhr" width="100%">
-	                        	
-	                        	<!-- 댓글영역 -->
-	                        	<div class="applyCom">
-	                        		<table class="commentTable">
-	                        			<colgroup>
-	                        				<col width="500px">
-	                        				<col width="100px">
-	                        			</colgroup>
-		                        		<tr>
-								            <td class="commentContent">댓글내용</td>
-								            <td class="commentTime">작성시간</td>
-								        </tr>
-								        <tr>
-								        	<td><a>댓글 작성하기</a></td>
-								        </tr>
-									</table>
-	                        	</div>
-	                        </div>
-                        </div>
-                       <%--  <%} %> --%>
+                        <!-- 제안하기 list 받는곳--> 
+                        <div class="suggestBox"></div>
+
                            </div>
                         </div>
                     </div>
@@ -437,7 +391,7 @@
 <script src="./js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
-
+<!-- 차트부분 js -->
 <script type="text/javascript">
 $(document).ready(function() {
    var getChart = JSON.parse('${memCategoryCount}');
@@ -489,6 +443,7 @@ $(document).ready(function() {
 
 </script>
 
+<!-- 캘린더 부분 js -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
    
@@ -565,6 +520,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<!-- 써머노트 2개 js -->
 <script type="text/javascript">
 $(document).ready(function() {
     $('.chatrow').on( 'keyup', 'textarea', function (e){
@@ -988,17 +944,17 @@ function likeSuggest(){
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
 	            +	"<hr class='hhr' width='100%'>"
-	            +	"<div class='applyCom'>"
-	            +		"<table class='commentTable'>"
+	            +	"<div class='applyCom' onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")'>"
+	            +		"<table class='commentTable"+list[i].SUGGESTBBSSEQ+"'>"
 	            +			"<colgroup>"
 	            +				"<col width='500px'>"
 	            +				"<col width='100px'>"
 	            +			"</colgroup><tr>"
-				+	            "<td class='commentContent'>댓글내용</td>"
-				+	            "<td class='commentTime'>작성시간</td>"
+				+	            "<td class='commentContent'></td>"
+				+	            "<td class='commentTime'></td>"
 				+	        "</tr>"
 				+			"<tr>"
-        		+				"<td><a class='modalBtn' data-toggle='modal' onclick='saveComment("+list[i].SUGGESTBBSSEQ+")' data-target='#myModal4'>"
+        		+				"<td><a class='modalBtn' data-toggle='modal' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' data-target='#myModal4'>"
         		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
         		+					"</a> </td> </tr>"
         		+			"</table></div></div></div>";
@@ -1082,6 +1038,11 @@ function setCategory(category){
 	return categoryName;
 }
 
+//제안하기 쪽 댓글 작성
+function setCommentSeq(seq){
+   $("#suggestSeq").val(seq)
+}
+
 // 제안하기 쪽 댓글 작성
 function saveComment(seq) {
 	console.log("saveComment---------------->")
@@ -1122,12 +1083,12 @@ function commentListSel(seq){
 		type:"get",
 	    data: {"suggestbbsseq":seq},
 	    success:function(list){
-	    	console.log("commentListSel")
+	    	console.log("commentListSel->>>>>>>>>>>>")
 	    	console.log(list)
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
-
-	    	data += "<table class='commentTable'>"
+	    	data += 	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"	
+	    		+			"<table class='commentTable'>"
 	            +			"<colgroup>"
 	            +				"<col width='500px'>"
 	            +				"<col width='100px'>"
@@ -1139,10 +1100,10 @@ function commentListSel(seq){
         		+				"<td><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
         		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
         		+					"</a> </td> </tr>"
-        		+			"</table>"
+        		+			"</table></div>"
         		
-        		$(".applyCom").html(data);
 	    	}
+        		$(".applyCom").html(data);
 
 	    },
         error:function(){
