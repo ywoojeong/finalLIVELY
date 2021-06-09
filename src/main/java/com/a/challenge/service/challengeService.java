@@ -96,7 +96,7 @@ public interface challengeService {
 	public List<Map<String, Object>> identifyAll(Map<String, Object> certParam);
 	
 	//인증 되었는지 체크
-	public int identifyCheck(String email);
+	public int identifyCheck(Map<String, Object> certParam);
 	
 	//챌린지 전체 결과 가져오기
 	public List<Map<String, Object>> identifyResult(int challengeseq);

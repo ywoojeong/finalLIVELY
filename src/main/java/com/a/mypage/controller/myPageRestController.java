@@ -90,7 +90,7 @@ public class myPageRestController {
 		return msg;
 	}
 	
-	// 좋아요 list
+	// 좋아요 및 페이징 등등등 다 가지고 있는 애
 	@RequestMapping(value = "suggestMyLike.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<Map<String, Object>> suggestMyLike(@RequestParam Map<String,Object> myLikeParam, HttpSession session) throws SQLException {
 		
@@ -102,6 +102,12 @@ public class myPageRestController {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("email", email);
+		
+		int startPage = (Integer.parseInt((String)myLikeParam.get("page"))*5) + 1;
+		int endPage = (Integer.parseInt((String)myLikeParam.get("page"))+1) *5;
+//		int endPage = (startPage + 1)*5;
+		param.put("startPage", startPage);
+		param.put("endPage", endPage);
 		
 		List<Map<String, Object>> suggestList = myService.suggestList(param);
 		System.out.println("suggestList :" + suggestList.toString());
@@ -177,6 +183,17 @@ public class myPageRestController {
 		System.out.println("commentList :" + commentList.toString());
 		
 		return commentList;
+	}
+	
+	// 제안하기 게시글 총 수 가져오기
+	@RequestMapping(value = "suggestListPage.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public int suggestBbsCnt(@RequestParam Map<String,Object> searchParam) throws SQLException {
+		System.out.println("searchParam ---- " + searchParam);
+		
+		int suggestBbsCnt = myService.suggestBbsCnt(searchParam);
+		System.out.println("전체 제안하기 총 수 :" + searchParam);
+		
+		return suggestBbsCnt;
 	}
 
 }

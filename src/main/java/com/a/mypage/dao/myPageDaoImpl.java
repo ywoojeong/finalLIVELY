@@ -100,4 +100,10 @@ public class myPageDaoImpl implements myPageDao {
 		// TODO Auto-generated method stub
 		return sql.selectList("myPage.commentList", suggestbbsseq);
 	}
+	
+	@Override
+	public int suggestBbsCnt(Map<String, Object> searchParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return sql.selectOne("myPage.suggestBbsCnt", searchParam);
+	}
 }
