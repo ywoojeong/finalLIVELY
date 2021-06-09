@@ -89,9 +89,21 @@ public interface challengeService {
 	//인증 insert indentifyInsert
 	public boolean identifyInsert(Map<String, Object> certParam);
 	
+	//인증 update
+	public boolean identifyUpdate(Map<String, Object> certParam);
+	
 	//인증 데이터 전체 가져오기
-	public List<Map<String, Object>> identifyAll(String email);
+	public List<Map<String, Object>> identifyAll(Map<String, Object> certParam);
 	
 	//인증 되었는지 체크
 	public int identifyCheck(String email);
+	
+	//챌린지 전체 결과 가져오기
+	public List<Map<String, Object>> identifyResult(int challengeseq);
+	
+	//나의 결과 가져오기 identifyResultUser 1인분
+	public Map<String, Object> identifyResultUser(Map<String, Object> resultParam);
+	
+	//챌린지 결과값(전체용) challResultAllOne
+		public Map<String, Object> challResultAllOne(int challengeseq);
 }

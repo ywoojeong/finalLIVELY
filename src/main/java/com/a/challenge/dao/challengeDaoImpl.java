@@ -217,11 +217,17 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+"identifyInsert", certParam);
 	}
+	
+	@Override
+	public int identifyUpdate(Map<String, Object> certParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+"identifyUpdate", certParam);
+	}
 
 	@Override
-	public List<Map<String, Object>> identifyAll(String email) {
+	public List<Map<String, Object>> identifyAll(Map<String, Object> certParam) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"identifyAll", email);
+		return sqlSession.selectList(namespace+"identifyAll", certParam);
 	}
 
 	@Override
@@ -229,6 +235,26 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+"identifyCheck", email);
 	}
+
+	@Override
+	public List<Map<String, Object>> identifyResult(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"identifyResult", challengeseq);
+	}
+
+	@Override
+	public Map<String, Object> identifyResultUser(Map<String, Object> resultParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"identifyResultUser", resultParam);
+	}
+
+	@Override
+	public Map<String, Object> challResultAllOne(int challengeseq) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"challResultAllOne", challengeseq);
+	}
+	
+	
 	
 	
 	

@@ -167,9 +167,12 @@ public class challengeController {
 						System.out.println("가따오긴하니?");
 						
 						//인증 데이터 보내주기
-						List<Map<String, Object>> identify = service.identifyAll(followingemail);
+						List<Map<String, Object>> identify = service.identifyAll(WishParam);
 						model.addAttribute("identify",identify);
 						
+						//나만의 결과값
+						Map<String, Object> identifyResultUser = service.identifyResultUser(WishParam);
+						model.addAttribute("identifyResultUser", identifyResultUser);
 						//내이메일이랑 멤버이메일이랑 같을 때 인증한거 보내주기 challengeMember
 						if(followingemail.equals(member.getEmail())) {
 							int identifycheck =  service.identifyCheck(member.getEmail());
@@ -187,8 +190,14 @@ public class challengeController {
 		
 		//후기 결과 데이터
 		Map<String, Object> reviewResult = service.reviewResult(challengeseq);
-		System.out.println("후기 데이터 "+reviewResult.toString());
-
+		
+		//챌린지 결과 데이터 가져오기
+		List<Map<String, Object>> challengeResult = service.identifyResult(challengeseq); 
+		Map<String, Object> challResultAllOne = service.challResultAllOne(challengeseq);
+		//System.out.println("챌린지 순위 결과 데이터 "+challengeResult.toString());
+			
+		model.addAttribute("challResultAllOne", challResultAllOne);
+		model.addAttribute("challengeResult", challengeResult);
 		model.addAttribute("reviewResult", reviewResult);
 		model.addAttribute("challengeMember", challengeMember);
 		model.addAttribute("challDto", challDto);

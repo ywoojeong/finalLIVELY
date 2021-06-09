@@ -14,8 +14,9 @@
 }
 *:lang(en){
 	 font-family: 'Raleway', sans-serif;
-} 
+}
 
+}
 /*부트스트랩 버튼과 인풋 테두리 컬러*/
 
 .form-control:focus{
