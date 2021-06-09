@@ -108,6 +108,27 @@ public class challengeRestController {
 	 return challengeList;
 	}
 	
+	//newChallenge 뿌리기 newChallengeData.do
+	@RequestMapping(value = "newChallengeData.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> newChallengeData(@RequestParam Map<String,Object> searchParam) throws Exception{
+		System.out.println("newChallengeData 들어갔다고 얘기해!");
+		System.out.println(searchParam.toString());
+ 		//paging 처리
+		int sn = Integer.parseInt(searchParam.get("nowpageNumber").toString());
+		int startPage = sn * 9 + 1;	//1  9
+		int endPage = (sn+1) * 9; 		//10 20
+ 
+		searchParam.put("startPage", startPage);
+		searchParam.put("endPage", endPage);
+		System.out.println("가기전 searchParam"+searchParam.toString());
+		
+		 List<Map<String, Object>> challengeList = service.newChallengeData(searchParam);
+
+		 System.out.println("갔다온 리스트 : "+challengeList.toString());
+
+	 return challengeList;
+	}
+	
 	//challengeDataCount 글의 총 수 가져오기 paramMap search / category
 	@RequestMapping(value = "challengeDataCount.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public int challengeDataCount(@RequestParam Map<String,Object> searchParam) throws Exception{

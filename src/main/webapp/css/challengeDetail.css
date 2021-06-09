@@ -919,3 +919,55 @@ background-color: #2196F3;
 	height: 80px;
 	object-fit: cover;
 }
+
+
+/*참가인원 없는 모션*/
+.noneData{
+	    width: 752px;
+    margin: 30px auto;
+}
+.noneData >h3 {
+	text-align:center;
+	width:752px;
+	position: relative;
+	display: block;
+	margin: 0;
+	font-size: 31px;
+	line-height: 1;
+	transform: translateY(6rem);
+	animation: up 500ms linear forwards;
+	z-index: 1;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+}	
+.noneData >h3:before,
+.noneData >h3:after {
+	position: absolute;
+	content: '';
+	width: 0px;
+	height: 5px;
+	left: 0;
+	background-color: rgba(0,0,0,0.1);
+	z-index: -1;
+}
+	
+.noneData >h3:before {
+	top: 1.5rem;
+	animation: draw 500ms linear 1s forwards;
+}
+	
+.noneData >h3:after {
+	bottom: 0.2rem;
+	animation: draw 500ms linear 1s forwards;
+}
+
+@keyframes up {
+	100% {
+		transform: translateY(0);
+	}	
+}
+
+@keyframes draw {	
+	100% {
+		width: 100%;
+	}
+}

@@ -34,7 +34,7 @@ public class challengeDaoImpl implements challengeDao {
 	@Override
 	public List<Map<String, Object>> newChallengeData(Map<String, Object> searchParam) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"hotChallengeData", searchParam);
+		return sqlSession.selectList(namespace+"newChallengeData", searchParam);
 	}
 
 	@Override
@@ -231,9 +231,9 @@ public class challengeDaoImpl implements challengeDao {
 	}
 
 	@Override
-	public int identifyCheck(String email) {
+	public int identifyCheck(Map<String, Object> certParam) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+"identifyCheck", email);
+		return sqlSession.selectOne(namespace+"identifyCheck", certParam);
 	}
 
 	@Override

@@ -8,7 +8,7 @@
 
  <!-- member 로그인 css -->
  <link rel="stylesheet" href="css/memberLogin.css" />
-<div class="log" id="log">
+<div class="log" id="log" style="height: 89vh">
 	 <form name="loginForm" id="loginForm" method="POST">
 	     <table>
 	         <thead>
@@ -26,7 +26,7 @@
 	                 <td><a href="${naverUrl}"><img src="image/naverLogin.svg"/></a></td>
 	             </tr>
 	             <tr>
-	                 <td><a href="#" class="g-signin2" data-width="300" data-height="43"  onClick="onSignIn()"><img src="image/googlelogin.svg"/></a></td>
+	                 <td><a href="#" class="g-signin2" data-width="300" data-height="43"  onClick="onSignIn()" style="text-decoration: none"><img src="image/googlelogin.svg"/></a></td>
 	             </tr>
 	         </tbody>
 	     </table>

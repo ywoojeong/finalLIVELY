@@ -204,9 +204,9 @@ public class challengeServiceImpl implements challengeService {
 	}
 
 	@Override
-	public int identifyCheck(String email) {
+	public int identifyCheck(Map<String, Object> certParam) {
 		// TODO Auto-generated method stub
-		return dao.identifyCheck(email);
+		return dao.identifyCheck(certParam);
 	}
 
 	@Override
