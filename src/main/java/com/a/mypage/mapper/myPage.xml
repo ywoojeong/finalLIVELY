@@ -137,18 +137,6 @@
 		AND SUGGESTBBSSEQ = #{suggestbbsseq}
 	</delete>
 	
-	<!-- 제안하기 꺼내오기 -->
-	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT SBS.*,
-		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
-		CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
-		FROM SUGGESTBBS SBS
-		LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
-		ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
-		LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
-		ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
-		WHERE SBS.SUGGESTBBSDEL = 0
-	</select>
 	
 	<!-- 댓글 insert -->
 	<insert id="writeComment" parameterType="java.util.Map">
@@ -162,7 +150,83 @@
 		WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
 	</select>
 	
+	<!-- 제안하기 꺼내오기 -->
+	<!-- 
+	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT SV.* FROM
+	(SELECT SBS.*, ROWNUM as SI, 
+	CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
+	(SELECT COUNT(*) FROM SUGGESTBBS
+	WHERE
+		<if test="category !=null and category !=''">
+			AND SUGGESTBBSCATEGORY = ${SUGGESTBBSCATEGORY}
+		</if>
+		<if test="search !=null and search != ''">
+			AND SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
+		</if>)
+	FROM SUGGESTBBS SBS
+	LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+	ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+	LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+	ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+	WHERE 1=1
+		AND SBS.SUGGESTBBSDEL = 0
+			ORDER BY SBS.SUGGESTBBSSEQ ASC) SV
+	WHERE SV.SI >= #{startPage} AND #{endPage} >= SV.SI
+	</select>
+	 -->
 	
+	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT SV.* FROM
+	(SELECT SBS.*, ROWNUM as SI, 
+	CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
+	FROM SUGGESTBBS SBS
+	LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+	ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+	LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+	ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+	WHERE 1=1
+		AND SBS.SUGGESTBBSDEL = 0
+			<if test="category !=null and category !=''">
+				AND SBS.SUGGESTBBSCATEGORY = ${SUGGESTBBSCATEGORY}
+			</if>
+			<if test="search !=null and search != ''">
+				AND SBS.SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
+			</if>
+			ORDER BY SBS.SUGGESTBBSSEQ ASC) SV
+	WHERE SV.SI >= #{startPage} AND #{endPage} >= SV.SI
+	</select>
 	
+	<!-- 
+	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT SBS.*,
+		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+		CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
+		FROM SUGGESTBBS SBS
+		LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+		ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+		LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+		ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+		WHERE SBS.SUGGESTBBSDEL = 0
+	</select>
+	 -->
 	
+	<!-- 글의 총 수와 검색을 가져옴 -->
+	<select id="suggestBbsCnt" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT NVL(COUNT(*), 0)
+	FROM SUGGESTBBS
+	WHERE 1=1 
+	AND SUGGESTBBSDEL = 0 
+  		<if test="category !=null and category !=''">
+			AND SUGGESTBBSCATEGORY = ${SUGGESTBBSCATEGORY}
+		</if>
+		<if test="search !=null and search != ''">
+			AND SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
+		</if>
+	</select>
+
+
+
 </mapper>

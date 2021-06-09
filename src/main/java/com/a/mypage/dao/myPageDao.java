@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.a.dto.MemberDto;
 
 public interface myPageDao {
@@ -44,4 +46,7 @@ public interface myPageDao {
 	public int writeComment(Map<String,Object> commentParam) throws SQLException;
 	
 	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException;
+	
+	public int suggestBbsCnt(Map<String,Object> searchParam) throws SQLException;
+	
 }

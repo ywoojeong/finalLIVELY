@@ -100,4 +100,11 @@ public class myPageServiceImpl implements myPageService{
 		// TODO Auto-generated method stub
 		return mypagedao.commentList(suggestbbsseq);
 	}
+	
+	@Override
+	public int suggestBbsCnt(Map<String, Object> searchParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return mypagedao.suggestBbsCnt(searchParam);
+	}
+	
 }

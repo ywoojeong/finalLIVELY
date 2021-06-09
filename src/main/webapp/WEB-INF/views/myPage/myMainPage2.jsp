@@ -57,7 +57,7 @@
                   <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
               </li>
               <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu2" onclick="likeSuggest()">제안하기</a>
+                  <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
               </li>
           </ul>
          
@@ -231,13 +231,29 @@
 								</div>
 								
                         <!-- 메인 검색버튼 (타원)-->
+                        <div class="searchArea">
                         <div class="md-form md-outline d-flex Search" align="right">
+                           	<select class="form-control form-control-sm" name="category" id="category">
+		 						<option value="0">선택하세요</option>
+		 						<option value="1">건강</option>
+		 						<option value="2">역량</option>
+		 						<option value="3">정서</option>
+		 						<option value="4">자산</option>
+		 						<option value="5">생활</option>
+		 						<option value="6">취미</option>
+	 						</select>
                            <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
                            <button type="button" class="btn btn-Search" >SEARCH</button>
                         </div>
+                        </div>
                         <!-- 제안하기 list 받는곳--> 
                         <div class="suggestBox"></div>
-
+                        
+                        <!-- 페이징 처리 되는 곳 -->
+						<div class="sugPage">
+							<ul class="sugPageUl"></ul>
+						</div>
+						
                            </div>
                         </div>
                     </div>
@@ -906,13 +922,13 @@ function saveSuggest() {
 		}
 	});
 }
-
-/* 제안하기 가져오기 */
-function likeSuggest(){
+likeSuggest(0);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////* 제안하기 가져오기 */
+function likeSuggest(now){
 	$.ajax({
 		url:"./suggestMyLike.do",
-	    type:"get",
-	    data: {},
+	    type:"POST",
+	    data: {page:now},
 	    success:function(list){
 	    	console.log(list)
 	    	var data = "";
@@ -943,24 +959,14 @@ function likeSuggest(){
 	            /* +			"<p style='margin-top: 0;'>"+list[i].SUGGESTBBSCONTENT+"</p>"	 */
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
+				+			"<div class='cWrite'><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
+        		+					"<button type='button' class='btn' id='writeComment' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' >댓글쓰기</button></a></div>"
 	            +	"<hr class='hhr' width='100%'>"
-	            +	"<div class='applyCom' onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")'>"
-	            +		"<table class='commentTable"+list[i].SUGGESTBBSSEQ+"'>"
-	            +			"<colgroup>"
-	            +				"<col width='500px'>"
-	            +				"<col width='100px'>"
-	            +			"</colgroup><tr>"
-				+	            "<td class='commentContent'></td>"
-				+	            "<td class='commentTime'></td>"
-				+	        "</tr>"
-				+			"<tr>"
-        		+				"<td><a class='modalBtn' data-toggle='modal' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' data-target='#myModal4'>"
-        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
-        		+					"</a> </td> </tr>"
-        		+			"</table></div></div></div>";
+	            +	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"
+	            +	"</div></div></div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
         		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
-        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
+//        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
         		
 	    	}
 	    	$(".suggestBox").html(data);
@@ -1040,13 +1046,15 @@ function setCategory(category){
 
 //제안하기 쪽 댓글 작성
 function setCommentSeq(seq){
+	console.log("setCommentSeq33333333333333  "+seq)
+	
    $("#suggestSeq").val(seq)
+   
 }
 
 // 제안하기 쪽 댓글 작성
-function saveComment(seq) {
+function saveComment() {
 	console.log("saveComment---------------->")
-	console.log(seq)
 	var commentText = $('.comm_textarea').val();
 
 	if(commentText.length < 10){
@@ -1087,8 +1095,7 @@ function commentListSel(seq){
 	    	console.log(list)
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
-	    	data += 	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"	
-	    		+			"<table class='commentTable'>"
+	    	data += 	"<table class='commentTable'>"
 	            +			"<colgroup>"
 	            +				"<col width='500px'>"
 	            +				"<col width='100px'>"
@@ -1096,14 +1103,14 @@ function commentListSel(seq){
 				+	            "<td class='commentContent'>"+list[i].SUGCOMCONTENT+"</td>"
 				+	            "<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
 				+	        "</tr>"
-				+			"<tr>"
+/*				+			"<tr>"
         		+				"<td><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
         		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
-        		+					"</a> </td> </tr>"
-        		+			"</table></div>"
-        		
+        		+					"</a> </td> </tr>"*/
+        		+			"</table>"
 	    	}
-        		$(".applyCom").html(data);
+        		
+        		$(".applyCom"+seq).html(data);
 
 	    },
         error:function(){
@@ -1112,5 +1119,50 @@ function commentListSel(seq){
 	});
 }
 
+// 제안하기 총 수 가져오기
+function getSuggestListCnt(){
+	$.ajax({
+		url:"./suggestListPage.do",
+		type:"get",
+		data:{'search':$("#search").val(), 'category':$("#category").val()},
+		success:function(count){//return이 글의 전체 수임
+			//alert("전체 글의 수 : "+count);
+			sugListPaging(total);
+		},
+		error:function(){
+			alert("전체 글 수 에러error");
+		}
+	});
+}
+
+// 페이지 처리
+function sugListPaging(total,now){
+	var pagecnt = Math.ceil(total/5.0)
+	var startCnt = Math.floor((now-1)/5) * 5 + 1 
+	var pageBlock = Math.ceil(pagecnt/5)
+	var nowBlock = Math.ceil(now/5)
+	console.log("startCnt",startCnt)
+	console.log(total,pagecnt)
+	console.log("pageBlock",pageBlock)
+	console.log("nowBlock",nowBlock)
+	var html = ""
+	if(pageBlock > 1 && nowBlock > 1){
+		html += "<li  onclick='likeSuggest("+(nowBlock*5-4)+"'> &laquo;</li>"
+	}
+	for(var i=startCnt;i<=pagecnt;i++){
+		if(now == i){
+			html += "<li class='nowpage' onclick='likeSuggest("+i+")'>"+i+"</li>"
+		}else{
+			html += "<li  onclick='likeSuggest("+i+")'>"+i+"</li>"
+		}
+		
+	}
+	
+	if(pageBlock > 1 && nowBlock < pageBlock){
+		html += "<li  onclick='likeSuggest("+(nowBlock*5+1)+")'>&raquo;</li>"
+	}
+	console.log(html)
+	$(".sugPageUl").html(html)
+}
 
 </script>
