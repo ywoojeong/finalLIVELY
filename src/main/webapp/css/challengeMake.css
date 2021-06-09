@@ -9,6 +9,12 @@ body{
 	background: linear-gradient( 45deg, rgba(89, 29, 169, 0.35), rgba(89, 29, 169, 0.75));
 }
 
+.form-control:focus{
+	border-color: rgb(203 152 237);
+	box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
+}
+
+
 .challengeHeader{
 	margin-top:130px;
 	margin-bottom:50px;

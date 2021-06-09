@@ -3,6 +3,7 @@
 
 body{
 	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #F7EEFD;
 }
 
 video{
@@ -165,14 +166,14 @@ video{
 /*카테고리 범주 네비 디자인 */
 .hotNav .nav-pills{
 	justify-content: center;
-	margin-left: 25px;
+	margin-left: 13px;
 	margin: 20px 0 -20px 25px;
 }
 
 .hotNav .nav-pills .nav-link{
 	font-family: 'Noto Sans KR', sans-serif;
-	margin:11px auto 30px auto;
-	background-color: #f2f2f2;
+	margin:11px auto 15px auto;
+	background-color: white;
 	border-radius: 20px;
 	height:30px;
 	font-size:10pt;
@@ -180,10 +181,12 @@ video{
 	color: #222229;
 	font-weight: 400;
 	letter-spacing: 2px;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .hotNav .nav-link:focus, .hotNav .nav-link:hover{
-	color:cb98ed;
+	color: #8b63da;
+    font-weight: 500;
 }
 .hotNav .nav-pills .nav-link.active,.hotNav .nav-pills .show>.nav-link{
 	background-color: #cb98ed;

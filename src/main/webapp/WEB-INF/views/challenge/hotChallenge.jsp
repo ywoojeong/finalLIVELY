@@ -24,12 +24,12 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 	</div>
 </div>    
  
-   
-   <div class="container">
+
+   <div class="container" style="background: white;box-shadow: 0px 7px 19px 8px rgb(0 0 0 / 10%);padding: 0">
 
    	 <!-- Nav pills -->
    	 <div class="hotNav">
-		  <ul class="nav nav-pills" role="tablist">
+		  <ul class="nav nav-pills" role="tablist" style="margin-top: 0;padding-top: 6px;background-color: #f2f2f2;margin-left: 0;border-bottom: 1px solid rgba(0 0 0 / 5%);">
 		    <li class="nav-item">
 		      <a class="nav-link active" data-toggle="pill" href="#category0" onclick="categoryBtn(0)")>전  체</a>
 		    </li>
@@ -53,14 +53,11 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 		    </li>		 
 		  </ul>
 		</div>
-			
-	
-		
-		
+
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		  
-		  	 <div class="row">
+		  	 <div class="row" style="    margin-top: 20px;">
 		  	 				   <!-- 검색창 -->	
 					<div class="col-sm-6 md-form md-outline d-flex Search">
 						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search" onkeyup="JavaScript:Enter_Check(this);">
@@ -81,7 +78,7 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 		    	
 		    		<!-- 페이지네이션 -->
 		    				
- 						<nav aria-label="Page navigation" style="text-align: center;"> 
+ 						<nav aria-label="Page navigation" style="text-align: center;padding: 10px auto;height: 112px"> 
 							<ul class="pagination" id="_pagination" style="justify-content: center">
 							</ul>
  						</nav> 
@@ -189,6 +186,7 @@ function getChallengeList(pageNumber, categoryNumber){
 				$("#dataMain"+categoryNumber).html(data);
 			}
 			
+			let data = "";
 			$.each(list, function(i, challenge){
 				
 				let dateTotal="";
@@ -223,7 +221,7 @@ function getChallengeList(pageNumber, categoryNumber){
 				let challengeMakeUser = challenge.headernum==3?"<img src='image/userMake.svg' style='height:20px;'>&nbsp"+challenge.nickname:"<img src='image/managerMake.svg' style='height:20px;'>&nbsp공식챌린지";
 				
 				
-				let data =  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
+				data +=  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
 							+"<div class='challCard'>"
 			     			+"<div class='challCardImg'>"
  			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>";
@@ -250,8 +248,8 @@ function getChallengeList(pageNumber, categoryNumber){
 						}
 						data +=" </div>"
 								 +"  </div> </div>";
-						$("#dataMain"+categoryNumber).append(data);
-			});			
+			});		
+			$("#dataMain"+categoryNumber).html(data);
 		},
 		error:function(){
 			alert("리스트 불러오는 error");

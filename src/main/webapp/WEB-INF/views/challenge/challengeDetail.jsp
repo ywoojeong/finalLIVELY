@@ -20,6 +20,12 @@ let result = '${identifyResultUser.email}';
 		 if(user != "" && user == result){
 			 $("#resultDiv").hide();
 		 }	
+		 
+ if('${challDto.challengesavephoto}' == '0'){
+	 document.getElementById("_backDiv").style.background = "url('./image/challenge1.png')";
+}else{
+	 document.getElementById("_backDiv").style.backgroundImage = "url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')";
+}
 });
 
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}");
@@ -30,11 +36,11 @@ console.log("나만의 데이터 identifyResultUser"+"${identifyResultUser}")
 
 console.log("인증 데이터 identify"+"${identify}")
 console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
+
 </script>
 
-<div class="backDiv"
-	style="background-image: url(' https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')">
-	<div class="container challHeader">
+<div class="backDiv" id="_backDiv">
+	<div class="container challHeader" style="padding-left: 35px;">
 		<div>
 			<h1>${challDto.challengetitle}
 				<c:if test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
@@ -83,8 +89,8 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 	</div>
 </div>
 
-<div class="container" style="margin-bottom: 50px">
-	<table class="attend">
+<div class="container" style="padding:0 0px 50px 0;box-shadow: 0px 30px 19px 8px rgb(0 0 0 / 10%);background-color: white">
+	<table class="attend" style="margin-left: 35px">
 		<col width="30px">
 		<col width="100px">
 		<col width="300px">
@@ -121,12 +127,12 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 		</tr>
 	</table>
 
-	<label class="challengetext">챌린지 소개</label>
-	<div class="challengetextMain">${challDto.challengetext }</div>
+	<label class="challengetext" >챌린지 소개</label>
+	<div class="challengetextMain" style="margin-left: 40px">${challDto.challengetext }</div>
 	
 	<!-- 참가 설명 -->
 	<div class="row pointExplain">
-		<div class="col-sm-6" style="margin-top:5px;margin-bottom: 7px">
+		<div class="col-sm-6" style="margin-top:5px;margin-bottom: 7px;padding-left: 40px">
 			<table>
 				<col width="200px">
 				<col width="300px">
@@ -156,15 +162,15 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 		<div class="row">
 			<div class='col-sm-8'>
 				<label class="challengetext">챌린지 인증방법</label>
-				<div style="padding-left: 23px">
-					<div class="row" style="display: flex;">
+	
+					<div class="row" style="display: flex;margin-left: 30px">
 						<c:if test="${challDto.challengesavephoto != '0' }">
-							<div class="col-sm-5" style="padding-left: 0;">
+							<div class="col-sm-5">
 								<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }"
 								style="width: 300px">
 							</div>
 						</c:if>
-						<div class="col-sm-7" style="padding-left: 20px; width: 350px">
+						<div class="col-sm-7" style="padding-left: 30px; width: 350px">
 							<c:choose>
 								<c:when test="${challDto.certify eq 'none'}">
 		      						자유롭게 인증해 주세요.
@@ -175,7 +181,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 							</c:choose>
 						</div>
 					</div>
-				</div>
+		
 			</div>
 			<div class='col-sm-4 d-none d-sm-block' style="padding-left: 0">
 				<c:if test="${fn:length(identify) != 0}">
@@ -206,9 +212,9 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 		</div>
 	</div>
 	<!-- 주의사항 -->
-	<div class="precautions">
-		<label class="challengetext">챌린지 주의사항</label>
-		<table>
+	<div class="precautions" style="background-color: #f2f2f2;padding: 15px 0;margin-top: 17px">
+		<label class="challengetext" style="margin-top: 0;margin-left: 9px">챌린지 주의사항</label>
+		<table style="margin-left: 53px">
 			<col width="200px">
 			<col width="300px">
 			<tr>
