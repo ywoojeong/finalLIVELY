@@ -13,7 +13,7 @@ nav a:first-child {
 	 list-style: none;
 	  padding: 20px;
 	  color: #a7a7b8;
-	  font-size: 1em;
+	  font-size: 11pt;
 	  display: block;
 	  transition: all 0.3s ease-in-out;
 }
@@ -41,7 +41,7 @@ nav a:first-child {
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-    	<img src="./image/logo.png" style="height: 45px">
+    	<img src="./image/logo.png" style="height: 40px">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

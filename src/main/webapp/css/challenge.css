@@ -3,7 +3,6 @@
 
 body{
 	font-family: 'Noto Sans KR', sans-serif;
-	background-color: #F7EEFD;
 }
 
 video{
@@ -12,6 +11,58 @@ video{
     top:-30%;
 }
 
+.headerTitle{
+	height: 242px;
+	background-color: white;	
+}
+.headerTitle>div>h5{
+	    position: relative;
+    font-size: 59px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    letter-spacing: 9px;
+}
+.headerTitle>div>h5:after{
+content: " ";
+    position: absolute;
+    width: 255px;
+    height: 2px;
+    top: 92%;
+    border: 2px solid #222222;
+    right: 43%;
+}
+.headerTitle>div>p{
+    margin-top: -8px;
+    letter-spacing: 5px;
+    font-size: 10pt;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+}
+
+.headerC>h5{
+    position: relative;
+    font-size: 45px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    letter-spacing: 5px;
+}
+.headerC>h5:after {
+content: " ";
+    position: absolute;
+    width: 319px;
+    height: 2px;
+    top: 91%;
+    border: 2px solid #222222;
+    right: 36%;
+}
+.headerC>p{
+margin-top: -6px;
+    letter-spacing: 2px;
+    font-size: 10pt;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+        margin-bottom: 0;
+}
 .form-control:focus{
 	border-color: rgb(203 152 237);
 	box-shadow: 0 0 0 0.2rem rgb(203 152 237 / 25%);
@@ -125,7 +176,7 @@ video{
 	left:50%;
 	transform:translateX(-50%);*/
 	width: 500px;
-	margin: 42px auto 16px auto;
+	margin: 0 auto;
 
 	
 }
@@ -172,16 +223,16 @@ video{
 
 .hotNav .nav-pills .nav-link{
 	font-family: 'Noto Sans KR', sans-serif;
-	margin:11px auto 15px auto;
-	background-color: white;
-	border-radius: 20px;
-	height:30px;
-	font-size:10pt;
-	padding:6px 25px;
-	color: #222229;
-	font-weight: 400;
-	letter-spacing: 2px;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
+    margin: 11px auto 15px auto;
+    background-color: white;
+    border-radius: 20px;
+    height: 25px;
+    font-size: 9pt;
+    padding: 3px 19px;
+    color: #222229;
+    font-weight: 400;
+    letter-spacing: 2px;
+    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 10%);
 }
 
 .hotNav .nav-link:focus, .hotNav .nav-link:hover{
@@ -192,8 +243,8 @@ video{
 	background-color: #cb98ed;
 	border-radius: 20px;
 	color:white;
-	height:30px;
-	padding:6px 25px;
+	height:25px;
+	padding: 3px 19px;
 	font-weight: 400;
 	box-shadow: 0 2px 8px 0 rgba(154,120,223, 0.75);
 
@@ -205,7 +256,7 @@ video{
 }
 /* 줌 호버 */
 .challCard{
-	width: 18rem;
+	width: 22rem;
 	/* height:22rem; */
 	float: none;
 	margin: 21px auto;
@@ -216,8 +267,8 @@ video{
 	
 }
 .challCardImg{
-	width:18rem;
-	height:13rem;
+	width:22rem;
+	height:15rem;
 	overflow:hidden;
 	border-radius: 3px;
 	
@@ -225,8 +276,8 @@ video{
 .challCardImg> img{ 
 	overflow: hidden;
 	object-fit: cover;
- 	width:18rem;
-	height:13rem;
+ 	width:22rem;
+	height:15rem;
 	transition:all 0.5s;
  } 
  .challCardImg> img:hover{

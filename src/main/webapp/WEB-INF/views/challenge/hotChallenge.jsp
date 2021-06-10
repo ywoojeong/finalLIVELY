@@ -1,4 +1,4 @@
-A<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
  <link href="./css/challenge.css" rel="stylesheet">   
@@ -6,7 +6,82 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
  <!-- core tag -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
  
- <div class="" style="margin-top:70px;"> 
+ <div id="titleC" class="carousel slide" data-ride="carousel" style="height: 27px;background-color: black;margin-top: 50px">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <div style="text-align: center;font-size: 10pt;padding-top: 4px;letter-spacing: 1px;color: white">
+	      	신규 회원가입 시 바로 사용이 가능한 <span style="font-weight: 800;color:red"> 2000point</span>를 증정합니다. 
+	      </div>
+	    </div>
+	    <div class="carousel-item">
+	      <div style="text-align: center;font-size: 10pt;padding-top: 4px;letter-spacing: 1px;color: white">
+	      	챌린지 성공 시 포인트가 <span style="font-weight: 700;color:#cb98ed"> 2배!</span> 가지고있는 포인트로 LIVELY에 참여해보세요.
+	      </div>
+	    </div>
+	  </div>
+	</div>
+ 
+ <div class="headerTitle" >
+ 	<div style="text-align: center;padding: 77px">
+ 		<h5>LIVELY</h5>
+ 		<p>Creating Habits</p>
+ 	</div>
+ </div>
+ 
+ 
+ <div class="choiceChallenge">
+	<div id="demo" class="carousel slide" data-ride="carousel" style="height: 650px;background-color: #f2f2f2;">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <h1 style="margin-top: 50px;margin-left: 119px">오늘 시작 챌린지</h1>
+	      <div class="row" style="margin: 50px 80px">
+	      		
+		      <% for(int i=0;i<4;i++){ %>	
+			      <div class="col-sm-3 " >
+			      	<div style="width: 350px;height: 425px;background-color: black;margin:0 auto;overflow: hidden;object-fit:contain;text-align: center;display: flex;justify-content: center;">
+			      		<img src="image/meal1.jpg" style="height:425px;">
+					</div>			  	
+			      </div>
+		      <%} %>
+	      </div>
+	    </div>
+	    <div class="carousel-item">
+	       
+	    </div>
+	    <div class="carousel-item">
+	    
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+	    <span class="carousel-control-prev-icon" style="color:black"></span>
+	  </a>
+	  <a class="carousel-control-next" href="#demo" data-slide="next">
+	    <span class="carousel-control-next-icon"></span>
+	  </a>
+	</div>
+ </div> 
+ 
+ <div style="height: 230px;">
+ 	<div class="row">
+ 		<div class="col-sm-6" style="padding: 50px 0 0 75px">
+ 				<h5 style="font-size: 20pt;font-weight: 700">Lively has been newly opened in 2021.</h5> 
+ 				<br><br><p style="font-size: 9pt;color: rgba(0,0,0,0.4);margin-top: 5px">ⓒ2021.06.23</p>				
+ 		</div>
+ 		<div class="col-sm-6" style="padding: 50px">
+ 		     	<h5 style="font-size: 20pt;font-weight: 700;margin-bottom: 15px;">I want to keep an appointment with me.</h5>
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6);margin-bottom: 0">
+ 				Lively concluded that the most necessary thing to achieve the goal is an environment that
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6);margin-bottom: 0"> must be accomplished rather than will.</p>
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6)">Lively made a platform called Challengers that achieves my goal by betting on myself.
+ 				</p>
+ 		</div>
+ 	
+ 	</div>
+ 		
+ </div>
+ 
+ 
+ <div class=""> 
 	<div class="hotMain">
 		<video muted autoplay loop>
         	<source src="video/write.mp4" type="video/mp4" align="middle">
@@ -24,12 +99,17 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 	</div>
 </div>    
  
-
-   <div class="container" style="background: white;box-shadow: 0px 7px 19px 8px rgb(0 0 0 / 10%);padding: 0">
+<!-- box-shadow: 0px 7px 19px 8px rgb(0 0 0 / 10%); -->
+   <div class="container" style="background: white;padding: 0">
+   	
+		 	<div class="headerC" style="text-align: center;padding: 64px 0 54px 0;">
+		 		<h5>CHALLENGE</h5>
+		 		<p>Select your own challenge</p>
+		 	</div> 	
 
    	 <!-- Nav pills -->
    	 <div class="hotNav">
-		  <ul class="nav nav-pills" role="tablist" style="margin-top: 0;padding-top: 6px;background-color: #f2f2f2;margin-left: 0;border-bottom: 1px solid rgba(0 0 0 / 5%);">
+		  <ul class="nav nav-pills" role="tablist" style="margin-top: 0;padding-top: 6px;margin-left: 0;">
 		    <li class="nav-item">
 		      <a class="nav-link active" data-toggle="pill" href="#category0" onclick="categoryBtn(0)")>전  체</a>
 		    </li>
@@ -56,52 +136,31 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 		  <!-- Tab panes -->
 		  <div class="tab-content">
-		  
-		  	 <div class="row" style="    margin-top: 20px;">
-		  	 				   <!-- 검색창 -->	
+		  <div style="height: 300px;background-color: #f2f2f2;height: 83px;margin-top: 30px;padding: 23px 0 23px 0px;">
+		  	 <div class="row">
 					<div class="col-sm-6 md-form md-outline d-flex Search">
 						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search" onkeyup="JavaScript:Enter_Check(this);">
 				    	<button type="button" id="searchBtn" class="btn btn-Search" onclick="searchBtn()">SEARCH</button>
 				    </div>
 	  			</div>
-		    	
+		   </div>
 		    	<%for(int i=0;i<7;i++) {%>
-		    	  <div id="category<%=i %>" class="container tab-pane"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
+		    	  <div id="category<%=i %>" class="container tab-pane" style="padding: 0"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
 
 				    	<!-- 카드 -->
-				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto; width: 94%">
+				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto;">
 										<!-- 데이터 들어오는 부분 -->
 				     	</div>
 				    </div>
 				   <%} %>
-				    	
-		    	
+
 		    		<!-- 페이지네이션 -->
-		    				
- 						<nav aria-label="Page navigation" style="text-align: center;padding: 10px auto;height: 112px"> 
-							<ul class="pagination" id="_pagination" style="justify-content: center">
-							</ul>
- 						</nav> 
+   				
+				<nav aria-label="Page navigation" style="text-align: center;padding: 10px auto;height: 112px"> 
+					<ul class="pagination" id="_pagination" style="justify-content: center">
+					</ul>
+				</nav>
 
-  
-
-<!-- 					  <ul class="pagination" id="_pagination"  style="justify-content: center"> -->
-<!-- 					    <li class="page-item"> -->
-<!-- 					      <a class="page-link"tabindex="-1">Previous</a> -->
-<!-- 					    </li> -->
-					    
-<!-- 					    <li class="page-item active"><a class="page-link">1</a></li> -->
-<!--  					    <li class="page-item active"> --> 
-<!--  					      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
-<!--					    </li> -->
-<!--  					    <li class="page-item"><a class="page-link" href="#">3</a></li> --> 
-<!-- 					    <li class="page-item"> -->
-<!-- 					      <a class="page-link">Next</a> -->
-<!-- 					    </li> -->
-<!-- 				 	 </ul> -->
-
-
-		
 			</div>	   	 
    </div>
 
@@ -221,7 +280,7 @@ function getChallengeList(pageNumber, categoryNumber){
 				let challengeMakeUser = challenge.headernum==3?"<img src='image/userMake.svg' style='height:20px;'>&nbsp"+challenge.nickname:"<img src='image/managerMake.svg' style='height:20px;'>&nbsp공식챌린지";
 				
 				
-				data +=  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
+				data +=  "<div class='col-xs-12 col-sm-4 dataId'>"
 							+"<div class='challCard'>"
 			     			+"<div class='challCardImg'>"
  			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>";
@@ -334,4 +393,21 @@ function loadPaging(totalCount, categoryNumber){
 	 });
 
 }
+
+//추천 페이지 인기 랜덤4개 ChoiceTodayStart.do
+function ChoiceTodayStart(){
+	
+	$.ajax({
+		url:"./ChoiceTodayStart.do",
+		type:"get",
+		success:function(list){//return이 글의 전체 수임
+			//alert("전체 글의 수 : "+count);
+			loadPaging(count, categoryNumber);
+		},
+		error:function(){
+			alert("전체 글 수 에러error");
+		}
+	});
+}
+
 </script> 
