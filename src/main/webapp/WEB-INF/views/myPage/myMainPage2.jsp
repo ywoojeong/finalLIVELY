@@ -243,7 +243,7 @@
 		 						<option value="6">취미</option>
 	 						</select>
                            <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
-                           <button type="button" class="btn btn-Search" >SEARCH</button>
+                           <button type="button" class="btn btn-Search" id="searchBtn">SEARCH</button>
                         </div>
                         </div>
                         <!-- 제안하기 list 받는곳--> 
@@ -251,7 +251,7 @@
                         
                         <!-- 페이징 처리 되는 곳 -->
 						<div class="sugPage">
-							<ul class="sugPageUl"></ul>
+							<ul class="sugPageUl" id="sugPageUl" style="display: flex; list-style: none; letter-spacing: 17px; margin-top: 35px;"></ul>
 						</div>
 						
                            </div>
@@ -275,13 +275,10 @@
         
         <div class="suggestSummerNote">
         <h3>제안 작성</h3>
-            <p class="title_star">챌린지에 대한 여러분의 의견을 작성해주세요.</p>          
+            <p class="title_star">해당 카테고리와 관련된 제안을 작성해주세요</p>          
            <form id="suggestForm" class="suggestForm" method="post">
            		<input type="hidden" name="email" value="${memberInfoData.EMAIL}">
            		<div class="titleC" style="display: flex;">
-					<div class="suggest_title" style="background-color: white">
-						<input type="text" class="form-control" id="title" name="suggesttitle" placeholder="제목" style="width: 480px">
-					</div>
 					<div>
 	 					<select class="form-control form-control-sm" name="scategory" id="_category" style="height: 38px;margin-left: 10px;margin-bottom: 5px;">
 	 						<option value="0">선택하세요</option>
@@ -292,6 +289,9 @@
 	 						<option value="5">생활</option>
 	 						<option value="6">취미</option>
 	 					</select>
+					</div>
+					<div class="suggest_title" style="background-color: white">
+						<input type="text" class="form-control" id="title" name="suggesttitle" placeholder="제목" style="width: 480px">
 					</div>
 				</div>
 				<div class="suggest_contents" style="background-color: white">
@@ -463,6 +463,19 @@ $(document).ready(function() {
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
    
+   var memNowCntList = JSON.parse('${memNowCntList}')
+   var planDate = []
+   var colors = ['#ff6666','#00b359','#2929a3','#ff9900']
+   for(var i=0;i<memNowCntList.length;i++){
+      var j = i
+      if(j>3){
+         j = j-3
+      }
+      var data = {title:memNowCntList[i].CHALLENGETITLE,start:memNowCntList[i].CHALLENGESTART,end:memNowCntList[i].CHALLENGEEND,color:colors[j]}
+      planDate.push(data)
+   }
+   console.log(planDate)
+   
    let calendarEl = document.getElementById('calendar');
    
    let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -476,37 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
       locale: 'ko',                // 한글설정
       navLinks: true,
       businessHours: true,
-      events:[{                  //json으로 들어감
-               title: '비지니스 점심 약속',
-               start: '2021-04-23',
-               constraint: '이자바님'
-            },
-            {
-               title: '비지니스',
-               start: '2021-04-22T16:30:00',
-            //   start: new Date(),                        // 사용 가능
-            //   start: new Date(2021, 4, 16, 12, 16, 20, 1),   // 사용 불가
-               constraint: '김자바님'
-            },
-            {
-               title: '점심 약속',
-               start: '2021-04-23 12:00:00',
-               constraint: '박자바님',
-               color:'#ff0000'
-            },
-            {
-               title: "운동",
-               start: "2021-04-19",
-               end: "2021-04-23"
-            },
-            {
-               title: "데이트",
-               start: '2021-04-24T15:00:00',
-               constraint: "영화 관람",
-               display: "background-color",
-               color: "#00ff00"
-            }
-      ]
+      events:planDate
    });
    
    calendar.render();   // rendering
@@ -922,17 +905,36 @@ function saveSuggest() {
 		}
 	});
 }
-likeSuggest(0);
+
+// 제안하기 글 목록, 페이징에 필요한 글의 총 수
+likeSuggest(1);
+getSuggestListCnt(1);
+
+// 검색했을 시
+
+$(function(){
+	$('#searchBtn').click(function(){
+		likeSuggest(1);
+//		suggestBbsCnt();
+		$('#search').val("");
+	});
+});
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////* 제안하기 가져오기 */
 function likeSuggest(now){
 	$.ajax({
 		url:"./suggestMyLike.do",
 	    type:"POST",
-	    data: {page:now},
+	    data: {page:now, 'search':$("#search").val(), 'category':$("#category").val()},
 	    success:function(list){
+	    	console.log("list______________________")
 	    	console.log(list)
+	    	var total = list[0].TOTALCNT
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
+	    	// for문 돌때 문제?
+	    	
+	    	console.log("now______________________")
+	    	console.log(now)
 	    	var categoryName = setCategory(list[i].SUGGESTBBSCATEGORY);
 	    	console.log("category ==>"+categoryName)
 	    	var like = ""
@@ -969,6 +971,7 @@ function likeSuggest(now){
 //        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
         		
 	    	}
+	    	sugListPaging(total,now)
 	    	$(".suggestBox").html(data);
 
 	    },
@@ -1103,10 +1106,6 @@ function commentListSel(seq){
 				+	            "<td class='commentContent'>"+list[i].SUGCOMCONTENT+"</td>"
 				+	            "<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
 				+	        "</tr>"
-/*				+			"<tr>"
-        		+				"<td><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
-        		+					"<button type='button' class='btn' id='writeComment' >댓글쓰기</button>"
-        		+					"</a> </td> </tr>"*/
         		+			"</table>"
 	    	}
         		
@@ -1120,14 +1119,15 @@ function commentListSel(seq){
 }
 
 // 제안하기 총 수 가져오기
-function getSuggestListCnt(){
+function getSuggestListCnt(now){
 	$.ajax({
 		url:"./suggestListPage.do",
 		type:"get",
 		data:{'search':$("#search").val(), 'category':$("#category").val()},
-		success:function(count){//return이 글의 전체 수임
-			//alert("전체 글의 수 : "+count);
-			sugListPaging(total);
+		success:function(total){//return이 글의 전체 수임
+		//	alert("전체 글의 수 : "+total);
+		//	alert("현재 글의 수 : "+now);
+			sugListPaging(total,now);
 		},
 		error:function(){
 			alert("전체 글 수 에러error");
@@ -1137,32 +1137,41 @@ function getSuggestListCnt(){
 
 // 페이지 처리
 function sugListPaging(total,now){
+	console.log("sugListPaging total",total)
+	console.log("sugListPaging now",now)
 	var pagecnt = Math.ceil(total/5.0)
-	var startCnt = Math.floor((now-1)/5) * 5 + 1 
+	var startCnt = Math.floor((now-1)/5) * 5 + 1
+	//전체 페이지
 	var pageBlock = Math.ceil(pagecnt/5)
 	var nowBlock = Math.ceil(now/5)
+	console.log("pagecnt",pagecnt)
 	console.log("startCnt",startCnt)
 	console.log(total,pagecnt)
 	console.log("pageBlock",pageBlock)
 	console.log("nowBlock",nowBlock)
+	var nowTotal = nowBlock*5
+	if(nowTotal > pagecnt){
+		nowTotal = pagecnt
+	}
 	var html = ""
 	if(pageBlock > 1 && nowBlock > 1){
-		html += "<li  onclick='likeSuggest("+(nowBlock*5-4)+"'> &laquo;</li>"
+		html += "<li  onclick='likeSuggest("+(nowBlock*5-9)+")'> &laquo;</li>"
 	}
-	for(var i=startCnt;i<=pagecnt;i++){
+	for(var i=startCnt;i<=nowTotal;i++){
 		if(now == i){
-			html += "<li class='nowpage' onclick='likeSuggest("+i+")'>"+i+"</li>"
+			html += "<li class='nowpage' style='color:red' onclick='likeSuggest("+i+")'>"+i+"</li>"
 		}else{
-			html += "<li  onclick='likeSuggest("+i+")'>"+i+"</li>"
+			html += "<li onclick='likeSuggest("+i+")'>"+i+"</li>"
 		}
 		
 	}
 	
 	if(pageBlock > 1 && nowBlock < pageBlock){
-		html += "<li  onclick='likeSuggest("+(nowBlock*5+1)+")'>&raquo;</li>"
+		html += "<li onclick='likeSuggest("+(nowBlock*5+1)+")'>&raquo;</li>"
 	}
 	console.log(html)
-	$(".sugPageUl").html(html)
+	$(".sugPageUl").html(html);
+//	document.getElementById('sugPageUl').innerHTML = html
 }
 
 </script>
