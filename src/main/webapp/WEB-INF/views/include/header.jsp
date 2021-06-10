@@ -15,13 +15,13 @@ nav a:first-child {
 	 list-style: none;
 	  padding: 20px;
 	  color: #73737d;
-	  font-size: 1em;
+	  font-size: 10pt;
 	  display: block;
 	  transition: all 0.3s ease-in-out;
 }
 .navbar-light .navbar-nav .nav-link:hover {
   color: #cb98ed;
-  transform: scale(1.2);
+  transform: scale(1.1);
   cursor: pointer;
 }
 .navbar-light .navbar-nav .nav-link .active, .navbar-light .navbar-nav .nav-link:focus{
@@ -32,15 +32,17 @@ nav a:first-child {
   color: #cb98ed;
   font-weight: 700;
 }
-
+.navbar-light .navbar-nav .nav-link{
+font-size: 11pt;
+}
 </style>
 
 
 
-<nav class="navbar navbar-expand-md fixed-top navbar-light" style="background-color: white">
+<nav class="navbar navbar-expand-md fixed-top navbar-light" style="background-color: white;height: 50px">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-    	<img src="./image/logo.png" style="height: 45px">
+    	<img src="./image/logo.png" style="height: 36px;padding-bottom: 3px;margin-top: 0">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

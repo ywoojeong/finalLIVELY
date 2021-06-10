@@ -73,6 +73,7 @@ public class myPageDaoImpl implements myPageDao {
 	
 	@Override
 	public List<Map<String, Object>> suggestList(Map<String, Object> param) throws SQLException {
+		System.out.println("suggestList =>"+param);
 		// TODO Auto-generated method stub
 		return sql.selectList("myPage.suggestList", param);
 	}

@@ -377,4 +377,14 @@ public class challengeRestController {
 			}		
 			return msg;	
 		}
+		
+		//추천하기 4개뿌리기 ChoiceTodayStart
+		@RequestMapping(value = "ChoiceTodayStart.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public List<Map<String, Object>> ChoiceTodayStart(){
+			
+			List<Map<String, Object>> ChoiceTodayStart = service.ChoiceTodayStart();
+			
+			return ChoiceTodayStart;
+
+		}
 }

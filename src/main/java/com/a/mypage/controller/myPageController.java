@@ -45,8 +45,20 @@ public class myPageController {
 		
 		// 멤버 진행중인 챌린지 리스트
 		List<Map<String, Object>> memNowCntList = myService.memNowCntList(email);
-		System.out.println("진행중인 챌린지 리스트 데려오니 : " + memNowCntList);
-		model.addAttribute("memNowCntList", memNowCntList);
+	      System.out.println("진행중인 챌린지 리스트 데려오니 : " + memNowCntList);
+	      JSONArray jsonMemNowCntList = new JSONArray();
+	      for(Map<String, Object> map: memNowCntList) {
+	         JSONObject json = new JSONObject();
+	         for(Map.Entry<String,Object> entry : map.entrySet()) {
+	            String key = entry.getKey();
+	            Object value = entry.getValue();
+	            json.put(key,value);
+	         }
+	         
+	         jsonMemNowCntList.put(json);
+	      }
+	      model.addAttribute("jsonMemNowCntList", jsonMemNowCntList);
+	      model.addAttribute("memNowCntList", jsonMemNowCntList);
 		
 		// 멤버 종료된 챌린지 갯수
 		int memEndCount = myService.memEndCount(email);
