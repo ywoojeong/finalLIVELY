@@ -46,7 +46,7 @@
 		<section id="info" class="section">
 			<header class="infoHead">
 				<h1>DO YOU LIKE CHALLENGES?</h1>
-				<h2>TRY SOMETHING YOU'RE INTERESTED IN AT LIVELY</h2>
+				<h2>TRY YOU'RE INTERESTED IN AT LIVELY</h2>
 			</header>
 			<div class="row">
 				<div class="col-sm-6 infoImg">
@@ -87,7 +87,7 @@
 	 					<div class="hexagon" style="background-image: url('./image/setting.png')">
 	 					</div>
 	 					<h4>SETTING CHALLENGE</h4>
-	 					<p>작은 도전 과제를 설정해 꾸준히 실천해 보세요.</p>
+	 					<p>작은 도전 과제를 설정해 꾸준히 실천해 보세요</p>
 	 				</div>
 	 				<div class="col-sm-4">
 	 					<div class="hexagon" style="background-image: url('./image/check.png')">
@@ -100,7 +100,7 @@
 	 					<div class="hexagon" style="background-image: url('./image/communication.png')">
 	 					</div>
 	 					<h4>COMMUNICATION</h4>
-	 					<p>사람들과 함께 독려하며 달성해 보세요</p>
+	 					<p>같은 목표를 가진 사람들과 함께해 보세요</p>
 	 				</div>
 	 			</div>
 	 			<div class="warning" style="background-image:url('image/livwarning.png') ">

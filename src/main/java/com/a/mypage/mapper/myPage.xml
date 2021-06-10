@@ -63,14 +63,15 @@
 	
 	<!-- 내가 진행준일 챌린지 리스트 -->
 	<select id="memNowCntList" resultType="java.util.Map">
-		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE
-		FROM CHALLENGE CG
-		INNER JOIN CHALLENGEMEMBER CM
-		ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
-		WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
-		AND CM.EMAIL = #{email}
+      	SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE,
+       	TO_CHAR(CG.CHALLENGESTART,'YYYY-MM-DD HH24:MI:SS') AS CHALLENGESTART, TO_CHAR(CG.CHALLENGEEND,'YYYY-MM-DD HH24:MI:SS') AS CHALLENGEEND
+      	FROM CHALLENGE CG
+      	INNER JOIN CHALLENGEMEMBER CM
+      	ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
+      	WHERE SYSDATE > CG.CHALLENGESTART AND CG.CHALLENGEEND > SYSDATE
+      	AND CM.EMAIL = #{email}
 	</select>
-	
+
 	<!-- 내 챌린지 리스트 전체 가져오기-->
 	<select id="memChallList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT CG.CHALLENGESEQ, CG.CATEGORY, CG.IDENTIFYFREQUENCY, CG.CHALLENGEPERIOD, CG.CHALLENGETITLE
@@ -146,7 +147,7 @@
 	
 	<!-- 댓글 꺼내오기 -->
 	<select id="commentList" parameterType="java.lang.Integer" resultType="java.util.Map">
-		SELECT SUGCOMSEQ, SUGCOMCONTENT, SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ FROM SUGGESTCOMMENT 
+		SELECT SUGCOMSEQ, SUGCOMCONTENT, TO_CHAR(SUGCOMDATE,'YYYY-MM-DD HH24:MI:SS') AS SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ FROM SUGGESTCOMMENT 
 		WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
 	</select>
 	
@@ -179,24 +180,32 @@
 	
 	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
 	SELECT SV.* FROM
-	(SELECT SBS.*, ROWNUM as SI, 
+	(SELECT SBS.*, ROW_NUMBER() OVER(ORDER BY SBS.SUGGESTBBSSEQ DESC) as SI,
 	CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
-	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK
+	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
+	(SELECT COUNT(*) FROM SUGGESTBBS
+	WHERE  SUGGESTBBSDEL = 0
+			<if test="category !=null and category !='' and category !=0">
+				AND SUGGESTBBSCATEGORY = #{category}
+			</if>
+			<if test="search !=null and search != ''">
+				AND SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
+			</if>
+	) as TOTALCNT
 	FROM SUGGESTBBS SBS
 	LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
 	ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
 	LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
 	ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
-	WHERE 1=1
-		AND SBS.SUGGESTBBSDEL = 0
-			<if test="category !=null and category !=''">
-				AND SBS.SUGGESTBBSCATEGORY = ${SUGGESTBBSCATEGORY}
+	WHERE  SBS.SUGGESTBBSDEL = 0
+			<if test="category !=null and category !='' and category !=0">
+				AND SBS.SUGGESTBBSCATEGORY = #{category}
 			</if>
 			<if test="search !=null and search != ''">
 				AND SBS.SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
 			</if>
-			ORDER BY SBS.SUGGESTBBSSEQ ASC) SV
-	WHERE SV.SI >= #{startPage} AND #{endPage} >= SV.SI
+			) SV
+	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
 	</select>
 	
 	<!-- 
@@ -219,8 +228,8 @@
 	FROM SUGGESTBBS
 	WHERE 1=1 
 	AND SUGGESTBBSDEL = 0 
-  		<if test="category !=null and category !=''">
-			AND SUGGESTBBSCATEGORY = ${SUGGESTBBSCATEGORY}
+  		<if test="category !=null and category !='' and category !=0">
+			AND SUGGESTBBSCATEGORY = #{category}
 		</if>
 		<if test="search !=null and search != ''">
 			AND SUGGESTBBSTITLE LIKE '%'||#{search}||'%'

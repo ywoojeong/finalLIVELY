@@ -103,18 +103,20 @@ public class myPageRestController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("email", email);
 		
-		int startPage = (Integer.parseInt((String)myLikeParam.get("page"))*5) + 1;
-		int endPage = (Integer.parseInt((String)myLikeParam.get("page"))+1) *5;
-//		int endPage = (startPage + 1)*5;
+		
+		int startPage = (Integer.parseInt((String)myLikeParam.get("page"))-1) * 5;
+		String search = (String)myLikeParam.get("search");
+		String category = (String)myLikeParam.get("category");
+		System.out.println("startPagestartPagestartPagestartPage : "+startPage);
+		int endPage = startPage + 6;
 		param.put("startPage", startPage);
 		param.put("endPage", endPage);
+		param.put("search", search);
+		param.put("category", category);
 		
 		List<Map<String, Object>> suggestList = myService.suggestList(param);
 		System.out.println("suggestList :" + suggestList.toString());
-		/*
-		boolean likeDel = myService.suggestMyLikeDel(myLikeParam);
-		System.out.println("myLikeParam : " + myLikeParam);
-		*/
+
 		return suggestList;
 	}
 	

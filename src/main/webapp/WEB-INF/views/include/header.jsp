@@ -32,11 +32,12 @@ nav a:first-child {
   color: #cb98ed;
   font-weight: 700;
 }
+
 </style>
 
 
 
-<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-md fixed-top navbar-light" style="background-color: white">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
     	<img src="./image/logo.png" style="height: 45px">
