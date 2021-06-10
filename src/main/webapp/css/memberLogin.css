@@ -10,6 +10,10 @@ html {
   align-items: center;
   position: relative;
 } */
+
+.g-signin2:hover{
+	text-decoration: none;
+}
 .abcRioButtonContentWrapper>span{
 	font-size: 18pt;
 }

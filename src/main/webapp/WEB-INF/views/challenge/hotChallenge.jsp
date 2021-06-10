@@ -24,12 +24,12 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 	</div>
 </div>    
  
-   
-   <div class="container">
+
+   <div class="container" style="background: white;box-shadow: 0px 7px 19px 8px rgb(0 0 0 / 10%);padding: 0">
 
    	 <!-- Nav pills -->
    	 <div class="hotNav">
-		  <ul class="nav nav-pills" role="tablist">
+		  <ul class="nav nav-pills" role="tablist" style="margin-top: 0;padding-top: 6px;background-color: #f2f2f2;margin-left: 0;border-bottom: 1px solid rgba(0 0 0 / 5%);">
 		    <li class="nav-item">
 		      <a class="nav-link active" data-toggle="pill" href="#category0" onclick="categoryBtn(0)")>전  체</a>
 		    </li>
@@ -53,17 +53,14 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 		    </li>		 
 		  </ul>
 		</div>
-			
-	
-		
-		
+
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		  
-		  	 <div class="row">
+		  	 <div class="row" style="    margin-top: 20px;">
 		  	 				   <!-- 검색창 -->	
 					<div class="col-sm-6 md-form md-outline d-flex Search">
-						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search">
+						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search" onkeyup="JavaScript:Enter_Check(this);">
 				    	<button type="button" id="searchBtn" class="btn btn-Search" onclick="searchBtn()">SEARCH</button>
 				    </div>
 	  			</div>
@@ -81,10 +78,11 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 		    	
 		    		<!-- 페이지네이션 -->
 		    				
- 						<nav aria-label="Page navigation"> 
-							<ul class="pagination" id="pagination" style="justify-content: center">
+ 						<nav aria-label="Page navigation" style="text-align: center;padding: 10px auto;height: 112px"> 
+							<ul class="pagination" id="_pagination" style="justify-content: center">
 							</ul>
  						</nav> 
+
   
 
 <!-- 					  <ul class="pagination" id="_pagination"  style="justify-content: center"> -->
@@ -102,23 +100,35 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 <!-- 					    </li> -->
 <!-- 				 	 </ul> -->
 
+
+		
 			</div>	   	 
    </div>
 
 <!-- 페이지네이션 -->
 <script src="./js/jquery.twbsPagination.js"></script>
-
-
 <script type="text/javascript">
 //시작 시 호출
 getChallengeListCount(0);		//카테고리 번호
 getChallengeList(0, 0);	//페이지 번호, 카테고리번호
 
 //카테고리선택 후 검색
+function Enter_Check(data){
+	if(event.keyCode == 13){
+		//alert('야 들어와라..존말할때'+data)
+
+    		getChallengeListCount(0);		//카테고리 번호
+    		getChallengeList(0, 0);	
+    		$("#_search").val("");
+
+   }
+}
+      
 $('#searchBtn').click(function(){
 	getChallengeListCount(0);		//카테고리 번호
 	getChallengeList(0, 0);	
 	$("#_search").val("");
+
 });
 
 
@@ -166,14 +176,17 @@ function getChallengeList(pageNumber, categoryNumber){
 		data:{'nowpageNumber':pageNumber, 'search':$("#_search").val(), 'category':categoryNumber},
 		success:function(list){
 			//alert("전체 리스트 불러오기"+list.length);
-			$(".dataId").remove();
+
 			
 			if(list.length==0){
 				console.log("왜안들어와")
-				let data = "<h5 class='dataId'>챌린지가 없습니다. 챌린지를 생성해 주세요.<h5>"
-				$("#dataMain"+categoryNumber).append(data);
+				let data = "<div class='noneData'>"
+						+   "<h3>챌린지가 없습니다. 챌린지를 생성해 주세요.</h3>"
+						+	"</div>";
+				$("#dataMain"+categoryNumber).html(data);
 			}
 			
+			let data = "";
 			$.each(list, function(i, challenge){
 				
 				let dateTotal="";
@@ -208,7 +221,7 @@ function getChallengeList(pageNumber, categoryNumber){
 				let challengeMakeUser = challenge.headernum==3?"<img src='image/userMake.svg' style='height:20px;'>&nbsp"+challenge.nickname:"<img src='image/managerMake.svg' style='height:20px;'>&nbsp공식챌린지";
 				
 				
-				let data =  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
+				data +=  "<div class='col-xs-12 col-sm-4 p-2 dataId'>"
 							+"<div class='challCard'>"
 			     			+"<div class='challCardImg'>"
  			     				+"<a class='challCardImg' href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'>";
@@ -235,8 +248,8 @@ function getChallengeList(pageNumber, categoryNumber){
 						}
 						data +=" </div>"
 								 +"  </div> </div>";
-						$("#dataMain"+categoryNumber).append(data);
-			});			
+			});		
+			$("#dataMain"+categoryNumber).html(data);
 		},
 		error:function(){
 			alert("리스트 불러오는 error");
@@ -282,16 +295,16 @@ function loadPaging(totalCount, categoryNumber){
 	 }
 	 
 	//페이지 갱신 : 갱신해야 검색 페이징 가능
-	var pageData = $('#pagination').data();
+	var pageData = $('#_pagination').data();
 	if( typeof(pageData.twbsPagination) != 'undefined' ){				
 		if( pageData.twbsPagination.options.totalPages != _totalPages ){
-			$('#pagination').twbsPagination('destroy');
+			$('#_pagination').twbsPagination('destroy');
 		}
 	}
 	
  	 //$(".pagination").twbsPagination('enable');
 	  console.log("페이징 버튼 누르면 "+_totalPages+" 페이지수"+nowPage+"카테고리 번호"+categoryNumber)
-	 $("#pagination").twbsPagination({
+	 $("#_pagination").twbsPagination({
 		startPage: nowPage,
 	 	totalPages:  Math.floor(_totalPages),
 	 	visiblePages: 5,
@@ -300,17 +313,17 @@ function loadPaging(totalCount, categoryNumber){
  	 	prev:"<<",
  	 	next:">>",
  	 	last:'END',
- 	 	initiateStartPageClick: true,
-	 	nextClass : "page-item next",	// 이전 페이지 CSS class
+// 	 	initiateStartPageClick: true,
+ 	 	nextClass : "page-item next",	// 이전 페이지 CSS class
 	    prevClass : "page-item prev",	// 다음 페이지 CSS class
-	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
-	    firstClass : "page-item first",	// 첫 페이지 CSS class
-	    pageClass : "page-item",	// 페이지 버튼의 CSS class
-	    activeClass : "active",	// 클릭된 페이지 버튼의 CSS class
-	    disabledClass : "disabled",	// 클릭 안된 페이지 버튼의 CSS class
-	    anchorClass : "page-link",	//버튼 안의 앵커에 대한 CSS class
+ 	    lastClass : "page-item last",	// 마지막 페이지 CSS calss
+ 	    firstClass : "page-item first",	// 첫 페이지 CSS class
+ 	    pageClass : "page-item",	// 페이지 버튼의 CSS class
+ 	    activeClass : "active",	// 클릭된 페이지 버튼의 CSS class
+ 	    disabledClass : "disabled",	// 클릭 안된 페이지 버튼의 CSS class
+ 	    anchorClass : "page-link",	//버튼 안의 앵커에 대한 CSS class
 	    
-	// 	initiateStartPageClick:false,	//처음 실행 시 아래가 실행 안된다.(onPageClick가 자동실행되지 않도록 해준다.)
+	 	initiateStartPageClick:false,	//처음 실행 시 아래가 실행 안된다.(onPageClick가 자동실행되지 않도록 해준다.)
 	 	 onPageClick:function(event, pageNumber){	//페이지 넘버 클릭 시 들어오는 부분
 	
 	 		console.log("pageNumber 페이징 버튼 누르면 : "+pageNumber)

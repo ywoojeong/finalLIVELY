@@ -7,15 +7,16 @@
 
 body{
 	font-family: 'Noto Sans KR', sans-serif;
+	background-color:#F7EEFD;
 }
 
 
 .backDiv{
-	height:400px;
+	height:500px;
 	background-size:cover;	
 	position: relative;
 /* 	filter:blur(3px); */
-	background-position: 50% 30%;
+	background-position: 50% 50%;
 
 }
 
@@ -35,7 +36,7 @@ body{
 	position:absolute;
 	left:50%;
 	transform:translateX(-50%);
-	top:53%;
+	top:63%;
 	background-color:white;
 	padding-bottom: 13px;
 	/* width: 70%;
@@ -95,7 +96,7 @@ body{
 /*attend 테이블*/
 .attend{
 	font-weight: 500;
-	margin-top: 10px;
+/* 	margin-top: 10px; */
 	height: 70px;
 }
 
@@ -121,6 +122,7 @@ body{
 	font-weight: 500;
 	margin: 15px 0;
 	font-size: 13pt;
+	padding-left: 35px;
  } 
 
 /*pointText 테이블 */
@@ -158,12 +160,14 @@ body{
 /*카테고리 범주 네비 디자인 */
 .nav-pills{
 	justify-content: center;
-	margin-left: 25px;
-}
+	padding-left: 25px;
+	
+	border-bottom: 1px solid rgba(0,0,0,0.15);
+	}
 
 .nav-pills .nav-link{
 	font-family: 'Noto Sans KR', sans-serif;
-	margin:30px auto 15px auto;
+	margin:0px auto 15px auto;
 	background-color: #f2f2f2;
 	border-radius: 20px;
 	height:30px;
@@ -918,4 +922,56 @@ background-color: #2196F3;
 	width: 80px;
 	height: 80px;
 	object-fit: cover;
+}
+
+
+/*참가인원 없는 모션*/
+.noneData{
+	    width: 752px;
+    margin: 70px auto;
+}
+.noneData >h3 {
+	text-align:center;
+	width:752px;
+	position: relative;
+	display: block;
+	margin: 0;
+	font-size: 31px;
+	line-height: 1;
+	transform: translateY(6rem);
+	animation: up 500ms linear forwards;
+	z-index: 1;
+	text-shadow: 0px 1px 1px rgba(255,255,255,1);
+}	
+.noneData >h3:before,
+.noneData >h3:after {
+	position: absolute;
+	content: '';
+	width: 0px;
+	height: 5px;
+	left: 0;
+	background-color: rgba(0,0,0,0.1);
+	z-index: -1;
+}
+	
+.noneData >h3:before {
+	top: 1.5rem;
+	animation: draw 500ms linear 1s forwards;
+}
+	
+.noneData >h3:after {
+	bottom: 0.2rem;
+	animation: draw 500ms linear 1s forwards;
+}
+
+@keyframes up {
+	100% {
+		transform: translateY(0);
+	}	
+}
+
+@keyframes draw {	
+	100% {
+		width: 100%;
+	}
 }
