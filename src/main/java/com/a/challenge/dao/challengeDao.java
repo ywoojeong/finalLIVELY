@@ -113,4 +113,7 @@ public interface challengeDao {
 	//챌린지 결과값(전체용) challResultAllOne
 	public Map<String, Object> challResultAllOne(int challengeseq);
 	
+	//추천 4개 랜덤 ChoiceTodayStart
+	public List<Map<String, Object>> ChoiceTodayStart();
+	
 }

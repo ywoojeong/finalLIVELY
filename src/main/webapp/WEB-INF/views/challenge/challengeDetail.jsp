@@ -83,13 +83,13 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 		</div>
 
 		<p id="limitD"></p>
-		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
+		<label id="_category" style="background-color:rgba(0,0,0,0.5);color: white;"></label></label><label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
 		 <span	class="explain">${challDto.identifydayS } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 		 
 	</div>
 </div>
 
-<div class="container" style="padding:0 0px 50px 0;box-shadow: 0px 30px 19px 8px rgb(0 0 0 / 10%);background-color: white">
+<div class="container" style="padding:0 0px 50px 0;box-shadow: 0px 30px 19px 8px rgb(0 0 0 / 10%);">
 	<table class="attend" style="margin-left: 35px">
 		<col width="30px">
 		<col width="100px">
@@ -125,10 +125,11 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 					<i style="color: #cfcbd2" class="fas fa-angle-right"></i></a>
 			</td>
 		</tr>
-	</table>
-
+	</table>	
+	
+	<hr class="one" style="margin-bottom: 0">
 	<label class="challengetext" >챌린지 소개</label>
-	<div class="challengetextMain" style="margin-left: 40px">${challDto.challengetext }</div>
+	<div class="challengetextMain" style="margin-left: 40px;margin-right: 60px">${challDto.challengetext }</div>
 	
 	<!-- 참가 설명 -->
 	<div class="row pointExplain">
@@ -185,7 +186,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 			</div>
 			<div class='col-sm-4 d-none d-sm-block' style="padding-left: 0">
 				<c:if test="${fn:length(identify) != 0}">
-					<label class="challengetext" style="margin-left: -9px">나의 인증 현황</label>
+					<label class="challengetext" style="margin-left: -56px">나의 인증 현황</label>
 				</c:if>
 				<div>
 					<div class='row'>
@@ -211,8 +212,9 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 			</div>
 		</div>
 	</div>
+	<hr class="one" style="margin-top: 30px">
 	<!-- 주의사항 -->
-	<div class="precautions" style="background-color: #f2f2f2;padding: 15px 0;margin-top: 17px">
+	<div class="precautions" style="padding: 15px 0;margin-top: 17px;background-color:#e9e9eaff ">
 		<label class="challengetext" style="margin-top: 0;margin-left: 9px">챌린지 주의사항</label>
 		<table style="margin-left: 53px">
 			<col width="200px">
@@ -245,9 +247,15 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 			</tr>
 		</table>
 	</div>
-	<hr class="one">
+	<hr class="one" style="border-color: rgba(166,166,166,0.3)">
 
 	<!--//////////////////////////////// 탭 부분  /////////////////////////////// -->
+	<div class="headerC" style="text-align: center;padding: 47px 0 46px 0;">
+ 		<h5>CHALLENGE ACTIVITY</h5>
+ 		<p>Participate our challenge</p>
+ 	</div> 	
+ 	
+
 	<!-- 메인 탭부분 -->
 	<div class="main">
 		<!-- Nav pills -->
@@ -259,62 +267,68 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 			<li class="nav-item" style="margin-right: 30px"><a class="nav-link" data-toggle="pill"
 				href="#category2">대 화</a></li>
 		</ul>
-
+	
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<!-- 현재 결과 -->
+	
 			<div id="home" class="container tab-pane active">
+					<hr class="one">
 				<c:if test="${challResultAllOne == null && fn:length(challengeMember) == 0}">
 					<div class="noneData">
 						<h3>참가 인원이 없습니다. 챌린지에 참가해서 활동해 보세요.</h3>
 					</div>	
 				</c:if>
-			<c:if test="${fn:length(challengeMember) > 0}">
-				<div class="row" style="width: 900px;margin: 34px auto;border: 1px solid rgba(207, 203, 210,0.5);padding: 21px; box-shadow: 10px 10px 0px 0px rgb(203 152 237 / 10%);" id="resultDiv">
-					<div class="col-sm-6" style="width: 400px;margin: 0 auto 20px auto;">
-						<canvas id="totalChart" width="400" height="400"></canvas>
-					</div>
-					<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 18px">
-						<h2 style="margin-bottom: 40px;width:400px;text-align: center;">얼마나 달성되었나요?</h2>
-						<div style="position: relative;width: 200px">
-							<div style="left: 100%;width: 200px;background-color: #8b63da;height: 40px"></div>
-								<h5 style="margin: 20px 0  5px 0">인증 완료</h5>
-								<div style="width: 168px">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 성공하였습니다.</div>
-							<div style="position: absolute;left: 100%;top:0%;width: 200px">
-								<div style="width: 200px;background-color: #fbc2eb;height: 40px"></div>
-								<h5 style="margin: 20px 0  5px 0">인증 진행중</h5>
-								<div style="width: 175px">앞으로 총 ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받아야 합니다.</div>
+				<c:if test="${fn:length(challengeMember) > 0}">
+					<div style="width: 100%;background-color: #f2f2f2;padding: 30px 0" id="resultDiv">
+						<div class="row" style="    background-color: white;width: 900px;margin: 0 auto;border: 1px solid rgba(207, 203, 210,0.5);padding: 21px;box-shadow: 0px 0px 10px 5px rgb(0 0 0 / 10%);border-radius: 10px;" >
+							<div class="col-sm-6" style="width: 400px;margin: 0 auto 20px auto;">
+								<canvas id="totalChart" width="400" height="400"></canvas>
+							</div>
+							<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 18px">
+								<h2 style="margin-bottom: 40px;width:400px;text-align: center;font-weight: 700;letter-spacing: 2px;">얼마나 달성되었나요?</h2>
+								<div style="position: relative;width: 200px">
+									<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
+										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 완료</h5>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 성공하였습니다.</div>
+									<div style="position: absolute;left: 100%;top:0%;width: 200px">
+										<div style="width: 200px;background-color: #fbc2eb;height: 35px"></div>
+										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 진행중</h5>
+										<div style="width: 175px;font-size: 11pt;color: rgba(0,0,0,0.7);">앞으로 총 ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받아야 합니다.</div>
+									</div>
+								</div>					
 							</div>
 						</div>
-						
 					</div>
-				</div>
 				</c:if>
-				<c:if test="${user.email !=null && user.email == identifyResultUser.email}"> 			
-					<div class="row"  style="width: 900px;margin: 34px auto;border: 1px solid rgba(207, 203, 210,0.5);padding: 21px; box-shadow: 10px 10px 0px 0px rgb(203 152 237 / 10%);">
-						<div class="col-sm-6"  style="width: 400px;height:400px;margin-bottom:20px;">
-							<canvas id="totalChart1" width="400" height="400"></canvas>
-						</div>
-						<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 18px">						
-							<h2 style="margin-bottom: 40px;width:400px;text-align: center;">얼마나 달성되었나요?</h2>
-							<div style="position: relative;width: 200px">
-								<div style="left: 100%;width: 200px;background-color: rgb(207, 203, 210);height: 35px"></div>
-									<h5 style="margin: 10px 0  5px 0;font-size: 14pt">전체 인증 완료</h5>
-									<div style="width: 180px;font-size: 11pt">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 인증되었습니다.</div>
-								<div style="position: absolute;left: 100%;top:0%;width: 200px">
-									<div style="width: 200px;background-color: rgb(230,227,232);height: 35px"></div>
-									<h5 style="margin: 10px 0  5px 0;font-size: 14pt">전체 인증 진행중</h5>
-									<div style="width: 180px;font-size: 11pt">완료까지  ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받을 수 있습니다.</div>
-								</div>
+				
+				<c:if test="${user.email !=null && user.email == identifyResultUser.email}"> 	
+					<div style="width: 100%;background-color: #f2f2f2;padding: 40px 0">		
+						<div class="row"  style="padding: 21px;width: 900px;margin: 0 auto;border: 1px solid rgba(207, 203, 210,0.5);background-color:white;box-shadow: 0px 0px 10px 5px rgb(0 0 0 / 10%);border-radius: 10px">
+							<div class="col-sm-6"  style="width: 400px;height:400px;margin-bottom:20px;">
+								<canvas id="totalChart1" width="400" height="400"></canvas>
 							</div>
-							<div style="position: relative;width: 200px;margin-top: 30px;">
-								<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
-									<h5 style="margin: 10px 0  5px 0;font-size: 14pt">나의 인증 성공</h5>
-									<div style="width: 180px;font-size: 11pt">해당 챌린지에서 현재까지의 인증 횟수는 ${identifyResultUser.identify }회 입니다.</div>
-								<div style="position: absolute;left: 100%;top:0%;width: 200px">
-									<div style="width: 200px;background-color: rgb(226,199,245);height: 35px"></div>
-									<h5 style="margin: 10px 0  5px 0;font-size: 14pt">나의 인증 진행중</h5>
-									<div style="width: 180px;font-size: 11pt">종료까지 ${identifyResultUser.totalday - identifyResultUser.identify }회의 인증을 할 수 있습니다.</div>
+							<div class="col-sm-6" style="display: flex;flex-direction: column;justify-content: center;padding-left: 18px">						
+								<h2 style="margin-bottom: 40px;width:400px;text-align: center;font-weight: 700;letter-spacing: 2px;">얼마나 달성되었나요?</h2>
+								<div style="position: relative;width: 200px">
+									<div style="left: 100%;width: 200px;background-color: rgb(207, 203, 210);height: 35px"></div>
+										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">전체 인증 완료</h5>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 인증되었습니다.</div>
+									<div style="position: absolute;left: 100%;top:0%;width: 200px">
+										<div style="width: 200px;background-color: rgb(230,227,232);height: 35px"></div>
+										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">전체 인증 진행중</h5>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">완료까지  ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받을 수 있습니다.</div>
+									</div>
+								</div>
+								<div style="position: relative;width: 200px;margin-top: 30px;">
+									<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
+										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">나의 인증 성공</h5>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지에서 현재까지의 인증 횟수는 ${identifyResultUser.identify }회 입니다.</div>
+									<div style="position: absolute;left: 100%;top:0%;width: 200px">
+										<div style="width: 200px;background-color: rgb(226,199,245);height: 35px"></div>
+										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">나의 인증 진행중</h5>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">종료까지 ${identifyResultUser.totalday - identifyResultUser.identify }회의 인증을 할 수 있습니다.</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -343,11 +357,13 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 						</div>
 					</div>
 				</c:if>
-				
-				<!-- 			<hr style="border-top: 2px solid rgba(203, 152, 237,0.2)"> -->
+
+				<hr class="one">
 				<!-- 순위 보여주기 -->
 				<div class="grade" style="margin-top: 70px">
-
+					<div style="text-align: center;font-size: 24pt;font-weight: 700;letter-spacing: 2px;margin-bottom: 45px;">
+						CHALLENGE RANKING
+					</div>	
 					<div class="row text-center" style="width: 80%; margin: 30px auto 20px auto">
 						<c:choose>
 							<c:when test="${fn:length(challengeResult) >3 }">
@@ -404,8 +420,8 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 			<!--///////////////////////// 현재 결과 끝 /////////////////////-->
 
 			<!-- 후기 -->
-			<div id="category1" class="container tab-pane fade">
-				<br>
+			<div id="category1" class="container tab-pane fade" style="padding-left: 45px;padding-right: 45px">
+		
 				<!-- 챌린지 참가한 사람들만 보이게 제어(한번 작성하면 버튼 hide) -->
 
 				<div class="chall-buttons" id="reviewMakeBtn">
@@ -564,8 +580,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 
 			<!-- 대화 -->
 			<div id="category2" class="container tab-pane fade">
-				<br>
-				<br>
+		
 				<div class="row chatHeader">
 					<div class="col-sm-12 chatHeader">
 						<img alt="" src="image/logo.png">
@@ -921,6 +936,21 @@ if(timeData<10){
 	$(".timeData").text("0"+timeData+":00 ~ "+"0"+timeData+":05 사이");	
 }else{
 	$(".timeData").text(timeData+":00 ~ "+timeData+":05 사이");	
+}
+
+let category = '${challDto.category}';
+if(category==1){
+	$("#_category").text("건강");
+}else if(category==2){
+	$("#_category").text("역량");
+}else if(category==3){
+	$("#_category").text("정서");
+}else if(category==4){
+	$("#_category").text("자산");
+}else if(category==5){
+	$("#_category").text("생활");
+}else if(category==6){
+	$("#_category").text("취미");
 }
 
 
@@ -1344,15 +1374,21 @@ function commentLikeDel(commentseq, number){
 	});
 }
 //후기 작성 버튼 제어 chall-buttons
-
-
-/*var userid = $("#_userid").val();
-
-if(userid == null){
-
+/*
+let loginUser = '${user.email}';
+console.log("야...왜안나와"+loginUser)
+if(loginUser == null){
    $("#reviewMakeBtn").css("display","none");
-}else{
+}else if(loginUser != null){
+	$.each(challengeMember, function(i, member){
+		if(loginUser == member.email){
+			 $("#reviewMakeBtn").css("display","");
+		}
+	});
+}
 
+*/
+/*
 
    $("#reviewMakeBtn").show();
 
