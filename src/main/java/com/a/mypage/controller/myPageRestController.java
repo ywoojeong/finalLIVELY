@@ -173,15 +173,19 @@ public class myPageRestController {
 
 	// 댓글 데려오기
 	@RequestMapping(value = "commentList.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+	public List<Map<String, Object>> commentList(@RequestParam Map<String,Object> comListParam) throws SQLException {
 		
-		System.out.println("tydgjgjhgsuggestbbsseq :" + suggestbbsseq);
+		System.out.println("commentList============ :" + comListParam);
 		
-		/*
-		 * Map<String, Object> param = new HashMap<String, Object>(); param.put("email",
-		 * email); System.out.println("commentList param:" + param);
-		 */
-		List<Map<String, Object>> commentList = myService.commentList(suggestbbsseq);
+//		int suggestbbsseq = Integer.parseInt((String)comListParam.get("suggestbbsseq"));
+		int startPage = (Integer.parseInt((String)comListParam.get("page"))-1) * 5;
+		System.out.println("startPagestartPagestartPagestartPage : "+startPage);
+		int endPage = startPage + 6;
+		comListParam.put("startPage", startPage);
+		comListParam.put("endPage", endPage);
+//		comListParam.put("suggestbbsseq", suggestbbsseq);
+		
+		List<Map<String, Object>> commentList = myService.commentList(comListParam);
 		System.out.println("commentList :" + commentList.toString());
 		
 		return commentList;

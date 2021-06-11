@@ -96,9 +96,9 @@ public class myPageServiceImpl implements myPageService{
 	}
 	
 	@Override
-	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+	public List<Map<String, Object>> commentList(Map<String,Object> comListParam) throws SQLException {
 		// TODO Auto-generated method stub
-		return mypagedao.commentList(suggestbbsseq);
+		return mypagedao.commentList(comListParam);
 	}
 	
 	@Override

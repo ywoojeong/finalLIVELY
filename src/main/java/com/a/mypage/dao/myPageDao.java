@@ -45,7 +45,7 @@ public interface myPageDao {
 	
 	public int writeComment(Map<String,Object> commentParam) throws SQLException;
 	
-	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException;
+	public List<Map<String, Object>> commentList(Map<String,Object> comListParam) throws SQLException;
 	
 	public int suggestBbsCnt(Map<String,Object> searchParam) throws SQLException;
 	

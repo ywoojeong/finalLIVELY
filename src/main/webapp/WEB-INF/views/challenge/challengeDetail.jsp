@@ -83,7 +83,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 		</div>
 
 		<p id="limitD"></p>
-		<label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
+		<label id="_category" style="background-color:rgba(0,0,0,0.5);color: white;"></label></label><label>${challDto.identifydayS }</label><label>${challDto.challengeperiod }주동안</label><span class="period" id="periodDate"></span><br>
 		 <span	class="explain">${challDto.identifydayS } ${challDto.challengeperiod }주동안, 하루에 1번 ${challDto.identifytime}시에 인증해야 합니다.</span>
 		 
 	</div>
@@ -938,6 +938,21 @@ if(timeData<10){
 	$(".timeData").text(timeData+":00 ~ "+timeData+":05 사이");	
 }
 
+let category = '${challDto.category}';
+if(category==1){
+	$("#_category").text("건강");
+}else if(category==2){
+	$("#_category").text("역량");
+}else if(category==3){
+	$("#_category").text("정서");
+}else if(category==4){
+	$("#_category").text("자산");
+}else if(category==5){
+	$("#_category").text("생활");
+}else if(category==6){
+	$("#_category").text("취미");
+}
+
 
 //날짜 제어
 let now = new Date();
@@ -1359,15 +1374,21 @@ function commentLikeDel(commentseq, number){
 	});
 }
 //후기 작성 버튼 제어 chall-buttons
-
-
-/*var userid = $("#_userid").val();
-
-if(userid == null){
-
+/*
+let loginUser = '${user.email}';
+console.log("야...왜안나와"+loginUser)
+if(loginUser == null){
    $("#reviewMakeBtn").css("display","none");
-}else{
+}else if(loginUser != null){
+	$.each(challengeMember, function(i, member){
+		if(loginUser == member.email){
+			 $("#reviewMakeBtn").css("display","");
+		}
+	});
+}
 
+*/
+/*
 
    $("#reviewMakeBtn").show();
 
