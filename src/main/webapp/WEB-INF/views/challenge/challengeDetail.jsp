@@ -53,6 +53,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 <!-- 							<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\"> -->
 						</span>
 					</a>
+					
 
 <%-- 
  				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
@@ -290,7 +291,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 								<div style="position: relative;width: 200px">
 									<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
 										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 완료</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 성공하였습니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 <span style='font-weight: 600'>${challResultAllOne.certicount }회</span> 성공하였습니다.</div>
 									<div style="position: absolute;left: 100%;top:0%;width: 200px">
 										<div style="width: 200px;background-color: #fbc2eb;height: 35px"></div>
 										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 진행중</h5>
