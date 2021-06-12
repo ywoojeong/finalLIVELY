@@ -5,6 +5,12 @@ body{
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
+/*introButton */
+.intoButton:active{
+	background-color: #f2f2f2;
+	box-shadow: inset 1px 1px 0px 0px;
+}
+
 .headerTitle{
 	height: 242px;
 	background-color: white;	

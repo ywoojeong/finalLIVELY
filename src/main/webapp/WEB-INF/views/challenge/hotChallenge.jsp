@@ -32,11 +32,16 @@
  <div class="choiceChallenge">
 	<div id="demo" class="carousel slide" data-ride="carousel" style="height: 650px;background-color: #f2f2f2;">
 	  <div class="carousel-inner">
-	    <div class="carousel-item active">
-	  		<div>
-	    		LIVELY가 처음이신가요?
-	    	
-	    	
+	    <div class="carousel-item active">  
+	    	<div style="display:flex;">
+		  		<div style="width:800px;height:450px;overflow: hidden;margin: 100px 80px;object-fit: cover; ">
+		    		<img src="./image/mainImage.jpg" width="800px;">
+		    	</div>
+		    	<div style="margin: 250px auto;text-align: center">
+	    			   <h1 style="letter-spacing: 2px;font-weight: 700;margin-bottom: 15px;font-size: 35pt;">LIVELY가 처음이신가요?</h1>
+	    			   <p style="color:rgba(0,0,0,0.7);margin-bottom: 0;font-size: 13pt">목표 달성을 위한 첫 걸음, 목표를 설정하면 당신의 일상이 더 특별해집니다.<br>지금 당장 챌린지를 시작해보세요.</p>
+	    			   <button type="button" class="introButton" style="margin-top: 35px;padding: 5px 25px;border: 3px solid;background-color: white;font-size: 15pt;letter-spacing: 2px;box-shadow: 2px 2px 0px 0px;">시작하기</button>
+	    		</div>	    	
 	    	</div>
 	 
 	    </div>
@@ -119,9 +124,11 @@
 
 
 <div style="height: 230px;background-color: #f2f2f2;display: flex;align-items: center;flex-direction: column;justify-content: center;">
-	<h2 style="font-weight: 700;letter-spacing: 1px;margin-bottom: 12px">Changing your life is Action rather than determination</h2>
-	<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.6);">Pick a promise with me that you want to keep and hang the points.</p>
-		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.6);">Stay with people with the same goals until the end.</p>
+	<i class="fas fa-quote-left " style="color:rgba(0,0,0,0.3);margin: 8px"></i>
+	<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Pick a promise with me that you want to keep and hang the points.</p>
+		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Stay with people with the same goals until the end.</p>
+		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Changing your life is Action rather than determination.</p>
+		<i class="fas fa-quote-right" style="color:rgba(0,0,0,0.3);margin: 8px"></i>
 
  </div>
 

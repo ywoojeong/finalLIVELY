@@ -11,7 +11,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="position: fixed;">
             <div class="member_box">
                 <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfoData.MEMBERPHOTONAME}" />
                 <h5>${memberInfoData.NICKNAME}</h5>
@@ -40,34 +40,38 @@
 	                        <div class="cut_count">0</div>
 	                    </div>
 	                </div>
-	                
-            </div>
+	                </div>
+			
+	          		<div class="ulList" style="margin-left: -14px;">
+		              <!-- 탭부분 -->
+			          <!-- Nav pills -->
+			          <ul class="nav mains"
+			          style="display: flex; flex-direction: column; justify-content: center; padding-top: 10px; margin-right: 71px;" role="tablist">
+			              <li class="nav-items mains">
+			                  <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
+			              </li>
+			              <li class="nav-items mains">
+			                  <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
+			              </li>
+			              <li class="nav-items mains">
+			                  <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
+			              </li>
+			          </ul>
+	              	</div>
         </div>
         
         
         
-        <div class="col-sm-9">
-            <!-- 탭부분 -->
-            <!-- Nav pills -->
-          <ul class="nav nav-pills" role="tablist">
-              <li class="nav-items">
-                  <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
-              </li>
-              <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
-              </li>
-              <li class="nav-items">
-                  <a class="nav-link" data-toggle="pill" href="#menu2">제안하기</a>
-              </li>
-          </ul>
+        <div class="col-sm-9" style="margin-left: 25%;">
+          
          
          <!-- Tab panes -->
-          <div class="tab-content">
+          <div class="tab-content" style="margin-top: 98px;">
              <!-- 전체현황 -->
               <div id="whole" class="container tab-pane active">
                   <div class="member_rightBox">
                       <div class="row">
-                          <div class="col-sm-12">
+                          <div class="col-sm-12" style="margin-top: 22px;">
                               <div class="member_count">
                                  <!-- count 부분 -->
                                   
@@ -231,9 +235,9 @@
 								</div>
 								
                         <!-- 메인 검색버튼 (타원)-->
-                        <div class="searchArea">
-                        <div class="md-form md-outline d-flex Search" align="right">
-                           	<select class="form-control form-control-sm" name="category" id="category">
+                        <div class="searchArea" style="width: 100%;">
+                        <div class="md-form md-outline d-flex Search" align="right" style="margin-left: 93px;">
+                           	<select class="form-control form-control-sm" name="category" id="category" style="margin-right: 15px; height: auto; width: auto; margin-left: 3px;">
 		 						<option value="0">선택하세요</option>
 		 						<option value="1">건강</option>
 		 						<option value="2">역량</option>
@@ -242,8 +246,10 @@
 		 						<option value="5">생활</option>
 		 						<option value="6">취미</option>
 	 						</select>
-                           <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search">
-                           <button type="button" class="btn btn-Search" id="searchBtn">SEARCH</button>
+	 						<div class="searchBoxx" style="width: 600px; height: 100%;">
+                           <input type="text" class="form-control input-Search" id="search" placeholder="검색하세요" name="search" style="width: 378px;">
+                           </div>
+                           <button type="button" class="btn btn-Search" id="searchBtn" style="margin-left: 15px;">SEARCH</button>
                         </div>
                         </div>
                         <!-- 제안하기 list 받는곳--> 
@@ -926,15 +932,9 @@ function likeSuggest(now){
 	    type:"POST",
 	    data: {page:now, 'search':$("#search").val(), 'category':$("#category").val()},
 	    success:function(list){
-	    	console.log("list______________________")
-	    	console.log(list)
 	    	var total = list[0].TOTALCNT
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
-	    	// for문 돌때 문제?
-	    	
-	    	console.log("now______________________")
-	    	console.log(now)
 	    	var categoryName = setCategory(list[i].SUGGESTBBSCATEGORY);
 	    	console.log("category ==>"+categoryName)
 	    	var like = ""
@@ -943,10 +943,10 @@ function likeSuggest(now){
 	    	}else{
 	    		like = "<i class='far fa-thumbs-up fa-2x youlike"+list[i].SUGGESTBBSSEQ+"' onclick='youLike("+list[i].SUGGESTBBSSEQ+")'></i>"
 	    	}	
-	    		
+	    	// 검색어가 있을때 없을때 제어해주기	
 	    	data += "<div class='suggestCard'>"
 	    		+	"<div class='suggest-card-body' >"
-	    		+	"<div class='suggest-text'onclick='commentListSel("+list[i].SUGGESTBBSSEQ+")' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
+	    		+	"<div class='suggest-text'onclick='commentListSel("+list[i].SUGGESTBBSSEQ+","+1+")' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
 	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
 	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
 	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
@@ -958,20 +958,24 @@ function likeSuggest(now){
 		    	+	"<div class='collapse' id='collapseExample"+i+"' style='width: 100%'>"
 	        	+	"<div class='applyBox'>"
 	            +	"<div class='applyBbs' style='height: 50px;'>"
-	            /* +			"<p style='margin-top: 0;'>"+list[i].SUGGESTBBSCONTENT+"</p>"	 */
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
 				+			"<div class='cWrite'><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
         		+					"<button type='button' class='btn' id='writeComment' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' >댓글쓰기</button></a></div>"
 	            +	"<hr class='hhr' width='100%'>"
 	            +	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"
-	            +	"</div></div></div>";
+	            +	"</div>"
+	            +	"<div class='comPage"+list[i].SUGGESTBBSSEQ+"'>"
+	            +   "</div>"
+	            +	"<ul class='comPageUl"+list[i].SUGGESTBBSSEQ+"' id='comPageUl' style='display: flex; list-style: none; letter-spacing: 17px; margin-top: 35px;'></ul>"
+	            +	"</div></div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
         		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
 //        		console.log("tdcgfvygyvyv"+	$('#suggestSeq').val(list[i].SUGGESTBBSSEQ))
-        		
+//        		comListPaging(total,now)
 	    	}
 	    	sugListPaging(total,now)
+	    	comListPaging(total,now)
 	    	$(".suggestBox").html(data);
 
 	    },
@@ -1050,9 +1054,7 @@ function setCategory(category){
 //제안하기 쪽 댓글 작성
 function setCommentSeq(seq){
 	console.log("setCommentSeq33333333333333  "+seq)
-	
    $("#suggestSeq").val(seq)
-   
 }
 
 // 제안하기 쪽 댓글 작성
@@ -1085,17 +1087,22 @@ function saveComment() {
 }
 
 //댓글 리스트 가져오기
-function commentListSel(seq){
+function commentListSel(seq, now){
 	console.log("commentListSel seq")
 	console.log(seq)
+	console.log(now)
 	console.log(typeof(seq))
+	console.log(typeof(now))
 	$.ajax({
 		url:"./commentList.do",
-		type:"get",
-	    data: {"suggestbbsseq":seq},
+		type:"POST",
+	    data: {"suggestbbsseq":seq, page:now},
 	    success:function(list){
 	    	console.log("commentListSel->>>>>>>>>>>>")
 	    	console.log(list)
+	    	var total = list[0].TOTALCNT
+	    	console.log("listlistlistlist->>>>>>>>>>>>")
+	    	console.log(total)
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
 	    	data += 	"<table class='commentTable'>"
@@ -1108,14 +1115,54 @@ function commentListSel(seq){
 				+	        "</tr>"
         		+			"</table>"
 	    	}
-        		
-        		$(".applyCom"+seq).html(data);
-
+	    	comListPaging(total,now,seq)	
+        	$(".comPage"+seq).html(data);
+	    	console.log("comPage===========")
+			console.log($(".comPage"+seq).html(data))
 	    },
         error:function(){
            alert("commentList 불러오는 error");
 	   	}
 	});
+}
+
+// 댓글 페이징 처리
+function comListPaging(total,now,seq){
+	console.log("comListPaging total",total)
+	console.log("comListPaging now",now)
+	var pagecnt = Math.ceil(total/5.0)
+	var startCnt = Math.floor((now-1)/5) * 5 + 1
+	//전체 페이지
+	var pageBlock = Math.ceil(pagecnt/5)
+	var nowBlock = Math.ceil(now/5)
+	console.log("pagecnt",pagecnt)
+	console.log("startCnt",startCnt)
+	console.log(total,pagecnt)
+	console.log("pageBlock",pageBlock)
+	console.log("nowBlock",nowBlock)
+	var nowTotal = nowBlock*5
+	if(nowTotal > pagecnt){
+		nowTotal = pagecnt
+	}
+	var html = ""
+	if(pageBlock > 1 && nowBlock > 1){
+		html += "<li  onclick='commentListSel("+seq+","+(nowBlock*5-9)+")'> &laquo;</li>"
+	}
+	for(var i=startCnt;i<=nowTotal;i++){
+		if(now == i){
+			html += "<li class='nowpages' style='color:blue' onclick='commentListSel("+seq+","+i+")'>"+i+"</li>"
+		}else{
+			html += "<li onclick='commentListSel("+seq+","+i+")'>"+i+"</li>"
+		}
+		
+	}
+	
+	if(pageBlock > 1 && nowBlock < pageBlock){
+		html += "<li onclick='commentListSel("+seq+","+(nowBlock*5+1)+")'>&raquo;</li>"
+	}
+	console.log(html)
+	$(".comPageUl"+seq).html(html);
+
 }
 
 // 제안하기 총 수 가져오기

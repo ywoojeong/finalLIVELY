@@ -97,9 +97,10 @@ public class myPageDaoImpl implements myPageDao {
 	}
 	
 	@Override
-	public List<Map<String, Object>> commentList(int suggestbbsseq) throws SQLException {
+	public List<Map<String, Object>> commentList(Map<String,Object> comListParam) throws SQLException {
+		System.out.println("commentList===========>"+comListParam);
 		// TODO Auto-generated method stub
-		return sql.selectList("myPage.commentList", suggestbbsseq);
+		return sql.selectList("myPage.commentList", comListParam);
 	}
 	
 	@Override
