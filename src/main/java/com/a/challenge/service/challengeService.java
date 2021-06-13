@@ -110,4 +110,7 @@ public interface challengeService {
 	//추천 4개 랜덤 ChoiceTodayStart
 	public List<Map<String, Object>> ChoiceTodayStart();
 	
+	//제안하기 만든 랜덤 4개 ChoiceSuggestChallenge
+	public List<Map<String, Object>> ChoiceSuggestChallenge();
+	
 }

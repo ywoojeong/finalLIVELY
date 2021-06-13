@@ -1,4 +1,4 @@
-A<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
  <link href="./css/challenge.css" rel="stylesheet">   
@@ -6,30 +6,79 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
  <!-- core tag -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
  
- <div class="" style="margin-top:70px;"> 
-	<div class="hotMain">
+ <div id="titleC" class="carousel slide" data-ride="carousel" style="height: 27px;background-color: black;margin-top: 50px">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <div style="text-align: center;font-size: 10pt;padding-top: 4px;letter-spacing: 1px;color: white">
+	      	신규 회원가입 시 바로 사용이 가능한 <span style="font-weight: 800;color:red"> 2000point</span>를 증정합니다. 
+	      </div>
+	    </div>
+	    <div class="carousel-item">
+	      <div style="text-align: center;font-size: 10pt;padding-top: 4px;letter-spacing: 1px;color: white">
+	      	챌린지 성공 시 포인트가 <span style="font-weight: 700;color:#cb98ed"> 2배!</span> 가지고있는 포인트로 LIVELY에 참여해보세요.
+	      </div>
+	    </div>
+	  </div>
+	</div>
+ 
+ <div class="headerTitle" >
+ 	<div style="text-align: center;padding: 77px">
+ 		<h5>LIVELY</h5>
+ 		<p>Creating Habits</p>
+ 	</div>
+ </div>
+ 
+ <div style="display: flex;"> 
+	<div class="hotMain d-none d-sm-block">
 		<video muted autoplay loop>
         	<source src="video/write.mp4" type="video/mp4" align="middle">
         	<strong>Your browser does not support the video tag.</strong>
-        </video>
-<!-- 		<div class="hotMainCover"></div> -->
-		<div class="hotMainSen">	
-			<h2>최근에 생성된 챌린지를 확인해 보세요</h2>
+        </video>        
+	</div>
+	 <div class="hotMainSen">	
+			<h2>최근 생성된 챌린지를 확인해 보세요</h2>
 			<p class="d-none d-sm-block">새로운 챌린지를 만들어보세요. LIVELY는 여러분의 챌린지를 기다립니다.</p>
 			<!-- 챌린지 만들기 버튼 세션 없으면 로그인 / 있으면 만들기-->
 			<div class="chall-buttons">
 			 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >START</button> 	
 			 </div>
 		</div>
-	</div>
-</div>    
+</div> 
+
+<div style="height: 230px;background-color: #f2f2f2">
+ 	<div class="row">
+ 		<div class="col-sm-6" style="padding: 50px 0 0 75px">
+ 				<h5 style="font-size: 20pt;font-weight: 700">Lively has been newly opened in 2021.</h5> 
+ 				<br><br><p style="font-size: 9pt;color: rgba(0,0,0,0.4);margin-top: 5px">ⓒ2021.06.23</p>				
+ 		</div>
+ 		<div class="col-sm-6" style="padding: 50px">
+ 		     	<h5 style="font-size: 20pt;font-weight: 700;margin-bottom: 15px;">Lively wants to keep an appointment with me.</h5>
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6);margin-bottom: 0">
+ 				Lively concluded that the most necessary thing to achieve the goal is an environment that
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6);margin-bottom: 0"> must be accomplished rather than will.</p>
+ 				<p style="font-size: 12pt;color: rgba(0,0,0,0.6)">Lively made a platform called Challengers that achieves my goal by betting on myself.
+ 				</p>
+ 		</div>
+ 	
+ 	</div>
+ 		
+ </div>
  
+
+
    
-   <div class="container">
+ 
+<!-- box-shadow: 0px 7px 19px 8px rgb(0 0 0 / 10%); -->
+   <div class="container" style="background: white;padding: 0">
+   	
+		 	<div class="headerC" style="text-align: center;padding: 64px 0 54px 0;">
+		 		<h5>NEW CHALLENGE</h5>
+		 		<p>Select your own challenge</p>
+		 	</div> 	
 
    	 <!-- Nav pills -->
    	 <div class="hotNav">
-		  <ul class="nav nav-pills" role="tablist">
+		  <ul class="nav nav-pills" role="tablist" style="margin-top: 0;padding-top: 6px;margin-left: 0;">
 		    <li class="nav-item">
 		      <a class="nav-link active" data-toggle="pill" href="#category0" onclick="categoryBtn(0)")>전  체</a>
 		    </li>
@@ -53,58 +102,34 @@ A<%@ page language="java" contentType="text/html; charset=UTF-8"
 		    </li>		 
 		  </ul>
 		</div>
-			
-	
-		
-		
+
 		  <!-- Tab panes -->
 		  <div class="tab-content">
-		  
+		  <div style="height: 300px;background-color: #f2f2f2;height: 83px;margin-top: 30px;padding: 23px 0 23px 0px;">
 		  	 <div class="row">
-		  	 				   <!-- 검색창 -->	
 					<div class="col-sm-6 md-form md-outline d-flex Search">
-						<input type="text" class="form-control input-Search" id="_search" placeholder="새로 만들어진 챌린지를 검색하세요" name="search" onkeyup="JavaScript:Enter_Check(this);">
+						<input type="text" class="form-control input-Search" id="_search" placeholder="인기있는 챌린지를 검색하세요" name="search" onkeyup="JavaScript:Enter_Check(this);">
 				    	<button type="button" id="searchBtn" class="btn btn-Search" onclick="searchBtn()">SEARCH</button>
 				    </div>
 	  			</div>
-		    	
+		   </div>
 		    	<%for(int i=0;i<7;i++) {%>
-		    	  <div id="category<%=i %>" class="container tab-pane"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
+		    	  <div id="category<%=i %>" class="container tab-pane" style="padding: 0"><!-- active문제!!!!!!!!!!!!!!!!!!!! -->
 
 				    	<!-- 카드 -->
-				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto; width: 94%">
+				     	<div class="row" id="dataMain<%=i %>"  style="margin: 15px auto 30px auto;">
 										<!-- 데이터 들어오는 부분 -->
 				     	</div>
 				    </div>
 				   <%} %>
-				    	
-		    	
+
 		    		<!-- 페이지네이션 -->
-		    				
- 						<nav aria-label="Page navigation" style="text-align: center;"> 
-							<ul class="pagination" id="_pagination" style="justify-content: center">
-							</ul>
- 						</nav> 
+   				
+				<nav aria-label="Page navigation" style="text-align: center;padding: 10px auto;height: 112px"> 
+					<ul class="pagination" id="_pagination" style="justify-content: center">
+					</ul>
+				</nav>
 
-  
-
-<!-- 					  <ul class="pagination" id="_pagination"  style="justify-content: center"> -->
-<!-- 					    <li class="page-item"> -->
-<!-- 					      <a class="page-link"tabindex="-1">Previous</a> -->
-<!-- 					    </li> -->
-					    
-<!-- 					    <li class="page-item active"><a class="page-link">1</a></li> -->
-<!--  					    <li class="page-item active"> --> 
-<!--  					      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
-<!--					    </li> -->
-<!--  					    <li class="page-item"><a class="page-link" href="#">3</a></li> --> 
-<!-- 					    <li class="page-item"> -->
-<!-- 					      <a class="page-link">Next</a> -->
-<!-- 					    </li> -->
-<!-- 				 	 </ul> -->
-
-
-		
 			</div>	   	 
    </div>
 
@@ -337,3 +362,4 @@ function loadPaging(totalCount, categoryNumber){
 
 }
 </script> 
+

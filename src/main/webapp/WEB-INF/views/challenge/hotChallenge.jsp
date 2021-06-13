@@ -32,11 +32,16 @@
  <div class="choiceChallenge">
 	<div id="demo" class="carousel slide" data-ride="carousel" style="height: 650px;background-color: #f2f2f2;">
 	  <div class="carousel-inner">
-	    <div class="carousel-item active">
-	  		<div>
-	    		LIVELY가 처음이신가요?
-	    	
-	    	
+	    <div class="carousel-item active">  
+	    	<div style="display:flex;">
+		  		<div style="width:800px;height:450px;overflow: hidden;margin: 100px 80px;object-fit: cover;position: relative;">
+		    		<img src="./image/mainImage.jpg" width="800px;" style="position: absolute;top: -20%">
+		    	</div>
+		    	<div style="margin: 250px auto;text-align: center">
+	    			   <h1 style="letter-spacing: 2px;font-weight: 700;margin-bottom: 15px;font-size: 35pt;">LIVELY가 처음이신가요?</h1>
+	    			   <p style="color:rgba(0,0,0,0.7);margin-bottom: 0;font-size: 13pt">목표 달성을 위한 첫 걸음, 목표를 설정하면 당신의 일상이 더 특별해집니다.<br>지금 당장 챌린지를 시작해보세요.</p>
+	    			   <button type="button" class="introButton" style="margin-top: 35px;padding: 5px 25px;border: 3px solid;background-color: white;font-size: 15pt;letter-spacing: 2px;box-shadow: 2px 2px 0px 0px;">시작하기</button>
+	    		</div>	    	
 	    	</div>
 	 
 	    </div>
@@ -56,6 +61,7 @@
 
 	    </div>
 	    <div class="carousel-item">
+	    	  <div style="display: flex">	
 	    	<div style="margin-top: 50px;margin-left: 73px">
 	    		<h1 style="font-weight: 700;margin-top: 7px">인증 챌린지</h1>
 	    		<p style="margin-top: 280px;width: 260px;color: rgba(0,0,0,1);padding-bottom: 0">
@@ -65,7 +71,7 @@
 					챌린지에 참가해 보세요<br>
 	    		</p>
 	    	</div>
-	 
+	    	<div style="margin-top:145px;display: flex;margin-left: 30px" id="choiceSuggestChallenge"></div>
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -98,7 +104,7 @@
  
  
  <div style="display: flex;"> 
-	<div class="hotMain">
+	<div class="hotMain d-none d-sm-block">
 		<video muted autoplay loop>
         	<source src="video/write.mp4" type="video/mp4" align="middle">
         	<strong>Your browser does not support the video tag.</strong>
@@ -119,9 +125,11 @@
 
 
 <div style="height: 230px;background-color: #f2f2f2;display: flex;align-items: center;flex-direction: column;justify-content: center;">
-	<h2 style="font-weight: 700;letter-spacing: 1px;margin-bottom: 12px">Changing your life is Action rather than determination</h2>
-	<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.6);">Pick a promise with me that you want to keep and hang the points.</p>
-		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.6);">Stay with people with the same goals until the end.</p>
+	<i class="fas fa-quote-left " style="color:rgba(0,0,0,0.3);margin: 8px"></i>
+	<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Pick a promise with me that you want to keep and hang the points.</p>
+		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Stay with people with the same goals until the end.</p>
+		<p style="margin-bottom: 0;font-size: 12pt;color: rgba(0,0,0,0.8);">Changing your life is Action rather than determination.</p>
+		<i class="fas fa-quote-right" style="color:rgba(0,0,0,0.3);margin: 8px"></i>
 
  </div>
 
@@ -132,7 +140,7 @@
    <div class="container" style="background: white;padding: 0">
    	
 		 	<div class="headerC" style="text-align: center;padding: 64px 0 54px 0;">
-		 		<h5>CHALLENGE</h5>
+		 		<h5>HOT CHALLENGE</h5>
 		 		<p>Select your own challenge</p>
 		 	</div> 	
 
@@ -457,7 +465,36 @@ function ChoiceTodayStart(){
 			$("#ChoiceTodayStart").html(data);
 		},
 		error:function(){
-			alert("추천 페이지 오늘부터 시작");
+			alert("추천 페이지 오늘부터 시작 실패");
+		}
+	});
+}
+
+//choiceSuggestChallenge
+function ChoiceTodayStart(){
+	
+	$.ajax({
+		url:"./ChoiceSuggestChallenge.do",
+		type:"get",
+		success:function(list){//return이 글의 전체 수임
+			
+			let data = "";
+			$.each(list, function(i, challenge){
+				data += "<div style='margin-left: 15px;margin-right: 15px;'>"
+						+ "<figure class='snip1384'>"
+						+ "<img src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+challenge.challengesavephoto+"'>" 
+						+ "<figcaption>"
+						+ "<h3>"+challenge.challengetitle+"</h3>"
+						+ "<p>오늘 부터 시작하는 챌린지입니다.</p><i class='ion-ios-arrow-right'></i>"
+						+ "</figcaption>"
+						+ "<a href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'></a>"
+						+ "</figure>"
+						+ "</div>";
+	      	});
+			$("#choiceSuggestChallenge").html(data);
+		},
+		error:function(){
+			alert("추천 페이지 실패(어드민이 만든거)");
 		}
 	});
 }

@@ -49,10 +49,10 @@
 				<h2>TRY YOU'RE INTERESTED IN AT LIVELY</h2>
 			</header>
 			<div class="row">
-				<div class="col-sm-6 infoImg">
-					<span style="color:white">이미지 삽입</span>
+				<div class="col-sm-6 infoImg" style="object-fit:cover;overflow: hidden;position: relative;">
+					<img src="image/monthThree.jpg" style="height:100%;position: absolute;left: -26%;">
 				</div>
-				<div class="col-sm-6 infoSen">
+				<div class="col-sm-6 infoSen" style="padding: 0"> 
 					<div>
 						<h4>작심 삼일이 모이면 한달</h4>		
 						<p>부담없이 짧은 기간동안 나를 위한 작은 미션을 선택하세요</p>
@@ -62,14 +62,14 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-6 infoSub">
+				<div class="col-sm-6 infoSub" >
 					<div>
 						<h4>다른사람들과 소통하며 도전</h4>		
 						<p>같은 목표를 가진 사람들과 함께 포기하지 않고 끝까지 달성해보세요</p>
 					</div>
 				</div>
-				<div class="col-sm-6 infoImg">
-					<span style="color:white">이미지 삽입</span>
+				<div class="col-sm-6 infoImg" style="object-fit:cover;overflow: hidden;padding: 0">
+					<img src="image/monthThree2.jpg" style="height:100%">
 				</div>
 					
 			</div>
@@ -110,7 +110,7 @@
 				<div class="col-sm-4 conSen">
 					<div>
 						<h4>HEALTH</h4>
-						<p>문장을 입력하세요</p>
+						<p>A little habit for good health</p>
 					</div>
 	
 				</div>
@@ -120,7 +120,7 @@
 				<div class="col-sm-4 conSen">
 					<div>
 						<h4>MENTALITY</h4>
-						<p>문장을 입력하세요</p>
+						<p>An effort for peace of mind.</p>
 					</div>
 	
 				</div>
@@ -130,7 +130,7 @@
 				<div class="col-sm-4 conSen">
 					<div>
 						<h4>FINANCE</h4>
-						<p>문장을 입력하세요</p>
+						<p>Finance for a Better Life</p>
 					</div>
 	
 				</div>
@@ -140,7 +140,7 @@
 				<div class="col-sm-4 conSen">
 					<div>
 						<h4>HOBBY</h4>
-						<p>문장을 입력하세요</p>
+						<p>A hobby that enriches life.</p>
 					</div>
 	
 				</div>
@@ -150,7 +150,7 @@
 				<div class="col-sm-4 conSen">
 					<div>
 						<h4>LIFE</h4>
-						<p>문장을 입력하세요</p>
+						<p>The life that is closest to me</p>
 					</div>
 	
 				</div>
@@ -161,8 +161,8 @@
 		<section id="link" class="section">
 		 <div class="row linkRow">
 		 	<div class="col-sm-6">
-		 		<div class="linkI">
-		 			 <span style="color:white">이미지 삽입</span>
+		 		<div class="linkI" style="background-image: url('image/friends.jpg');background-size: 111%;background-position-x: center;">
+
 		 		</div>
 		 		<div class="linkS">
 		 			<h4>가장 인기있는 CHALLENGE를 경험해보세요.</h4>
@@ -175,8 +175,8 @@
 		 	</div>
 		 	
 		 	<div class="col-sm-6">
-		 		<div class="linkI">
-		 			 <span style="color:white">이미지 삽입</span>
+		 		<div class="linkI" style="background-image: url('image/friends2.jpg');background-size: 111%;">
+		 
 		 		</div>
 		 		<div class="linkC">
 		 			<h4>요즘 뜨고있는 CHALLENGE를 경험해보세요.</h4>

@@ -15,20 +15,20 @@
 <script>
 $(document).ready(function(){
 // 	console.log( '${user.email}' == '${identifyResultUser.email}')	
-let user = '${user.email}';
-let result = '${identifyResultUser.email}';
-		 if(user != "" && user == result){
-			 $("#resultDiv").hide();
-		 }	
-		 
- if('${challDto.challengesavephoto}' == '0'){
-	 document.getElementById("_backDiv").style.background = "url('./image/challenge1.png')";
-}else{
-	 document.getElementById("_backDiv").style.backgroundImage = "url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')";
-}
+	let user = '${user.email}';
+	let result = '${identifyResultUser.email}';
+			 if(user != "" && user == result){
+				 $("#resultDiv").hide();
+			 }	
+			 
+	 if('${challDto.challengesavephoto}' == '0'){
+		 document.getElementById("_backDiv").style.background = "url('./image/challenge1.png')";
+	}else{
+		 document.getElementById("_backDiv").style.backgroundImage = "url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')";
+	}
 });
 
-console.log("받아온 데이터야라리ㅏ너롬리"+"${challDto}"+"어매ㅑㅙㄹ"+"${challDto.limitdate}"+"dsds"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}");
+console.log("받아온 데이터야라리ㅏ너롬리"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}")
 console.log("아오얘왜이래!  "+'${identifycheck}'+"챌위시? challWish"+"${challWish}")
 console.log("결과 데이터 함 볼까?! challengeResult "+'${challengeResult}'+ "   "+ "${fn:length(challengeResult)}")
 console.log("전체 결과 데이터 challResultAllOne"+"${challResultAllOne}")
@@ -53,6 +53,7 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 <!-- 							<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\"> -->
 						</span>
 					</a>
+					
 
 <%-- 
  				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
@@ -290,11 +291,11 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 								<div style="position: relative;width: 200px">
 									<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
 										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 완료</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 성공하였습니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 <span style='font-weight: 600'>${challResultAllOne.certicount }회</span> 성공하였습니다.</div>
 									<div style="position: absolute;left: 100%;top:0%;width: 200px">
 										<div style="width: 200px;background-color: #fbc2eb;height: 35px"></div>
 										<h5 style="margin: 20px 0  5px 0;font-size: 13pt;font-weight: 600;">인증 진행중</h5>
-										<div style="width: 175px;font-size: 11pt;color: rgba(0,0,0,0.7);">앞으로 총 ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받아야 합니다.</div>
+										<div style="width: 175px;font-size: 11pt;color: rgba(0,0,0,0.7);">앞으로 총 <span style='font-weight: 600'>${challResultAllOne.chaltotalday - challResultAllOne.certicount }회</span>의 인증을 받아야 합니다.</div>
 									</div>
 								</div>					
 							</div>
@@ -313,21 +314,21 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 								<div style="position: relative;width: 200px">
 									<div style="left: 100%;width: 200px;background-color: rgb(207, 203, 210);height: 35px"></div>
 										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">전체 인증 완료</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 ${challResultAllOne.certicount }회 인증되었습니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지는 현재까지 <span style='font-weight: 600'>${challResultAllOne.certicount }회</span> 인증되었습니다.</div>
 									<div style="position: absolute;left: 100%;top:0%;width: 200px">
 										<div style="width: 200px;background-color: rgb(230,227,232);height: 35px"></div>
 										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">전체 인증 진행중</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">완료까지  ${challResultAllOne.chaltotalday - challResultAllOne.certicount }회의 인증을 받을 수 있습니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">완료까지  <span style='font-weight: 600'>${challResultAllOne.chaltotalday - challResultAllOne.certicount }회</span>의 인증을 받을 수 있습니다.</div>
 									</div>
 								</div>
 								<div style="position: relative;width: 200px;margin-top: 30px;">
 									<div style="left: 100%;width: 200px;background-color: #8b63da;height: 35px"></div>
 										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">나의 인증 성공</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지에서 현재까지의 인증 횟수는 ${identifyResultUser.identify }회 입니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">해당 챌린지에서 현재까지의 인증 횟수는 <span style='font-weight: 600'>${identifyResultUser.identify }회</span> 입니다.</div>
 									<div style="position: absolute;left: 100%;top:0%;width: 200px">
 										<div style="width: 200px;background-color: rgb(226,199,245);height: 35px"></div>
 										<h5 style="margin: 10px 0  5px 0;font-size: 13pt;font-weight: 600">나의 인증 진행중</h5>
-										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">종료까지 ${identifyResultUser.totalday - identifyResultUser.identify }회의 인증을 할 수 있습니다.</div>
+										<div style="width: 180px;font-size: 11pt;color: rgba(0,0,0,0.7);">종료까지 <span style='font-weight: 600'>${identifyResultUser.totalday - identifyResultUser.identify }회</span>의 인증을 할 수 있습니다.</div>
 									</div>
 								</div>
 							</div>
