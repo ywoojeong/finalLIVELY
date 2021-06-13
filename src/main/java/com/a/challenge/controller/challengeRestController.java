@@ -387,4 +387,18 @@ public class challengeRestController {
 			return ChoiceTodayStart;
 
 		}
+		
+		//제안하기에서 만들어진 4개 뿌리기
+		@RequestMapping(value = "ChoiceSuggestChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public List<Map<String, Object>> ChoiceSuggestChallenge(){
+			
+			List<Map<String, Object>> choiceSuggestChallenge = service.ChoiceSuggestChallenge();
+			
+			return choiceSuggestChallenge;
+
+		}
+		
+		
+		//결과값 넘겨주기(100퍼센트 시 2배 / 85퍼센트이상 시 1.5배  / 이하면 차감)
+		
 }

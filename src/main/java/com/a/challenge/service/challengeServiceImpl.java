@@ -234,6 +234,13 @@ public class challengeServiceImpl implements challengeService {
 				
 	}
 	
+	@Override
+	public List<Map<String, Object>> ChoiceSuggestChallenge() {
+		// TODO Auto-generated method stub
+		return dao.ChoiceSuggestChallenge();
+				
+	}
+	
 	
 	
 	

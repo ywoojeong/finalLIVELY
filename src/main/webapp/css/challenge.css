@@ -49,11 +49,11 @@ content: " ";
 .headerC>h5:after {
 content: " ";
     position: absolute;
-    width: 319px;
+    width: 464px;
     height: 2px;
     top: 91%;
     border: 2px solid #222222;
-    right: 36%;
+    right: 30%;
 }
 .headerC>p{
 margin-top: -6px;

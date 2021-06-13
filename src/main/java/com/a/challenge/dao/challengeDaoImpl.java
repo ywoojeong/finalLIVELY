@@ -260,6 +260,12 @@ public class challengeDaoImpl implements challengeDao {
 		return sqlSession.selectList(namespace+"ChoiceTodayStart");
 	}
 	
+	@Override
+	public List<Map<String, Object>> ChoiceSuggestChallenge() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"ChoiceSuggestChallenge");
+	}
+	
 	
 	
 	
