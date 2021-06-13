@@ -16,9 +16,12 @@
 	<main style="background-color: #000"> 
 	 <!-- intro -->
 		<section id="intro" class="section">
-		  <div class="introDiv" style="background-image: url('./image/concert-768722_1920.jpg')">
+		  <div class="introDiv">
+		  	 <video muted autoplay loop  style="width:100%">
+	        	<source src="video/production ID_4972560.mp4" type="video/mp4" align="middle">
+	        	<strong>Your browser does not support the video tag.</strong>
+	        </video> 
 			  <main class="introSen">
-			   
 				<div class="typing-txt"> 
 				  <ul>
 				    <li>CHALLENGE</li>

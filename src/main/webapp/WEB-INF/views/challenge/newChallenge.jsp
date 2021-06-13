@@ -31,7 +31,7 @@
  <div style="display: flex;"> 
 	<div class="hotMain d-none d-sm-block">
 		<video muted autoplay loop>
-        	<source src="video/write.mp4" type="video/mp4" align="middle">
+        	<source src="video/garden.mp4" type="video/mp4" align="middle">
         	<strong>Your browser does not support the video tag.</strong>
         </video>        
 	</div>

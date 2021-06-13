@@ -213,6 +213,7 @@ $(".hoverImg").mouseleave(
 
 //캐러셀 호출
 ChoiceTodayStart();
+choiceSuggestChallenge();
 
 //시작 시 호출
 getChallengeListCount(0);		//카테고리 번호
@@ -448,7 +449,7 @@ function ChoiceTodayStart(){
 		url:"./ChoiceTodayStart.do",
 		type:"get",
 		success:function(list){//return이 글의 전체 수임
-			
+			console.log(list.length)
 			let data = "";
 			$.each(list, function(i, challenge){
 				data += "<div style='margin-left: 15px;margin-right: 15px;'>"
@@ -471,7 +472,7 @@ function ChoiceTodayStart(){
 }
 
 //choiceSuggestChallenge
-function ChoiceTodayStart(){
+function choiceSuggestChallenge(){
 	
 	$.ajax({
 		url:"./ChoiceSuggestChallenge.do",
