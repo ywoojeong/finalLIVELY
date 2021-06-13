@@ -15,7 +15,6 @@
 .member_box {
   margin-top:140px;
   padding-top: 160px;
-  border: #a6a6a6 solid 1px;
   height: 400px;
   width: 260px;
   display: flex;
@@ -387,4 +386,7 @@ label{
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
+}
+.commentBtn{
+	color: #a3a3a3;
 }

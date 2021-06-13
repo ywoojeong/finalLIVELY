@@ -58,9 +58,9 @@ font-size: 11pt;
         <li class="nav-item">
           <a class="nav-link" href="newChallenge.do">NEW CHALLENGE</a>
         </li>
-<!--         <li class="nav-item">
-          <a class="nav-link" href="myMainPage2.do">마이페이지탭</a>
-        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="managerPage.do">매니저페이지</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="javascript:signOut();">log out</a>
         </li>
@@ -70,7 +70,7 @@ font-size: 11pt;
       	<%if(memberInfo == null){ %>
         	<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='memberLogin.do'">LIVELY LOGIN</button>
       	<%}else if(memberInfo != null && memberInfo.getAuth() == 1) {%>
-      		<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='manager.do'">MANAGER</button>
+      		<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='managerPage.do'">MANAGER</button>
       	<%}else if(memberInfo != null && memberInfo.getAuth() == 3) {%>
       		<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='myMainPage2.do'">MYPAGE</button>
       	<%} %>
