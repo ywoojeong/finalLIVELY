@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manager">
+	
+	<!-- 매니저 챌린지 -->
+	<select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
+	<!-- 
+	SELECT  CHALLENGESEQ, CATEGORY, CHALLENGETITLE, TO_CHAR(CHALLENGESTART,'YYYY-MM-DD') AS CHALLENGESTART,
+	TO_CHAR(CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND, CHALLENGESTOP, CHALLENGEDEL, TO_CHAR(CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE
+	FROM CHALLENGE
+	ORDER BY CHALLENGESEQ
+	 -->
+	SELECT SV.* FROM
+	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+	(SELECT COUNT(*) FROM CHALLENGE
+	WHERE  CHALLENGEDEL = 0
+	) as TOTALCNT
+	FROM CHALLENGE CHA
+	WHERE CHALLENGEDEL = 0
+	    <if test="category !=null and category !='' and category !=0">
+			AND CATEGORY = #{category}
+		</if>
+		<if test="mSearch !=null and mSearch != ''">
+			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+		</if>
+		<if test="datestart !=null and datestart !='' and datestart !=0">
+		AND CHALLENGESTART > #{datestart}
+		</if>
+		<if test="dateend !=null and dateend !='' and dateend !=0">
+		AND #{dateend} > CHALLENGEEND
+		</if>
+	) SV
+	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
+	</select>
+
+</mapper>

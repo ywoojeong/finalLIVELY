@@ -112,3 +112,97 @@ INNER JOIN CHALLENGEMEMBER CM
 ON CM.CHALLENGESEQ = CG.CHALLENGESEQ
 WHERE SYSDATE > CHALLENGESTART AND CHALLENGEEND > SYSDATE
 AND CM.EMAIL = 'ywoo0309@gmail.com'
+
+
+SELECT  CHALLENGESEQ, CATEGORY, CHALLENGETITLE, CHALLENGESTART, CHALLENGEEND,
+CHALLENGESTOP, CHALLENGEDEL
+FROM CHALLENGE
+ORDER BY CHALLENGESEQ
+WHERE 
+
+
+SELECT * FROM CHALLENGE
+	
+	SELECT SV.* FROM
+	(SELECT SBS.*, ROW_NUMBER() OVER(ORDER BY SBS.SUGGESTBBSSEQ DESC) as SI,
+	CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
+	(SELECT COUNT(*) FROM SUGGESTBBS
+	WHERE  SUGGESTBBSDEL = 0
+			
+	) as TOTALCNT
+	FROM SUGGESTBBS SBS
+	LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+	ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+	LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = 'ywoo0309@gmail.com') ML
+	ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+	WHERE  SBS.SUGGESTBBSDEL = 0
+	ORDER BY LIKECNT DESC		
+			) SV
+	WHERE SV.SI > 0 AND 13 > SV.SI
+	
+	
+	SELECT SV.* FROM
+	
+	(SELECT CH.*, 
+	ROWNUM as SI,
+	(SELECT COUNT(*) FROM CHALLENGE
+	WHERE  CHALLENGEDEL = 0		
+	) as TOTALCNT
+	FROM CHALLENGE CH 
+	WHERE CHALLENGEDEL = 0
+		   
+			) SV
+	WHERE SV.SI > 0 AND 13 > SV.SI
+	
+	
+	
+	SELECT SV.* FROM
+	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+	
+	(SELECT COUNT(*) FROM CHALLENGE
+	WHERE  CHALLENGEDEL = 0
+			
+	) as TOTALCNT
+	FROM CHALLENGE CHA
+	
+	WHERE CHALLENGEDEL = 0
+		    <if test="category !=null and category !='' and category !=0">
+				AND CATEGORY = #{category}
+			</if>
+			<if test="mSearch !=null and mSearch != ''">
+				AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+			</if>
+			<if test="datestart !=null and datestart !='' and datestart !=0">
+			AND CHALLENGESTART > #{datestart}
+			</if>
+			<if test="dateend !=null and dateend !='' and dateend !=0">
+			AND #{dateend} > CHALLENGEEND
+			</if>
+			) SV
+	WHERE SV.SI > 0 AND 13 > SV.SI
+	
+	SELECET * FROM
+	
+	
+	SELECT SV.* FROM
+	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+	(SELECT COUNT(*) FROM CHALLENGE
+	WHERE  CHALLENGEDEL = 0
+	) as TOTALCNT
+	FROM CHALLENGE CHA
+	WHERE CHALLENGEDEL = 0)
+	    <if test="category !=null and category !='' and category !=0">U
+			AND CATEGORY = #{category}
+		</if>
+		<if test="mSearch !=null and mSearch != ''">
+			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+		</if>
+		<if test="datestart !=null and datestart !='' and datestart !=0">
+		AND CHALLENGESTART > #{datestart}
+		</if>
+		<if test="dateend !=null and dateend !='' and dateend !=0">
+		AND #{dateend} > CHALLENGEEND
+		</if>
+	) SV
+	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI

@@ -9,9 +9,28 @@
 <link rel="stylesheet" href="./css/myMainPage2.css" />
 <link rel="stylesheet" href="./fcalLib/main.css">
 
+
+<style>
+
+@media screen and (max-width: 1200px) {
+   #fixbox {
+   position: inherit;
+   		
+	}
+}
+@media screen and (min-width: 1200px) {
+   #fixbox {
+   		position: fixed;
+	}
+}
+
+</style>
+
 <div class="container">
     <div class="row">
-        <div class="col-sm-3" style="position: fixed;">
+        <div id="fixbox" class="col-sm-3" >
+        
+        <div class="leftBox" style="display: inline;">
             <div class="member_box">
                 <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfoData.MEMBERPHOTONAME}" />
                 <h5>${memberInfoData.NICKNAME}</h5>
@@ -41,14 +60,14 @@
 	                    </div>
 	                </div>
 	                </div>
-			
-	          		<div class="ulList" style="margin-left: -14px;">
+
+	          		<div class="ulList" style="margin-left: -14px; margin-top: 30px;">
 		              <!-- 탭부분 -->
 			          <!-- Nav pills -->
-			          <ul class="nav mains"
-			          style="display: flex; flex-direction: column; justify-content: center; padding-top: 10px; margin-right: 71px;" role="tablist">
+			          <ul class="nav nav-tab mains"
+			          style="display: inline; padding-top: 10px; margin-right: 71px; margin-right: 74px; margin: 0;" role="tablist" >
 			              <li class="nav-items mains">
-			                  <a class="nav-link active" data-toggle="pill" href="#whole">전체현황</a>
+			                  <a class="nav-link active" data-toggle="pill" href="#whole" style="margin: 0px">전체현황</a>
 			              </li>
 			              <li class="nav-items mains">
 			                  <a class="nav-link" data-toggle="pill" href="#menu1" id="memMonth" onclick="dailyChallBtn(0)">월간리포트</a>
@@ -58,6 +77,8 @@
 			              </li>
 			          </ul>
 	              	</div>
+	             </div> 	
+	              	
         </div>
         
         
@@ -118,7 +139,7 @@
                                 </li>
                             </ul>
                             
-                               <div class="tabtabs">
+                               <div class="tabtabs" style="margin-bottom: 56px;">
                             <div class="tab-content">
                                <!-- 챌린지 현황 리스트 -->
                               <%for(int i=0;i<3;i++){ 
@@ -203,16 +224,7 @@
                                     for(int j=0; j<2; j++){%>
                               	<div class="row" id="dailyCard<%=i%>">
                                        <div class="col-xs-12 col-sm-4">
-                                          <!-- <div class="card" style="width: 250px; height: 400px;">
-                                              <div class="daily_card">
-	                                           <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
-	                                           <div class="card-body">
-	                                             <p class="card-title">챌린지 이름</p>
-	                                             <p class="card-text"><span class="category4">카테고리 </span><span class="category5">언제부터 </span><span class="category6">언제까지 </span></p>
-	                                             <a href="#" class="btn btn-Card" style="margin-left: 115px;margin-top: 8   px; padding: 3px 7px;">CHALLENGE</a>
-	                                           </div>
-                                       			</div>
-                                          </div> -->
+
                                  	</div>
                         		</div>
                                     <%} 
@@ -252,6 +264,8 @@
                            <button type="button" class="btn btn-Search" id="searchBtn" style="margin-left: 15px;">SEARCH</button>
                         </div>
                         </div>
+                        <a onclick="likeSuggest(1,'date')">최신순 </a>
+						<a onclick="likeSuggest(1,'likecnt')">좋아요순</a>
                         <!-- 제안하기 list 받는곳--> 
                         <div class="suggestBox"></div>
                         
@@ -515,13 +529,13 @@ document.addEventListener("DOMContentLoaded", function () {
    calendar.addEvent({'title':'추가추가', 'start':'2021-04-29 11:00:00', 'constraint':'내용 없음'});      //이벤트 추가
    
    // 캘린더 클릭 수정
-   $('.nav-pills li a').on('shown.bs.tab', function () {
-       console.log("ok2")
+   $('.nav-tab li a').on('shown.bs.tab', function () {
+       console.log("ok2 calendar")
        
        calendar.render();
        
    });
-   
+
 });
 </script>
 
@@ -918,19 +932,26 @@ getSuggestListCnt(1);
 
 // 검색했을 시
 
-$(function(){
+
 	$('#searchBtn').click(function(){
 		likeSuggest(1);
 //		suggestBbsCnt();
 		$('#search').val("");
 	});
-});
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////* 제안하기 가져오기 */
-function likeSuggest(now){
+function likeSuggest(now,sortdate){
+	console.log("sortdate-------------------")
+	console.log(sortdate)
+	if(sortdate == 'date'){
+		sortdate = "DATE ASC";
+	}else if(sortdate == 'likecnt'){
+		sortdate = "LIKECNT DESC"
+	}
 	$.ajax({
 		url:"./suggestMyLike.do",
 	    type:"POST",
-	    data: {page:now, 'search':$("#search").val(), 'category':$("#category").val()},
+	    data: {page:now, 'search':$("#search").val(), 'category':$("#category").val(),sortdate:sortdate},
 	    success:function(list){
 	    	var total = list[0].TOTALCNT
 	    	var data = "";
@@ -961,7 +982,7 @@ function likeSuggest(now){
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
 				+			"<div class='cWrite'><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
-        		+					"<button type='button' class='btn' id='writeComment' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' >댓글쓰기</button></a></div>"
+        		+					"<span class='commentBtn' id='writeComment' onclick='setCommentSeq("+list[i].SUGGESTBBSSEQ+")' >댓글쓰기</spasn></a></div>"
 	            +	"<hr class='hhr' width='100%'>"
 	            +	"<div class='applyCom"+list[i].SUGGESTBBSSEQ+"'>"
 	            +	"</div>"
