@@ -7,8 +7,8 @@
 
 body{
 	font-family: 'Noto Sans KR', sans-serif;
-	min-height: 600px;
 	position: relative;
+	min-height: 500px;
 	}
 
 
@@ -82,7 +82,7 @@ body{
 	margin-right: 15px;
 	margin-top: 5px;
 	margin-bottom: 10px;
-	letter-spacing: 2px;
+	letter-spacing: 1px;
 }
 .challHeader>span{
 	font-size:12pt;

@@ -10,6 +10,7 @@
 <!-- jsp태그 -->
 <jsp:useBean id="now" class="java.util.Date" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<fmt:parseDate var='start' value="${challDto.challengestart}" pattern="yyyy-MM-dd"/>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <script>
@@ -42,12 +43,14 @@ console.log("나만의 데이터 identifyResultUser"+"${identifyResultUser}")
 
 console.log("인증 데이터 identify"+"${identify}")
 console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
-
+console.log("비교가 되나?  ${now}<${start}")
 </script>
 
-<div class="quickmenu" style="position:absolute;width:90px;top:80%;padding:30px;right:10%;background:#000;">
-  
-</div>
+<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
+	<c:if test="${user.email != null && challUser.email==user.email}">
+		<a class="quickmenu" style="position:absolute;width:90px;top:25%;padding:30px;right:10%;background:#000;"  data-toggle="modal" data-target="#myModal5"></a>
+	</c:if>
+</c:forEach>
 
 
 <div class="backDiv" id="_backDiv">
@@ -75,26 +78,30 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
  					</c:if>		 
  				</c:forEach>  --%>
 			</h1>
-			<c:if test="${user.email != null && user.email == challDto.email}">
-				<button type="button" class="btn" onclick="challengeUpdate(${challDto.challengeseq})" style="margin: 10px 3px">챌린지 수정</button>
-			</c:if>
-
-			<a href="#" data-toggle="popover" data-trigger="hover"	data-content="챌린지를 찜하세요" style="margin-right: 30px;">
-				 <c:choose>
-					<c:when test="${user.email != null && challWish.email eq null}">
-						<div id="likeChallenge">
-							<img onclick="checkChallenge()" class="checkImg" src="image/check.svg"	onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
-						</div>
-					</c:when>
-					<c:when
-						test="${user.email != null && user.email eq challWish.email}">
-						<div id="likeChallenge">
-							<img onclick="checkDelChallenge()" src='image/checkFill.svg'
-								class='checkImg'>
-						</div>
-					</c:when>
-				</c:choose>
-			</a>
+			<span style="display: flex">
+				<c:if test="${user.email != null && user.email == challDto.email && now<start}">
+					  <a href="#" data-toggle="popover" data-trigger='hover' data-placement="left" data-content="챌린지를 수정하세요">
+					<img src="image/modify.png" style="width:56px;margin-right: 25px" onclick="challengeUpdate(${challDto.challengeseq})" onmouseover="this.src='image/modifyhover.png'" onmouseout="this.src='image/modify.png'">
+					</a>
+				</c:if>
+	
+				<a href="#" data-toggle="popover" data-trigger="hover"	data-content="챌린지를 찜하세요" style="margin-right: 30px;">
+					 <c:choose>
+						<c:when test="${user.email != null && challWish.email eq null}">
+							<div id="likeChallenge">
+								<img onclick="checkChallenge()" class="checkImg" src="image/check.svg"	onmouseover="this.src='image/checkhover.svg'" onmouseout="this.src='image/check.svg'">
+							</div>
+						</c:when>
+						<c:when
+							test="${user.email != null && user.email eq challWish.email}">
+							<div id="likeChallenge">
+								<img onclick="checkDelChallenge()" src='image/checkFill.svg'
+									class='checkImg'>
+							</div>
+						</c:when>
+					</c:choose>
+				</a>
+			</span>
 		</div>
 
 		<p id="limitD"></p>
@@ -279,8 +286,6 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 				data-toggle="pill" href="#home">현재 결과</a></li>
 			<li class="nav-item" style="margin-right: 30px"><a class="nav-link" id="reviewNav"
 				data-toggle="pill" href="#category1">후 기</a></li>
-			<li class="nav-item" style="margin-right: 30px"><a class="nav-link" data-toggle="pill"
-				href="#category2">대 화</a></li>
 		</ul>
 	
 		<!-- Tab panes -->
@@ -593,60 +598,6 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 
 			<!--///////////////////////// 후기 끝 /////////////////////-->
 
-			<!-- 대화 -->
-			<div id="category2" class="container tab-pane fade">
-		
-				<div class="row chatHeader">
-					<div class="col-sm-12 chatHeader">
-						<img alt="" src="image/logo.png">
-						<div class="float-right">
-							<img class="userWrap30" src=""
-								onerror="this.src='image/user_80px.jpg'"
-								style="height: 30px; margin-top: 9px;">
-							<div class="userName">LemonLime 님</div>
-						</div>
-					</div>
-				</div>
-				<div class="row chat">
-					<div class="d-none d-sm-block col-sm-3 chatUser">
-						<%
-							for (int i = 0; i < 5; i++) {
-						%>
-						<div class="userCard">
-							<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'"> <span>유저 이름</span>
-						</div>
-						<%
-							}
-						%>
-					</div>
-					<div class="col-sm-9 chatMain">
-						<div class="chatAll">
-							<div class="userChatText">
-								<img class="userChatImg userWrap" src=""
-									onerror="this.src='image/user_80px.jpg'">
-								<div class="userTextMain">
-									<p>LemonLime</p>
-									<div class="userTextMain2">
-										<div>채팅한 데이터를 넣어놓는데 만약에 길어지면 어떻게 되는 지 너무 궁금하군요?호호호</div>
-										<span><fmt:formatDate value="${now}" pattern="MM-dd HH:mm" /></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="input-group chatForm">
-							<div class="chatrow">
-								<textarea id="chatText" class="form-control"></textarea>
-							</div>
-							<div class="input-group-append">
-								<button class="btn send">
-									<i class="far fa-paper-plane fa-2x"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--///////////////////////// 대화 끝 /////////////////////-->
 		</div>
 		<!--/////////////////// tab내용 끝//////////////////// -->
 	</div>
@@ -898,6 +849,68 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 </div>
 </c:if>
 
+<!-- 채팅 모달 -->
+<div class="modal" id="myModal5">
+	<div class="modal-dialog   modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal body -->
+			<div class="modal-body">
+			
+				<div class="row chatHeader">
+					<div class="col-sm-12 chatHeader">
+						<img alt="" src="image/logo.png">
+						<div class="float-right">
+							<img class="userWrap30" src=""
+								onerror="this.src='image/user_80px.jpg'"
+								style="height: 30px; margin-top: 9px;">
+							<div class="userName">LemonLime 님</div>
+						</div>
+					</div>
+				</div>
+				<div class="row chat">
+					<div class="d-none d-sm-block col-sm-3 chatUser">
+						<%
+							for (int i = 0; i < 5; i++) {
+						%>
+						<div class="userCard">
+							<img class="userWrap" src="" onerror="this.src='image/user_80px.jpg'"> <span>유저 이름</span>
+						</div>
+						<%
+							}
+						%>
+					</div>
+					<div class="col-sm-9 chatMain">
+						<div class="chatAll">
+							<div class="userChatText">
+								<img class="userChatImg userWrap" src=""
+									onerror="this.src='image/user_80px.jpg'">
+								<div class="userTextMain">
+									<p>LemonLime</p>
+									<div class="userTextMain2">
+										<div>채팅한 데이터를 넣어놓는데 만약에 길어지면 어떻게 되는 지 너무 궁금하군요?호호호</div>
+										<span><fmt:formatDate value="${now}" pattern="MM-dd HH:mm" /></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group chatForm">
+							<div class="chatrow">
+								<textarea id="chatText" class="form-control"></textarea>
+							</div>
+							<div class="input-group-append">
+								<button class="btn send">
+									<i class="far fa-paper-plane fa-2x"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

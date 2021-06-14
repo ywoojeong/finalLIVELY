@@ -172,7 +172,13 @@ $(document).ready(function(){
 				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none">
 	 					</td>
 	 					<td>
-	 						<textarea class="form-control form-control-sm" wrap="hard" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
+	 						<div style="font-size: 9pt;font-weight: 600; color:#777777;margin-left: 35px">인증방법 미작성으로 인한 불이익은 책임지지 않습니다.<br>
+	 						인증 방법을 상세하게 적어주세요.</div>
+	 					</td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="2" style="padding-top: 10px;padding-bottom: 10px">
+	 						<textarea class="review_textarea" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify"></textarea>
 	 					</td>
 	 				</tr>
 	 				
@@ -182,10 +188,10 @@ $(document).ready(function(){
 	 						<input type="text" class="form-control form-control-sm" placeholder="챌린지 제목을 작성해주세요" name="challengetitle" id="_challengetitle">
 	 					</td>
 	 				</tr>
-	 				<tr >
+	 				<tr>
 	 					<td colspan="2" class="content">
 	 						<label for="challengeContent">챌린지 소개</label>
-	 						<textarea rows="8" cols="5" wrap="hard" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext"></textarea>
+	 						<textarea class="review_textarea" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext">${challenge.challengetext}</textarea>
 	 					</td>
 	 				</tr>
 	 			</table>	 				
@@ -202,9 +208,55 @@ $(document).ready(function(){
  
  </div>
  
+  <!-- summer note 사용시 추가 -->
+<script src="./js/summernote/summernote-lite.js"></script>
+<script src="./js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="./css/summernote/summernote-lite.css">
  
 
 <script>
+//써머노트
+$(document).ready(function() {
+	
+	  $('#_certify').summernote({
+          height: 130,
+          /* width:, */
+          minHeight: 80,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          lang: "ko-KR",               // 한글 설정
+          placeholder: "인증 방법을 기입하세요",   //placeholder      
+          //툴바 변경
+           toolbar: [
+               // [groupName, [list of button]]
+               ['fontname',['fontname']],
+               ['fontsize',['fontsize']],
+             ],
+           fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+           fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+     });
+	  
+	  $('#_challengetext').summernote({
+          height: 200,
+          /* width:, */
+          minHeight: 100,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          lang: "ko-KR",               // 한글 설정
+          placeholder: "챌린지를 소개해 주세요",   //placeholder      
+          //툴바 변경
+           toolbar: [
+               // [groupName, [list of button]]
+               ['fontname',['fontname']],
+               ['fontsize',['fontsize']],
+               ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+               ['color', ['forecolor','color']],
+               ['para', ['ul', 'ol', 'paragraph']]
+             ],
+           fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+           fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+     });
+	
+});
+
 
 
 //이미지 미리보기
