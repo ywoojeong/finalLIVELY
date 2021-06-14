@@ -83,3 +83,9 @@ td {
 	flex-direction: column;
 	align-items: center;
 }
+.challPageUl{
+display: flex; list-style: none; justify-content: center; letter-spacing: 17px; margin-top: 35px;
+}
+.challDataCard-title{
+	width: 333px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+}

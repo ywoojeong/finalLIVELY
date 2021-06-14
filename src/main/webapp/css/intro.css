@@ -194,7 +194,7 @@ body{
 	height: 700px;
 }
 .infoSen{
-	height: 700px;
+/* 	height: 700px; */
 	min-height: 33.3vw;
 	display:table;
 }
@@ -216,7 +216,7 @@ body{
 }
 
 .infoSub{
-	height:700px;
+/* 	height:700px; */
 	min-height: 33.3vw;
 	 background-color: #cb98ed;
 	 display:table;

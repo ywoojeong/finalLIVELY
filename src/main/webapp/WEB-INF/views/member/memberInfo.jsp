@@ -47,7 +47,7 @@
 			
 			
         </div>
-        <button type="button" class="joinBtn" id="joinBtn" onclick="register()"><h1>join</h1></button>
+        <button type="button" class="joinBtn" id="joinBtn" onclick="register()"><h3>join</h3></button>
 	</form>
 </div>
 

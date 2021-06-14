@@ -25,22 +25,29 @@ public class managerRestController {
 		
 		System.out.println("mListParam-----> : " + mListParam);
 		
-//		int startPage = (Integer.parseInt((String)mListParam.get("page"))-1) * 5;
+		int startPage = (Integer.parseInt((String)mListParam.get("page"))-1) * 5;
 		String mSearch = (String)mListParam.get("mSearch");
 		String category = (String)mListParam.get("category");
 		String datestart = (String)mListParam.get("datestart");
+		datestart = datestart.replace("/", "-");
+		
 		String dateend = (String)mListParam.get("dateend");
-//		int endPage = startPage + 6;
-//		mListParam.put("startPage", startPage);
-//		mListParam.put("endPage", endPage);
+		dateend = dateend.replace("/", "-");
+		
+		int endPage = startPage + 6;
+		mListParam.put("startPage", startPage);
+		mListParam.put("endPage", endPage);
 		mListParam.put("mSearch", mSearch);
 		mListParam.put("category", category);
 		mListParam.put("datestart", datestart);
 		mListParam.put("dateend", dateend);
 		
+		System.out.println("왜 안들어가?");
+		System.out.println(mListParam.toString());
+		
 		List<Map<String, Object>> managerList = mService.managerList(mListParam);
 		System.out.println("mListParam : " + managerList);
-		
+		System.out.println(mSearch.toString());
 		return managerList;
 	}
 	

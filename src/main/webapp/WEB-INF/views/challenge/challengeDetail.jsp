@@ -25,7 +25,13 @@ $(document).ready(function(){
 		 document.getElementById("_backDiv").style.background = "url('./image/challenge1.png')";
 	}else{
 		 document.getElementById("_backDiv").style.backgroundImage = "url('https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }')";
-	}
+	}	
+	 
+	 var currentPosition = parseInt($(".quickmenu").css("top")); 
+	 $(window).scroll(function() { 
+		 var position = $(window).scrollTop(); 
+	 	$(".quickmenu").stop().animate({"top":position+currentPosition+"px"},500);
+	 });
 });
 
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}")
@@ -38,6 +44,11 @@ console.log("인증 데이터 identify"+"${identify}")
 console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 
 </script>
+
+<div class="quickmenu" style="position:absolute;width:90px;top:80%;padding:30px;right:10%;background:#000;">
+  
+</div>
+
 
 <div class="backDiv" id="_backDiv">
 	<div class="container challHeader" style="padding-left: 35px;">
@@ -64,6 +75,9 @@ console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
  					</c:if>		 
  				</c:forEach>  --%>
 			</h1>
+			<c:if test="${user.email != null && user.email == challDto.email}">
+				<button type="button" class="btn" onclick="challengeUpdate(${challDto.challengeseq})" style="margin: 10px 3px">챌린지 수정</button>
+			</c:if>
 
 			<a href="#" data-toggle="popover" data-trigger="hover"	data-content="챌린지를 찜하세요" style="margin-right: 30px;">
 				 <c:choose>
@@ -1209,6 +1223,10 @@ function startChallengeBtn(){
 		
 		
 	});
+}
+
+function challengeUpdate(seq){
+	location.href = "challengeUpdate.do?challengeseq=${challDto.challengeseq}";
 }
 
 //후기부분 새로고침

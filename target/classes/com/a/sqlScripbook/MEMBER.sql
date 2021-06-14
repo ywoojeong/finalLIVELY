@@ -35,7 +35,7 @@ WHERE EMAIL = 'ywoo0309@gmail.com'
 SELECT * FROM MEMBER
 
 DELETE FROM MEMBER
-WHERE NICKNAME = '라이블리구글'
+WHERE EMAIL = 'ywoo0000@kakao.com'
 
 COMMIT
 
@@ -45,3 +45,27 @@ INCREMENT BY 1
 
 INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, KAKAOLOGIN, GOOGLELOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT)
 VALUES(MEM_SEQ.NEXTVAL, 'admin', '매니저', '0', '00', null, null, null, 1, 0, 1, 0);
+
+
+
+SELECT SV.* FROM
+	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+	(SELECT COUNT(*) FROM CHALLENGE
+	WHERE  CHALLENGEDEL = 0
+	) as TOTALCNT
+	FROM CHALLENGE CHA
+	WHERE CHALLENGEDEL = 0
+	    <if test="category !=null and category !='' and category !=0">
+			AND CATEGORY = #{category}
+		</if>
+		<if test="mSearch !=null and mSearch != ''">
+			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+		</if>
+		<if test="datestart !=null and datestart !='' and datestart !=0">
+		AND CHALLENGESTART > #{datestart}
+		</if>
+		<if test="dateend !=null and dateend !='' and dateend !=0">
+		AND #{dateend} > CHALLENGEEND
+		</if>
+	) SV
+	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI

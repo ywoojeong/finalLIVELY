@@ -93,6 +93,28 @@
 		WHERE CHALLENGESEQ = #{challengeseq}
 	</select>
 	
+	<!-- 챌린지 한개 가져오기 맵형 -->
+	<select id="challengeDetailMap" parameterType="java.lang.Integer" resultType="com.a.util.lowerKeyMap">
+		SELECT *
+		FROM CHALLENGE
+		WHERE CHALLENGESEQ = #{challengeseq}
+	</select>
+	
+	<update id="challengeUpdate" parameterType="java.util.Map">
+		UPDATE CHALLENGE
+		SET CHALLENGETITLE = #{challengetitle}, CHALLENGETEXT = #{challengetext}, CHALLENGEEND = #{challengeend}, CHALLENGEPERIOD = #{challengeperiod}, 
+			IDENTIFYFREQUENCY = #{identifyfrequency}, IDENTIFYTIME=#{identifytime}, CERTIFY = #{certify}, IDENTIFYDAY=#{identifyday}
+			<if test="challengephoto != 0 and challengesavephoto != 0">
+				, CHALLENGEPHOTO=#{challengephoto}, CHALLENGESAVEPHOTO=#{challengesavephoto}
+			</if>
+			<if test="certifyphoto !=0 and certifysavephoto !=0">
+				, CERTIFYPHOTO=#{certifyphoto}, CERTIFYSAVEPHOTO=#{certifysavephoto}
+			</if>
+		WHERE CHALLENGESEQ = #{challengeseq}
+		
+	</update>
+	
+	
 	<!-- 챌린지 찜하기 challengelikeInsert -->
 	<insert id="challengelikeInsert" parameterType="java.util.Map">
 		INSERT INTO CHALLENGEWISH(WISHSEQ, WISH, CHALLENGESEQ, EMAIL)
