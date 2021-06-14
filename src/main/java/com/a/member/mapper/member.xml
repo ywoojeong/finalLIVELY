@@ -5,16 +5,16 @@
 	<!-- 회원가입 추가 정보 -->
  	<insert id="memberInfoPro" parameterType="com.a.dto.MemberDto">
  		<if test="flag == 'naver'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{naverLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{naverLogin}, 3, 0, 1, 2000)
 		</if>
 		<if test="flag == 'google'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, googleLogin, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{googleLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, googleLogin, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{googleLogin}, 3, 0, 1, 2000)
 		</if>
 		<if test="flag == 'kakao'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, KAKAOLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 0)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, KAKAOLOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 1, 2000)
 		</if>
 	</insert>
 	

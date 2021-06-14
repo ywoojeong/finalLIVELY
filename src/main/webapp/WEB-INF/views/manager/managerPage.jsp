@@ -10,10 +10,13 @@
 <link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css"/ >
 <script src="./js/jquery.datetimepicker.full.min.js"></script>
 
+<div class="container-fluid">
 <div class="row">
-    <div class="tab col-sm-3 col-xs-1" id="sidebar" style="margin-top: 38px; background-color:#60bfa4;">
-        <div class="nav nav-tab list-group" style="width: 318px; height:100vh;margin-top:58px; background-color:#60bfa4;">
-        	<h1 style="text-align: center;">ADMIN님</h1>
+    <div class="tab col-sm-3 col-xs-1" id="sidebar">
+        <div class="nav nav-tab list-group" style="width: 318px; height:230vh;margin-top:58px; background-color:#60bfa4;">
+        	<div class="mtop" style="margin-top: 46px;">
+        	<h1 style="text-align: center; color: white">ADMIN님</h1>
+        	</div>
         	<hr style="width: 200px; border: solid 1px #636363;margin-top: 0px; margin-bottom: 31px;">
             <a href="#menu1" class="list-group-item" data-toggle="tab">
                 <span class="hidden-sm-down">전체</span> 
@@ -21,7 +24,7 @@
             <a href="#menu2" class="list-group-item" data-toggle="tab">
                 <span class="hidden-sm-down">회원관리</span> 
             </a>
-            <a href="#menu3" class="list-group-item" data-toggle="tab" onclick="managerList()">
+            <a href="#menu3" class="list-group-item" data-toggle="tab">
                 <span class="hidden-sm-down">챌린지관리</span> 
             </a>
             <a href="#menu4" class="list-group-item" data-toggle="tab">
@@ -164,6 +167,7 @@
     	</div>
     </div>
 </div>
+</div>
 
 
 
@@ -192,16 +196,16 @@ function setCategory(category){
 
 <script>
 // 챌린지 총 수 가져오기 등등
-managerList();
+managerList(1);
 
 //검색햇을 시
 
 $('#searchBtn').click(function(){
-	managerList();
+	managerList(1);
 	$('#mSearch').val("");
 });
 
-function managerList(){
+function managerList(now){
 	console.log("managerListmanagerListmanagerList")
 	console.log(managerList)
 	console.log($("#datestart").val())
@@ -209,11 +213,13 @@ function managerList(){
 	$.ajax({
 		url:"./managerList.do",
 		type:"POST",
-		data: {'mSearch':$("#mSearch").val(), 'category':$("#category").val(), 'datestart':$("#datestart").val(), 'dateend':$("#dateend").val()},
+		data: {page:now, 'mSearch':$("#mSearch").val(), 'category':$("#category").val(), 'datestart':$("#datestart").val(), 'dateend':$("#dateend").val()},
 		success:function(list){
-			alert("리스트 불러오는");
+//			alert("리스트 불러오는");
 			console.log(list)
-//			var total = list[0].TOTALCNT			
+			var total = list[0].TOTALCNT
+			console.log("토탈 값 보여줘")
+			console.log(total)
 			var data = "";
 	    	for(var i=0; i<list.length; i++){
 	    	var categoryName = setCategory(list[i].CATEGORY);
@@ -223,9 +229,9 @@ function managerList(){
 	            +	"<div class='main_text main_common'>"
 	            +	"<div class='mainInfo'>"
 	            +	"<span class='challDataCard-category'>"+categoryName+" | </span>"
-	            +	"<span class='challDataCard-startdate'>"+list[i].CHALLENGEEND+" | </span>"
-	            +	"<span class='challDataCard-enddate'>"+list[i].CHALLENGEEND+" | </span>"
-	            +	"<span class='challDataCard-sdate'>"+list[i].CHALLENGESDATE+"</span>"
+	            +	"<span class='challDataCard-sdate'>"+list[i].CHALLENGESDATE+" | </span>"
+	            +	"<span class='challDataCard-startdate'>"+list[i].CHALLENGESTART+" | </span>"
+	            +	"<span class='challDataCard-enddate'>"+list[i].CHALLENGEEND+"</span>"
 	            +	"</div>"
 	            +	"<div class='mainTitle'>"
 	            +	"<p class='challDataCard-title'>"+list[i].CHALLENGETITLE+"</p>"
@@ -238,13 +244,52 @@ function managerList(){
 //        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
 
 	    	}
-//	    	mListPaging()
+	    	mListPaging(total,now)
 	    	$(".challbox").html(data);
 		},
 		error:function(){
 	           alert("리스트 불러오는 error");
 		   	}
 	});
+}
+
+//페이지 처리
+function mListPaging(total,now){
+	console.log("mListPaging total",total)
+	console.log("mListPaging now",now)
+	var pagecnt = Math.ceil(total/5.0)
+	var startCnt = Math.floor((now-1)/5) * 5 + 1
+	//전체 페이지
+	var pageBlock = Math.ceil(pagecnt/5)
+	var nowBlock = Math.ceil(now/5)
+	console.log("pagecnt",pagecnt)
+	console.log("startCnt",startCnt)
+	console.log(total,pagecnt)
+	console.log("pageBlock",pageBlock)
+	console.log("nowBlock",nowBlock)
+	var nowTotal = nowBlock*5
+	if(nowTotal > pagecnt){
+		nowTotal = pagecnt
+	}
+	var html = ""
+	if(pageBlock > 1 && nowBlock > 1){
+		html += "<li  onclick='managerList("+(nowBlock*5-9)+")'> &laquo;</li>"
+	}
+	for(var i=startCnt;i<=nowTotal;i++){
+		if(now == i){
+			html += "<li class='nowpage' style='color:red' onclick='managerList("+i+")'>"+i+"</li>"
+		}else{
+			html += "<li onclick='managerList("+i+")'>"+i+"</li>"
+		}
+		
+	}
+	
+	if(pageBlock > 1 && nowBlock < pageBlock){
+		html += "<li onclick='managerList("+(nowBlock*5+1)+")'>&raquo;</li>"
+	}
+	console.log(html)
+	$(".challPageUl").html(html);
+//	document.getElementById('sugPageUl').innerHTML = html
 }
 </script>
 <script>

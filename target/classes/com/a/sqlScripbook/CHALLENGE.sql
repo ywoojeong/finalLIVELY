@@ -250,3 +250,4 @@ select *
 from CHALLENGE 
 WHERE TO_CHAR(CHALLENGESTART, 'YYYY-MM-DD') == TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD')
 order by rand() limit 4
+

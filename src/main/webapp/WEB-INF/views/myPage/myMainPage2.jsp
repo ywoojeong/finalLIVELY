@@ -120,7 +120,7 @@
                                       </div>
                                       
                                       <!-- 차트부분 -->
-                                      <div class="myChartCls">
+                                      <div class="myChartCls" style="width: 490px">
                                 <canvas id="myChart"></canvas>
                               </div>
                                       
@@ -460,12 +460,12 @@ $(document).ready(function() {
              label: 'My Challenge Dataset',
              data: categoryArray,
              backgroundColor: [
-                 'rgb(255, 99, 132)',
-                 'rgb(54, 162, 235)',
-                 'purple',
-                 'green',
-                 'yellow',
-                 'orange'
+                 '#FFDD94',
+                 '#FA897B',
+                 '#CCABDB',
+                 '#70649A',
+                 '#7B90D2',
+                 '#6E75A4'
                ],
                hoverOffset: 4
            }]
