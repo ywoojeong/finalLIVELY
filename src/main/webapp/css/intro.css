@@ -44,10 +44,8 @@ body{
 	margin-left:0;
 	/*  width: 100vw; */
 	 height: 100vh;
-	 background-image: url('./image/concert-768722_1920.jpg');
-	 background-position: center;
-     background-size: cover;
-     position: 
+	overflow:hidden;
+
 }
 
 .loginbtn{
