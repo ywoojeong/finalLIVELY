@@ -35,7 +35,7 @@ WHERE EMAIL = 'ywoo0309@gmail.com'
 SELECT * FROM MEMBER
 
 DELETE FROM MEMBER
-WHERE NICKNAME = '라이블리구글'
+WHERE EMAIL = 'ywoo0000@kakao.com'
 
 COMMIT
 

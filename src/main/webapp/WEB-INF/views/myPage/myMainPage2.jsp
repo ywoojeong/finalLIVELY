@@ -20,16 +20,18 @@
 }
 @media screen and (min-width: 1200px) {
    #fixbox {
-   		position: fixed;
+   		position: sticky;
+   		overflow: auto;
+   		height: 100%;
 	}
 }
 
 </style>
 
 <div class="container">
-    <div class="row">
-        <div id="fixbox" class="col-sm-3" >
-        
+    <div class="row" style="display: flex; flex-flow: nowrap;">
+        <div class="col-sm-3" id="fixbox">
+        <div class="colls">
         <div class="leftBox" style="display: inline;">
             <div class="member_box">
                 <img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${memberInfoData.MEMBERPHOTONAME}" />
@@ -78,12 +80,11 @@
 			          </ul>
 	              	</div>
 	             </div> 	
-	              	
+	           </div>   	
         </div>
+
         
-        
-        
-        <div class="col-sm-9" style="margin-left: 25%;">
+        <div class="col-sm-9" style="margin-left: 7%;">
           
          
          <!-- Tab panes -->
@@ -120,9 +121,9 @@
                                       </div>
                                       
                                       <!-- 차트부분 -->
-                                      <div class="myChartCls" style="width: 490px">
-                                <canvas id="myChart"></canvas>
-                              </div>
+                                      <div class="myChartCls" style="width: 330px; margin-left: 412px; margin-top: 61px;">
+		                                <canvas id="myChart"></canvas>
+		                              </div>
                                       
                                   
 <!-- ////////////////////////////////////////////////// 전체 현황 ///////////////////////////////////////////////// -->
@@ -223,9 +224,6 @@
                                  <%for(int i=0; i<2; i++) {
                                     for(int j=0; j<2; j++){%>
                               	<div class="row" id="dailyCard<%=i%>">
-                                       <div class="col-xs-12 col-sm-4">
-
-                                 	</div>
                         		</div>
                                     <%} 
                                  }%>
@@ -267,11 +265,15 @@
                         <a onclick="likeSuggest(1,'date')">최신순 </a>
 						<a onclick="likeSuggest(1,'likecnt')">좋아요순</a>
                         <!-- 제안하기 list 받는곳--> 
-                        <div class="suggestBox"></div>
+                        <div class="row">
+                        	<div class="col-sm-12">
+                        		<div class="suggestBox"></div>
+                        	</div>
+                        </div>
                         
                         <!-- 페이징 처리 되는 곳 -->
 						<div class="sugPage">
-							<ul class="sugPageUl" id="sugPageUl" style="display: flex; list-style: none; letter-spacing: 17px; margin-top: 35px;"></ul>
+							<ul class="sugPageUl" id="sugPageUl" style="display: flex; list-style: none; letter-spacing: 17px; margin-top: 53px;margin-bottom: 68px;"></ul>
 						</div>
 						
                            </div>
@@ -283,7 +285,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <!-- 제안하기 모달 -->
 <div class="modal" id="myModal2" >
   <div class="modal-dialog modal-lg" style="top:30%">
@@ -300,7 +302,7 @@
            		<input type="hidden" name="email" value="${memberInfoData.EMAIL}">
            		<div class="titleC" style="display: flex;">
 					<div>
-	 					<select class="form-control form-control-sm" name="scategory" id="_category" style="height: 38px;margin-left: 10px;margin-bottom: 5px;">
+	 					<select class="form-control form-control-sm" name="scategory" id="_category" style="height: 38px;margin-bottom: 5px;">
 	 						<option value="0">선택하세요</option>
 	 						<option value="1">건강</option>
 	 						<option value="2">역량</option>
@@ -310,8 +312,8 @@
 	 						<option value="6">취미</option>
 	 					</select>
 					</div>
-					<div class="suggest_title" style="background-color: white">
-						<input type="text" class="form-control" id="title" name="suggesttitle" placeholder="제목" style="width: 480px">
+					<div class="suggest_title" style="background-color: white; margin-left: 5px;">
+						<input type="text" class="form-control" id="title" name="suggesttitle" placeholder="제목" style="width: 651px">
 					</div>
 				</div>
 				<div class="suggest_contents" style="background-color: white">
@@ -413,7 +415,7 @@
 
 
 
-</div>
+
 
 <!-- 원형 차트 js -->
 <script src="./js/easypiechart.js"></script>
@@ -864,14 +866,16 @@ function dailyChallBtn(number){
 	                  }
 	               }
 	            	
-	               data += 	"<div class='card' style='width: 250px; height: 400px;'>"
+	               data += 	"<div class='col-xs-12 col-sm-4'>"
+	            	    +	"<div class='card' style='width: 250px; height: 400px;'>"
 	            	   	+	"<div class='daily_card'>"
-	               		+ 	"<img class='card-img-top' src='https://www.w3schools.com/bootstrap4/img_avatar1.png' alt='Card image' style='width:100%'>"
+	               		/* + 	"<img class='card-img-top' src='https://www.w3schools.com/bootstrap4/img_avatar1.png' alt='Card image' style='width:100%'>" */
+	               		+	"<img class='card-img-top' style='height: 230px;' src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+dailyChall.CHALLENGESAVEPHOTO+"'>"
 	               		+ 	"<div class='card-body'>"
-	               		+ 	"<p class='card-title'>" + dailyChall.CHALLENGETITLE + "</p>"
+	               		+ 	"<p class='card-titles'>" + dailyChall.CHALLENGETITLE + "</p>"
 	               		+ 	"<p class='card-text'><span class='category4'>" + categoryName + "</span><span class='category5'>" + dateTotal + "</span><span class='category6'>" + dailyChall.CHALLENGEPERIOD + "주 동안 </span></p>"
 	               		+ 	"<a href='challengeDetail.do?challengeseq="+dailyChall.CHALLENGESEQ+"' class='btn btn-Card' style='margin-left:115px;margin-top:8px; padding:3px 7px;'>CHALLENGE</a>"
-	               		+ 	"</div>   </div>   </div>";
+	               		+ 	"</div>   </div>   </div></div>";
 	               		
 	               	console.log("data가 뭐니" + data)
 	            });
@@ -968,9 +972,9 @@ function likeSuggest(now,sortdate){
 	    	data += "<div class='suggestCard'>"
 	    		+	"<div class='suggest-card-body' >"
 	    		+	"<div class='suggest-text'onclick='commentListSel("+list[i].SUGGESTBBSSEQ+","+1+")' data-toggle='collapse' href='#collapseExample"+i+"' role='button' aria-expanded='false' aria-controls='collapseExample'>"
-	    		+	"<p class='suggest-category'>"+categoryName+"</p>"
+	    		+	"<p class='suggest-category' style='margin-left: 2px;'>"+categoryName+"</p>"
 	    		+	"<p class='suggest-title'>"+list[i].SUGGESTBBSTITLE+"</p>"
-	    		+	"<p class='suggest-comment'><i class='far fa-comment'></i>댓글</p>"
+	    		+	"<p class='suggest-comment' style='margin-left: 2px; font-size: 14px;'><i class='far fa-comment'></i> 댓글</p>"
 	    		+	"</div>"
 	    		+	"<div class='suggest-like'>"
 	    		+like
@@ -978,7 +982,7 @@ function likeSuggest(now,sortdate){
 	    		+	"</div> </div> </div>"
 		    	+	"<div class='collapse' id='collapseExample"+i+"' style='width: 100%'>"
 	        	+	"<div class='applyBox'>"
-	            +	"<div class='applyBbs' style='height: 50px;'>"
+	            +	"<div class='applyBbs'>"
 	            +	list[i].SUGGESTBBSCONTENT	
 	            +	"</div>"
 				+			"<div class='cWrite'><a class='modalBtn' data-toggle='modal' data-target='#myModal4'>"
@@ -988,7 +992,7 @@ function likeSuggest(now,sortdate){
 	            +	"</div>"
 	            +	"<div class='comPage"+list[i].SUGGESTBBSSEQ+"'>"
 	            +   "</div>"
-	            +	"<ul class='comPageUl"+list[i].SUGGESTBBSSEQ+"' id='comPageUl' style='display: flex; list-style: none; letter-spacing: 17px; margin-top: 35px;'></ul>"
+	            +	"<ul class='comPageUl"+list[i].SUGGESTBBSSEQ+"' id='comPageUl' style='display: flex; padding-left: 0px; list-style: none; justify-content: center; letter-spacing: 17px; margin-top: 35px;'></ul>"
 	            +	"</div></div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
         		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
@@ -996,7 +1000,7 @@ function likeSuggest(now,sortdate){
 //        		comListPaging(total,now)
 	    	}
 	    	sugListPaging(total,now)
-	    	comListPaging(total,now)
+//	    	comListPaging(total,now)
 	    	$(".suggestBox").html(data);
 
 	    },
@@ -1121,25 +1125,40 @@ function commentListSel(seq, now){
 	    success:function(list){
 	    	console.log("commentListSel->>>>>>>>>>>>")
 	    	console.log(list)
-	    	var total = list[0].TOTALCNT
-	    	console.log("listlistlistlist->>>>>>>>>>>>")
-	    	console.log(total)
+	    	if(list.length < 1){
+//	    		var total = 0;
+		    	data += +	"<table class='commentTable'>"
+	            +	"<colgroup>"
+	            +	"<col width='500px'>"
+	            +	"<col width='100px'>"
+	            +	"</colgroup><tr>"
+				+	"<td class='commentContent' style='text-align: initial; padding-left: 23px; color:#8a8a8a;'>댓글이 없습니다 <br>댓글을 작성해주세요</td>"
+//				+	"<td class='commentTime'>댓글이 없습니다</td>"
+				+	"</tr>"
+	    		+	"</table>"
+	    	} else {
+		    	var total = list[0].TOTALCNT
+		    	console.log("listlistlistlist->>>>>>>>>>>>")
+		    	console.log(total)	    		
 	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
-	    	data += 	"<table class='commentTable'>"
-	            +			"<colgroup>"
-	            +				"<col width='500px'>"
-	            +				"<col width='100px'>"
-	            +			"</colgroup><tr>"
-				+	            "<td class='commentContent'>"+list[i].SUGCOMCONTENT+"</td>"
-				+	            "<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
-				+	        "</tr>"
-        		+			"</table>"
-	    	}
+	    	data += "<table class='commentTable'>"
+	            +	"<colgroup>"
+	            +	"<col width='500px'>"
+	            +	"<col width='100px'>"
+	            +	"</colgroup><tr>"
+				+	"<td class='commentContent' style='text-align: initial; padding-left: 23px;'>"+list[i].SUGCOMCONTENT+"</td>"
+				+	"<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
+				+	"</tr>"
+        		+	"</table>"
+	    	
+	    		}
 	    	comListPaging(total,now,seq)	
         	$(".comPage"+seq).html(data);
 	    	console.log("comPage===========")
 			console.log($(".comPage"+seq).html(data))
+	    	}
+	    	
 	    },
         error:function(){
            alert("commentList 불러오는 error");
@@ -1171,7 +1190,7 @@ function comListPaging(total,now,seq){
 	}
 	for(var i=startCnt;i<=nowTotal;i++){
 		if(now == i){
-			html += "<li class='nowpages' style='color:blue' onclick='commentListSel("+seq+","+i+")'>"+i+"</li>"
+			html += "<li class='nowpages' style='color:#f3c90d' onclick='commentListSel("+seq+","+i+")'>"+i+"</li>"
 		}else{
 			html += "<li onclick='commentListSel("+seq+","+i+")'>"+i+"</li>"
 		}
@@ -1227,7 +1246,7 @@ function sugListPaging(total,now){
 	}
 	for(var i=startCnt;i<=nowTotal;i++){
 		if(now == i){
-			html += "<li class='nowpage' style='color:red' onclick='likeSuggest("+i+")'>"+i+"</li>"
+			html += "<li class='nowpage' style='color:#f1cc28' onclick='likeSuggest("+i+")'>"+i+"</li>"
 		}else{
 			html += "<li onclick='likeSuggest("+i+")'>"+i+"</li>"
 		}

@@ -8,7 +8,13 @@
 
  <!-- member 로그인 css -->
  <link rel="stylesheet" href="css/memberLogin.css" />
-<div class="log" id="log" style="height: 89vh">
+
+<div class="container">
+<div class="row">
+<div class="col-sm-12">
+<div class="logForm">
+<div class="log" id="log">
+	<div class="logs">
 	 <form name="loginForm" id="loginForm" method="POST">
 	     <table>
 	         <thead>
@@ -31,8 +37,12 @@
 	         </tbody>
 	     </table>
 	 </form>
- </div>
-
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
  
 <form name="kakaoForm" id="kakaoForm" method = "post" action="addInfo.do">
 	<input type="hidden" name="email" id="kakaoEmail" />

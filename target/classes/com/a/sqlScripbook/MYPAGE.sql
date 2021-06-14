@@ -185,24 +185,11 @@ SELECT * FROM CHALLENGE
 	SELECET * FROM
 	
 	
-	SELECT SV.* FROM
-	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
-	(SELECT COUNT(*) FROM CHALLENGE
-	WHERE  CHALLENGEDEL = 0
-	) as TOTALCNT
-	FROM CHALLENGE CHA
-	WHERE CHALLENGEDEL = 0)
-	    <if test="category !=null and category !='' and category !=0">U
-			AND CATEGORY = #{category}
-		</if>
-		<if test="mSearch !=null and mSearch != ''">
-			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
-		</if>
-		<if test="datestart !=null and datestart !='' and datestart !=0">
-		AND CHALLENGESTART > #{datestart}
-		</if>
-		<if test="dateend !=null and dateend !='' and dateend !=0">
-		AND #{dateend} > CHALLENGEEND
-		</if>
-	) SV
-	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
+SELECT AA.* FROM
+(SELECT ROW_NUMBER() OVER(ORDER BY SUGCOMDATE DESC) AS RNUM,
+(SELECT COUNT(*) FROM SUGGESTCOMMENT WHERE SUGCOMDEL = 0 AND SUGGESTBBSSEQ = #{suggestbbsseq}) AS TOTALCNT,
+SUGCOMSEQ, SUGCOMCONTENT, TO_CHAR(SUGCOMDATE,'YYYY-MM-DD HH24:MI:SS') AS SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ 
+FROM SUGGESTCOMMENT
+WHERE SUGGESTBBSSEQ = #{suggestbbsseq} AND SUGCOMDEL = 0
+ORDER BY SUGCOMDATE DESC) AA
+WHERE AA.RNUM > #{startPage} AND #{endPage} > AA.RNUM
