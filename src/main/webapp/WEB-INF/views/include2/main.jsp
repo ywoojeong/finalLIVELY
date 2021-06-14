@@ -17,7 +17,7 @@
 	 <!-- intro -->
 		<section id="intro" class="section">
 		  <div class="introDiv">
-		  	 <video muted autoplay loop  style="width:100%">
+		  	 <video muted autoplay loop  style="height:110%">
 	        	<source src="video/production ID_4972560.mp4" type="video/mp4" align="middle">
 	        	<strong>Your browser does not support the video tag.</strong>
 	        </video> 
@@ -164,7 +164,7 @@
 		<section id="link" class="section">
 		 <div class="row linkRow">
 		 	<div class="col-sm-6">
-		 		<div class="linkI" style="background-image: url('image/friends.jpg');background-size: 111%;background-position-x: center;">
+		 		<div class="linkI" style="background-image: url('image/friends.jpg');background-size:1049px;background-position-x: center;">
 
 		 		</div>
 		 		<div class="linkS">

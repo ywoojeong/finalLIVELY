@@ -401,4 +401,54 @@ public class challengeRestController {
 		
 		//결과값 넘겨주기(100퍼센트 시 2배 / 85퍼센트이상 시 1.5배  / 이하면 차감)
 		
+		
+		
+		//챌린지 업데이트 challengeUpdate
+		@RequestMapping(value = "challengeUpdateData.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String challengeUpdateData(@RequestParam Map<String,Object> challParam, String dateWeek[], @RequestParam("uploadFile")  MultipartFile uploadFile,  @RequestParam("uploadFileCer")  MultipartFile uploadFileCer)  throws Exception{
+			
+			System.out.println("챌린지 파일이 받아와 지나요?:"+uploadFile);
+			System.out.println("파일이 받아와지나요?(인증방법) : "+ uploadFileCer);
+			String dateStr = Arrays.toString(dateWeek);
+			dateStr = dateStr.substring(1, dateStr.length()-1);
+			System.out.println(dateStr);
+			
+			if(!uploadFile.isEmpty()){
+				String filename = uploadFile.getOriginalFilename();
+				String saveFileName=fileManagement.FileUploader(uploadFile);
+				System.out.println("전체 파일파일 이름:"+filename+" "+"암호화 파일 이름 : "+ saveFileName);
+				challParam.put("challengephoto", filename);
+				challParam.put("challengesavephoto", saveFileName);		
+			}else {
+				challParam.put("challengephoto", "0");
+				challParam.put("challengesavephoto", "0");		
+			}
+			
+			if(!uploadFileCer.isEmpty()){
+				String certifyfilename = uploadFileCer.getOriginalFilename();
+				String certifysaveFileName=fileManagement.FileUploader(uploadFileCer);
+				System.out.println("인증방법 파일 이름:"+certifyfilename+" "+"암호화 파일 이름 : "+ certifysaveFileName);
+				challParam.put("certifyphoto", certifyfilename);
+				challParam.put("certifysavephoto", certifysaveFileName);		
+			}else {
+				challParam.put("certifyphoto", "0");
+				challParam.put("certifysavephoto", "0");		
+			}
+			challParam.put("identifyday", dateStr);	
+		
+			System.out.println("요일 들어간거String "+dateStr);
+			System.out.println(challParam.toString());
+			
+			boolean success = service.challengeUpdate(challParam);
+			System.out.println("update되었냐? : "+success);
+			
+			String msg ="";
+			if(success) {
+				msg = "SUCCESS";
+			}else {
+				msg="FAIL";
+			}
+			return msg;
+		}
+			
 }

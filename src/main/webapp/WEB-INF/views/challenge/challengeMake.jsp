@@ -327,19 +327,19 @@ function challengeperiodChange(period){
 		//alert(typeof(sDate.getDate()));
 		var endDate = "";	
 		if(period==1){
-			endDate = sDate.setDate(sDate.getDate()+6);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = sDate.setDate(sDate.getDate()+7);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
 			endDate = new Date(endDate)
 		}
 		else if(period==2){
-			endDate = sDate.setDate(sDate.getDate()+13);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = sDate.setDate(sDate.getDate()+14);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
 			endDate = new Date(endDate)
 		}
 		else if(period==3){
-			endDate = sDate.setDate(sDate.getDate()+20);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = sDate.setDate(sDate.getDate()+21);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
 			endDate = new Date(endDate)
 		}
 		else if(period==4){
-			endDate = sDate.setDate(sDate.getDate()+27);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
+			endDate = sDate.setDate(sDate.getDate()+28);//new Date(strArr[0], strArr[1]-1, (strArr[2]+7));
 			endDate = new Date(endDate)
 		}
 		
