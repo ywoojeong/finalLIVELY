@@ -107,13 +107,14 @@ public class myPageRestController {
 		int startPage = (Integer.parseInt((String)myLikeParam.get("page"))-1) * 5;
 		String search = (String)myLikeParam.get("search");
 		String category = (String)myLikeParam.get("category");
+		String sortdate = (String)myLikeParam.get("sortdate");
 		System.out.println("startPagestartPagestartPagestartPage : "+startPage);
 		int endPage = startPage + 6;
 		param.put("startPage", startPage);
 		param.put("endPage", endPage);
 		param.put("search", search);
 		param.put("category", category);
-		
+		param.put("sortdate", sortdate);
 		List<Map<String, Object>> suggestList = myService.suggestList(param);
 		System.out.println("suggestList :" + suggestList.toString());
 

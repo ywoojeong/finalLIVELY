@@ -55,15 +55,15 @@ public class memberController {
 	*/
 	
 	// 홈으로 이동
-		@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
-		public String memberlogin2(Model model, HttpSession session) {
-			System.out.print("홈으로 이동");
-			
-			MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
-			model.addAttribute("memberInfo", memberInfo);
-			
-			return "home/home";
-		}
+	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberlogin2(Model model, HttpSession session) {
+		System.out.print("홈으로 이동");
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		model.addAttribute("memberInfo", memberInfo);
+		
+		return "home/home";
+	}
 	
 	
 	//member 로그인페이지 이동

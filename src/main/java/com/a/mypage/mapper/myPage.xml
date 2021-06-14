@@ -191,7 +191,11 @@
 			<if test="search !=null and search != ''">
 				AND SBS.SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
 			</if>
+			<if test="sortData !=null and sortData !=''">
+				ORDER BY #{sortData}
+			</if>
 			) SV
+			
 	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
 	</select>
 	

@@ -34,8 +34,8 @@
 	  <div class="carousel-inner">
 	    <div class="carousel-item active">  
 	    	<div style="display:flex;">
-		  		<div style="width:800px;height:450px;overflow: hidden;margin: 100px 80px;object-fit: cover; ">
-		    		<img src="./image/mainImage.jpg" width="800px;">
+		  		<div style="width:800px;height:450px;overflow: hidden;margin: 100px 80px;object-fit: cover;position: relative;">
+		    		<img src="./image/mainImage.jpg" width="800px;" style="position: absolute;top: -20%">
 		    	</div>
 		    	<div style="margin: 250px auto;text-align: center">
 	    			   <h1 style="letter-spacing: 2px;font-weight: 700;margin-bottom: 15px;font-size: 35pt;">LIVELY가 처음이신가요?</h1>
@@ -61,6 +61,7 @@
 
 	    </div>
 	    <div class="carousel-item">
+	    	  <div style="display: flex">	
 	    	<div style="margin-top: 50px;margin-left: 73px">
 	    		<h1 style="font-weight: 700;margin-top: 7px">인증 챌린지</h1>
 	    		<p style="margin-top: 280px;width: 260px;color: rgba(0,0,0,1);padding-bottom: 0">
@@ -70,7 +71,7 @@
 					챌린지에 참가해 보세요<br>
 	    		</p>
 	    	</div>
-	 
+	    	<div style="margin-top:145px;display: flex;margin-left: 30px" id="choiceSuggestChallenge"></div>
 	    </div>
 	  </div>
 	  <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -103,7 +104,7 @@
  
  
  <div style="display: flex;"> 
-	<div class="hotMain">
+	<div class="hotMain d-none d-sm-block">
 		<video muted autoplay loop>
         	<source src="video/write.mp4" type="video/mp4" align="middle">
         	<strong>Your browser does not support the video tag.</strong>
@@ -139,7 +140,7 @@
    <div class="container" style="background: white;padding: 0">
    	
 		 	<div class="headerC" style="text-align: center;padding: 64px 0 54px 0;">
-		 		<h5>CHALLENGE</h5>
+		 		<h5>HOT CHALLENGE</h5>
 		 		<p>Select your own challenge</p>
 		 	</div> 	
 
@@ -212,6 +213,7 @@ $(".hoverImg").mouseleave(
 
 //캐러셀 호출
 ChoiceTodayStart();
+choiceSuggestChallenge();
 
 //시작 시 호출
 getChallengeListCount(0);		//카테고리 번호
@@ -447,7 +449,7 @@ function ChoiceTodayStart(){
 		url:"./ChoiceTodayStart.do",
 		type:"get",
 		success:function(list){//return이 글의 전체 수임
-			
+			console.log(list.length)
 			let data = "";
 			$.each(list, function(i, challenge){
 				data += "<div style='margin-left: 15px;margin-right: 15px;'>"
@@ -464,7 +466,36 @@ function ChoiceTodayStart(){
 			$("#ChoiceTodayStart").html(data);
 		},
 		error:function(){
-			alert("추천 페이지 오늘부터 시작");
+			alert("추천 페이지 오늘부터 시작 실패");
+		}
+	});
+}
+
+//choiceSuggestChallenge
+function choiceSuggestChallenge(){
+	
+	$.ajax({
+		url:"./ChoiceSuggestChallenge.do",
+		type:"get",
+		success:function(list){//return이 글의 전체 수임
+			
+			let data = "";
+			$.each(list, function(i, challenge){
+				data += "<div style='margin-left: 15px;margin-right: 15px;'>"
+						+ "<figure class='snip1384'>"
+						+ "<img src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+challenge.challengesavephoto+"'>" 
+						+ "<figcaption>"
+						+ "<h3>"+challenge.challengetitle+"</h3>"
+						+ "<p>오늘 부터 시작하는 챌린지입니다.</p><i class='ion-ios-arrow-right'></i>"
+						+ "</figcaption>"
+						+ "<a href='challengeDetail.do?challengeseq="+challenge.challengeseq+"'></a>"
+						+ "</figure>"
+						+ "</div>";
+	      	});
+			$("#choiceSuggestChallenge").html(data);
+		},
+		error:function(){
+			alert("추천 페이지 실패(어드민이 만든거)");
 		}
 	});
 }

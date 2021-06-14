@@ -41,7 +41,7 @@ nav a:first-child {
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-    	<img src="./image/logo.png" style="height: 40px">
+    	<img src="./image/logo.png" style="height: 36px">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

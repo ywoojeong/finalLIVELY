@@ -44,10 +44,8 @@ body{
 	margin-left:0;
 	/*  width: 100vw; */
 	 height: 100vh;
-	 background-image: url('./image/concert-768722_1920.jpg');
-	 background-position: center;
-     background-size: cover;
-     position: 
+	overflow:hidden;
+
 }
 
 .loginbtn{
@@ -63,7 +61,7 @@ body{
 .loginbtn:hover{
 	background-color:#cb98ed;
 	border:2px solid #cb98ed;
-	font-size: 11pt;
+	font-size: 12pt;
 	color:#212529;
 }
 
@@ -218,7 +216,7 @@ body{
 }
 
 .infoSub{
-	height:900px;
+	height:700px;
 	min-height: 33.3vw;
 	 background-color: #cb98ed;
 	 display:table;
@@ -337,12 +335,15 @@ body{
 
 .linkI{
 	height: 700px;
-	background-color: grey;
+	object-fit:cover;
+	overflow: hidden;
+
 }
 .linkS{
 	text-align: center;
 	 height: 200px;
 	 background-color: rgb(203, 152, 237);
+	 background-size: 50% 50%;
 }
 .linkS>h4{
 	padding: 40px 0 30px 0;

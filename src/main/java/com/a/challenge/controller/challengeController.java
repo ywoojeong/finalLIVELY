@@ -39,7 +39,10 @@ public class challengeController {
 	}
 	
 	@RequestMapping(value = "newChallenge.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String newChallenge(Model model) {
+	public String newChallenge(Model model, HttpSession session) {
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		model.addAttribute("memberInfo", memberInfo);
 		
 		return "challenge/newChallenge";
 	}
