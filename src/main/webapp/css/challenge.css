@@ -79,7 +79,7 @@ margin-top: -6px;
 .hotMain>video{
 position: absolute; 
    overflow:hidden;
-   width: 100%;
+   height: 114%;
    z-index: 1;
 }
 

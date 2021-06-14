@@ -26,6 +26,13 @@ public interface challengeService {
 	//챌린지 디테일 하나 가져오기 challengeDetail
 	public challengeDto challengeDetail(int challengeseq);
 	
+	//챌린지 업데이트
+	public boolean 	challengeUpdate(Map<String, Object> challParam);
+	
+	//챌린지 디테일 하나 가져오기 challengeDetail
+	public Map<String, Object> 	challengeDetailMap(int challengeseq);
+	
+	
 	//챌린지 찜하기 INSERT challengelikeInsert
 	public boolean challengelikeInsert(Map<String, Object> likeData);
 	

@@ -43,13 +43,65 @@ DateFormat dateVal = new SimpleDateFormat("yyyy-MM-dd");
 System.out.println(dateVal.format(cal.getTime()));
 
 %>
-
 <script>
 //_endDateTd 선택요일 td숨기기
 $(document).ready(function(){
 	$("#_endDateTd").hide();	
 	$("#periodText").hide();
+	$("#_category").val("${challenge.category}").prop("selected", true);
+	$("#_category").prop("disabled", true);
+
+	//시작일
+	let challStart = '${challenge.challengestart}';
+ 	challStart = challStart.substr(0,10);
+/*	const strArr = challStart.split('-');
+	challStart = (strArr[1])+"월 "+strArr[2]+"일";
+ */
+ 	//종료일
+ 	let challEnd = '${challenge.challengeend}';
+ 	challEnd = challEnd.substr(0,10);
+ 	$("#_endDate").val(challEnd);
+ 
+	//console.log(challStart)
+	$("#_challengestart").val(challStart).prop("selected", true);
+  	$("#_challengestart").prop("disabled", true); 
+	
+  	$("#_challengeperiod").val('${challenge.challengeperiod}').prop("selected", true);
+  	$("#_challengeperiod").val('${challenge.challengeperiod}').prop("selected", true);
+  	$("#_identifyfrequency").val('${challenge.identifyfrequency}').prop("selected", true);
+  	$("#_identifytime").val('${challenge.identifytime}').prop("selected", true);
+  	let fre = '${challenge.identifyfrequency}';
+  	
+	if(fre>=1 && fre<=6){
+		$("#_endDateTd").show();
+		let ident = new Array(${challenge.identifyday});
+		
+		ident.forEach(function(data){
+			$("input:checkbox[name='dateWeek']:nth-of-type("+data+")").attr('checked', true);
+		});
+	}else{
+		$("#_endDateTd").hide();
+		if(fre==9){ //월-일
+			$("input:checkbox[name='dateWeek']").attr('checked', true);
+			
+		}else if(fre==8){ 	//월-금
+			for(var i=1;i<6;i++){
+				//$("input:checkbox[id='_dayWeek"+i+"']").attr('checked', true);
+				$("input:checkbox[name='dateWeek']:nth-of-type(-n+6)").attr('checked', true);
+				$("input:checkbox[name='dateWeek']:nth-of-type(1)").attr('checked', false);
+			}
+		}else if(fre==7){	//토일
+			$("input:checkbox[name='dateWeek']:nth-of-type(1)").attr('checked', true);
+			$("input:checkbox[name='dateWeek']:nth-of-type(7)").attr('checked', true);
+		}
+	}
+  	
+  	
+  
+  	
 });
+
+
 	
 
 </script>
@@ -58,20 +110,27 @@ $(document).ready(function(){
 	
  <div class="container">
 	 <header class="challengeHeader">
-	 		<img class="userWrap" src="https://th.bing.com/th/id/OIP.wTFsSYLWKoHwmv9OOZIp9wHaHa?pid=ImgDet&w=500&h=500&rs=1">
-	 	<h4>${memberInfo.nickname} 님,</h4>
+	 		<img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }">
+	 	<h4>${user.nickname} 님,</h4>
 	 	<p>생성한 챌린지를 수정하세요.</p>
 	 </header>
 
 	 <div class="">
 	 	<form  id="challengeFrm" enctype="multipart/form-data">
-	 		<input type="hidden" name="email" value="${memberInfo.email}">
+	 		<input type="hidden" name="email" value="${user.email}">
 	 	<div class="row challengeMain">
 	 		<div class="col-sm-4 pt-5 pl-5" style="text-align: center">
 	 		
 	              <label for="newImg">
-	            	 <% %>
-		                  <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="./image/noneImage.png">
+	            	 <c:choose>
+					 	<c:when test="{fn:contains(challenge.certifysavephoto , '0')}">
+                 	 		<img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/noneImage.jpg">
+                 	 	</c:when>
+                 	 	<c:otherwise>
+					 		   <img id="chall_Img" class="img-responsive challImg"  style="opacity: 0.8;" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challenge.challengesavephoto}">
+					 	</c:otherwise>
+                 	 </c:choose>
+		               
 		            </label>
 		            <input type="file" name="uploadFile" id="newImg" style="display: none" ">
 		            <p style="font-size: 10pt; color:#5e5e5e;font-weight: 600">이미지가 없으면 기본 이미지로 들어갑니다.</p>	 			
@@ -159,7 +218,7 @@ $(document).ready(function(){
 	 					<td class="challSelect2">
 	 						<label for="pointCount">참가 포인트</label>
 	 						<div class="form-inline">
-	 							<input type="text" class="form-control form-control-sm" id="_pointcount" name="pointcount" style="width: 200px"><span>&nbsp;&nbsp;point</span>
+	 							<input type="text" class="form-control form-control-sm" value="${challenge.pointcount }" id="_pointcount" readonly="readonly" name="pointcount" style="width: 200px"><span>&nbsp;&nbsp;point</span>
 	 						</div>
 	 					</td>
 	 				</tr>
@@ -168,25 +227,38 @@ $(document).ready(function(){
 	 					<td>
 	 						<label for="certifyPhoto">인증 방법(선택)</label>
 	 						<label for="newImg2">
-		                  <img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/certifyNone.jpg">
+	 						<c:choose>	
+	 						 	<c:when test="{fn:contains(challenge.certifysavephoto , '0')}">
+		                  	 		<img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/certifyNone.jpg">
+		                  	 	</c:when>
+		                  	 	<c:otherwise>
+	 						 		<img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challenge.certifysavephoto }">
+	 						 	</c:otherwise>
+		                  	 </c:choose>
 				            </label>
 				          <input type="file" name="uploadFileCer" id="newImg2" style="display: none">
 	 					</td>
 	 					<td>
-	 						<textarea class="form-control form-control-sm" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify" style=" margin: 20px 0 0 35px;height: 149px;width: 360px;;"></textarea>
+	 						<div style="font-size: 9pt;font-weight: 600; color:#777777;margin-left: 35px">인증방법 미작성으로 인한 불이익은 책임지지 않습니다.<br>
+	 						인증 방법을 상세하게 적어주세요.</div>
+	 					</td>
+	 				</tr>
+	 				<tr>
+	 					<td colspan="2" style="padding-top: 10px;padding-bottom: 10px">
+	 						<textarea class="review_textarea" id="summernote1" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify">${challenge.certify }</textarea>
 	 					</td>
 	 				</tr>
 	 				
 	 				<tr>
 	 					<td colspan="2">
 	 						<label for="challengeTitle">챌린지 제목</label>
-	 						<input type="text" class="form-control form-control-sm" placeholder="챌린지 제목을 작성해주세요" name="challengetitle" id="_challengetitle">
+	 						<input type="text" class="form-control form-control-sm" value="${challenge.challengetitle }" placeholder="챌린지 제목을 작성해주세요" name="challengetitle" id="_challengetitle">
 	 					</td>
 	 				</tr>
 	 				<tr >
 	 					<td colspan="2" class="content">
 	 						<label for="challengeContent">챌린지 소개</label>
-	 						<textarea rows="8" class="form-control form-control-sm" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext"></textarea>
+	 						<textarea class="review_textarea" id="summernote" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext">${challenge.challengetext}</textarea>
 	 					</td>
 	 				</tr>
 	 			</table>	 				
@@ -198,14 +270,60 @@ $(document).ready(function(){
 	 
 	 <!-- 챌린지 만들기 버튼 -->
 	<div class="chall-buttons">
-	 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeMake()" >ENTER</button>
+	 	<button type="button" class="chall-btn-hover color-3"  onclick="challengeUpdate()" >ENTER</button>
 	 </div>
  
  </div>
  
- 
+ <!-- summer note 사용시 추가 -->
+<script src="./js/summernote/summernote-lite.js"></script>
+<script src="./js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="./css/summernote/summernote-lite.css">
 
 <script>
+//써머노트
+$(document).ready(function() {
+	
+	  $('#summernote1').summernote({
+          height: 130,
+          /* width:, */
+          minHeight: 80,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          lang: "ko-KR",               // 한글 설정
+          placeholder: "인증 방법을 기입하세요",   //placeholder      
+          //툴바 변경
+           toolbar: [
+               // [groupName, [list of button]]
+               ['fontname',['fontname']],
+               ['fontsize',['fontsize']],
+             ],
+           fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+           fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+     });
+	  
+	  $('#summernote').summernote({
+          height: 200,
+          /* width:, */
+          minHeight: 100,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          lang: "ko-KR",               // 한글 설정
+          placeholder: "챌린지를 소개해 주세요",   //placeholder      
+          //툴바 변경
+           toolbar: [
+               // [groupName, [list of button]]
+               ['fontname',['fontname']],
+               ['fontsize',['fontsize']],
+               ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+               ['color', ['forecolor','color']],
+               ['para', ['ul', 'ol', 'paragraph']]
+             ],
+           fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+           fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
+     });
+	
+});
+
+
 //이미지 미리보기
 var sel_file;
 
@@ -351,7 +469,7 @@ function challengeperiodChange(period){
 
 
 //챌린지 만들기 버튼(enter) 제어
-function challengeMake(){
+function challengeUpdate(){
 
 	//카테고리 비 선택 시 제어
 	var category = $("select[name=category]").val();
@@ -430,7 +548,7 @@ function challengeMake(){
 	}
 	
 	//챌린지 소개 비 기입 시 제어
-	if($("#_challengetext").val()==null || $("#_challengetext").val()==""){
+	if($("#summernote").val()==null || $("#_challengetext").val()==""){
 		alert("간단한 챌린지 소개글을 적어주세요.");
 		return false;
 	}
@@ -446,11 +564,12 @@ function challengeMake(){
 	//alert(params);
 	params.append('uploadFile', $('input[name="uploadFile"]').get(0).files[0]);
 	params.append('uploadFileCer', $('input[name="uploadFileCer"]').get(0).files[0]);
+	params.append('challengeseq', '${challenge.challengeseq}');
 	//input file추가
-	alert(params);
+	//alert(params);
 	
 	$.ajax({
-		url:"challengeInsert.do",
+		url:"challengeUpdateData.do",
 		type:"post", 
 		data:params,
 		enctype:"multipart/form-data",	//파일업로드 설정데이터, 인코딩
@@ -460,15 +579,16 @@ function challengeMake(){
 		success:function(msg){
 			//alert(msg);
 			if(msg=="SUCCESS"){
-				alert("챌린지가 생성되었습니다.");
-				location.href="newChallenge.do";
+				alert("챌린지가 수정되었습니다.");
+				
 			}else{
-				alert("챌린지를 다시 생성해 주세요.");
-				location.href="challengeMake.do";
+				alert("다시 수정해 주세요.");
 			}
 		},
 		error:function(){
 			alert("error");
+		},complete:function(){
+			location.href="challengeDetail.do?challengeseq=${challenge.challengeseq}";
 		}
 		
 	});

@@ -214,10 +214,11 @@ public class challengeController {
 	public String challengeUpdate(Model model, HttpSession session, int challengeseq) {
 		
 		MemberDto mem = (MemberDto) session.getAttribute("memberInfo");
-		challengeDto challenge = service.challengeDetail(challengeseq);
-		
-		model.addAttribute("memberInfo", mem);
+		Map<String, Object> challenge = service.challengeDetailMap(challengeseq);
+		MemberDto member = service.userData(mem.getEmail());
+		model.addAttribute("user", member);
 		model.addAttribute("challenge", challenge);	
+		System.out.println("challenge"+challenge.toString());
 	
 		return "challenge/challengeUpdate";
 	}
