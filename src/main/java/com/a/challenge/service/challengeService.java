@@ -122,4 +122,9 @@ public interface challengeService {
 	
 	//리뷰 적엇는지 확인 reviewDone
 	public int reviewDone(Map<String, Object> commParam);
+	
+	//포인트 업데이트 pointUpdate
+	public boolean pointUpdate(Map<String, Object> pointParam);
+	
+	
 }

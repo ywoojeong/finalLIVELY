@@ -13,6 +13,8 @@
 
 <!-- format 사용시 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- ${member.nickname} -->
 <!-- 현재 시간 받아오기 -->
 <%-- <jsp:useBean id="now" class="java.util.Date" /> --%>
@@ -123,7 +125,7 @@ $(document).ready(function(){
 	 		
 	              <label for="newImg">
 	            	 <c:choose>
-					 	<c:when test="{fn:contains(challenge.certifysavephoto , '0')}">
+					 	<c:when test="${challenge.challengesavephoto eq '0'}">
                  	 		<img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/noneImage.jpg">
                  	 	</c:when>
                  	 	<c:otherwise>
@@ -228,7 +230,7 @@ $(document).ready(function(){
 	 						<label for="certifyPhoto">인증 방법(선택)</label>
 	 						<label for="newImg2">
 	 						<c:choose>	
-	 						 	<c:when test="{fn:contains(challenge.certifysavephoto , '0')}">
+	 						 	<c:when test="${challenge.certifysavephoto eq '0'}">
 		                  	 		<img id="chall_Img2" class="img-responsive challImg2"  style="opacity: 0.8;" src="./image/certifyNone.jpg">
 		                  	 	</c:when>
 		                  	 	<c:otherwise>
@@ -548,7 +550,8 @@ function challengeUpdate(){
 	}
 	
 	//챌린지 소개 비 기입 시 제어
-	if($("#summernote").val()==null || $("#_challengetext").val()==""){
+	console.log("왜 값이 안와??"+$("#_challengetext").val())
+	if($("#_challengetext").val()==null || $("#_challengetext").val()==""){
 		alert("간단한 챌린지 소개글을 적어주세요.");
 		return false;
 	}
