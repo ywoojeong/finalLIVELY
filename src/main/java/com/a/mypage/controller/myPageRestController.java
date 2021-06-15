@@ -69,8 +69,8 @@ public class myPageRestController {
 		getDailyChallInfo.put("email", email);
 		getDailyChallInfo.put("number", number);
 		
-		List<Map<String, Object>> memDailyList = myService.memChallList(getDailyChallInfo);
-		System.out.println(memDailyList.toString());
+		List<Map<String, Object>> memDailyList = myService.memDailyChallList(getDailyChallInfo);
+		System.out.println("memDailyList=>>>>>>>>>> " + memDailyList.toString());
 		
 		return memDailyList;
 	}

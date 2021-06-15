@@ -41,6 +41,7 @@ body{
   	overflow: hidden;
     vertical-align: middle;
   	 align-items: center;
+  	 object-fit: cover;
   
 }
 

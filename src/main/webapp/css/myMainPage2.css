@@ -115,9 +115,6 @@
 	padding : 3px 10px 3px 10px;
 	margin-bottom: 6px;
 }
-.card-title{
-	margin-left: 10px;
-}
 .card{
 	height: 130px;
 	width: 670px;
@@ -230,9 +227,7 @@
 	font-size: 13px;
 	margin-bottom: 2px;
 	color: #828282;
-}
-.suggest-title{
-	font-size: 20px;
+	margin-top: 10px;
 }
 .suggest-like{
     display: flex;
@@ -246,6 +241,7 @@
 	margin-bottom: 0;
 	font-size: 10pt;
 	margin-top: 5px;
+	text-align: center;
 }
 .suggest-text{
 	margin: auto;
@@ -362,8 +358,10 @@ label{
 	text-align: center;
 }
 .applyBbs{
-	padding-top: 20px;
+	padding-top: 31px;
     padding-left: 20px;
+    margin-bottom: 15px;
+    height: 50px;
 }
 .applyCom{
 	margin-bottom: 20px;
@@ -389,4 +387,25 @@ label{
 }
 .commentBtn{
 	color: #a3a3a3;
+}
+.suggest-title{
+	width: 350px; 
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	font-size: 20px;
+}
+.card-title{
+	width: 331px; 
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	margin-left: 10px;
+}
+.card-titles{
+	width: 198px; 
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	margin-left: 10px;
 }
