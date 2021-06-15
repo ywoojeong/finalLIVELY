@@ -112,7 +112,7 @@ $(document).ready(function(){
 	 <header class="challengeHeader">
 	 		<img class="userWrap" src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }">
 	 	<h4>${user.nickname} 님,</h4>
-	 	<p>생성한 챌린지를 수정하세요.</p>
+	 	<p>생성한 챌린지를 수정하세요. 수정은 챌린지 시작 전까지만 가능합니다.</p>
 	 </header>
 
 	 <div class="">
@@ -245,7 +245,7 @@ $(document).ready(function(){
 	 				</tr>
 	 				<tr>
 	 					<td colspan="2" style="padding-top: 10px;padding-bottom: 10px">
-	 						<textarea class="review_textarea" id="summernote1" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify">${challenge.certify }</textarea>
+	 						<textarea class="review_textarea" placeholder="인증방법을 작성해 주세요" name="certify" id="_certify">${challenge.certify }</textarea>
 	 					</td>
 	 				</tr>
 	 				
@@ -258,7 +258,7 @@ $(document).ready(function(){
 	 				<tr >
 	 					<td colspan="2" class="content">
 	 						<label for="challengeContent">챌린지 소개</label>
-	 						<textarea class="review_textarea" id="summernote" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext">${challenge.challengetext}</textarea>
+	 						<textarea class="review_textarea" placeholder="챌린지를 소개해주세요" name="challengetext" id="_challengetext">${challenge.challengetext}</textarea>
 	 					</td>
 	 				</tr>
 	 			</table>	 				
@@ -284,7 +284,7 @@ $(document).ready(function(){
 //써머노트
 $(document).ready(function() {
 	
-	  $('#summernote1').summernote({
+	  $('#_certify').summernote({
           height: 130,
           /* width:, */
           minHeight: 80,             // 최소 높이
@@ -301,7 +301,7 @@ $(document).ready(function() {
            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'] 
      });
 	  
-	  $('#summernote').summernote({
+	  $('#_challengetext').summernote({
           height: 200,
           /* width:, */
           minHeight: 100,             // 최소 높이

@@ -277,6 +277,12 @@ public class challengeDaoImpl implements challengeDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+"ChoiceSuggestChallenge");
 	}
+
+	@Override
+	public int reviewDone(Map<String, Object> commParam) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"reviewDone", commParam);
+	}
 	
 	
 	
