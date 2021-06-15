@@ -1125,9 +1125,10 @@ function commentListSel(seq, now){
 	    success:function(list){
 	    	console.log("commentListSel->>>>>>>>>>>>")
 	    	console.log(list)
+	    		var data = "";
 	    	if(list.length < 1){
 //	    		var total = 0;
-		    	data += +	"<table class='commentTable'>"
+		    	data +=	"<table class='commentTable'>"
 	            +	"<colgroup>"
 	            +	"<col width='500px'>"
 	            +	"<col width='100px'>"
@@ -1136,11 +1137,11 @@ function commentListSel(seq, now){
 //				+	"<td class='commentTime'>댓글이 없습니다</td>"
 				+	"</tr>"
 	    		+	"</table>"
+	    		
 	    	} else {
 		    	var total = list[0].TOTALCNT
 		    	console.log("listlistlistlist->>>>>>>>>>>>")
 		    	console.log(total)	    		
-	    	var data = "";
 	    	for(var i=0; i<list.length; i++){
 	    	data += "<table class='commentTable'>"
 	            +	"<colgroup>"
@@ -1151,14 +1152,15 @@ function commentListSel(seq, now){
 				+	"<td class='commentTime'>"+list[i].SUGCOMDATE+"</td>"
 				+	"</tr>"
         		+	"</table>"
-	    	
+        		
 	    		}
+	    	}
 	    	comListPaging(total,now,seq)	
         	$(".comPage"+seq).html(data);
 	    	console.log("comPage===========")
 			console.log($(".comPage"+seq).html(data))
-	    	}
 	    	
+
 	    },
         error:function(){
            alert("commentList 불러오는 error");
