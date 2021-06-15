@@ -417,4 +417,10 @@
 		WHERE ROWNUM <![CDATA[ <= ]]> 4
 	</select>
 		
+	<!-- 리뷰를 적었는지 아닌지 확인 reviewDone -->
+	<select id="reviewDone" parameterType="java.util.Map"  resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM CHALLENGECOMMENT
+		WHERE EMAIL = #{email} AND CHALLENGESEQ = #{challengeseq}
+	</select>
 </mapper>

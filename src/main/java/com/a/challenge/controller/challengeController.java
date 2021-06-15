@@ -150,7 +150,8 @@ public class challengeController {
 			MemberDto user = service.userData(member.getEmail());
 			model.addAttribute("user", user);
 			
-			int followcheck = 0; 
+			int followcheck = 0;
+			int reviewDone = 0;
 			//팔로잉 체크
 			for(Map<String, Object> item : challengeMember){
 				/* 매 루프마다 "item"(List 배열의 한개 항목) 가 가지고 있는 맵 엔트리(Entry) 개수 만큼 루프문 실행 */
@@ -182,10 +183,13 @@ public class challengeController {
 							int identifycheck =  service.identifyCheck(WishParam);
 							model.addAttribute("identifycheck", identifycheck);
 							System.out.println("identifycheck"+ identifycheck);
+							reviewDone = service.reviewDone(WishParam);
+							System.out.println("reviewDone"+ reviewDone);
 						}
 					}	
 				}
 				item.put("followcheck",followcheck);
+				item.put("reviewDone", reviewDone);
 			}
 			System.out.println("팔로잉 멤버 :"+challengeMember.toString());
 

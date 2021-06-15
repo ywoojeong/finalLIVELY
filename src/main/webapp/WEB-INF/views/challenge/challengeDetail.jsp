@@ -13,6 +13,9 @@
 <fmt:parseDate var='start' value="${challDto.challengestart}" pattern="yyyy-MM-dd"/>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<canvas id="canvas" style="z-index:25410;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);"></canvas>
+
 <script>
 $(document).ready(function(){
 // 	console.log( '${user.email}' == '${identifyResultUser.email}')	
@@ -33,6 +36,14 @@ $(document).ready(function(){
 		 var position = $(window).scrollTop(); 
 	 	$(".quickmenu").stop().animate({"top":position+currentPosition+"px"},500);
 	 });
+	 
+	 
+	 function reAction(){
+	  	$("#startButton").trigger("click");
+	  	setTimeout(function(){
+	  		$("#stopButton").trigger("click");
+	  	}, 3000);
+	  }
 });
 
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}")
@@ -58,8 +69,7 @@ console.log("비교가 되나?  ${now}<${start}")
 		<div>
 			<h1>${challDto.challengetitle}
 				<c:if test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
-					<button type="button" class="btn challStartBtn" data-toggle="modal"
-						data-target="#myModal3">START JOIN</button>
+					<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
 				</c:if>
 
 					<a data-toggle='popover' data-trigger='hover' data-content='인증 사진을 올리세요.'>
@@ -67,7 +77,7 @@ console.log("비교가 되나?  ${now}<${start}")
 <!-- 							<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\"> -->
 						</span>
 					</a>
-					
+						<button type="button" class="btn challStartBtn" id="startButton" data-toggle="modal" data-target="#myModal6">결과</button>
 
 <%-- 
  				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
@@ -189,7 +199,7 @@ console.log("비교가 되나?  ${now}<${start}")
 					<div class="row" style="display: flex;margin-left: 30px">
 						<c:if test="${challDto.challengesavephoto != '0' }">
 							<div class="col-sm-5">
-								<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.challengesavephoto }"
+								<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.certifysavephoto }"
 								style="width: 300px">
 							</div>
 						</c:if>
@@ -282,7 +292,7 @@ console.log("비교가 되나?  ${now}<${start}")
 	<div class="main">
 		<!-- Nav pills -->
 		<ul class="nav nav-pills" role="tablist">
-			<li class="nav-item" style="margin-right: 30px"><a class="nav-link active"
+			<li class="nav-item" style="margin-right: 30px"><a class="nav-link active" id="resultNav"
 				data-toggle="pill" href="#home">현재 결과</a></li>
 			<li class="nav-item" style="margin-right: 30px"><a class="nav-link" id="reviewNav"
 				data-toggle="pill" href="#category1">후 기</a></li>
@@ -443,13 +453,15 @@ console.log("비교가 되나?  ${now}<${start}")
 			<div id="category1" class="container tab-pane fade" style="padding-left: 45px;padding-right: 45px">
 		
 				<!-- 챌린지 참가한 사람들만 보이게 제어(한번 작성하면 버튼 hide) -->
-
-				<div class="chall-buttons" id="reviewMakeBtn">
-					<a class="modalBtn" data-toggle="modal" data-target="#myModal2">
-						<button type="button" class="chall-btn-hover color-3"
-							>후기 작성</button>
-					</a>
-				</div>
+				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
+					<c:if test="${user.email== challUser.email && challUser.reviewdone == 0}">			
+						<div class="chall-buttons" id="reviewMakeBtn">
+							<a class="modalBtn" data-toggle="modal" data-target="#myModal2">
+								<button type="button" class="chall-btn-hover color-3">후기 작성</button>
+							</a>
+						</div>
+					</c:if>
+				</c:forEach>
 
 				<!-- ///////////////후기 작성 끝////////////////// -->
 				<div class="row review">
@@ -726,7 +738,7 @@ console.log("비교가 되나?  ${now}<${start}")
 		<div class="modal-content">
 
 			<!-- Modal body -->
-			<div class="modal-body" style="height: 650px">
+			<div class="modal-body" style="height: 680px">
 				<button type="button" class="close" data-dismiss="modal">×</button>
 				<div class="joinStart">
 					<h1>${challDto.challengetitle}</h1>
@@ -795,7 +807,7 @@ console.log("비교가 되나?  ${now}<${start}")
 </div>
 
 <c:if test="${user.email != null}">
-<!-- 인증 사진 올리기 모달 -->
+
 <!-- start join 모달 -->
 <div class="modal" id="myModal4" style="top:19%">
 	<div class="modal-dialog   modal-lg">
@@ -850,9 +862,9 @@ console.log("비교가 되나?  ${now}<${start}")
 </c:if>
 
 <!-- 채팅 모달 -->
-<div class="modal" id="myModal5">
-	<div class="modal-dialog   modal-lg">
-		<div class="modal-content">
+<div class="modal" id="myModal5" style="top:7%">
+	<div class="modal-dialog   modal-lg" style="max-width:600px">
+		<div class="modal-content" style="height: 700px">
 
 			<!-- Modal body -->
 			<div class="modal-body">
@@ -912,7 +924,56 @@ console.log("비교가 되나?  ${now}<${start}")
 	</div>
 </div>
 
+<!-- end 모달 -->
+<div class="modal" id="myModal6" style="top:10%">
+	<div class="modal-dialog">
+		<div class="modal-content">
 
+			<!-- Modal body -->
+			<div class="modal-body ">
+				<div style="display: flex;flex-direction: column;align-items: center;">
+					<h1 class="selebration" style="margin: 25px;">ACHIVEMENT</h1>
+					 <div class="easypiechart" id="easypiechart-dibs" data-percent="${identifyResultUser.percent}" style="position: relative;height: 150px;width: 150px" >
+                        <img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${user.memberPhotoName }" onerror="this.src='image/user_80px.jpg'" style="position:absolute;border-radius: 50%;height: 122px;width: 122px;overflow: hidden;vertical-align: middle;align-items: center;object-fit: cover;top: 14px;left: 14px">
+                    </div>
+					
+					<h5>
+						<font style="text-decoration: underline;">${user.nickname }</font>님
+					</h5>
+					<h5>
+						${identifyResultUser.identify }<span style="font-size: 12pt;color: #7a7a7a;"> / ${identifyResultUser.totalday } 회</span>
+					</h5>
+					
+						<div style="width: 100%;margin-top: 16px;text-align: center;background-color: #f2f2f2;padding-bottom: 12px;">
+							<c:choose>
+								<c:when test="${identifyResultUser.percents == 100}">
+									<span class="highlight" style="font-size: 24pt;font-weight: 700">${challDto.pointcount * 2 } </span><span style="font-size: 12pt;font-weight: 500;"> point 획득</span>
+								</c:when>
+								<c:when test="${identifyResultUser.percents >= 85 && identifyResultUser.percent < 100}">
+									<span class="highlight" style="font-size: 24pt;font-weight: 700">${challDto.pointcount * 1.5 } </span><span style="font-size: 12pt;font-weight: 500;"> point 획득</span>
+								</c:when>
+								<c:when test="${identifyResultUser.percents < 85}">
+									<span class="highlight" style="font-size: 24pt;font-weight: 700"> ${challDto.pointcount}</span><span style="font-size: 12pt;font-weight: 500;"> point 차감</span>
+								</c:when>
+							</c:choose>
+					</div>
+					<h2 style="margin:20px;"><span class="pointresult">${identifyResultUser.percents}</span><span style="font-size: 18pt;font-weight: 700;color: #591da9">% 달성</span></h2>
+			
+				</div>
+			</div>
+	
+			<!-- Modal footer -->
+			<div class="modal-footer" style="justify-content: center">
+				<button type="button" class="btn" id="stopButton" onclick="pointUpdate()" data-dismiss="modal">POINT 업데이트</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- 꽃가루 뿌리기 -->
+<script src="./js/confetti.js"></script>
 
 <!-- 결과 차트 js -->
 <script src="js/easypiechart.js"></script>
@@ -925,9 +986,18 @@ console.log("비교가 되나?  ${now}<${start}")
 <!-- 차트.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
 <!-- progress 바 채워지기 -->
 <script>
+$('.easypiechart').easyPieChart({
+	barColor: '#8b63da',  //차트가 그려질 색
+    trackColor: '#f2f2f2',  // 차트가 그려지는 트랙의 기본 배경색(chart1 의 회색부분)
+    scaleColor: false,
+    lineCap: 'square', // 차트 선의 모양 chart1 butt / chart2 round / chart3 square
+    lineWidth: 10, // 차트 선의 두께
+    size: 150, // 차트크기
+    animate: 4000 // 그려지는 시간 
+  });
+
 
 //이미지 미리보기
 var sel_file;
@@ -1277,8 +1347,10 @@ function save(){
    			alert("후기 작성 에러");
    		},
    		complete:function(){
+   			
    			location.href="challengeDetail.do?challengeseq=${challDto.challengeseq}";
-   			$("#reviewMakeBtn").css("display", "none");
+   			$("#resultNav").removeClass("active");
+   			$("#reviewNav").addClass("active");
    		}
     });
 	
@@ -1406,6 +1478,8 @@ function commentLikeDel(commentseq, number){
 	});
 }
 //후기 작성 버튼 제어 chall-buttons
+
+
 /*
 let loginUser = '${user.email}';
 console.log("야...왜안나와"+loginUser)
@@ -1591,7 +1665,9 @@ $(function() {
  		    document.getElementById('totalChart1'),
  		    config1
  		  );
-
-  
+     
 </script>
+
+
+
 
