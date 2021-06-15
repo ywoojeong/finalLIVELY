@@ -13,11 +13,11 @@
 <div class="container-fluid">
 <div class="row">
     <div class="tab col-sm-3 col-xs-1" id="sidebar">
-        <div class="nav nav-tab list-group" style="width: 318px; height:230vh;margin-top:58px; background-color:#60bfa4;">
+        <div class="nav nav-tab list-group" style="width: 318px; height:277vh;margin-top:58px; background-color:#60bfa4;">
         	<div class="mtop" style="margin-top: 46px;">
         	<h1 style="text-align: center; color: white">ADMIN님</h1>
         	</div>
-        	<hr style="width: 200px; border: solid 1px #636363;margin-top: 0px; margin-bottom: 31px;">
+        	<hr style="">
             <a href="#menu1" class="list-group-item" data-toggle="tab">
                 <span class="hidden-sm-down">전체</span> 
             </a>
@@ -41,7 +41,7 @@
     	
     	<div id="menu2" class="tab-pane fade">
     		<div class="row">
-    			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center;">
+    			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; margin-left: -50px;">
     				<p>네 제가 두번째 탭인데요 회원관리 담당이에요</p>
     				<div class="searchArea" style="width: 100%;">
 						<div class="md-form md-outline d-flex Search" align="right" style="margin-left: 93px;">
@@ -53,7 +53,7 @@
 	 						<div class="searchBox" style="height: 100%;">
                             <input type="text" class="form-control input-Search" id="searchs" placeholder="검색하세요" name="search" style="width: 378px;">
                            	</div>
-                           	<button type="button" class="btns btn-Search" id="searchBtns" style="margin-left: 15px;">SEARCH</button>
+                           	<button type="button" class="memSearchBtn" id="memSearchBtn" style="margin-left: 15px;">SEARCH</button>
 						</div>
     				</div>
     			</div>
@@ -75,8 +75,8 @@
     	
     	<div id="menu3" class="tab-pane active">
     		<div class="row">
-    			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center;">
-    				<div class="tableBox" style="width: 800px">
+    			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; margin-left: -25px;">
+    				<div class="tableBox" style="width: 775px; margin-left: -26px;">
 	                <table class="table table-bordered" style="margin-bottom: 0.4rem; margin-top: 0.3rem;">
 					  <thead>
 					  </thead>
@@ -84,13 +84,13 @@
 					    <tr>
 					      <td class="td1">시작날짜</td>
 					      <td colspan="2">
-							<input id="datestart" type="text" >
+							<input class="datestart" id="datestart" type="text" >
 					      </td>
 					    </tr>
 					    <tr>
 					      <td class="td1">종료날짜</td>
 					      <td colspan="2">
-							<input id="dateend" type="text" >
+							<input class="dateend" id="dateend" type="text" >
 					      </td>
 					    </tr>
 					    <tr>
@@ -112,10 +112,10 @@
 					</table>
 		            </div>
 		            
-					<div class="searchBox2" style="margin-left: -186px; display: flex; margin-left: 86px;">
+					<div class="searchBox2" style="display: flex; margin-left: 86px;">
 						<input type="search2" class="form-control form-control" name="mSearch" id="mSearch" 
-							style="border-radius: 0rem; width: 519px; margin-left: 97px;" placeholder="검색어를 입력하세요">
-	                <button type="button" class="btn btn-Search" id="searchBtn" style="margin-left: 10px;">SEARCH</button>
+							style="border-radius: 0rem; width: 612px; margin-left: -114px;" placeholder="검색어를 입력하세요">
+	                <button type="button" class="searchBtn" id="searchBtn" style="margin-left: 10px;">SEARCH</button>
 						</div>
     				
 		    		<!-- 탭위치 -->
@@ -125,23 +125,7 @@
 		                    <div class="diy">
 		                        <div class="sub_tab"> 탭 위치카테고리 개설일 시작일 종료일</div>
 		                        <div class="challbox">
-<!-- 		                            <div class="mainBox">
-		                                <div class="main_text main_common">
-		                                        <div class="mainInfo">
-		                                            <span class="challDataCard-category">카테고리</span>  |  
- 		                                            <span class="challDataCard-startdate">개설일</span>  |  
-		                                            <span class="challDataCard-enddate">시작일</span>  |  
-		                                            <span class="challDataCard-title">종료일</span>
-		                                        </div>
-		                                        <div class="mainTitle">
-		                                            <p class="challDataCard-title">챌린지이름</p>
-		                                        </div>
-		                                </div>
-		                                <div class="main_btn main_common btns">
-		                                    <button type="button" class="btn btn-Search mSearch" id="stopBtn">정지</button>
-		                                    <button type="button" class="btn btn-Search mSearch" id="startBtn">해제</button>
-		                                </div>
-		                            </div> -->
+									<!-- 챌린지 보이는곳 -->
 		                        </div>
 		                        
 		                        <!-- 페이징 처리 되는 곳 -->
@@ -198,7 +182,7 @@ function setCategory(category){
 // 챌린지 총 수 가져오기 등등
 managerList(1);
 
-//검색햇을 시
+//검색 시
 
 $('#searchBtn').click(function(){
 	managerList(1);
@@ -207,7 +191,7 @@ $('#searchBtn').click(function(){
 
 function managerList(now){
 	console.log("managerListmanagerListmanagerList")
-	console.log(managerList)
+	console.log(now)
 	console.log($("#datestart").val())
 	console.log($("#dateend").val())
 	$.ajax({
@@ -228,17 +212,17 @@ function managerList(now){
 	    	data += "<div class='mainBox'>"
 	            +	"<div class='main_text main_common'>"
 	            +	"<div class='mainInfo'>"
-	            +	"<span class='challDataCard-category'>"+categoryName+" | </span>"
-	            +	"<span class='challDataCard-sdate'>"+list[i].CHALLENGESDATE+" | </span>"
-	            +	"<span class='challDataCard-startdate'>"+list[i].CHALLENGESTART+" | </span>"
-	            +	"<span class='challDataCard-enddate'>"+list[i].CHALLENGEEND+"</span>"
+	            +	"<span class='challDataCard-category' title='카테고리'>"+categoryName+" | </span>"
+	            +	"<span class='challDataCard-sdate' title='시작일'>"+list[i].CHALLENGESTART+" ~ </span>"
+	            +	"<span class='challDataCard-startdate' title='종료일'>"+list[i].CHALLENGEEND+" | </span>"
+	            +	"<span class='challDataCard-enddate' title='개설일'>"+list[i].CHALLENGESDATE+"</span>"
 	            +	"</div>"
 	            +	"<div class='mainTitle'>"
 	            +	"<p class='challDataCard-title'>"+list[i].CHALLENGETITLE+"</p>"
 	            +	"</div> </div>"
 	            +	"<div class='main_btn main_common btns'>"
-	            +	"<button type='button' class='btn btn-Search mSearch' id='stopBtn'>정지</button>"
-	            +	"<button type='button' class='btn btn-Search mSearch' id='startBtn'>해제</button>"
+	            +	"<button type='button' class='challStopBtn' id='stopBtn'>정지</button>"
+	            +	"<button type='button' class='challPlayBtn' id='startBtn'>해제</button>"
 	            +	"</div> </div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
 //        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
@@ -277,7 +261,7 @@ function mListPaging(total,now){
 	}
 	for(var i=startCnt;i<=nowTotal;i++){
 		if(now == i){
-			html += "<li class='nowpage' style='color:red' onclick='managerList("+i+")'>"+i+"</li>"
+			html += "<li class='nowpage' style='color:#56b397' onclick='managerList("+i+")'>"+i+"</li>"
 		}else{
 			html += "<li onclick='managerList("+i+")'>"+i+"</li>"
 		}

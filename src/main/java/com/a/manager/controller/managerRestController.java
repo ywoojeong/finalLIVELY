@@ -34,6 +34,8 @@ public class managerRestController {
 		String dateend = (String)mListParam.get("dateend");
 		dateend = dateend.replace("/", "-");
 		
+		System.out.println("startPagestartPagestartPagestartPage : "+startPage);
+		
 		int endPage = startPage + 6;
 		mListParam.put("startPage", startPage);
 		mListParam.put("endPage", endPage);
@@ -47,7 +49,7 @@ public class managerRestController {
 		
 		List<Map<String, Object>> managerList = mService.managerList(mListParam);
 		System.out.println("mListParam : " + managerList);
-		System.out.println(mSearch.toString());
+
 		return managerList;
 	}
 	
