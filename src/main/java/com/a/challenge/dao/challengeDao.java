@@ -126,5 +126,8 @@ public interface challengeDao {
 	//제안하기 만든 랜덤 4개 ChoiceSuggestChallenge
 	public List<Map<String, Object>> ChoiceSuggestChallenge();
 	
+	//리뷰 적엇는지 확인 reviewDone
+	public int reviewDone(Map<String, Object> commParam);
+	
 	
 }
