@@ -104,10 +104,10 @@
 		UPDATE CHALLENGE
 		SET CHALLENGETITLE = #{challengetitle}, CHALLENGETEXT = #{challengetext}, CHALLENGEEND = #{challengeend}, CHALLENGEPERIOD = #{challengeperiod}, 
 			IDENTIFYFREQUENCY = #{identifyfrequency}, IDENTIFYTIME=#{identifytime}, CERTIFY = #{certify}, IDENTIFYDAY=#{identifyday}
-			<if test="challengephoto != 0 and challengesavephoto != 0">
+			<if test='challengephoto != "0" and challengesavephoto != "0"'>
 				, CHALLENGEPHOTO=#{challengephoto}, CHALLENGESAVEPHOTO=#{challengesavephoto}
 			</if>
-			<if test="certifyphoto !=0 and certifysavephoto !=0">
+			<if test='certifyphoto !="0" and certifysavephoto !="0"'>
 				, CERTIFYPHOTO=#{certifyphoto}, CERTIFYSAVEPHOTO=#{certifysavephoto}
 			</if>
 		WHERE CHALLENGESEQ = #{challengeseq}
@@ -171,7 +171,7 @@
 	
 	<!-- 챌린지 멤버  전체 가입정보 가져오기 -->
 	<select id="challengeAllMember" parameterType="java.lang.Integer" resultType="com.a.util.lowerKeyMap">
-		SELECT CM.CHALLENGMEMSEQ, M.EMAIL, M.NICKNAME, M.MEMBERPHOTONAME, M.POINT, CM.CHALLENGESEQ, CM.IDENTIFY
+		SELECT CM.CHALLENGMEMSEQ, M.EMAIL, M.NICKNAME, M.MEMBERPHOTONAME, M.POINT, CM.CHALLENGESEQ, CM.IDENTIFY, CM.SUCCESS
 		FROM MEMBER M, CHALLENGEMEMBER CM
 		WHERE M.EMAIL = CM.EMAIL
 			AND CM.CHALLENGESEQ = #{challengeseq}
@@ -423,4 +423,19 @@
 		FROM CHALLENGECOMMENT
 		WHERE EMAIL = #{email} AND CHALLENGESEQ = #{challengeseq}
 	</select>
+	
+	<!-- 포인트 업데이트 pointUpdate 변수 point-->
+	<update id="pointUpdate">
+		UPDATE MEMBER
+		SET POINT = #{point}
+		WHERE EMAIL = #{email}
+	
+	</update>
+	
+	<!-- 챌린지 멤버 성공 시 successUpdate 100퍼1 85퍼까지2 이하 3 success-->
+	<update id="successUpdate" parameterType="java.util.Map">
+		UPDATE CHALLENGEMEMBER
+		SET SUCCESS = #{success}
+		WHERE CHALLENGESEQ = #{challengeseq} AND EMAIL = #{email}
+	</update>
 </mapper>
