@@ -84,7 +84,7 @@
         </div>
 
         
-        <div class="col-sm-9" style="margin-left: 7%;">
+        <div class="col-sm-9" style="margin-left: 3%;">
           
          
          <!-- Tab panes -->
@@ -262,8 +262,10 @@
                            <button type="button" class="btn btn-Search" id="searchBtn" style="margin-left: 15px;">SEARCH</button>
                         </div>
                         </div>
-                        <a onclick="likeSuggest(1,'date')">최신순 </a>
-						<a onclick="likeSuggest(1,'likecnt')">좋아요순</a>
+                        <div class="selectbar">
+	                        <a class="selectbar2" onclick="likeSuggest(1,'date')">최신순 <i class="fas fa-chevron-down downs"></i></a>
+							<a class="selectbar2" onclick="likeSuggest(1,'likecnt')">좋아요순 <i class="fas fa-chevron-down"></i></a>
+						</div>
                         <!-- 제안하기 list 받는곳--> 
                         <div class="row">
                         	<div class="col-sm-12">
@@ -948,7 +950,7 @@ function likeSuggest(now,sortdate){
 	console.log("sortdate-------------------")
 	console.log(sortdate)
 	if(sortdate == 'date'){
-		sortdate = "DATE ASC";
+		sortdate = "WDATE DESC";
 	}else if(sortdate == 'likecnt'){
 		sortdate = "LIKECNT DESC"
 	}
@@ -992,7 +994,7 @@ function likeSuggest(now,sortdate){
 	            +	"</div>"
 	            +	"<div class='comPage"+list[i].SUGGESTBBSSEQ+"'>"
 	            +   "</div>"
-	            +	"<ul class='comPageUl"+list[i].SUGGESTBBSSEQ+"' id='comPageUl' style='display: flex; padding-left: 0px; list-style: none; justify-content: center; letter-spacing: 17px; margin-top: 35px;'></ul>"
+	            +	"<ul class='comPageUl"+list[i].SUGGESTBBSSEQ+"' id='comPageUl' style='display: flex; padding-left: 0px; list-style: none; justify-content: center; letter-spacing: 17px;'></ul>"
 	            +	"</div></div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
         		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
@@ -1127,7 +1129,7 @@ function commentListSel(seq, now){
 	    	console.log(list)
 	    		var data = "";
 	    	if(list.length < 1){
-//	    		var total = 0;
+	    		var total = 0;
 		    	data +=	"<table class='commentTable'>"
 	            +	"<colgroup>"
 	            +	"<col width='500px'>"
@@ -1262,5 +1264,36 @@ function sugListPaging(total,now){
 	$(".sugPageUl").html(html);
 //	document.getElementById('sugPageUl').innerHTML = html
 }
+
+</script>
+
+<script type="text/javascript">
+var div2 = document.getElementsByClassName("selectbar2");
+
+function handleClick(event) {
+  console.log(event.target);
+  // console.log(this);
+  // 콘솔창을 보면 둘다 동일한 값이 나온다
+
+  console.log(event.target.classList);
+
+  if (event.target.classList[1] === "clicked") {
+    event.target.classList.remove("clicked");
+  } else {
+    for (var i = 0; i < div2.length; i++) {
+      div2[i].classList.remove("clicked");
+    }
+
+    event.target.classList.add("clicked");
+  }
+}
+
+function init() {
+  for (var i = 0; i < div2.length; i++) {
+    div2[i].addEventListener("click", handleClick);
+  }
+}
+
+init();
 
 </script>

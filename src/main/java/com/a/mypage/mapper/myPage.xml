@@ -121,8 +121,8 @@
 	
 	<!-- 제안하기 작성 -->
 	<insert id="writeSuggest" parameterType="java.util.Map">
-		INSERT INTO SUGGESTBBS(SUGGESTBBSSEQ, SUGGESTBBSCATEGORY, SUGGESTBBSTITLE, SUGGESTBBSCONTENT, SUGGESTBBSDEL, LIKESEQ, EMAIL)
-		VALUES(SUG_SEQ.NEXTVAL, #{scategory}, #{suggesttitle}, #{suggestcontent}, 0, 0, #{email})
+		INSERT INTO SUGGESTBBS(SUGGESTBBSSEQ, SUGGESTBBSCATEGORY, SUGGESTBBSTITLE, SUGGESTBBSCONTENT, SUGGESTBBSDEL, LIKESEQ, EMAIL, WDATE)
+		VALUES(SUG_SEQ.NEXTVAL, #{scategory}, #{suggesttitle}, #{suggestcontent}, 0, 0, #{email}, CURRENT_DATE)
 	</insert>
 	
 	<!-- like... -->
@@ -156,56 +156,45 @@
 		ORDER BY SUGCOMDATE DESC) AA
 		WHERE AA.RNUM > #{startPage} AND #{endPage} > AA.RNUM
 	</select>
-	
-	<!-- 
-	<select id="commentList" parameterType="java.lang.Integer" resultType="java.util.Map">
-		SELECT SUGCOMSEQ, SUGCOMCONTENT, TO_CHAR(SUGCOMDATE,'YYYY-MM-DD HH24:MI:SS') AS SUGCOMDATE, SUGCOMDEL, SUGGESTBBSSEQ FROM SUGGESTCOMMENT 
-		WHERE SUGGESTBBSSEQ = #{suggestbbsseq}
-	</select>
-	 -->
 	 
 	<!-- 제안하기 꺼내오기 -->
 	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
-	SELECT SV.* FROM
-	(SELECT SBS.*, ROW_NUMBER() OVER(ORDER BY SBS.SUGGESTBBSSEQ DESC) as SI,
-	CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
-	CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
-	(SELECT COUNT(*) FROM SUGGESTBBS
-	WHERE  SUGGESTBBSDEL = 0
-			<if test="category !=null and category !='' and category !=0">
+	SELECT SM.*
+	FROM (SELECT ROWNUM as SI,SV.* FROM
+			(SELECT SBS.*, 
+			CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
+			CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
+				(SELECT COUNT(*) FROM SUGGESTBBS
+				WHERE  SUGGESTBBSDEL = 0
+				<if test="category !=null and category !='' and category !=0">
 				AND SUGGESTBBSCATEGORY = #{category}
-			</if>
-			<if test="search !=null and search != ''">
+				</if>
+				<if test="search !=null and search != ''">
 				AND SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
-			</if>
-	) as TOTALCNT
-	FROM SUGGESTBBS SBS
-	LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
-	ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
-	LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
-	ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
-	WHERE  SBS.SUGGESTBBSDEL = 0
+				</if>
+				) as TOTALCNT
+			FROM SUGGESTBBS SBS
+			LEFT JOIN (SELECT SUGGESTBBSSEQ,COUNT(*) AS LIKECNT FROM MYLIKE GROUP BY SUGGESTBBSSEQ) CNT
+			ON SBS.SUGGESTBBSSEQ = CNT.SUGGESTBBSSEQ
+			LEFT JOIN (SELECT SUGGESTBBSSEQ FROM MYLIKE WHERE EMAIL = #{email}) ML
+			ON SBS.SUGGESTBBSSEQ = ML.SUGGESTBBSSEQ
+			WHERE  SBS.SUGGESTBBSDEL = 0
 			<if test="category !=null and category !='' and category !=0">
-				AND SBS.SUGGESTBBSCATEGORY = #{category}
+			AND SBS.SUGGESTBBSCATEGORY = #{category}
 			</if>
 			<if test="search !=null and search != ''">
-				AND SBS.SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
+			AND SBS.SUGGESTBBSTITLE LIKE '%'||#{search}||'%'
 			</if>
-			<if test="sortData !=null and sortData !=''">
-				ORDER BY #{sortData}
+			<if test="sortdate !=null and sortdate !=''">
+			ORDER BY ${sortdate}
+			</if>
+			<if test="sortdate ==null or sortdate ==''">
+			ORDER BY SBS.SUGGESTBBSSEQ DESC
 			</if>
 			) SV
-			
-	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
+		)SM
+	WHERE SM.SI > #{startPage} AND #{endPage} > SM.SI
 	</select>
-	
-	
-	<!-- 댓글 페이징 -->
-	<select id="">
-		
-	</select>
-	
-	
 	
 	<!-- 글의 총 수와 검색을 가져옴 -->
 	<select id="suggestBbsCnt" parameterType="java.util.Map" resultType="java.lang.Integer">

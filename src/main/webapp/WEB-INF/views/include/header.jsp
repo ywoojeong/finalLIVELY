@@ -62,7 +62,9 @@ font-size: 11pt;
           <a class="nav-link" href="managerPage.do">매니저페이지</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="javascript:signOut();">log out</a>
+        	<%if(memberInfo != null){ %>
+         		<a class="nav-link" href="javascript:signOut();">log out</a>
+          	<%}%>
         </li>
       </ul>
       <form class="d-flex">
@@ -74,17 +76,6 @@ font-size: 11pt;
       	<%}else if(memberInfo != null && memberInfo.getAuth() == 3) {%>
       		<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='myMainPage2.do'">MYPAGE</button>
       	<%} %>
-      	<%-- 
-        <!-- 로그인 시 데이터 변경 관리자 : MANAGER / 로그인 : MYPAGE / 비로그인 LIVELY LOGIN 
-      	<%if(memberInfo = null ){%>
-      	<%}else if(memberInfo != null && memberInfo.getAuth() == 1){%>
-          	<button type="button" class="loginbtn" id="loginbtn" onClick="location.href='manager.do'">MANAGER</button>
-      	 
-      	<%}else if(memberInfo != null && memberInfo.getAuth() == 3){%>
-            <button type="button" class="loginbtn" id="loginbtn" onClick="location.href='mypage.do'">MYPAGE</button>
-          
-            -->          
-         --%>
       </form>
     </div>
   </div>

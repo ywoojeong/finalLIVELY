@@ -40,20 +40,6 @@ public class memberController {
 	return "introTiles";		
 	}
 	
-	/*
-	// 멤버 정보를 가진 애
-	@RequestMapping(value="memberModifyInfo.do", method = {RequestMethod.POST,RequestMethod.GET})
-	public String memberModifyInfo(Model model, HttpSession session, MemberDto dto) throws SQLException {
-		System.out.print("수정창으로  이동");
-		System.out.println(dto.toString());
-		MemberDto memberModifyInfo = service.memberModifyInfo(dto.getEmail());
-		System.out.println("memberModifyInfo : " + memberModifyInfo);
-		model.addAttribute("memberModifyInfo", memberModifyInfo);
-		
-		return "myPage/myMainPage2";
-	}
-	*/
-	
 	// 홈으로 이동
 	@RequestMapping(value="memberCon.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String memberlogin2(Model model, HttpSession session) {
@@ -62,7 +48,7 @@ public class memberController {
 		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 		model.addAttribute("memberInfo", memberInfo);
 		
-		return "home/home";
+		return "challenge/hotChallenge";
 	}
 	
 	

@@ -5,16 +5,16 @@
 	<!-- 회원가입 추가 정보 -->
  	<insert id="memberInfoPro" parameterType="com.a.dto.MemberDto">
  		<if test="flag == 'naver'">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{naverLogin}, 3, 0, 1, 2000)
+		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, NAVERLOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT, MEMBERSDATE) 
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{naverLogin}, 3, 0, 1, 2000, CURRENT_DATE)
 		</if>
 		<if test="flag == 'google'">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, googleLogin, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{googleLogin}, 3, 0, 1, 2000)
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{googleLogin}, 3, 0, 1, 2000, CURRENT_DATE)
 		</if>
 		<if test="flag == 'kakao'">
 		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, MEMBERPHOTONAME, KAKAOLOGIN, AUTH, MEMBERDEL, MEMBERSTOP, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 1, 2000)
+		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{memberPhotoName}, #{kakaoLogin}, 3, 0, 1, 2000, CURRENT_DATE)
 		</if>
 	</insert>
 	
@@ -40,12 +40,7 @@
 		UPDATE MEMBER SET NAVERLOGIN = #{naverLogin}
 		WHERE EMAIL = #{email}
 	</update>
-	 
-	<insert id="memberNaverRegisterPro" parameterType="java.util.Map">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, NAVERLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{naverLogin}, 3, 0, 0)
-	</insert>
-	
+
 	<!-- 네이버 로그인 -->
 	<select id="memberNaverLoginPro" resultType="com.a.dto.MemberDto" parameterType="java.util.Map">
 		SELECT EMAIL,NICKNAME,AUTH,MEMBERPHOTO, POINT FROM MEMBER 
@@ -68,12 +63,7 @@
 		SELECT EMAIL,NICKNAME,AUTH FROM MEMBER 
 		WHERE EMAIL = #{EMAIL} AND KAKAOLOGIN = #{KAKAOLOGIN}
 	</select>
-	<!-- 
-	<insert id="memberKakaoRegisterPro" parameterType="java.util.Map">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, KAKAOLOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{kakaoLogin}, 3, 0, 0)
-	</insert>
-	 -->
+
 	<!-- 여기서부터 구글 -->
 	<select id="googleConnectionCheck" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT EMAIL, NICKNAME, GOOGLELOGIN FROM MEMBER 
@@ -89,10 +79,5 @@
 		SELECT EMAIL,NICKNAME,AUTH,MEMBERPHOTO,MEMBERPHOTONAME,MEMBERDEL,POINT FROM MEMBER 
 		WHERE EMAIL = #{EMAIL} AND GOOGLELOGIN = #{GOOGLELOGIN}
 	</select>
-	<!-- 
-	<insert id="memberGoogleRegisterPro" parameterType="java.util.Map">
-		INSERT INTO MEMBER (MEMBERSEQ, EMAIL, NICKNAME, MEMBERPHOTO, GOOGLELOGIN, AUTH, MEMBERDEL, POINT) 
-		VALUES  (MEM_SEQ.NEXTVAL, #{email}, #{nickname}, #{memberPhoto}, #{googleLogin}, 3, 0, 0)
-	</insert>
-	 -->
+
 </mapper>
