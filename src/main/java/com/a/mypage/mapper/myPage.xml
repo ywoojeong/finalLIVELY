@@ -167,7 +167,7 @@
 	<!-- 제안하기 꺼내오기 -->
 	<select id="suggestList" parameterType="java.util.Map" resultType="java.util.Map">
 	SELECT SM.*
-	FROM (SELECT ROWNUM as SI,SV.* DESC FROM
+	FROM (SELECT ROWNUM as SI,SV.* FROM
 		(SELECT SBS.*, 
 		CASE WHEN CNT.LIKECNT IS NULL THEN 0 ELSE CNT.LIKECNT END AS LIKECNT,
 		CASE WHEN ML.SUGGESTBBSSEQ IS NULL THEN 0 ELSE 1 END AS LIKECHECK,
