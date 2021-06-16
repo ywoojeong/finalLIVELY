@@ -193,3 +193,6 @@ FROM SUGGESTCOMMENT
 WHERE SUGGESTBBSSEQ = #{suggestbbsseq} AND SUGCOMDEL = 0
 ORDER BY SUGCOMDATE DESC) AA
 WHERE AA.RNUM > #{startPage} AND #{endPage} > AA.RNUM
+
+
+select * from member
