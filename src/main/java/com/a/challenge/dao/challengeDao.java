@@ -129,5 +129,10 @@ public interface challengeDao {
 	//리뷰 적엇는지 확인 reviewDone
 	public int reviewDone(Map<String, Object> commParam);
 	
+	//포인트 업데이트 pointUpdate
+	public int pointUpdate(Map<String, Object> pointParam);
+	
+	//챌린지멤버 성공 시 SUCCESS 업데이트
+	public int successUpdate(Map<String, Object> pointParam);
 	
 }

@@ -4,18 +4,24 @@
 	
 	<!-- 매니저 챌린지 -->
 	<select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
-	<!-- 
-	SELECT  CHALLENGESEQ, CATEGORY, CHALLENGETITLE, TO_CHAR(CHALLENGESTART,'YYYY-MM-DD') AS CHALLENGESTART,
-	TO_CHAR(CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND, CHALLENGESTOP, CHALLENGEDEL, TO_CHAR(CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE
-	FROM CHALLENGE
-	ORDER BY CHALLENGESEQ
-	 -->
-	 SELECT SV.CHALLENGESEQ, SV.CATEGORY, SV.CHALLENGETITLE, TO_CHAR(SV.CHALLENGESTART,'YYYY-MM-DD')AS CHALLENGESTART,TO_CHAR(SV.CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND,SV.CHALLENGESTOP,SV.CHALLENGEDEL,
-	 TO_CHAR(SV.CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE, SV.TOTALCNT FROM
-	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
-	(SELECT COUNT(*) FROM CHALLENGE
-	WHERE  CHALLENGEDEL = 0
-	) as TOTALCNT
+	SELECT SV.CHALLENGESEQ, SV.CATEGORY, SV.CHALLENGETITLE, SV.CHALLENGESTOP,SV.CHALLENGEDEL, TO_CHAR(SV.CHALLENGESTART,'YYYY-MM-DD')AS CHALLENGESTART,TO_CHAR(SV.CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND,
+	TO_CHAR(SV.CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE, SV.TOTALCNT FROM
+		(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+		(SELECT COUNT(*) FROM CHALLENGE
+		WHERE  CHALLENGEDEL = 0
+			<if test="category !=null and category !='' and category !=0">
+				AND CATEGORY = #{category}
+			</if>
+			<if test="mSearch !=null and mSearch != ''">
+				AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+			</if>
+			<if test='datestart !=null and datestart !="" '>
+				AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI:SS')
+			</if>
+			<if test='dateend !=null and dateend !="" '>
+				AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
+			</if>
+		) as TOTALCNT
 	FROM CHALLENGE CHA
 	WHERE CHALLENGEDEL = 0
 	    <if test="category !=null and category !='' and category !=0">
@@ -32,27 +38,6 @@
 		</if>
 	) SV
 	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
-	<!-- SELECT SV.* FROM
-	(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
-	(SELECT COUNT(*) FROM CHALLENGE
-	WHERE  CHALLENGEDEL = 0
-	) as TOTALCNT
-	FROM CHALLENGE CHA
-	WHERE CHALLENGEDEL = 0
-	    <if test="category !=null and category !='' and category !=0">
-			AND CATEGORY = #{category}
-		</if>
-		<if test="mSearch !=null and mSearch != ''">
-			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
-		</if>
-		<if test="datestart !=null and datestart !='' and datestart !=0">
-			AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI')
-		</if>
-		<if test="dateend !=null and dateend !='' and dateend !=0">
-			AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
-		</if>
-	) SV
-	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI -->
 	</select>
 
 </mapper>

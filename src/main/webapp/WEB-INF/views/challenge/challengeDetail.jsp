@@ -11,6 +11,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:parseDate var='start' value="${challDto.challengestart}" pattern="yyyy-MM-dd"/>
+<fmt:parseDate var='end' value="${challDto.challengeend}" pattern="yyyy-MM-dd"/>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
@@ -38,12 +39,15 @@ $(document).ready(function(){
 	 });
 	 
 	 
-	 function reAction(){
+	let action =  function reAction(){
 	  	$("#startButton").trigger("click");
 	  	setTimeout(function(){
 	  		$("#stopButton").trigger("click");
 	  	}, 3000);
 	  }
+
+	
+	  
 });
 
 console.log("받아온 데이터야라리ㅏ너롬리"+"${challMem.email}"+"dsfdsafd팔로잉되엇냐?"+"${challengeMember}"+"dsFdfdsgfsg"+"${reviewResult}")
@@ -67,7 +71,7 @@ console.log("비교가 되나?  ${now}<${start}")
 <div class="backDiv" id="_backDiv">
 	<div class="container challHeader" style="padding-left: 35px;">
 		<div>
-			<h1>${challDto.challengetitle}
+			<h1 style="font-weight: 600;">${challDto.challengetitle}
 				<c:if test="${user.email != null && challDto.limitdate>=0 && challMem.email == null}">
 					<button type="button" class="btn challStartBtn" data-toggle="modal" data-target="#myModal3">START JOIN</button>
 				</c:if>
@@ -77,8 +81,17 @@ console.log("비교가 되나?  ${now}<${start}")
 <!-- 							<img data-toggle='modal' data-target='#myModal4' src='image/identify.svg' style='height: 48px;margin-top: -8px;margin-left: 15px' onmouseover=\"this.src='image/identifyhover.svg'\" onmouseout=\"this.src='image/identify.svg'\"> -->
 						</span>
 					</a>
-						<button type="button" class="btn challStartBtn" id="startButton" data-toggle="modal" data-target="#myModal6">결과</button>
-
+					
+						
+				
+				</h1>
+				<c:forEach var="challUser" items="${challengeMember }">
+					<c:if test="${identifyResultUser.email != null && challUser.success eq 0 && user.email eq challUser.email}">
+						<span class="chall-buttons"> 
+							<button type="button" class="chall-btn-hover" style="margin: 3px 0 0 0; background-image: linear-gradient(to right, #ffd622, #8b63da, #8b63da, #ffd622);opacity:95%;box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);margin-right: 10px"  data-toggle="modal" id="startButton" data-target="#myModal6">보 상 받 기</button>
+						</span>	
+					</c:if>
+				</c:forEach>
 <%-- 
  				<c:forEach var="challUser" items="${challengeMember}" varStatus="status">
  					<c:if test="${user.email != null && challUser.email==user.email}">
@@ -87,7 +100,7 @@ console.log("비교가 되나?  ${now}<${start}")
  						</a>	
  					</c:if>		 
  				</c:forEach>  --%>
-			</h1>
+			
 			<span style="display: flex">
 				<c:if test="${user.email != null && user.email == challDto.email && now<start}">
 					  <a href="#" data-toggle="popover" data-trigger='hover' data-placement="left" data-content="챌린지를 수정하세요">
@@ -197,7 +210,7 @@ console.log("비교가 되나?  ${now}<${start}")
 				<label class="challengetext">챌린지 인증방법</label>
 	
 					<div class="row" style="display: flex;margin-left: 30px">
-						<c:if test="${challDto.challengesavephoto != '0' }">
+						<c:if test="${challDto.certifysavephoto != '0' }">
 							<div class="col-sm-5">
 								<img src="https://s3.ap-northeast-2.amazonaws.com/livelybucket/${challDto.certifysavephoto }"
 								style="width: 300px">
@@ -964,7 +977,7 @@ console.log("비교가 되나?  ${now}<${start}")
 	
 			<!-- Modal footer -->
 			<div class="modal-footer" style="justify-content: center">
-				<button type="button" class="btn" id="stopButton" onclick="pointUpdate()" data-dismiss="modal">POINT 업데이트</button>
+				<button type="button" class="btn" id="stopButton" onclick="pointUpdate('${challDto.pointcount}')" data-dismiss="modal">POINT 받기</button>
 			</div>
 
 		</div>
@@ -1548,6 +1561,35 @@ function insertIdentify(){
 		
 	});
 }
+
+//포인트 올리기
+function pointUpdate(point){
+	console.log(point)
+	let percent = "${identifyResultUser.percents}";
+// 	if(percent < 85){		
+// 			alert("포인트가 차감되었습니다.");
+// 	}else{
+	
+		$.ajax({
+			url:"pointUpdate.do",
+			type:"post",
+			data:{"point":point, "email":'${identifyResultUser.email}', "challengeseq":"${challDto.challengeseq}", "userpercent":'${identifyResultUser.percents}'},
+			success:function(msg){
+				if(msg=="SUCCESS"){
+					alert("포인트가 변경되었습니다");
+				}
+			},
+			error:function(){
+				alert("포인트 업데이트 오류");
+			}, 
+			complete:function(){
+				document.location.reload();
+			}
+			
+		});
+// 	}
+}
+
 </script>
 
 <script type="text/javascript">

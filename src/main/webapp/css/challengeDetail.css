@@ -390,7 +390,6 @@ body{
 /*후기 작성 버튼 */
 
 .chall-buttons {
-
     z-index: 2;
     display: flex;
     justify-content: space-around;
@@ -427,21 +426,22 @@ body{
     outline: none;
 }
 
-
+/**/
 .chall-btn-hover.color-3 {
-    background-image: linear-gradient(to right, #78a3eb, #cb98ed, #78a3eb, #8b63da);
+    background-image:  linear-gradient(to right, #78a3eb, #cb98ed, #78a3eb, #8b63da); 
     box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+}
+
+.chall-btn-hover .color {
+    background-image: linear-gradient(to right, #ffd622, #8b63da, #8b63da, #ffd622);
+    opacity:90%;
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+    margin-right: 10px;
 }
 
 /*///////////////후기 작성 버튼 완//////////////////// */
 
 /* 후기 작성 부분*/
-
-
-
-
-
-
 
 .review{
 	margin: 35px 0;

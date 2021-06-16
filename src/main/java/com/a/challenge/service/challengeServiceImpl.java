@@ -257,6 +257,27 @@ public class challengeServiceImpl implements challengeService {
 		// TODO Auto-generated method stub
 		return dao.reviewDone(commParam);
 	}
+
+	@Override
+	public boolean pointUpdate(Map<String, Object> pointParam) {
+			
+		int userpercent = Integer.parseInt(pointParam.get("userpercent").toString());
+		int count = 0;
+		//챌린지멤버 성공 시 SUCCESS 업데이트
+			if(userpercent==100) {
+				pointParam.put("success", 1);
+				count = dao.pointUpdate(pointParam);
+			}else if(userpercent>= 85 && userpercent<100) {
+				pointParam.put("success", 2);
+				count = dao.pointUpdate(pointParam);
+			}else {
+				pointParam.put("success", 3);
+				count = 1;
+			}
+			int s = dao.successUpdate(pointParam);
+			System.out.println("업데이트 되엇나요?"+s);
+		return count>0?true:false;
+	}
 	
 	
 	

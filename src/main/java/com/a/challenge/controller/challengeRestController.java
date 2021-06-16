@@ -451,4 +451,28 @@ public class challengeRestController {
 			return msg;
 		}
 			
+		
+		//pointUpdate
+		@RequestMapping(value = "pointUpdate.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String pointUpdate(@RequestParam Map<String,Object> pointParam){
+			
+			int userpercent = Integer.parseInt(pointParam.get("userpercent").toString());
+			int point = Integer.parseInt(pointParam.get("point").toString());
+			int pointUpdate = 0;
+			String msg = "";
+			boolean success = true;
+			if(userpercent==100) {
+				pointParam.put("point", point*2);	
+			}else if(userpercent>= 85 && userpercent<100) {
+				pointParam.put("point", point*1.5);
+			}
+			System.out.println("pointparam은 뭐요"+pointParam.toString());
+			success = service.pointUpdate(pointParam);
+			if(success) {
+				msg="SUCCESS";
+			}else {
+				msg="FAIL";
+			}
+			return msg;
+		}
 }
