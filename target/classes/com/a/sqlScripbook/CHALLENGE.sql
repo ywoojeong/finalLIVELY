@@ -281,7 +281,7 @@ FROM (SELECT ROW_NUMBER()OVER(ORDER BY CHALLENGEMEMBER DESC, CHALLENGESTART DESC
 FROM CHALLENGE) C
 WHERE C.RNUM >= 1 AND C.RNUM <=5
 
---참여율이 많은 순(챌린지 인증 많이)
+--유저 챌린지 참가갯수 많은 순(챌린지 인증 많이)
 
 --유저 달성률이 높은 순(인증많이)
 
