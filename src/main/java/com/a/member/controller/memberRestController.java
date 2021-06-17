@@ -61,13 +61,6 @@ public class memberRestController {
 		dto.setMemberPhotoName(memberPhotoName);
 		dto.setMemberPhoto(memberPh2);
 		
-		/*
-		String filename = memberPhoto.getOriginalFilename();
-		String saveFileName = fileManagement.FileUploader(memberPhoto);
-		dto.setMemberphoto(filename);
-		dto.setMemberPhotoName(saveFileName);
-		*/
-		
 		service.memberModify(dto);
 		return "memModifyCheck";
 	}
@@ -98,31 +91,6 @@ public class memberRestController {
 			return msg = "NO";
 		}
 	 }
-	 
-	/*
-	// 네이버 회원 가입 부분
-	@RequestMapping(value="memberNaverRegisterPro.do", method = {RequestMethod.POST, RequestMethod.GET}) 
-	public Map<String, Object> memberNaverRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
-		System.out.println("paramMap:" + paramMap);
-		System.out.println("네이버 회원가입부분");
-		String memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
-		paramMap.put("memberPhoto", memberPhoto);
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		Integer registerCheck = service.memberNaverRegisterPro(paramMap);
-		System.out.println(registerCheck);
-		
-		if(registerCheck != null && registerCheck > 0) {
-			MemberDto loginCheck = service.memberNaverLoginPro(paramMap);
-			session.setAttribute("memberInfo", loginCheck);
-			resultMap.put("JavaData", "YES");
-		}else {
-			resultMap.put("JavaData", "NO");
-		}
-		return resultMap;
-	}
-	*/
-	
-	
 	
 	// 카카오 회원 가입
 	@RequestMapping(value="memberKakaoLoginPro.do", method=RequestMethod.POST)
@@ -150,53 +118,6 @@ public class memberRestController {
 		
 		return resultMap;
 	}
-	/*
-	// 회원가입 분류
-	@RequestMapping(value="/memberSnsRegisterPro.do", method=RequestMethod.POST)
-	public Map<String, Object> memberSnsRegisterPro(@RequestParam Map<String,Object> paramMap,HttpSession session, MemberDto dto) throws SQLException, Exception {
-		System.out.println("멤버sns회원가입 paramMap:" + paramMap);
-		String memberPhoto = fileManagement.FileUploader(dto.getMemberPhoto());
-		paramMap.put("memberPhoto", memberPhoto);
-		Map <String, Object> resultMap = new HashMap<String, Object>();
-		String flag = (String) paramMap.get("flag");
-		System.out.println("멤버sns회원가입 flag:" + flag);
-		Integer registerCheck = null;
-		if(flag.equals("kakao")) {
-			registerCheck = service.memberKakaoRegisterPro(paramMap);
-			System.out.println("회원가입 분류 sns레지스터 카카오:" + registerCheck);
-		}else if(flag.equals("naver")) {
-			registerCheck = service.memberNaverRegisterPro(paramMap);
-			System.out.println("회원가입 분류 sns레지스터 네이버:" + registerCheck);
-		}
-		
-		else if(flag.equals("google")) {
-			registerCheck = service.memberGoogleRegisterPro(paramMap);
-			System.out.println("회원가입 분류 sns레지스터 구글:" + registerCheck);
-		}
-		
-		if(registerCheck != null && registerCheck > 0) {
-			MemberDto loginCheck = null;
-			if(flag.equals("kakao")) {
-				loginCheck = service.memberKakaoLoginPro(paramMap);
-				System.out.println("회원가입 분류 sns레지스터 회원가입이 되어있을때 카카오:" + registerCheck);
-			}else if(flag.equals("naver")) {
-				loginCheck = service.memberNaverLoginPro(paramMap);
-				System.out.println("회원가입 분류 sns레지스터 회원가입이 되어있을때 네이버:" + registerCheck);
-			}
-			
-			else if(flag.equals("google")) {
-				loginCheck = service.memberGoogleLoginPro(paramMap);
-				System.out.println("회원가입 분류 sns레지스터 회원가입이 되어있을때 구글:" + registerCheck);
-			}
-			
-			session.setAttribute("memberInfo", loginCheck);
-			resultMap.put("JavaData", "YES");
-		}else {
-			resultMap.put("JavaData", "NO");
-		}
-		return resultMap;
-	}
-	*/
 	
 	// 구글 로그인
 	@RequestMapping(value="/googleLoginPro.do",  method = {RequestMethod.GET,RequestMethod.POST})

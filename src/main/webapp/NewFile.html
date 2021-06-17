@@ -19,13 +19,13 @@
 			<div class="row" style="">
 				<!-- 챌린지 상단 -->
 				<div class="col-sm-6">
-					<div style="text-align:center;width: 500px;font-size: 17pt;margin: 20px auto;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
-						LIVELY에 가입한 전체 회원 수는 <span style="font-size: 25pt;font-weight: 700">354</span>명입니다
+					<div style="text-align:center;width: 450px;font-size: 15pt;margin: 20px auto;font-weight: 600;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
+						LIVELY에 가입한 전체 회원 수는 <span style="font-size: 23pt;font-weight: 700">354</span>명입니다
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div style="text-align:center;width: 600px;font-size: 17pt;margin: 20px 0;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
-						LIVELY에 생성된 전체 CHALLENGE 수는 <span style="font-size: 25pt;font-weight: 700">354</span>개 입니다
+					<div style="text-align:center;width: 520px;font-size: 15pt;margin: 20px 0;font-weight: 600;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
+						LIVELY에 생성된 전체 CHALLENGE 수는 <span style="font-size: 23pt;font-weight: 700">354</span>개 입니다
 					</div>
 				</div>
 				<!-- 챌린지 데이터 -->
@@ -44,10 +44,12 @@
 				</div>	
 				
 				<div class="col-sm-6">
-					<div style="width: 700px;margin:30px 0; padding:30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
-						카테고리별 챌린지
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+							<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+								카테고리별 챌린지
+							</div>
 						<div style="display: flex">
-							<div style="width: 320px">
+							<div style="width: 380px;padding: 30px">
 								<canvas id="challengeCategory"></canvas>
 							</div>
 							<div>
@@ -58,35 +60,49 @@
 				</div>
 
 				<div class="col-sm-6">
-					<div style="padding:30px;width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
-						챌린지 가입 수
-						<canvas id="challengeMember"></canvas>
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							챌린지 가입 수
+						</div>
+						<div style="padding: 30px">
+							<canvas id="challengeMember"></canvas>
+						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div style="padding:30px;width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
 					   	챌린지 인증률
-						<canvas id="challengeIdentify"></canvas>
+					   	</div>
+					   	<div style="padding: 30px">
+							<canvas id="challengeIdentify"></canvas>
+						</div>
 					</div>
 				</div>
 				
 				<!-- 유저 -->
 				
-					<div class="col-sm-12" style="padding:10px 10px 6px 3px;width: 100%;margin: 20px auto;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);font-weight: 700px">
-						<h1 style="padding-left: 30px;font-weight: 700">MEMBER</h1>
-					</div>
-					<div class="col-sm-6" >
-						<div style="width: 700px;padding:30px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
+				<div class="col-sm-12" style="padding:10px 10px 6px 3px;width: 100%;margin: 20px auto;background-color: white;font-weight: 700px;background-color: rgba(96,191,164, 0.3)">
+					<h1 style="padding-left: 30px;font-weight: 700">MEMBER</h1>
+				</div>
+				<div class="col-sm-6" >
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
 							월별 사용자 가입 수
+						</div>
+						<div style="padding: 30px">
 							<canvas id="userAdd"></canvas>
 						</div>
 					</div>	
+				</div>
 				
 				<div class="col-sm-6">
-					<div style="width: 700px;margin:30px 0; padding:30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
 						인증률이 높은 순
+						</div>
 						<div style="display: flex">
-							<div style="width: 320px">
+							<div style="width: 380px;padding:30px">
 								<canvas id="userIdentify"></canvas>
 							</div>
 							<div>
@@ -98,15 +114,23 @@
 				</div>
 				
 				<div class="col-sm-6">
-					<div style="padding:30px;width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
-						좋아요 많이 받은 순
-						<canvas id="userFollowing"></canvas>
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							좋아요 많이 받은 순
+						</div>
+						<div style="padding: 30px">
+							<canvas id="userFollowing"></canvas>
+						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div style="padding:30px;width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);">
-					 	포인트가 많은 사용자 순
-						<canvas id="userPoint"></canvas>
+					<div style="width: 700px;margin: 30px 0 50px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+					 		포인트가 많은 사용자 순
+					 	</div>
+					 	<div style="padding: 30px">
+							<canvas id="userPoint"></canvas>
+						</div>
 					</div>
 				</div>
 							

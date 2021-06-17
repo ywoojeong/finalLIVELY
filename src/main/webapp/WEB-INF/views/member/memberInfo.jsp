@@ -216,7 +216,7 @@ function previewImage(targetObj, previewId) {
             img.classList.add("obj");
             img.file = file;
             img.style.width = '168px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
-            img.style.height = '170px';
+            img.style.height = '168px';
             
             preview.appendChild(img);
 
