@@ -69,6 +69,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
     
     
     <div class="tab-content col-sm-10 col-xs-1" id="sidebar">
+
     	<div id="menu1" class="tab-pane active" style="padding-top: 58px;">
 			<div class="row" style="">
 				<!-- 챌린지 상단 -->
@@ -371,6 +372,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
     			</div>
     		</div>
     	</div>
+
     </div>
 </div>
 </div>
@@ -384,22 +386,22 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 <script>
 //카테고리 변환 
 function setCategory(category){
-	console.log("category ===>"+category)
-	var categoryName = ""
-	if(category ==1){
-		categoryName = "건강";
+   console.log("category ===>"+category)
+   var categoryName = ""
+   if(category ==1){
+      categoryName = "건강";
      }else if(category ==2){
-    	 categoryName = "역량";
+        categoryName = "역량";
      }else if(category ==3){
-    	 categoryName = "정서";
+        categoryName = "정서";
      }else if(category ==4){
-    	 categoryName = "자산";
+        categoryName = "자산";
      }else if(category ==5){
-    	 categoryName = "생활";
+        categoryName = "생활";
      }else if(category ==6){
-    	 categoryName = "취미";
+        categoryName = "취미";
      }
-	return categoryName;
+   return categoryName;
 }
 </script>
 
@@ -410,8 +412,8 @@ managerList(1);
 //검색 시
 
 $('#searchBtn').click(function(){
-	managerList(1);
-	$('#mSearch').val("");
+   managerList(1);
+   $('#mSearch').val("");
 });
 
 function managerList(now){
@@ -467,41 +469,41 @@ function managerList(now){
 
 //페이지 처리
 function mListPaging(total,now){
-	console.log("mListPaging total",total)
-	console.log("mListPaging now",now)
-	var pagecnt = Math.ceil(total/5.0)
-	var startCnt = Math.floor((now-1)/5) * 5 + 1
-	//전체 페이지
-	var pageBlock = Math.ceil(pagecnt/5)
-	var nowBlock = Math.ceil(now/5)
-	console.log("pagecnt",pagecnt)
-	console.log("startCnt",startCnt)
-	console.log(total,pagecnt)
-	console.log("pageBlock",pageBlock)
-	console.log("nowBlock",nowBlock)
-	var nowTotal = nowBlock*5
-	if(nowTotal > pagecnt){
-		nowTotal = pagecnt
-	}
-	var html = ""
-	if(pageBlock > 1 && nowBlock > 1){
-		html += "<li  onclick='managerList("+(nowBlock*5-9)+")'> &laquo;</li>"
-	}
-	for(var i=startCnt;i<=nowTotal;i++){
-		if(now == i){
-			html += "<li class='nowpage' style='color:#56b397' onclick='managerList("+i+")'>"+i+"</li>"
-		}else{
-			html += "<li onclick='managerList("+i+")'>"+i+"</li>"
-		}
-		
-	}
-	
-	if(pageBlock > 1 && nowBlock < pageBlock){
-		html += "<li onclick='managerList("+(nowBlock*5+1)+")'>&raquo;</li>"
-	}
-	console.log(html)
-	$(".challPageUl").html(html);
-//	document.getElementById('sugPageUl').innerHTML = html
+   console.log("mListPaging total",total)
+   console.log("mListPaging now",now)
+   var pagecnt = Math.ceil(total/5.0)
+   var startCnt = Math.floor((now-1)/5) * 5 + 1
+   //전체 페이지
+   var pageBlock = Math.ceil(pagecnt/5)
+   var nowBlock = Math.ceil(now/5)
+   console.log("pagecnt",pagecnt)
+   console.log("startCnt",startCnt)
+   console.log(total,pagecnt)
+   console.log("pageBlock",pageBlock)
+   console.log("nowBlock",nowBlock)
+   var nowTotal = nowBlock*5
+   if(nowTotal > pagecnt){
+      nowTotal = pagecnt
+   }
+   var html = ""
+   if(pageBlock > 1 && nowBlock > 1){
+      html += "<li  onclick='managerList("+(nowBlock*5-9)+")'> &laquo;</li>"
+   }
+   for(var i=startCnt;i<=nowTotal;i++){
+      if(now == i){
+         html += "<li class='nowpage' style='color:#56b397' onclick='managerList("+i+")'>"+i+"</li>"
+      }else{
+         html += "<li onclick='managerList("+i+")'>"+i+"</li>"
+      }
+      
+   }
+   
+   if(pageBlock > 1 && nowBlock < pageBlock){
+      html += "<li onclick='managerList("+(nowBlock*5+1)+")'>&raquo;</li>"
+   }
+   console.log(html)
+   $(".challPageUl").html(html);
+//   document.getElementById('sugPageUl').innerHTML = html
 }
 </script>
 <script>

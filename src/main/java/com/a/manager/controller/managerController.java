@@ -1,9 +1,12 @@
 package com.a.manager.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,16 +33,84 @@ public class managerController {
 		Map<String, Object> userMonth = mService.userAdd();
 		//카테고리별챌린지개수가져오기challengeCategory
 		Map<String, Object> challengeCategory = mService.challengeCategory();
+		//챌린지 멤버 수 많은 순
+		List<Map<String, Object>> challengeMemberMax = mService.challengeIdentifyMax();
+			JSONArray challengeMem = new JSONArray();
+			for(Map<String, Object> map: challengeMemberMax) {
+				JSONObject json = new JSONObject();
+				for(Map.Entry<String,Object> entry : map.entrySet()) {
+					String key = entry.getKey();
+					Object value = entry.getValue();
+					json.put(key,value);
+				}
+				
+				challengeMem.put(json);
+			}
+		//팔로잉 수 많은 순
+		List<Map<String, Object>> userFollowingMax = mService.userFollowingMax();
+		JSONArray userFollowing = new JSONArray();
+		for(Map<String, Object> map: userFollowingMax) {
+			JSONObject json = new JSONObject();
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				json.put(key,value);
+			}
+			userFollowing.put(json);
+		}
 		
+		//포인트 많은 순
+		List<Map<String, Object>> userPointMax = mService.userPointMax();
+		JSONArray userPoint = new JSONArray();
+		for(Map<String, Object> map: userPointMax) {
+			JSONObject json = new JSONObject();
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				json.put(key,value);
+			}
+			userPoint.put(json);
+		}
+		//챌린지 인증 많은 순
+		List<Map<String, Object>> challengeIdentifyMax = mService.challengeIdentifyMax();
+		JSONArray challengeIdentify = new JSONArray();
+		for(Map<String, Object> map: challengeIdentifyMax) {
+			JSONObject json = new JSONObject();
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				json.put(key,value);
+			}
+			challengeIdentify.put(json);
+		}
 		
+		//유저 인증 많은 순
+		List<Map<String, Object>> userIdentify = mService.userIdentify();
+		JSONArray userIdenti = new JSONArray();
+		for(Map<String, Object> map: userIdentify) {
+			JSONObject json = new JSONObject();
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+				json.put(key,value);
+			}
+			userIdenti.put(json);
+		}
 		
 		
 		model.addAttribute("allCount", allCount);
 		model.addAttribute("challengeMonth", challengeMonth);
 		model.addAttribute("userMonth", userMonth);
 		model.addAttribute("challengeCategory", challengeCategory);
+		model.addAttribute("challengeMemberMax", challengeMem);
+		model.addAttribute("userFollowingMax", userFollowing);
+		model.addAttribute("userPointMax", userPoint);
+		model.addAttribute("challengeIdentifyMax", challengeIdentify);
+		model.addAttribute("userIdentify", userIdenti);
+		
 		
 		return "manager/managerPage";
 	}
 	
+
 }

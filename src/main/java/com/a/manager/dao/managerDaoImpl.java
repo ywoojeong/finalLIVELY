@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class managerDaoImpl implements managerDao{
+
 	
 	@Autowired
 	SqlSession managerSql;
@@ -32,6 +33,7 @@ public class managerDaoImpl implements managerDao{
 
 	
 	
+
    //민선 부분
    @Override
    public int userAllCount() {
