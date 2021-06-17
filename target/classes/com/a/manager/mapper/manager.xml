@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manager">
-   
-   <!-- 매니저 챌린지 -->
-   <select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
-   SELECT SV.CHALLENGESEQ, SV.CATEGORY, SV.CHALLENGETITLE, SV.CHALLENGESTOP,SV.CHALLENGEDEL, TO_CHAR(SV.CHALLENGESTART,'YYYY-MM-DD')AS CHALLENGESTART,TO_CHAR(SV.CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND,
-   TO_CHAR(SV.CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE, SV.TOTALCNT FROM
-      (SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
-      (SELECT COUNT(*) FROM CHALLENGE
-      WHERE  CHALLENGEDEL = 0
-         <if test="category !=null and category !='' and rcategory !=0">
-            AND CATEGORY = #{category}
-         </if>
-         <if test="mSearch !=null and mSearch != ''">
-            AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
-         </if>
-         <if test='datestart !=null and datestart !="" '>
-            AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI:SS')
-         </if>
-         <if test='dateend !=null and dateend !="" '>
-            AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
-         </if>
-      ) as TOTALCNT
-   FROM CHALLENGE CHA
-   WHERE CHALLENGEDEL = 0
-       <if test="category !=null and category !='' and category !=0">
-         AND CATEGORY = #{category}
-      </if>
-      <if test="mSearch !=null and mSearch != ''">
-         AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
-      </if>
-      <if test='datestart !=null and datestart !="" '>
-         AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI:SS')
-      </if>
-      <if test='dateend !=null and dateend !="" '>
-         AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
-      </if>
-   ) SV
-   WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
-   </select>
-   
-   <!-- 멤버 꺼내오는 부분 -->
-   <select id="memberCntList" parameterType="java.util.Map" resultType="java.util.Map">
-   SELECT MV.MEMBERSEQ, MV.EMAIL, MV.NICKNAME, MV.AUTH, MV.MEMBERPHOTONAME, MV.MEMBERSTOP, MV.MEMBERDEL, MV.TOTALCNT FROM
-      (SELECT MEM.*, ROW_NUMBER() OVER(ORDER BY MEMBERSEQ DESC) as MI,
-      (SELECT COUNT(*) FROM MEMBER
-      WHERE AUTH = 3 AND MEMBERDEL = 0
-      <if test="categorys != null and categorys != ''
-            and searchs != null and searchs != ''">
-         <if test="categorys == 1">
-            AND NICKNAME LIKE '%'||#{searchs}||'%'
-         </if>
-         <if test="categorys == 2">
-            AND EMAIL LIKE '%'||#{searchs}||'%'
-         </if>
-      </if>
-      ) as TOTALCNT
-   FROM MEMBER MEM
-   WHERE AUTH = 3 AND MEMBERDEL = 0
-       <if test="categorys != null and categorys != ''
-            and searchs != null and searchs != ''">
-         <if test="categorys == 1">
-            AND NICKNAME LIKE '%'||#{searchs}||'%'
-         </if>
-         <if test="categorys == 2">
-            AND EMAIL LIKE '%'||#{searchs}||'%'
-         </if>
-      </if>
-   ) MV
-   WHERE MV.MI > #{startPage} AND #{endPage} > MV.MI
-   </select>
-   
-   
-   <!-- 민선 부분 매퍼 -->
+
+	
+	<!-- 매니저 챌린지 -->
+	<select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT SV.CHALLENGESEQ, SV.CATEGORY, SV.CHALLENGETITLE, SV.CHALLENGESTOP,SV.CHALLENGEDEL, TO_CHAR(SV.CHALLENGESTART,'YYYY-MM-DD')AS CHALLENGESTART,TO_CHAR(SV.CHALLENGEEND,'YYYY-MM-DD')AS CHALLENGEEND,
+	TO_CHAR(SV.CHALLENGESDATE,'YYYY-MM-DD') AS CHALLENGESDATE, SV.TOTALCNT FROM
+		(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
+		(SELECT COUNT(*) FROM CHALLENGE
+		WHERE  CHALLENGEDEL = 0
+			<if test="category !=null and category !='' and rcategory !=0">
+				AND CATEGORY = #{category}
+			</if>
+			<if test="mSearch !=null and mSearch != ''">
+				AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+			</if>
+			<if test='datestart !=null and datestart !="" '>
+				AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI:SS')
+			</if>
+			<if test='dateend !=null and dateend !="" '>
+				AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
+			</if>
+		) as TOTALCNT
+	FROM CHALLENGE CHA
+	WHERE CHALLENGEDEL = 0
+	    <if test="category !=null and category !='' and category !=0">
+			AND CATEGORY = #{category}
+		</if>
+		<if test="mSearch !=null and mSearch != ''">
+			AND CHALLENGETITLE LIKE '%'||#{mSearch}||'%'
+		</if>
+		<if test='datestart !=null and datestart !="" '>
+			AND CHALLENGESTART > TO_DATE(#{datestart}, 'YYYY-MM-DD HH24:MI:SS')
+		</if>
+		<if test='dateend !=null and dateend !="" '>
+			AND TO_DATE(#{dateend}, 'YYYY-MM-DD HH24:MI:SS') > CHALLENGEEND
+		</if>
+	) SV
+	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
+	</select>
+	
+	<!-- 멤버 꺼내오는 부분 -->
+	<select id="memberCntList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT MV.MEMBERSEQ, MV.EMAIL, MV.NICKNAME, MV.AUTH, MV.MEMBERPHOTONAME, MV.MEMBERSTOP, MV.MEMBERDEL, MV.TOTALCNT FROM
+		(SELECT MEM.*, ROW_NUMBER() OVER(ORDER BY MEMBERSEQ DESC) as MI,
+		(SELECT COUNT(*) FROM MEMBER
+		WHERE AUTH = 3 AND MEMBERDEL = 0
+		<if test="categorys != null and categorys != ''
+				and searchs != null and searchs != ''">
+			<if test="categorys == 1">
+				AND NICKNAME LIKE '%'||#{searchs}||'%'
+			</if>
+			<if test="categorys == 2">
+				AND EMAIL LIKE '%'||#{searchs}||'%'
+			</if>
+		</if>
+		) as TOTALCNT
+	FROM MEMBER MEM
+	WHERE AUTH = 3 AND MEMBERDEL = 0
+	    <if test="categorys != null and categorys != ''
+				and searchs != null and searchs != ''">
+			<if test="categorys == 1">
+				AND NICKNAME LIKE '%'||#{searchs}||'%'
+			</if>
+			<if test="categorys == 2">
+				AND EMAIL LIKE '%'||#{searchs}||'%'
+			</if>
+		</if>
+	) MV
+	WHERE MV.MI > #{startPage} AND #{endPage} > MV.MI
+	</select>
+	
+	
+	<!-- 민선 부분 매퍼 -->
+
    <!-- 전체 사용자 수 userAllCount-->
    <select id="userAllCount" resultType="java.lang.Integer">
        SELECT COUNT(*)

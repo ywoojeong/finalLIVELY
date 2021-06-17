@@ -10,28 +10,30 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class managerDaoImpl implements managerDao{
-   
-   @Autowired
-   SqlSession managerSql;
-   
-   String ns = "manager.";
-   
-   @Override
-   public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException {
-      // TODO Auto-generated method stub
-      System.out.println("mListParam===========>"+mListParam);
-      return managerSql.selectList("manager.managerList", mListParam);
-   }
-   
-   @Override
-   public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException {
-      // TODO Auto-generated method stub
-      System.out.println("memListParam********>"+memListParam);
-      return managerSql.selectList("manager.memberCntList", memListParam);
-   }
 
-   
-   
+	
+	@Autowired
+	SqlSession managerSql;
+	
+	String ns = "manager.";
+	
+	@Override
+	public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("mListParam===========>"+mListParam);
+		return managerSql.selectList("manager.managerList", mListParam);
+	}
+	
+	@Override
+	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("memListParam********>"+memListParam);
+		return managerSql.selectList("manager.memberCntList", memListParam);
+	}
+
+	
+	
+
    //민선 부분
    @Override
    public int userAllCount() {

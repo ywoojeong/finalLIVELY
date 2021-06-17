@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface managerService {
-   
-   public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException;
-   
-   public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException;
-   
+
+	
+	public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException;
+	
+	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException;
+	
    //민선 부분
    
    //전체 사용자 수 userAllCount + 전체 챌린지 수 challengeAllCount

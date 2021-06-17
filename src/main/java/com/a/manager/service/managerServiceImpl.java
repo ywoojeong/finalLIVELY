@@ -13,22 +13,22 @@ import com.a.manager.dao.managerDao;
 @Service
 public class managerServiceImpl implements managerService {
 
-   @Autowired
-   managerDao managerdao;
-   
-   @Override
-   public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException {
-      // TODO Auto-generated method stub
-      return managerdao.managerList(mListParam);
-   }
-   
-   @Override
-   public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException {
-      // TODO Auto-generated method stub
-      return managerdao.memberCntList(memListParam);
-   }
+	@Autowired
+	managerDao managerdao;
+	
+	@Override
+	public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return managerdao.managerList(mListParam);
+	}
+	
+	@Override
+	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException {
+		// TODO Auto-generated method stub
+		return managerdao.memberCntList(memListParam);
+	}
 
-   
+	
    //민선 부분
    //전체
    @Override
