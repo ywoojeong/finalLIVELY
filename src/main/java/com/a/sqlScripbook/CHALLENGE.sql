@@ -252,10 +252,9 @@ SELECT C.* FROM
 WHERE ROWNUM <= 4
 select * from CHALLENGE order by dbms_random.value;
 
-출처: https://mobilenweb.tistory.com/75 [모바일앤웹]
 
 select * 
-from CHALLENGE 
+from follow 
 WHERE TO_CHAR(CHALLENGESTART, 'YYYY-MM-DD') == TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD')
 order by rand() limit 4
 
