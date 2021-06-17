@@ -435,6 +435,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
    var getChart = JSON.parse('${memCategoryCount}');
+   console.log("memCategoryCountmemCategoryCount+++++++")
    console.log(getChart)
    var Total = 0;
    var categoryArray = [0,0,0,0,0,0];
@@ -1127,7 +1128,7 @@ function commentListSel(seq, now){
 	    success:function(list){
 	    	console.log("commentListSel->>>>>>>>>>>>")
 	    	console.log(list)
-	    		var data = "";
+	    	var data = "";
 	    	if(list.length < 1){
 	    		var total = 0;
 		    	data +=	"<table class='commentTable'>"

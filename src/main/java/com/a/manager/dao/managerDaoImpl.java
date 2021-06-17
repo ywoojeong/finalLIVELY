@@ -22,57 +22,82 @@ public class managerDaoImpl implements managerDao{
 		System.out.println("mListParam===========>"+mListParam);
 		return managerSql.selectList("manager.managerList", mListParam);
 	}
+	
+	@Override
+	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("memListParam********>"+memListParam);
+		return managerSql.selectList("manager.memberCntList", memListParam);
+	}
 
 	
 	
-	//민선 부분
-	@Override
-	public int userAllCount() {
-		// TODO Auto-generated method stub
-		return managerSql.selectOne(ns+"userAllCount");
-	}
+   //민선 부분
+   @Override
+   public int userAllCount() {
+      // TODO Auto-generated method stub
+      return managerSql.selectOne(ns+"userAllCount");
+   }
 
-	@Override
-	public int challengeAllCount() {
-		// TODO Auto-generated method stub
-		return managerSql.selectOne(ns+"challengeAllCount");
-	}
+   @Override
+   public int challengeAllCount() {
+      // TODO Auto-generated method stub
+      return managerSql.selectOne(ns+"challengeAllCount");
+   }
 
-	@Override
-	public List<Map<String, Object>> challengeAdd() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"challengeAdd");
-	}
+   @Override
+   public List<Map<String, Object>> challengeAdd() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"challengeAdd");
+   }
 
-	@Override
-	public List<Map<String, Object>> challengeCategory() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"challengeCategory");
-	}
+   @Override
+   public List<Map<String, Object>> challengeCategory() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"challengeCategory");
+   }
 
-	@Override
-	public List<Map<String, Object>> challengeMemberMax() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"challengeMemberMax");
-	}
+   @Override
+   public List<Map<String, Object>> challengeMemberMax() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"challengeMemberMax");
+   }
 
-	@Override
-	public List<Map<String, Object>> userAdd() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"userAdd");
-	}
+   @Override
+   public List<Map<String, Object>> userAdd() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"userAdd");
+   }
 
-	@Override
-	public List<Map<String, Object>> userFollowingMax() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"userFollowingMax");
-	}
+   @Override
+   public List<Map<String, Object>> userFollowingMax() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"userFollowingMax");
+   }
 
-	@Override
-	public List<Map<String, Object>> userPointMax() {
-		// TODO Auto-generated method stub
-		return managerSql.selectList(ns+"userPointMax");
-	}
+   @Override
+   public List<Map<String, Object>> userPointMax() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"userPointMax");
+   }
 
-	
+
+
+   @Override
+   public List<Map<String, Object>> challengeIdentifyMax() {
+      // TODO Auto-generated method stub
+      return  managerSql.selectList(ns+"challengeIdentifyMax");
+   }
+
+
+
+   @Override
+   public List<Map<String, Object>> userIdentify() {
+      // TODO Auto-generated method stub
+      return managerSql.selectList(ns+"userIdentify");
+   }
+   
+   
+
+   
 }

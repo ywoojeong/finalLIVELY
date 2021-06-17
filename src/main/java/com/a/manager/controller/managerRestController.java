@@ -20,6 +20,7 @@ public class managerRestController {
 	@Autowired
 	managerService mService;
 	
+	// 매니저 챌린지 꺼내오는 부분
 	@RequestMapping(value = "managerList.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public List<Map<String, Object>> managerList(@RequestParam Map<String,Object> mListParam) throws SQLException {
 		
@@ -51,6 +52,27 @@ public class managerRestController {
 		System.out.println("mListParam : " + managerList);
 
 		return managerList;
+	}
+	
+	// 멤버 매니저  꺼내오는 부분
+	@RequestMapping(value = "memberCntList.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> memberCntList(@RequestParam Map<String,Object> memListParam) throws SQLException {
+		System.out.println("memberCntList memListParam-----> : " + memListParam);
+		
+		int startPage = (Integer.parseInt((String)memListParam.get("page"))-1) * 6;
+		String searchs = (String)memListParam.get("searchs");
+		String categorys = (String)memListParam.get("categorys");
+		int endPage = startPage + 7;
+		
+		memListParam.put("searchs", searchs);
+		memListParam.put("categorys", categorys);
+		memListParam.put("startPage", startPage);
+		memListParam.put("endPage", endPage);
+		
+		List<Map<String, Object>> memberCntList = mService.memberCntList(memListParam);
+		System.out.println("memListParam 왜 안보이니 : " + memListParam);
+		
+		return memberCntList;
 	}
 	
 	
