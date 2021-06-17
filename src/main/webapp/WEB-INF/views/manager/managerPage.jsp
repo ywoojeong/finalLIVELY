@@ -8,17 +8,46 @@
 <link rel="stylesheet" href="./css/main.css" />
 
 <link rel="stylesheet" type="text/css" href="./css/jquery.datetimepicker.css"/ >
-<script src="./js/jquery.datetimepicker.full.min.js"></script>
 
-<div class="container-fluid">
-<div class="row">
-    <div class="tab col-sm-3 col-xs-1" id="sidebar">
-        <div class="nav nav-tab list-group" style="width: 318px; height:277vh;margin-top:58px; background-color:#60bfa4;">
+
+<style>
+.list-group{
+	border-radius: 0;
+}
+
+.list-group-item {
+	 padding: .75rem 3.0rem;
+	 letter-spacing: 3px;
+	 font-size: 13pt 
+}
+
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+/*     background-color: #60bfa4; */
+     text-decoration: none; 
+    font-weight: 700;
+    /* border-color: #007bff; */
+}
+.list-group-item:hover {
+    color: #fff;
+    font-weight: 700;
+ 	 text-decoration: none; 
+}
+</style>
+<script>
+console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMonth ${challengeMonth} || userMonth ${userMonth['6']}")
+
+</script>
+<div class="container-fluid"> 
+<div class="row" style="background-color: rgb(238,238, 238);">
+    <div class="tab col-sm-2 col-xs-1" id="sidebar" style="padding: 0">
+        <div class="nav nav-tab list-group" style="width: 100%; height:100%;padding-top:58px; background-color:#60bfa4;">
         	<div class="mtop" style="margin-top: 46px;">
         	<h1 style="text-align: center; color: white">ADMIN님</h1>
         	</div>
-        	<hr style="">
-            <a href="#menu1" class="list-group-item" data-toggle="tab">
+
+             <a href="#menu1" class="list-group-item active" data-toggle="tab">
                 <span class="hidden-sm-down">전체</span> 
             </a>
             <a href="#menu2" class="list-group-item" data-toggle="tab">
@@ -34,13 +63,203 @@
     </div>
     
     
-    <div class="tab-content col-sm-9 col-xs-1" id="sidebar" style="margin-top: 185px; ">
-    	<div id="menu1" class="tab-pane fade">
-    		<p>네 제가 피태그인데여</p>
+    <div class="tab-content col-sm-10 col-xs-1" id="sidebar">
+    	<div id="menu1" class="tab-pane active" style="padding-top: 58px;">
+			<div class="row" style="">
+				<!-- 챌린지 상단 -->
+				<div class="col-sm-6">
+					<div style="text-align:center;width: 450px;font-size: 15pt;margin: 20px auto;font-weight: 600;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
+						LIVELY에 가입한 전체 회원 수는 <span style="font-size: 23pt;font-weight: 700">${allCount.userall }</span>명입니다
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div style="text-align:center;width: 520px;font-size: 15pt;margin: 20px 0 20px 93px;font-weight: 600;border-bottom: 3px solid rgba(0,0,0,0.7);color: rgba(0,0,0,0.7)">
+						LIVELY에 생성된 전체 CHALLENGE 수는 <span style="font-size: 23pt;font-weight: 700">${allCount.challengeall }</span>개 입니다
+					</div>
+				</div>
+				<!-- 챌린지 데이터 -->
+				<div class="col-sm-12" style="padding:10px 10px 6px 3px;width: 100%;margin: 20px auto;background-color: white;font-weight: 700px;background-color: rgba(96,191,164, 0.3)">
+					<h1 style="padding-left: 30px;font-weight: 700;font-family: 'Raleway', sans-serif;">CHALLENGE</h1>
+				</div>
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							월별 챌린지 생성 개수
+						</div>
+						<div style="padding: 30px">
+							<canvas id="challengeAdd"></canvas>
+						</div>
+					</div>
+				</div>	
+				
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+							<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+								카테고리별 챌린지
+							</div>
+						<div style="display: flex">
+							<div style="width: 380px;padding: 30px">
+								<canvas id="challengeCategory"></canvas>
+							</div>
+							<div style="margin: 64px 0 0 42px">
+								<table class="categoryTable">
+									<tr>
+										<td>
+											<div style="width: 50px;height: 12px;background-color:rgb(255, 99, 132);margin-left: 20px"></div>
+										</td>
+										<td>
+											<span style="font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 6px;">건   강</span>
+										</td>
+										<td>
+											<span style="margin-right: 20px">${challengeCategory['1'] }</span>
+										</td>
+									</tr >
+									<tr>
+										<td>
+											<div style="width: 50px;height: 12px;background-color:rgb(255, 159, 64);margin-left: 20px"></div>
+										</td>
+										<td>
+											<span style="font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 6px;">역    량</span>
+										</td>
+										<td>
+											<span style="margin-right: 20px"> ${challengeCategory['2'] }</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div style="width: 50px;height: 12px;background-color:rgb(255, 205, 86);margin-left: 20px"></div>
+										</td>
+										<td>
+											<span style="font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 6px;">정    서</span>
+										</td>
+										<td> 
+											<span style="margin-right: 20px"> ${challengeCategory['3'] }</span>
+										</td>
+									</tr >
+									<tr >
+										<td >
+											<div style="width: 50px;height: 12px;background-color:rgb(75, 192, 192);margin-left: 20px"></div>
+										</td>
+										<td >
+											<span style="font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 6px;">자    산</span>
+										</td>
+										<td >
+											<span style="margin-right: 20px"> ${challengeCategory['4'] }</span>
+										</td>
+									</tr>
+									<tr >
+										<td>
+											<div style="width: 50px;height: 12px;background-color:rgb(54, 162, 235);margin-left: 20px"></div>
+										</td>
+										<td >
+											<span style="font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 6px;">생    활</span>
+										</td> 
+										<td >
+ 											<span style="margin-right: 20px"> ${challengeCategory['5'] }</span> 
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div style="width: 50px;height: 12px;background-color:rgb(153, 102, 255);margin-left: 20px"></div>
+										</td>
+										<td>
+											<span style="font-size: 10pt;font-weight: 500;margin:  0 20px;letter-spacing: 6px;">취    미</span>
+										</td>
+										<td>
+											<span style="margin-right: 20px">${challengeCategory['6'] }</span>
+										</td>
+									</tr>
+									
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							챌린지 가입 수
+						</div>
+						<div style="padding: 30px">
+							<canvas id="challengeMember"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+					   	챌린지 인증률
+					   	</div>
+					   	<div style="padding: 30px">
+							<canvas id="challengeIdentify"></canvas>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 유저 -->
+				
+				<div class="col-sm-12" style="padding:10px 10px 6px 3px;width: 100%;margin: 20px auto;background-color: white;font-weight: 700px;background-color: rgba(96,191,164, 0.3)">
+					<h1 style="padding-left: 30px;font-weight: 700;font-family: 'Raleway', sans-serif;">MEMBER</h1>
+				</div>
+				<div class="col-sm-6" >
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							월별 사용자 가입 수
+						</div>
+						<div style="padding: 30px">
+							<canvas id="userAdd"></canvas>
+						</div>
+					</div>	
+				</div>
+				
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+						인증률이 높은 순
+						</div>
+						<div style="display: flex">
+							<div style="width: 380px;padding:30px">
+								<canvas id="userIdentify"></canvas>
+							</div>
+							<div>
+								
+								
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+							좋아요 많이 받은 순
+						</div>
+						<div style="padding: 30px">
+							<canvas id="userFollowing"></canvas>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div style="width: 700px;margin: 30px 0 50px 0;background-color: white;box-shadow: 0 1px 9px 3px rgba(0,0,0, 0.1);border-radius: .35rem;">
+						<div style="padding: .75rem 1.25rem;margin-bottom: 0;background-color: rgba(96,191,164, 0.1);border-bottom: 1px solid #e3e6f0;color:#5dbaa0;border-top-left-radius:.35rem;border-top-right-radius:.35rem;font-weight: 600">
+					 		포인트가 많은 사용자 순
+					 	</div>
+					 	<div style="padding: 30px">
+							<canvas id="userPoint"></canvas>
+						</div>
+					</div>
+				</div>
+							
+			</div>    		
+
+
     	</div>
     	
-    	<div id="menu2" class="tab-pane fade">
-    		<div class="row">
+    	<div id="menu2" class="tab-pane fade" style="min-height: 92vh">
+    		<div class="row" style="margin-top: 185px;">
     			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; margin-left: -50px;">
     				<p>네 제가 두번째 탭인데요 회원관리 담당이에요</p>
     				<div class="searchArea" style="width: 100%;">
@@ -73,7 +292,7 @@
     		</div>
     	</div>
     	
-    	<div id="menu3" class="tab-pane active">
+    	<div id="menu3" class="tab-pane fade"  style="margin-top: 185px; ">
     		<div class="row">
     			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; margin-left: -25px;">
     				<div class="tableBox" style="width: 775px; margin-left: -26px;">
@@ -142,7 +361,7 @@
     		</div>
     	</div>
     	
-    	<div id="menu4" class="tab-pane fade">
+    	<div id="menu4" class="tab-pane fade"  style="margin-top: 185px; ">
     		<div class="row">
     			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center;">
     				<p>네 저는 테스트에요</p>
@@ -154,6 +373,9 @@
 </div>
 
 
+<script src="./js/jquery.datetimepicker.full.min.js"></script>
+<!-- 차트.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 <script>
@@ -279,4 +501,292 @@ function mListPaging(total,now){
 <script>
 jQuery('#datestart').datetimepicker();
 jQuery('#dateend').datetimepicker();
+</script>
+
+
+<script>
+//민선 차트
+
+//라인 차트 
+	//userAdd 
+ var myChart = new Chart(
+	    document.getElementById('userAdd'),
+	    {  type: 'line',
+    	   data: {
+    		   labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
+    		   datasets: [{
+    		     label: '월별 가입자 수',
+    		     data: [ "${userMonth['1']}", "${userMonth['2']}", "${userMonth['3']}", "${userMonth['4']}", "${userMonth['5']}", "${userMonth['6']}",
+    		    	 "${userMonth['7']}", "${userMonth['8']}", "${userMonth['9']}", "${userMonth['10']}", "${userMonth['11']}", "${userMonth['12']}"],
+    		     fill: true,
+    		     borderColor: 'rgb(89, 29, 169)'
+    		   }]
+    		}, 
+    		options: {
+		   	    scales: {
+		    	      y: {
+		    	        beginAtZero: true
+		    	      }
+		    	    }
+		    	  }
+    	 }
+	  );
+  
+ 	//challengeAdd
+
+var myChart1 = new Chart(
+    document.getElementById('challengeAdd'),
+    {
+   	  type: 'line',
+   	  data: {
+   		    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
+   		    datasets: [{
+   		      label: '월별 CHALLENGE 생성 개수',
+   		   data: ["${challengeMonth['1']}", "${challengeMonth['2']}", "${challengeMonth['3']}", "${challengeMonth['4']}", "${challengeMonth['5']}", "${challengeMonth['6']}",
+   			"${challengeMonth['7']}", "${challengeMonth['8']}", "${challengeMonth['9']}", "${challengeMonth['10']}", "${challengeMonth['11']}", "${challengeMonth['12']}",],
+   		  
+   		      fill: true,
+   		      borderColor: 'rgb(89, 29, 169)'
+   		    }]
+   		  },
+   	  options: {
+   		    scales: {
+   		      y: {
+   		        beginAtZero: true
+   		      }
+   		    }
+   		  }
+    }
+  );
+
+//바 차트
+//챌린지 가입자가 많은 순
+var myChart2 = new Chart(
+	    document.getElementById('challengeMember'),
+	    {
+	    	  type: 'bar',
+	    	  data: {
+	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+	    		  datasets: [{
+	    		    label: '가입자가 많은 순',
+	    		    data: [65, 59, 80, 81, 56, 55, 40],
+	    		    backgroundColor: [
+	    		      'rgba(255, 99, 132, 0.5)',
+	    		      'rgba(255, 159, 64, 0.5)',
+	    		      'rgba(255, 205, 86, 0.5)',
+	    		      'rgba(75, 192, 192, 0.5)',
+	    		      'rgba(54, 162, 235, 0.5)',
+	    		      'rgba(153, 102, 255, 0.5)',
+	    		      'rgba(201, 203, 207, 0.5)'
+	    		    ],
+	    		    borderColor: [
+	    		      'rgb(255, 99, 132)',
+	    		      'rgb(255, 159, 64)',
+	    		      'rgb(255, 205, 86)',
+	    		      'rgb(75, 192, 192)',
+	    		      'rgb(54, 162, 235)',
+	    		      'rgb(153, 102, 255)',
+	    		      'rgb(201, 203, 207)'
+	    		    ],
+	    		    borderWidth: 1,
+	    		    barThickness: 50
+	    		  }]
+	    		},
+	    	  options: {
+	    	    scales: {
+	    	      y: {
+	    	        beginAtZero: true
+	    	      }	    	      
+	    	    },
+	    	    
+	    	  },
+	    	}
+	  );
+//챌린지 달성률이 높은 순(유저 많은 순)
+var myChart3 = new Chart(
+	    document.getElementById('challengeIdentify'),
+	    {
+	    	  type: 'bar',
+	    	  data: {
+	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+	    		  datasets: [{
+	    		    label: 'CHALLENGE 달성률이 높은 순',
+	    		    data: [65, 59, 80, 81, 56, 55, 40],
+	    		    backgroundColor: [
+	    		      'rgba(255, 99, 132, 0.5)',
+	    		      'rgba(255, 159, 64, 0.5)',
+	    		      'rgba(255, 205, 86, 0.5)',
+	    		      'rgba(75, 192, 192, 0.5)',
+	    		      'rgba(54, 162, 235, 0.5)',
+	    		      'rgba(153, 102, 255, 0.5)',
+	    		      'rgba(201, 203, 207, 0.5)'
+	    		    ],
+	    		    borderColor: [
+	    		      'rgb(255, 99, 132)',
+	    		      'rgb(255, 159, 64)',
+	    		      'rgb(255, 205, 86)',
+	    		      'rgb(75, 192, 192)',
+	    		      'rgb(54, 162, 235)',
+	    		      'rgb(153, 102, 255)',
+	    		      'rgb(201, 203, 207)'
+	    		    ],
+	    		    borderWidth: 1,
+	    		    barThickness: 50
+	    		  }]
+	    		},
+	    	  options: {
+	    	    scales: {
+	    	      y: {
+	    	        beginAtZero: true
+	    	      }
+	    	    }
+	    	  },
+	    	}
+
+	  );
+	  
+//유저 팔로잉 많은 순
+var myChart4 = new Chart(
+	    document.getElementById("userFollowing"),
+	    {
+	    	  type: 'bar',
+	    	  data: {
+	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+	    		  datasets: [{
+	    		    label: '다른 유저에게 좋아요 많이 받은 유저 수',
+	    		    data: [65, 59, 80, 81, 56, 55, 40],
+	    		    backgroundColor: [
+	    		      'rgba(255, 99, 132, 0.5)',
+	    		      'rgba(255, 159, 64, 0.5)',
+	    		      'rgba(255, 205, 86, 0.5)',
+	    		      'rgba(75, 192, 192, 0.5)',
+	    		      'rgba(54, 162, 235, 0.5)',
+	    		      'rgba(153, 102, 255, 0.5)',
+	    		      'rgba(201, 203, 207, 0.5)'
+	    		    ],
+	    		    borderColor: [
+	    		      'rgb(255, 99, 132)',
+	    		      'rgb(255, 159, 64)',
+	    		      'rgb(255, 205, 86)',
+	    		      'rgb(75, 192, 192)',
+	    		      'rgb(54, 162, 235)',
+	    		      'rgb(153, 102, 255)',
+	    		      'rgb(201, 203, 207)'
+	    		    ],
+	    		    borderWidth: 1,
+	    		    barThickness: 50
+	    		  }]
+	    		},
+	    	  options: {
+	    	    scales: {
+	    	      y: {
+	    	        beginAtZero: true
+	    	      }
+	    	    }
+	    	  },
+	    	}
+	  );
+	  
+	  
+
+//유저 포인트가 많은 순
+var myChart5 = new Chart(
+	    document.getElementById("userPoint"),
+	    {
+	    	  type: 'bar',
+	    	  data: {
+	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+	    		  datasets: [{
+	    		    label: '가입한 CHALLENGE가 많은 유저 수',
+	    		    data: [65, 59, 80, 81, 56, 55, 40],
+	    		    backgroundColor: [
+	    		      'rgba(255, 99, 132, 0.5)',
+	    		      'rgba(255, 159, 64, 0.5)',
+	    		      'rgba(255, 205, 86, 0.5)',
+	    		      'rgba(75, 192, 192, 0.5)',
+	    		      'rgba(54, 162, 235, 0.5)',
+	    		      'rgba(153, 102, 255, 0.5)',
+	    		      'rgba(201, 203, 207, 0.5)'
+	    		    ],
+	    		    borderColor: [
+	    		      'rgb(255, 99, 132)',
+	    		      'rgb(255, 159, 64)',
+	    		      'rgb(255, 205, 86)',
+	    		      'rgb(75, 192, 192)',
+	    		      'rgb(54, 162, 235)',
+	    		      'rgb(153, 102, 255)',
+	    		      'rgb(201, 203, 207)'
+	    		    ],
+	    		    borderWidth: 1,
+	    		    barThickness: 50
+	    		  }]
+	    		},
+	    	  options: {
+	    	    scales: {
+	    	      y: {
+	    	        beginAtZero: true
+	    	      }
+	    	    }
+	    	  },
+	    	}
+	  );
+	  
+//도넛 차트
+//챌린지 카테고리별 생성 개수
+var myChart6 = new Chart(
+	    document.getElementById("challengeCategory"),
+	    {
+		  type: 'doughnut',
+		  data: {
+					  datasets: [{
+					    label: '카테고리별 CHALLENGE 수',
+					    data: ["${challengeCategory['1']}", "${challengeCategory['2']}", "${challengeCategory['3']}", "${challengeCategory['4']}", "${challengeCategory['5']}", "${challengeCategory['6']}"],
+					    backgroundColor: [
+					      'rgb(255, 99, 132)',
+					      'rgb(255, 159, 64)',
+					      'rgb(255, 205, 86)',
+					      'rgb(75, 192, 192)',
+					      'rgb(54, 162, 235)',
+					      'rgb(153, 102, 255)',
+					    ],
+					    hoverOffset: 4
+					  }]
+					}
+	  	  }
+
+);
+
+//유저 인증률이 가장 높은 순
+var myChart7 = new Chart(
+	    document.getElementById("userIdentify"),
+	    {
+		  type: 'doughnut',
+		  data: {
+				  labels: [
+					    '건강',
+					    '역량',
+					    '정서',
+					     '자산',
+					    '생활',
+					    '취미'
+					  ],
+					  datasets: [{
+					    label: '인증 성공률이 높은 순',
+					    data: [300, 50, 100, 40, 30, 60],
+					    backgroundColor: [
+					      'rgb(255, 99, 132)',
+					      'rgb(255, 159, 64)',
+					      'rgb(255, 205, 86)',
+					      'rgb(75, 192, 192)',
+					      'rgb(54, 162, 235)',
+					      'rgb(153, 102, 255)',
+					    ],
+					    hoverOffset: 4
+					  }]
+					}
+	  	  }
+
+);
+
+//유저 활동 많은 순
 </script>

@@ -2,20 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /*한글 폰트 Noto Sans KR  font-family: 'Noto Sans KR', sans-serif;*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 
 .list-group-item {
 	background-color:#60bfa4;
 	border: none;
 }
-table {
-  width: 100%;
-  border: 1px solid #444444;
-  border-collapse: collapse;
-}
-td {
-  height: 40px;
-  border: 1px solid #444444;
-}
+/* table { */
+/*   width: 100%; */
+/*   border: 1px solid #444444; */
+/*   border-collapse: collapse; */
+/* } */
+/* td { */
+/*   height: 40px; */
+/*   border: 1px solid #444444; */
+/* } */
 .sBtn {
   margin-top: 18px;
   margin-left: 575px;
@@ -127,24 +130,54 @@ display: flex; list-style: none; margin-bottom: 45px; padding-left: 0px; justify
 hr{
 	width: 58%; border: solid 0.5px; margin-top: 0px; margin-bottom: 31px; background-color: #636363; color: #636363;
 }
+
+.mtop{
+	width: 280px;
+    margin: 0 auto;
+    padding: 20px 0 5px 0;
+    border-bottom: 1px solid white;
+    margin-bottom: 44px;
+}
 .dateend, .datestart{
 	border-left: none;
     border-right: none;
     border-top: none;
     border-bottom: ridge;
 }
+.list-group{
+	border-radius: 0;
+}
+
+.list-group-item {
+	 padding: .75rem 3.0rem;
+}
+
 .list-group-item.active {
     z-index: 2;
     color: #fff;
     background-color: #60bfa4;
-    text-decoration: underline;
+/*     text-decoration: underline; */
+    font-weight: 800;
     /* border-color: #007bff; */
 }
 .list-group-item:hover {
     color: #fff;
-    text-decoration: underline;
+    font-weight: 800;
+/*     text-decoration: underline; */
 }
+
 .selectpicker{
 	border: 1px;
     width: 186px;
 }
+
+
+/* 민선 */
+.categoryTable, .categoryTable tr{
+	border: 1px solid #c9c9c9;	
+}
+.categoryTable td{
+	height: 40px;
+	border: none;
+}
+
