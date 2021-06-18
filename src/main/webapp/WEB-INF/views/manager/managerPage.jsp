@@ -12,27 +12,32 @@
 
 <style>
 .list-group{
-	border-radius: 0;
+   border-radius: 0;
 }
 
 .list-group-item {
-	 padding: .75rem 3.0rem;
-	 letter-spacing: 3px;
-	 font-size: 13pt 
+    padding: .75rem 3.0rem;
+    letter-spacing: 3px;
+    font-size: 13pt;  
+    width:100%;
+    color: white;
+    font-weight: 500;
 }
 
 .list-group-item.active {
     z-index: 2;
-    color: #fff;
+    color: #000;
 /*     background-color: #60bfa4; */
      text-decoration: none; 
-    font-weight: 700;
+    font-weight: 500;
     /* border-color: #007bff; */
+    background-color: white;
 }
 .list-group-item:hover {
-    color: #fff;
-    font-weight: 700;
- 	 text-decoration: none; 
+    color: #000;
+    font-weight: 500;
+     text-decoration: none; 
+      background-color: white;
 }
 </style>
 <script>
@@ -42,7 +47,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 <div class="container-fluid"> 
 <div class="row" style="background-color: rgb(238,238, 238);">
     <div class="tab col-sm-2 col-xs-1" id="sidebar" style="padding: 0">
-        <div class="nav nav-tab list-group" style="width: 100%; height:100%;padding-top:58px; background-color:#60bfa4;">
+        <div class="nav nav-tab list-group" style="width: 100%; height:100%;padding-top:58px; background-color:#60bfa4;box-shadow: 1px 1px 8px 5px rgb(0 0 0 / 10%);">
         	<div class="mtop" style="margin-top: 46px;">
         	<h1 style="text-align: center; color: white">ADMIN님</h1>
         	</div>
@@ -64,6 +69,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
     
     
     <div class="tab-content col-sm-10 col-xs-1" id="sidebar">
+
     	<div id="menu1" class="tab-pane active" style="padding-top: 58px;">
 			<div class="row" style="">
 				<!-- 챌린지 상단 -->
@@ -259,36 +265,34 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
     	</div>
     	
     	<div id="menu2" class="tab-pane fade" style="min-height: 92vh">
-    		<div class="row" style="margin-top: 185px;">
+    		<div class="row" style="margin-top: 185px;display: flex;flex-direction: column;align-items: center;">
     			<div class="col-sm-12" style="display: flex; flex-direction: column; align-items: center; margin-left: -50px;">
-    				<p>네 제가 두번째 탭인데요 회원관리 담당이에요</p>
     				<div class="searchArea" style="width: 100%;">
-						<div class="md-form md-outline d-flex Search" align="right" style="margin-left: 93px;">
-                           	<select class="form-control form-control-sm" name="categorys" id="categorys" style="margin-right: 15px; height: auto; width: 131px; margin-left: 3px;">
-		 						<option value="0">전체</option>
+						<div class="md-form md-outline d-flex Search" align="right">
+                           	<select class="form-control form-control-sm" name="categorys" id="categorys" style="margin-right: 15px; height: auto; width: 131px;">
+		 						<option value="" selected="selected">선택</option>
 		 						<option value="1">닉네임</option>
 		 						<option value="2">이메일</option>
 	 						</select>
 	 						<div class="searchBox" style="height: 100%;">
-                            <input type="text" class="form-control input-Search" id="searchs" placeholder="검색하세요" name="search" style="width: 378px;">
+                            <input type="text" class="form-control input-Search" id="searchs" placeholder="검색하세요" name="searchs" style="width: 378px;">
                            	</div>
-                           	<button type="button" class="memSearchBtn" id="memSearchBtn" style="margin-left: 15px;">SEARCH</button>
+                           	<button type="button" class="memSearchBtn" id="memSearchBtn">SEARCH</button>
 						</div>
     				</div>
-    			</div>
-    			<div class="row" style="margin: 15px auto 30px auto;">
-    				<div class="col-xs-12 col-sm-4">
-    					<div class="card" style="width: 250px; height: 400px;">
-							<div class="daily_card">
-							<img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image" style="width:100%">
-								<div class="card-body">
-								<p class="card-title"> 닉네임 </p>
-								<p class="card-text"><span class="category4">메일</span><span class="category5">  </span><span class="category6"></span></p>
-								</div>   
-							</div>   
+    			
+    					<div class="member_daily">
+	  						<div class="row" id="membox" style="width: 925px; margin-top: 86px;">
+								<!-- 챌린지 보이는곳 -->
+								
+	                        </div>
+                       </div>
+                        
+                        <!-- 페이징 처리 되는 곳 -->
+						<div class="memPage">
+							<ul class="memPageUl" id="memPageUl"></ul>
 						</div>
-    				</div>
-    			</div>
+    			</div>	
     		</div>
     	</div>
     	
@@ -368,6 +372,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
     			</div>
     		</div>
     	</div>
+
     </div>
 </div>
 </div>
@@ -381,22 +386,22 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 <script>
 //카테고리 변환 
 function setCategory(category){
-	console.log("category ===>"+category)
-	var categoryName = ""
-	if(category ==1){
-		categoryName = "건강";
+   console.log("category ===>"+category)
+   var categoryName = ""
+   if(category ==1){
+      categoryName = "건강";
      }else if(category ==2){
-    	 categoryName = "역량";
+        categoryName = "역량";
      }else if(category ==3){
-    	 categoryName = "정서";
+        categoryName = "정서";
      }else if(category ==4){
-    	 categoryName = "자산";
+        categoryName = "자산";
      }else if(category ==5){
-    	 categoryName = "생활";
+        categoryName = "생활";
      }else if(category ==6){
-    	 categoryName = "취미";
+        categoryName = "취미";
      }
-	return categoryName;
+   return categoryName;
 }
 </script>
 
@@ -407,8 +412,8 @@ managerList(1);
 //검색 시
 
 $('#searchBtn').click(function(){
-	managerList(1);
-	$('#mSearch').val("");
+   managerList(1);
+   $('#mSearch').val("");
 });
 
 function managerList(now){
@@ -450,6 +455,9 @@ function managerList(now){
 //        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
 
 	    	}
+	    	if(list.length < 1){
+	    		data += "<div class='mainBox'>검색 결과가 없습니다</div>";
+	    	}
 	    	mListPaging(total,now)
 	    	$(".challbox").html(data);
 		},
@@ -461,8 +469,106 @@ function managerList(now){
 
 //페이지 처리
 function mListPaging(total,now){
-	console.log("mListPaging total",total)
-	console.log("mListPaging now",now)
+   console.log("mListPaging total",total)
+   console.log("mListPaging now",now)
+   var pagecnt = Math.ceil(total/5.0)
+   var startCnt = Math.floor((now-1)/5) * 5 + 1
+   //전체 페이지
+   var pageBlock = Math.ceil(pagecnt/5)
+   var nowBlock = Math.ceil(now/5)
+   console.log("pagecnt",pagecnt)
+   console.log("startCnt",startCnt)
+   console.log(total,pagecnt)
+   console.log("pageBlock",pageBlock)
+   console.log("nowBlock",nowBlock)
+   var nowTotal = nowBlock*5
+   if(nowTotal > pagecnt){
+      nowTotal = pagecnt
+   }
+   var html = ""
+   if(pageBlock > 1 && nowBlock > 1){
+      html += "<li  onclick='managerList("+(nowBlock*5-9)+")'> &laquo;</li>"
+   }
+   for(var i=startCnt;i<=nowTotal;i++){
+      if(now == i){
+         html += "<li class='nowpage' style='color:#56b397' onclick='managerList("+i+")'>"+i+"</li>"
+      }else{
+         html += "<li onclick='managerList("+i+")'>"+i+"</li>"
+      }
+      
+   }
+   
+   if(pageBlock > 1 && nowBlock < pageBlock){
+      html += "<li onclick='managerList("+(nowBlock*5+1)+")'>&raquo;</li>"
+   }
+   console.log(html)
+   $(".challPageUl").html(html);
+//   document.getElementById('sugPageUl').innerHTML = html
+}
+</script>
+<script>
+jQuery('#datestart').datetimepicker();
+jQuery('#dateend').datetimepicker();
+</script>
+
+<script>
+//멤버 총 수 가져오기 등등
+memberCntList(1);
+
+//검색 시
+
+$('#memSearchBtn').click(function(){
+	memberCntList(1);
+	$('#searchs').val("");
+});
+
+function memberCntList(now){
+	console.log("memberCntListmemberCntList")
+	console.log(now)
+	$.ajax({
+		url:"./memberCntList.do",
+		type:"POST",
+		data: {page:now, 'searchs':$("#searchs").val(), 'categorys':$("#categorys").val()},
+		success:function(list){
+			console.log("멤버 리스트 불러오는애")
+			console.log(list)
+			
+			var data = "";
+			if(list.length < 1){
+				var total = 0;
+				data += "<div class='searchss' style='margin-left: 393px; color: #6e6e6e;'> 검색 결과가 없습니다 </div>"
+			} else {
+				var total = list[0].TOTALCNT
+				console.log("멤버 토탈 값 보여줘")
+				console.log(total)
+		    	for(var i=0; i<list.length; i++){
+		    	// 검색어가 있을때 없을때 제어해주기	
+		    	data += "<div class='col-xs-12 col-sm-4' style='display: flex; justify-content: center;'>"
+		    		+	"<div class='card' style='width: 230px; height: 370px; margin-bottom: 49px;'>"
+					+	"<div class='daily_card'>"
+					+	"<img class='card-img-top' style='width:100%; height: 245px;' src='https://s3.ap-northeast-2.amazonaws.com/livelybucket/"+list[i].MEMBERPHOTONAME+"'>"
+					+	"<div class='card-body'>"
+					+	"<p class='card-title' style='margin-bottom: 0.25rem; font-size: 15px;margin-left: 14px;'>"+list[i].NICKNAME+"</p>"
+					+	"<p class='card-text' style='font-size: 13px; margin-left: 15px;'>"+list[i].EMAIL+"</p>"
+		            +	"<div class='memBtn'>"
+		            +	"<button type='button' class='memStopBtn' id='mStopBtn'>정지</button>"
+		            +	"<button type='button' class='memPlayBtn' id='mStartBtn'>해제</button>"
+		            +	"</div> </div>"
+					+	"</div> </div> </div></div>";
+		    	}
+			}
+	    	memListPaging(total,now)
+	    	$("#membox").html(data);
+		},
+		error:function(){
+	           alert("멤버 리스트 불러오는 error");
+		   	}
+	});
+}
+// 멤버 페이지 처리
+function memListPaging(total,now){
+	console.log("memListPaging total",total)
+	console.log("memListPaging now",now)
 	var pagecnt = Math.ceil(total/5.0)
 	var startCnt = Math.floor((now-1)/5) * 5 + 1
 	//전체 페이지
@@ -479,312 +585,323 @@ function mListPaging(total,now){
 	}
 	var html = ""
 	if(pageBlock > 1 && nowBlock > 1){
-		html += "<li  onclick='managerList("+(nowBlock*5-9)+")'> &laquo;</li>"
+		html += "<li  onclick='memberCntList("+(nowBlock*5-9)+")'> &laquo;</li>"
 	}
 	for(var i=startCnt;i<=nowTotal;i++){
 		if(now == i){
-			html += "<li class='nowpage' style='color:#56b397' onclick='managerList("+i+")'>"+i+"</li>"
+			html += "<li class='nowpage' style='color:#56b397' onclick='memberCntList("+i+")'>"+i+"</li>"
 		}else{
-			html += "<li onclick='managerList("+i+")'>"+i+"</li>"
+			html += "<li onclick='memberCntList("+i+")'>"+i+"</li>"
 		}
 		
 	}
 	
 	if(pageBlock > 1 && nowBlock < pageBlock){
-		html += "<li onclick='managerList("+(nowBlock*5+1)+")'>&raquo;</li>"
+		html += "<li onclick='memberCntList("+(nowBlock*5+1)+")'>&raquo;</li>"
 	}
 	console.log(html)
-	$(".challPageUl").html(html);
+	$(".memPageUl").html(html);
 //	document.getElementById('sugPageUl').innerHTML = html
 }
-</script>
-<script>
-jQuery('#datestart').datetimepicker();
-jQuery('#dateend').datetimepicker();
 </script>
 
 
 <script>
 //민선 차트
 
+//challengeMemberMax 챌린지 멤버 많은 순 (challengeMember)
+
+/*  //userFollowingMax  팔로우 많은 순 (userFollowing)
+  ${userFollowingMax} 
+ //userPointMax 포인트 많은 순 (userPoint)
+ ${userPointMax} 
+ //challengeIdentifyMax 챌린지 인증 많은 순 (challengeIdentify)
+ ${challengeIdentifyMax}
+ //userIdentify 개인별 인증 많은 순 (userIdentify) 도넛차트
+  ${userIdentify}
+ */
 //라인 차트 
-	//userAdd 
+   //userAdd 
  var myChart = new Chart(
-	    document.getElementById('userAdd'),
-	    {  type: 'line',
-    	   data: {
-    		   labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
-    		   datasets: [{
-    		     label: '월별 가입자 수',
-    		     data: [ "${userMonth['1']}", "${userMonth['2']}", "${userMonth['3']}", "${userMonth['4']}", "${userMonth['5']}", "${userMonth['6']}",
-    		    	 "${userMonth['7']}", "${userMonth['8']}", "${userMonth['9']}", "${userMonth['10']}", "${userMonth['11']}", "${userMonth['12']}"],
-    		     fill: true,
-    		     borderColor: 'rgb(89, 29, 169)'
-    		   }]
-    		}, 
-    		options: {
-		   	    scales: {
-		    	      y: {
-		    	        beginAtZero: true
-		    	      }
-		    	    }
-		    	  }
-    	 }
-	  );
+       document.getElementById('userAdd'),
+       {  type: 'line',
+          data: {
+             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
+             datasets: [{
+               label: '월별 가입자 수',
+               data: [ "${userMonth['1']}", "${userMonth['2']}", "${userMonth['3']}", "${userMonth['4']}", "${userMonth['5']}", "${userMonth['6']}",
+                  "${userMonth['7']}", "${userMonth['8']}", "${userMonth['9']}", "${userMonth['10']}", "${userMonth['11']}", "${userMonth['12']}"],
+               fill: true,
+               borderColor: 'rgb(89, 29, 169)'
+             }]
+          }, 
+          options: {
+                scales: {
+                   y: {
+                     beginAtZero: true
+                   }
+                 }
+               }
+        }
+     );
   
- 	//challengeAdd
+    //challengeAdd
 
 var myChart1 = new Chart(
     document.getElementById('challengeAdd'),
     {
-   	  type: 'line',
-   	  data: {
-   		    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
-   		    datasets: [{
-   		      label: '월별 CHALLENGE 생성 개수',
-   		   data: ["${challengeMonth['1']}", "${challengeMonth['2']}", "${challengeMonth['3']}", "${challengeMonth['4']}", "${challengeMonth['5']}", "${challengeMonth['6']}",
-   			"${challengeMonth['7']}", "${challengeMonth['8']}", "${challengeMonth['9']}", "${challengeMonth['10']}", "${challengeMonth['11']}", "${challengeMonth['12']}",],
-   		  
-   		      fill: true,
-   		      borderColor: 'rgb(89, 29, 169)'
-   		    }]
-   		  },
-   	  options: {
-   		    scales: {
-   		      y: {
-   		        beginAtZero: true
-   		      }
-   		    }
-   		  }
+        type: 'line',
+        data: {
+             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUS', 'SEP', 'OCT', 'NOV', 'DEC'],
+             datasets: [{
+               label: '월별 CHALLENGE 생성 개수',
+            data: ["${challengeMonth['1']}", "${challengeMonth['2']}", "${challengeMonth['3']}", "${challengeMonth['4']}", "${challengeMonth['5']}", "${challengeMonth['6']}",
+            "${challengeMonth['7']}", "${challengeMonth['8']}", "${challengeMonth['9']}", "${challengeMonth['10']}", "${challengeMonth['11']}", "${challengeMonth['12']}",],
+           
+               fill: true,
+               borderColor: 'rgb(89, 29, 169)'
+             }]
+           },
+        options: {
+             scales: {
+               y: {
+                 beginAtZero: true
+               }
+             }
+           }
     }
   );
 
 //바 차트
 //챌린지 가입자가 많은 순
+
+let challengeMemberMax = JSON.parse('${challengeMemberMax}'); 
+console.log(challengeMemberMax)
+
+let ctitle = ['없음', '없음','없음','없음','없음','없음','없음'];
+let mcount = [0,0,0,0,0,0,0];
+for(let i=0;i<challengeMemberMax.length;i++){
+   ctitle[i] = challengeMemberMax[i].challengetitle;
+   mcount[i] = challengeMemberMax[i].percent;
+}
+console.log(ctitle + " ||| " +mcount )
+
 var myChart2 = new Chart(
-	    document.getElementById('challengeMember'),
-	    {
-	    	  type: 'bar',
-	    	  data: {
-	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
-	    		  datasets: [{
-	    		    label: '가입자가 많은 순',
-	    		    data: [65, 59, 80, 81, 56, 55, 40],
-	    		    backgroundColor: [
-	    		      'rgba(255, 99, 132, 0.5)',
-	    		      'rgba(255, 159, 64, 0.5)',
-	    		      'rgba(255, 205, 86, 0.5)',
-	    		      'rgba(75, 192, 192, 0.5)',
-	    		      'rgba(54, 162, 235, 0.5)',
-	    		      'rgba(153, 102, 255, 0.5)',
-	    		      'rgba(201, 203, 207, 0.5)'
-	    		    ],
-	    		    borderColor: [
-	    		      'rgb(255, 99, 132)',
-	    		      'rgb(255, 159, 64)',
-	    		      'rgb(255, 205, 86)',
-	    		      'rgb(75, 192, 192)',
-	    		      'rgb(54, 162, 235)',
-	    		      'rgb(153, 102, 255)',
-	    		      'rgb(201, 203, 207)'
-	    		    ],
-	    		    borderWidth: 1,
-	    		    barThickness: 50
-	    		  }]
-	    		},
-	    	  options: {
-	    	    scales: {
-	    	      y: {
-	    	        beginAtZero: true
-	    	      }	    	      
-	    	    },
-	    	    
-	    	  },
-	    	}
-	  );
+       document.getElementById('challengeMember'),
+       {
+            type: 'bar',
+            data: {
+               labels: ctitle,
+               datasets: [{
+                 label: '가입자가 많은 순',
+                 data: mcount,
+                 backgroundColor: [
+                   'rgba(255, 99, 132, 0.5)',
+                   'rgba(255, 159, 64, 0.5)',
+          
+                 ],
+                 borderColor: [
+                   'rgb(255, 99, 132)',
+                   'rgb(255, 159, 64)',
+       
+                 ],
+                 borderWidth: 1,
+                 barThickness: 50
+               }]
+             },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }                
+              },
+              
+            },
+          }
+     );
 //챌린지 달성률이 높은 순(유저 많은 순)
 var myChart3 = new Chart(
-	    document.getElementById('challengeIdentify'),
-	    {
-	    	  type: 'bar',
-	    	  data: {
-	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
-	    		  datasets: [{
-	    		    label: 'CHALLENGE 달성률이 높은 순',
-	    		    data: [65, 59, 80, 81, 56, 55, 40],
-	    		    backgroundColor: [
-	    		      'rgba(255, 99, 132, 0.5)',
-	    		      'rgba(255, 159, 64, 0.5)',
-	    		      'rgba(255, 205, 86, 0.5)',
-	    		      'rgba(75, 192, 192, 0.5)',
-	    		      'rgba(54, 162, 235, 0.5)',
-	    		      'rgba(153, 102, 255, 0.5)',
-	    		      'rgba(201, 203, 207, 0.5)'
-	    		    ],
-	    		    borderColor: [
-	    		      'rgb(255, 99, 132)',
-	    		      'rgb(255, 159, 64)',
-	    		      'rgb(255, 205, 86)',
-	    		      'rgb(75, 192, 192)',
-	    		      'rgb(54, 162, 235)',
-	    		      'rgb(153, 102, 255)',
-	    		      'rgb(201, 203, 207)'
-	    		    ],
-	    		    borderWidth: 1,
-	    		    barThickness: 50
-	    		  }]
-	    		},
-	    	  options: {
-	    	    scales: {
-	    	      y: {
-	    	        beginAtZero: true
-	    	      }
-	    	    }
-	    	  },
-	    	}
+       document.getElementById('challengeIdentify'),
+       {
+            type: 'bar',
+            data: {
+               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               datasets: [{
+                 label: 'CHALLENGE 달성률이 높은 순',
+                 data: [65, 59, 80, 81, 56, 55, 40],
+                 backgroundColor: [
+                   'rgba(255, 99, 132, 0.5)',
+                   'rgba(255, 159, 64, 0.5)',
+                   'rgba(255, 205, 86, 0.5)',
+                   'rgba(75, 192, 192, 0.5)',
+                   'rgba(54, 162, 235, 0.5)',
+                   'rgba(153, 102, 255, 0.5)',
+                   'rgba(201, 203, 207, 0.5)'
+                 ],
+                 borderColor: [
+                   'rgb(255, 99, 132)',
+                   'rgb(255, 159, 64)',
+                   'rgb(255, 205, 86)',
+                   'rgb(75, 192, 192)',
+                   'rgb(54, 162, 235)',
+                   'rgb(153, 102, 255)',
+                   'rgb(201, 203, 207)'
+                 ],
+                 borderWidth: 1,
+                 barThickness: 50
+               }]
+             },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            },
+          }
 
-	  );
-	  
+     );
+     
 //유저 팔로잉 많은 순
 var myChart4 = new Chart(
-	    document.getElementById("userFollowing"),
-	    {
-	    	  type: 'bar',
-	    	  data: {
-	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
-	    		  datasets: [{
-	    		    label: '다른 유저에게 좋아요 많이 받은 유저 수',
-	    		    data: [65, 59, 80, 81, 56, 55, 40],
-	    		    backgroundColor: [
-	    		      'rgba(255, 99, 132, 0.5)',
-	    		      'rgba(255, 159, 64, 0.5)',
-	    		      'rgba(255, 205, 86, 0.5)',
-	    		      'rgba(75, 192, 192, 0.5)',
-	    		      'rgba(54, 162, 235, 0.5)',
-	    		      'rgba(153, 102, 255, 0.5)',
-	    		      'rgba(201, 203, 207, 0.5)'
-	    		    ],
-	    		    borderColor: [
-	    		      'rgb(255, 99, 132)',
-	    		      'rgb(255, 159, 64)',
-	    		      'rgb(255, 205, 86)',
-	    		      'rgb(75, 192, 192)',
-	    		      'rgb(54, 162, 235)',
-	    		      'rgb(153, 102, 255)',
-	    		      'rgb(201, 203, 207)'
-	    		    ],
-	    		    borderWidth: 1,
-	    		    barThickness: 50
-	    		  }]
-	    		},
-	    	  options: {
-	    	    scales: {
-	    	      y: {
-	    	        beginAtZero: true
-	    	      }
-	    	    }
-	    	  },
-	    	}
-	  );
-	  
-	  
+       document.getElementById("userFollowing"),
+       {
+            type: 'bar',
+            data: {
+               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               datasets: [{
+                 label: '다른 유저에게 좋아요 많이 받은 유저 수',
+                 data: [65, 59, 80, 81, 56, 55, 40],
+                 backgroundColor: [
+                   'rgba(255, 99, 132, 0.5)',
+                   'rgba(255, 159, 64, 0.5)',
+                   'rgba(255, 205, 86, 0.5)',
+                   'rgba(75, 192, 192, 0.5)',
+                   'rgba(54, 162, 235, 0.5)',
+                   'rgba(153, 102, 255, 0.5)',
+                   'rgba(201, 203, 207, 0.5)'
+                 ],
+                 borderColor: [
+                   'rgb(255, 99, 132)',
+                   'rgb(255, 159, 64)',
+                   'rgb(255, 205, 86)',
+                   'rgb(75, 192, 192)',
+                   'rgb(54, 162, 235)',
+                   'rgb(153, 102, 255)',
+                   'rgb(201, 203, 207)'
+                 ],
+                 borderWidth: 1,
+                 barThickness: 50
+               }]
+             },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            },
+          }
+     );
+     
+     
 
 //유저 포인트가 많은 순
 var myChart5 = new Chart(
-	    document.getElementById("userPoint"),
-	    {
-	    	  type: 'bar',
-	    	  data: {
-	    		  labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
-	    		  datasets: [{
-	    		    label: '가입한 CHALLENGE가 많은 유저 수',
-	    		    data: [65, 59, 80, 81, 56, 55, 40],
-	    		    backgroundColor: [
-	    		      'rgba(255, 99, 132, 0.5)',
-	    		      'rgba(255, 159, 64, 0.5)',
-	    		      'rgba(255, 205, 86, 0.5)',
-	    		      'rgba(75, 192, 192, 0.5)',
-	    		      'rgba(54, 162, 235, 0.5)',
-	    		      'rgba(153, 102, 255, 0.5)',
-	    		      'rgba(201, 203, 207, 0.5)'
-	    		    ],
-	    		    borderColor: [
-	    		      'rgb(255, 99, 132)',
-	    		      'rgb(255, 159, 64)',
-	    		      'rgb(255, 205, 86)',
-	    		      'rgb(75, 192, 192)',
-	    		      'rgb(54, 162, 235)',
-	    		      'rgb(153, 102, 255)',
-	    		      'rgb(201, 203, 207)'
-	    		    ],
-	    		    borderWidth: 1,
-	    		    barThickness: 50
-	    		  }]
-	    		},
-	    	  options: {
-	    	    scales: {
-	    	      y: {
-	    	        beginAtZero: true
-	    	      }
-	    	    }
-	    	  },
-	    	}
-	  );
-	  
+       document.getElementById("userPoint"),
+       {
+            type: 'bar',
+            data: {
+               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               datasets: [{
+                 label: '가입한 CHALLENGE가 많은 유저 수',
+                 data: [65, 59, 80, 81, 56, 55, 40],
+                 backgroundColor: [
+                   'rgba(255, 99, 132, 0.5)',
+                   'rgba(255, 159, 64, 0.5)',
+                   'rgba(255, 205, 86, 0.5)',
+                   'rgba(75, 192, 192, 0.5)',
+                   'rgba(54, 162, 235, 0.5)',
+                   'rgba(153, 102, 255, 0.5)',
+                   'rgba(201, 203, 207, 0.5)'
+                 ],
+                 borderColor: [
+                   'rgb(255, 99, 132)',
+                   'rgb(255, 159, 64)',
+                   'rgb(255, 205, 86)',
+                   'rgb(75, 192, 192)',
+                   'rgb(54, 162, 235)',
+                   'rgb(153, 102, 255)',
+                   'rgb(201, 203, 207)'
+                 ],
+                 borderWidth: 1,
+                 barThickness: 50
+               }]
+             },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            },
+          }
+     );
+     
 //도넛 차트
 //챌린지 카테고리별 생성 개수
 var myChart6 = new Chart(
-	    document.getElementById("challengeCategory"),
-	    {
-		  type: 'doughnut',
-		  data: {
-					  datasets: [{
-					    label: '카테고리별 CHALLENGE 수',
-					    data: ["${challengeCategory['1']}", "${challengeCategory['2']}", "${challengeCategory['3']}", "${challengeCategory['4']}", "${challengeCategory['5']}", "${challengeCategory['6']}"],
-					    backgroundColor: [
-					      'rgb(255, 99, 132)',
-					      'rgb(255, 159, 64)',
-					      'rgb(255, 205, 86)',
-					      'rgb(75, 192, 192)',
-					      'rgb(54, 162, 235)',
-					      'rgb(153, 102, 255)',
-					    ],
-					    hoverOffset: 4
-					  }]
-					}
-	  	  }
+       document.getElementById("challengeCategory"),
+       {
+        type: 'doughnut',
+        data: {
+                 datasets: [{
+                   label: '카테고리별 CHALLENGE 수',
+                   data: ["${challengeCategory['1']}", "${challengeCategory['2']}", "${challengeCategory['3']}", "${challengeCategory['4']}", "${challengeCategory['5']}", "${challengeCategory['6']}"],
+                   backgroundColor: [
+                     'rgb(255, 99, 132)',
+                     'rgb(255, 159, 64)',
+                     'rgb(255, 205, 86)',
+                     'rgb(75, 192, 192)',
+                     'rgb(54, 162, 235)',
+                     'rgb(153, 102, 255)',
+                   ],
+                   hoverOffset: 4
+                 }]
+               }
+          }
 
 );
 
 //유저 인증률이 가장 높은 순
 var myChart7 = new Chart(
-	    document.getElementById("userIdentify"),
-	    {
-		  type: 'doughnut',
-		  data: {
-				  labels: [
-					    '건강',
-					    '역량',
-					    '정서',
-					     '자산',
-					    '생활',
-					    '취미'
-					  ],
-					  datasets: [{
-					    label: '인증 성공률이 높은 순',
-					    data: [300, 50, 100, 40, 30, 60],
-					    backgroundColor: [
-					      'rgb(255, 99, 132)',
-					      'rgb(255, 159, 64)',
-					      'rgb(255, 205, 86)',
-					      'rgb(75, 192, 192)',
-					      'rgb(54, 162, 235)',
-					      'rgb(153, 102, 255)',
-					    ],
-					    hoverOffset: 4
-					  }]
-					}
-	  	  }
+       document.getElementById("userIdentify"),
+       {
+        type: 'doughnut',
+        data: {
+              labels: [
+                   '건강',
+                   '역량',
+                   '정서',
+                    '자산',
+                   '생활',
+                   '취미'
+                 ],
+                 datasets: [{
+                   label: '인증 성공률이 높은 순',
+                   data: [300, 50, 100, 40, 30, 60],
+                   backgroundColor: [
+                     'rgb(255, 99, 132)',
+                     'rgb(255, 159, 64)',
+                     'rgb(255, 205, 86)',
+                     'rgb(75, 192, 192)',
+                     'rgb(54, 162, 235)',
+                     'rgb(153, 102, 255)',
+                   ],
+                   hoverOffset: 4
+                 }]
+               }
+          }
 
 );
 

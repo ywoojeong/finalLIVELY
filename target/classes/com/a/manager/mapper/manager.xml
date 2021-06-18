@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manager">
+
 	
 	<!-- 매니저 챌린지 -->
 	<select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
@@ -9,7 +10,7 @@
 		(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
 		(SELECT COUNT(*) FROM CHALLENGE
 		WHERE  CHALLENGEDEL = 0
-			<if test="category !=null and category !='' and category !=0">
+			<if test="category !=null and category !='' and rcategory !=0">
 				AND CATEGORY = #{category}
 			</if>
 			<if test="mSearch !=null and mSearch != ''">
@@ -40,90 +41,158 @@
 	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
 	</select>
 	
+	<!-- 멤버 꺼내오는 부분 -->
+	<select id="memberCntList" parameterType="java.util.Map" resultType="java.util.Map">
+	SELECT MV.MEMBERSEQ, MV.EMAIL, MV.NICKNAME, MV.AUTH, MV.MEMBERPHOTONAME, MV.MEMBERSTOP, MV.MEMBERDEL, MV.TOTALCNT FROM
+		(SELECT MEM.*, ROW_NUMBER() OVER(ORDER BY MEMBERSEQ DESC) as MI,
+		(SELECT COUNT(*) FROM MEMBER
+		WHERE AUTH = 3 AND MEMBERDEL = 0
+		<if test="categorys != null and categorys != ''
+				and searchs != null and searchs != ''">
+			<if test="categorys == 1">
+				AND NICKNAME LIKE '%'||#{searchs}||'%'
+			</if>
+			<if test="categorys == 2">
+				AND EMAIL LIKE '%'||#{searchs}||'%'
+			</if>
+		</if>
+		) as TOTALCNT
+	FROM MEMBER MEM
+	WHERE AUTH = 3 AND MEMBERDEL = 0
+	    <if test="categorys != null and categorys != ''
+				and searchs != null and searchs != ''">
+			<if test="categorys == 1">
+				AND NICKNAME LIKE '%'||#{searchs}||'%'
+			</if>
+			<if test="categorys == 2">
+				AND EMAIL LIKE '%'||#{searchs}||'%'
+			</if>
+		</if>
+	) MV
+	WHERE MV.MI > #{startPage} AND #{endPage} > MV.MI
+	</select>
 	
 	
 	<!-- 민선 부분 매퍼 -->
-	<!-- 전체 사용자 수 userAllCount-->
-	<select id="userAllCount" resultType="java.lang.Integer">
-	 	SELECT COUNT(*)
-		FROM MEMBER
-	</select>
-	
-	<!-- 전체 챌린지 수 -->
-	<select id="challengeAllCount" resultType="java.lang.Integer">
-	 	SELECT COUNT(*)
-		FROM CHALLENGE
-	</select>
-	
-	<!-- 월별 챌린지 생성 개수 challengeAdd-->
-	<select id="challengeAdd" resultType="com.a.util.lowerKeyMap">
-	  SELECT NVL(SUM(A.CNT), 0) AS CHALLENGECOUNT
-	  FROM (SELECT TO_CHAR(CHALLENGESDATE, 'YYYY-MM-DD') AS CHALLENGESDATE, COUNT(*) AS CNT
-	        FROM CHALLENGE
-	        WHERE CHALLENGESDATE BETWEEN TO_DATE('2021-01-01', 'YYYY-MM-DD') AND TO_DATE('2021-12-31', 'YYYY-MM-DD') 
-	        GROUP BY CHALLENGESDATE
-	        ) A,
-	      (SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS DT
-	       FROM dual 
-	       CONNECT BY LEVEL <![CDATA[ <= ]]> (TO_DATE('2021-12-31','YYYY-MM-DD') - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
-	       ) B
-	  WHERE B.DT = A.CHALLENGESDATE(+)
-	  GROUP BY TO_CHAR(B.DT, 'YYYY-MM')
-	  ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
-	 </select>
-	
-	<!-- 카테고리별 챌린지 개수  challengeCategory-->
-	<select id="challengeCategory" resultType="com.a.util.lowerKeyMap">
-		SELECT COUNT(*) AS CATEGORYCOUNT
-		FROM CHALLENGE	
-		GROUP BY CATEGORY
-		ORDER BY CATEGORY	
-	</select>
-	
-	<!-- 챌린지 가입인원 수 challengeMemberMax -->
-	<select id="challengeMemberMax" resultType="com.a.util.lowerKeyMap">
-		SELECT C.*
-		FROM (SELECT ROW_NUMBER()OVER(ORDER BY CHALLENGEMEMBER DESC, CHALLENGESTART DESC) AS RNUM, CHALLENGETITLE, CHALLENGEMEMBER, CHALLENGESDATE
-		FROM CHALLENGE) C
-		WHERE C.RNUM <![CDATA[ >= ]]> 1 AND C.RNUM <![CDATA[ <= ]]>7
-		ORDER BY C.RNUM, C.CHALLENGESDATE DESC
-	</select>
-	
-	<!-- 챌린지 인증 퍼센트 높은 순 (유저 많은 순) challengeIdentifyMax -->
-	
-	<!-- 월별 사용자 가입수 userAdd -->
-	<select id="userAdd" resultType="com.a.util.lowerKeyMap">
-	  SELECT NVL(SUM(a.CNT), 0) AS MEMBERCOUNT
-	  FROM (SELECT TO_CHAR(MEMBERSDATE, 'YYYY-MM-DD') AS MEMBERSDATE, COUNT(*) AS CNT
-	        FROM MEMBER
-	        WHERE MEMBERSDATE BETWEEN TO_DATE('2021-01-01', 'YYYY-MM-DD') AND TO_DATE('2021-12-31', 'YYYY-MM-DD') 
-	        GROUP BY MEMBERSDATE
-	        ) A,
-	      (SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS DT
-	       FROM dual 
-	       CONNECT BY LEVEL <![CDATA[ <= ]]> (TO_DATE('2021-12-31','YYYY-MM-DD') - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
-	       ) B
-		WHERE B.DT = A.MEMBERSDATE(+)
-		GROUP BY TO_CHAR(B.DT, 'YYYY-MM')
-		ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
-	</select>
-	
-	<!-- 인증률이 높은 유저 순(6명) userIdentify-->
-	
-	<!-- 좋아요 많이 받은 순(following) userFollowingMax -->
-	<select id="userFollowingMax" resultType="com.a.util.lowerKeyMap">
-		SELECT F.*
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY FOLLOWINGEMAIL DESC) AS RNUM, COUNT(*) AS FOLLOWING, FOLLOWINGEMAIL, (SELECT NICKNAME FROM MEMBER WHERE EMAIL = FOLLOWINGEMAIL) AS NICKNAME
-		FROM FOLLOW F
-		GROUP BY F.FOLLOWINGEMAIL) F
-		WHERE F.RNUM BETWEEN 1 AND 7
-	</select>
-	
-	<!-- 포인트가 많은 사용자 순 userPointMax -->	
-	<select id="userPointMax" resultType="com.a.util.lowerKeyMap">
-		SELECT C.*
-		FROM (SELECT ROW_NUMBER()OVER(ORDER BY POINT DESC) AS RNUM, NICKNAME, POINT
-		FROM MEMBER) C
-		WHERE C.RNUM BETWEEN 1 AND 7
-	</select>
+
+   <!-- 전체 사용자 수 userAllCount-->
+   <select id="userAllCount" resultType="java.lang.Integer">
+       SELECT COUNT(*)
+      FROM MEMBER
+   </select>
+   
+   <!-- 전체 챌린지 수 -->
+   <select id="challengeAllCount" resultType="java.lang.Integer">
+       SELECT COUNT(*)
+      FROM CHALLENGE
+   </select>
+   
+   <!-- 월별 챌린지 생성 개수 challengeAdd-->
+   <select id="challengeAdd" resultType="com.a.util.lowerKeyMap">
+     SELECT NVL(SUM(A.CNT), 0) AS CHALLENGECOUNT
+     FROM (SELECT TO_CHAR(CHALLENGESDATE, 'YYYY-MM-DD') AS CHALLENGESDATE, COUNT(*) AS CNT
+           FROM CHALLENGE
+           WHERE CHALLENGESDATE BETWEEN TO_DATE('2021-01-01', 'YYYY-MM-DD') AND TO_DATE('2021-12-31', 'YYYY-MM-DD') 
+           GROUP BY CHALLENGESDATE
+           ) A,
+         (SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS DT
+          FROM dual 
+          CONNECT BY LEVEL <![CDATA[ <= ]]> (TO_DATE('2021-12-31','YYYY-MM-DD') - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
+          ) B
+     WHERE B.DT = A.CHALLENGESDATE(+)
+     GROUP BY TO_CHAR(B.DT, 'YYYY-MM')
+     ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
+    </select>
+   
+   <!-- 카테고리별 챌린지 개수  challengeCategory-->
+   <select id="challengeCategory" resultType="com.a.util.lowerKeyMap">
+      SELECT COUNT(*) AS CATEGORYCOUNT
+      FROM CHALLENGE   
+      GROUP BY CATEGORY
+      ORDER BY CATEGORY   
+   </select>
+   
+   <!-- 챌린지 가입인원 수 challengeMemberMax -->
+   <select id="challengeMemberMax" resultType="com.a.util.lowerKeyMap">
+      SELECT C.*
+      FROM (SELECT ROW_NUMBER()OVER(ORDER BY CHALLENGEMEMBER DESC, CHALLENGESTART DESC) AS RNUM, CHALLENGETITLE, CHALLENGEMEMBER, CHALLENGESDATE
+      FROM CHALLENGE) C
+      WHERE C.RNUM <![CDATA[ >= ]]> 1 AND C.RNUM <![CDATA[ <= ]]>7
+      ORDER BY C.RNUM, C.CHALLENGESDATE DESC
+   </select>
+   
+   <!-- 챌린지 인증 퍼센트 높은 순 (유저 많은 순) challengeIdentifyMax -->
+   <select id="challengeIdentifyMax" resultType="com.a.util.lowerKeyMap">
+      SELECT CHALLENGETITLE, PERCENT
+      FROM(SELECT ROW_NUMBER()OVER(ORDER BY PERCENT DESC) AS RNUM, PERCENT, CHALLENGESEQ, CHALLENGETITLE
+      FROM(SELECT ROUND(A.CERTIFYCOUNT / (C.IDENTIFYFREQUENCY*C.CHALLENGEPERIOD*C.CHALLENGEMEMBER) *100) AS PERCENT, C.CHALLENGESEQ, C.CHALLENGETITLE
+      FROM (SELECT COUNT(*) AS CERTIFYCOUNT, CHALLENGESEQ
+       FROM CERTIFY
+       GROUP BY CHALLENGESEQ) A, 
+       (SELECT 
+         CASE IDENTIFYFREQUENCY
+                  WHEN 9 THEN 7
+                   WHEN 8 THEN 5
+                   WHEN 7 THEN 2
+                   ELSE IDENTIFYFREQUENCY
+                   END AS IDENTIFYFREQUENCY, CHALLENGETITLE, CHALLENGEPERIOD, CHALLENGESEQ, CHALLENGEMEMBER
+      FROM CHALLENGE) C
+      WHERE C.CHALLENGESEQ = A.CHALLENGESEQ))
+      WHERE RNUM BETWEEN 1 AND 7
+   </select>
+   
+   <!-- 월별 사용자 가입수 userAdd -->
+   <select id="userAdd" resultType="com.a.util.lowerKeyMap">
+     SELECT NVL(SUM(a.CNT), 0) AS MEMBERCOUNT
+     FROM (SELECT TO_CHAR(MEMBERSDATE, 'YYYY-MM-DD') AS MEMBERSDATE, COUNT(*) AS CNT
+           FROM MEMBER
+           WHERE MEMBERSDATE BETWEEN TO_DATE('2021-01-01', 'YYYY-MM-DD') AND TO_DATE('2021-12-31', 'YYYY-MM-DD') 
+           GROUP BY MEMBERSDATE
+           ) A,
+         (SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS DT
+          FROM dual 
+          CONNECT BY LEVEL <![CDATA[ <= ]]> (TO_DATE('2021-12-31','YYYY-MM-DD') - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
+          ) B
+      WHERE B.DT = A.MEMBERSDATE(+)
+      GROUP BY TO_CHAR(B.DT, 'YYYY-MM')
+      ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
+   </select>
+   
+   <!-- 인증률이 높은 유저 순(6명) userIdentify-->
+   <select id="userIdentify" resultType="com.a.util.lowerKeyMap">
+      SELECT EMAIL, TOTALPERCENT
+      FROM (SELECT ROW_NUMBER()OVER(ORDER BY A.TOTALPERCENT DESC) AS RNUM, A.EMAIL, A.TOTALPERCENT
+      FROM (SELECT EMAIL, SUM(PERCENTS)/COUNT(*) AS TOTALPERCENT
+      FROM (SELECT NICKNAME, EMAIL, IDENTIFYFREQUENCY*CHALLENGEPERIOD AS TOTALDAY, ROUND(IDENTIFY/(IDENTIFYFREQUENCY*CHALLENGEPERIOD)*100,0) AS PERCENTS, MEMBERSDATE
+            FROM (SELECT CM.IDENTIFY, CM.CHALLENGESEQ, M.NICKNAME, M.EMAIL, M.MEMBERSDATE,
+                     CASE C.IDENTIFYFREQUENCY
+                        WHEN 9 THEN 7
+                         WHEN 8 THEN 5
+                         WHEN 7 THEN 2
+                         ELSE C.IDENTIFYFREQUENCY
+                         END AS IDENTIFYFREQUENCY, C.CHALLENGEPERIOD
+            FROM CHALLENGEMEMBER CM, MEMBER M, CHALLENGE C
+            WHERE M.EMAIL = CM.EMAIL
+               AND C.CHALLENGESEQ = CM.CHALLENGESEQ)
+            ORDER BY PERCENTS DESC, MEMBERSDATE ASC)
+      GROUP BY EMAIL) A)
+      WHERE RNUM BETWEEN 1 AND 6
+   </select>
+   
+   <!-- 좋아요 많이 받은 순(following) userFollowingMax -->
+   <select id="userFollowingMax" resultType="com.a.util.lowerKeyMap">
+      SELECT F.*
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY FOLLOWINGEMAIL DESC) AS RNUM, COUNT(*) AS FOLLOWING, FOLLOWINGEMAIL, (SELECT NICKNAME FROM MEMBER WHERE EMAIL = FOLLOWINGEMAIL) AS NICKNAME
+      FROM FOLLOW F
+      GROUP BY F.FOLLOWINGEMAIL) F
+      WHERE F.RNUM BETWEEN 1 AND 7
+   </select>
+   
+   <!-- 포인트가 많은 사용자 순 userPointMax -->   
+   <select id="userPointMax" resultType="com.a.util.lowerKeyMap">
+      SELECT C.*
+      FROM (SELECT ROW_NUMBER()OVER(ORDER BY POINT DESC) AS RNUM, NICKNAME, POINT
+      FROM MEMBER) C
+      WHERE C.RNUM BETWEEN 1 AND 7
+   </select>
 </mapper>

@@ -438,4 +438,9 @@
 		SET SUCCESS = #{success}
 		WHERE CHALLENGESEQ = #{challengeseq} AND EMAIL = #{email}
 	</update>
+	
+	
+	<!-- 채팅 부분 -->
+	
+	
 </mapper>

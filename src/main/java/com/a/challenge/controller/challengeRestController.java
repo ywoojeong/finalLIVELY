@@ -475,4 +475,7 @@ public class challengeRestController {
 			}
 			return msg;
 		}
+		
+		//챌린지 채팅 해당 챌린지만
+		
 }

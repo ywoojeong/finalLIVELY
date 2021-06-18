@@ -380,12 +380,34 @@
 	    <version>1.2.1.RELEASE</version>
 	</dependency>
 	
+	<!-- 민선 추가 -->
 	<!-- map key 소문자로 변경하기 -->
 	<dependency>
 	    <groupId>org.apache.commons</groupId>
 	    <artifactId>commons-collections4</artifactId>
 	    <version>4.0</version>
 	</dependency>
+	
+	<!-- 웹소캣 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-websocket</artifactId>
+	    <version>5.3.3</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.glassfish</groupId>
+	    <artifactId>javax.json</artifactId>
+	    <version>1.0.4</version>
+	</dependency>	
+	
+	<dependency>
+	    <groupId>com.googlecode.json-simple</groupId>
+	    <artifactId>json-simple</artifactId>
+	    <version>1.1.1</version>
+	</dependency>
+	<!-- ////////////////////-->
+	
 	
 	<dependency>
 	    <groupId>org.bgee.log4jdbc-log4j2</groupId>
