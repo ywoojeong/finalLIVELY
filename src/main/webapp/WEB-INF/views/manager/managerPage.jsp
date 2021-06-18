@@ -24,24 +24,25 @@
     font-weight: 500;
 }
 
+.list-group-item:hover{
+  background-color: white;
+  color:#000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
 .list-group-item.active {
     z-index: 2;
     color: #000;
-/*     background-color: #60bfa4; */
-     text-decoration: none; 
+    text-decoration: none; 
     font-weight: 500;
-    /* border-color: #007bff; */
     background-color: white;
 }
-.list-group-item:hover {
-    color: #000;
-    font-weight: 500;
-     text-decoration: none; 
-      background-color: white;
-}
+
+
 </style>
 <script>
-console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMonth ${challengeMonth} || userMonth ${userMonth['6']}")
+console.log("받아오는지 확인하자 || ${member} allCount ${allCount} || challengeMonth ${challengeMonth} || userMonth ${userMonth['6']}")
 
 </script>
 <div class="container-fluid"> 
@@ -228,9 +229,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 							<div style="width: 380px;padding:30px">
 								<canvas id="userIdentify"></canvas>
 							</div>
-							<div>
-								
-								
+							<div id="userData" style="margin: 64px 0 0 5px">				
 								
 							</div>
 						</div>
@@ -674,7 +673,6 @@ var myChart1 = new Chart(
 
 //바 차트
 //챌린지 가입자가 많은 순
-
 let challengeMemberMax = JSON.parse('${challengeMemberMax}'); 
 console.log(challengeMemberMax)
 
@@ -696,14 +694,24 @@ var myChart2 = new Chart(
                  label: '가입자가 많은 순',
                  data: mcount,
                  backgroundColor: [
-                   'rgba(255, 99, 132, 0.5)',
-                   'rgba(255, 159, 64, 0.5)',
+                	  'rgba(255, 99, 132, 0.5)',
+                      'rgba(255, 159, 64, 0.5)',
+                      'rgba(255, 205, 86, 0.5)',
+                      'rgba(75, 192, 192, 0.5)',
+                      'rgba(54, 162, 235, 0.5)',
+                      'rgba(153, 102, 255, 0.5)',
+                      'rgba(201, 203, 207, 0.5)'
           
                  ],
                  borderColor: [
-                   'rgb(255, 99, 132)',
-                   'rgb(255, 159, 64)',
-       
+                	 'rgb(255, 99, 132)',
+                     'rgb(255, 159, 64)',
+                     'rgb(255, 205, 86)',
+                     'rgb(75, 192, 192)',
+                     'rgb(54, 162, 235)',
+                     'rgb(153, 102, 255)',
+                     'rgb(201, 203, 207)'
+
                  ],
                  borderWidth: 1,
                  barThickness: 50
@@ -720,15 +728,25 @@ var myChart2 = new Chart(
           }
      );
 //챌린지 달성률이 높은 순(유저 많은 순)
+let challengeIdentifyMax = JSON.parse('${challengeIdentifyMax}'); 
+console.log(challengeIdentifyMax)
+
+let cititle = ['없음', '없음','없음','없음','없음','없음','없음'];
+let cicount = [0,0,0,0,0,0,0];
+for(let i=0;i<challengeIdentifyMax.length;i++){
+	cititle[i] = challengeIdentifyMax[i].challengetitle;
+	cicount[i] = challengeIdentifyMax[i].percent;
+}
+console.log(cititle + " ||| " +cititle )
 var myChart3 = new Chart(
        document.getElementById('challengeIdentify'),
        {
             type: 'bar',
             data: {
-               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               labels: cititle,
                datasets: [{
                  label: 'CHALLENGE 달성률이 높은 순',
-                 data: [65, 59, 80, 81, 56, 55, 40],
+                 data: cicount,
                  backgroundColor: [
                    'rgba(255, 99, 132, 0.5)',
                    'rgba(255, 159, 64, 0.5)',
@@ -763,15 +781,25 @@ var myChart3 = new Chart(
      );
      
 //유저 팔로잉 많은 순
+let userFollowingMax = JSON.parse('${userFollowingMax}'); 
+console.log(userFollowingMax)
+
+let ftitle = ['없음', '없음','없음','없음','없음','없음','없음'];
+let fcount = [0,0,0,0,0,0,0];
+for(let i=0;i<userFollowingMax.length;i++){
+	ftitle[i] = userFollowingMax[i].nickname;
+	fcount[i] = userFollowingMax[i].following;
+}
+console.log(ftitle + " ||| " +fcount )
 var myChart4 = new Chart(
        document.getElementById("userFollowing"),
        {
             type: 'bar',
             data: {
-               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               labels: ftitle,
                datasets: [{
                  label: '다른 유저에게 좋아요 많이 받은 유저 수',
-                 data: [65, 59, 80, 81, 56, 55, 40],
+                 data: fcount,
                  backgroundColor: [
                    'rgba(255, 99, 132, 0.5)',
                    'rgba(255, 159, 64, 0.5)',
@@ -807,15 +835,25 @@ var myChart4 = new Chart(
      
 
 //유저 포인트가 많은 순
+let userPointMax = JSON.parse('${userPointMax}'); 
+console.log(userPointMax)
+
+let ptitle = ['없음', '없음','없음','없음','없음','없음','없음'];
+let pcount = [0,0,0,0,0,0,0];
+for(let i=0;i<userPointMax.length;i++){
+	ptitle[i] = userPointMax[i].nickname;
+	pcount[i] = userPointMax[i].point;
+}
+console.log(ptitle + " ||| " +pcount )
 var myChart5 = new Chart(
        document.getElementById("userPoint"),
        {
             type: 'bar',
             data: {
-               labels: ['lemion', 'lemion', 'lemion', 'lemion', 'lemion', 'lemion'],
+               labels: ptitle,
                datasets: [{
                  label: '가입한 CHALLENGE가 많은 유저 수',
-                 data: [65, 59, 80, 81, 56, 55, 40],
+                 data: pcount,
                  backgroundColor: [
                    'rgba(255, 99, 132, 0.5)',
                    'rgba(255, 159, 64, 0.5)',
@@ -874,22 +912,25 @@ var myChart6 = new Chart(
 );
 
 //유저 인증률이 가장 높은 순
+let userIdentify = JSON.parse('${userIdentify}'); 
+console.log(userIdentify)
+
+let utitle = ['없음', '없음','없음','없음','없음','없음'];
+let ucount = [0,0,0,0,0,0];
+let color = ['255, 99, 132', '255, 159, 64', '255, 205, 86', '75, 192, 192', '54, 162, 235', '153, 102, 255'];
+for(let i=0;i<userIdentify.length;i++){
+	utitle[i] = userIdentify[i].nickname;
+	ucount[i] = userIdentify[i].totalpercent;
+}
+console.log(utitle + " ||| " +utitle )
 var myChart7 = new Chart(
        document.getElementById("userIdentify"),
        {
         type: 'doughnut',
         data: {
-              labels: [
-                   '건강',
-                   '역량',
-                   '정서',
-                    '자산',
-                   '생활',
-                   '취미'
-                 ],
                  datasets: [{
                    label: '인증 성공률이 높은 순',
-                   data: [300, 50, 100, 40, 30, 60],
+                   data: ucount,
                    backgroundColor: [
                      'rgb(255, 99, 132)',
                      'rgb(255, 159, 64)',
@@ -902,8 +943,19 @@ var myChart7 = new Chart(
                  }]
                }
           }
-
 );
+
+let userData = "<table class='categoryTable'>";				
+				for(i=0;i<utitle.length;i++){
+					userData += "<tr><td><div style='width: 50px;height: 12px;background-color:rgb("+color[i]+");margin-left: 20px'></div></td>"
+					 + "<td><span style='font-size: 10pt;font-weight: 500;margin: 0 20px;letter-spacing: 3px;'>"
+					+ utitle[i] + "</span></td>"
+					+ "<td><span style='margin-right: 20px'>"
+					+ ucount[i]+"</span></td></tr>";
+				}
+	userData += "</table>";
+	document.getElementById('userData').innerHTML = userData;
+
 
 //유저 활동 많은 순
 </script>

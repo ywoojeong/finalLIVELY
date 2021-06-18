@@ -1490,44 +1490,6 @@ function commentLikeDel(commentseq, number){
 		}
 	});
 }
-//후기 작성 버튼 제어 chall-buttons
-
-
-/*
-let loginUser = '${user.email}';
-console.log("야...왜안나와"+loginUser)
-if(loginUser == null){
-   $("#reviewMakeBtn").css("display","none");
-}else if(loginUser != null){
-	$.each(challengeMember, function(i, member){
-		if(loginUser == member.email){
-			 $("#reviewMakeBtn").css("display","");
-		}
-	});
-}
-
-*/
-/*
-
-   $("#reviewMakeBtn").show();
-
-   $(".reviewSummerNote").hide();
-
-   
-   $(document).ready(function() {
-      $("#reviewMakeBtn").click(function() {
-         var Ans = 0;
-         if(Ans==0){
-	         $(".reviewSummerNote").show();
-	         n=1;
-         }else{
-            $(".reviewSummerNote").hide();
-         }
-         
-      })
-   });
-   
-}*/
 
 //인증 데이터 insert
 function insertIdentify(){

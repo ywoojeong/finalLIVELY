@@ -152,19 +152,6 @@ hr{
 	 padding: .75rem 3.0rem;
 }
 
-.list-group-item.active {
-    z-index: 2;
-    color: #fff;
-    background-color: #60bfa4;
-/*     text-decoration: underline; */
-    font-weight: 800;
-    /* border-color: #007bff; */
-}
-.list-group-item:hover {
-    color: #fff;
-    font-weight: 800;
-/*     text-decoration: underline; */
-}
 
 .selectpicker{
 	border: 1px;
