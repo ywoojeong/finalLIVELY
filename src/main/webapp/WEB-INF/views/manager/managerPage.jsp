@@ -551,8 +551,8 @@ function memberCntList(now){
 					+	"<p class='card-title' style='margin-bottom: 0.25rem; font-size: 15px;margin-left: 14px;'>"+list[i].NICKNAME+"</p>"
 					+	"<p class='card-text' style='font-size: 13px; margin-left: 15px;'>"+list[i].EMAIL+"</p>"
 		            +	"<div class='memBtn'>"
-		            +	"<button type='button' class='memStopBtn' id='mStopBtn'>정지</button>"
-		            +	"<button type='button' class='memPlayBtn' id='mStartBtn'>해제</button>"
+		            +	"<button type='button' class='memStopBtn' id='mStopBtn' onclick=\"mStopBtn('"+list[i].EMAIL+"',2)\">정지</button>"
+		            +	"<button type='button' class='memPlayBtn' id='mStartBtn' onclick=\"mStopBtn('"+list[i].EMAIL+"',1)\">해제</button>"
 		            +	"</div> </div>"
 					+	"</div> </div> </div></div>";
 		    	}
@@ -602,6 +602,21 @@ function memListPaging(total,now){
 	console.log(html)
 	$(".memPageUl").html(html);
 //	document.getElementById('sugPageUl').innerHTML = html
+}
+
+function mStopBtn(email, number) {
+	$.ajax({
+		type : 'POST',
+		url : 'memberStop.do',
+		data:{email:email,state:number},
+		success : function(data){
+			alert(data);
+			alert("회원이 정지되었습니다.");
+		},
+		error: function(xhr, status, error){
+			alert('회원 정지 error');
+		}
+	});
 }
 </script>
 

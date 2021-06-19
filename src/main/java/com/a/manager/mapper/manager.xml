@@ -71,6 +71,33 @@
 	WHERE MV.MI > #{startPage} AND #{endPage} > MV.MI
 	</select>
 	
+	<!-- 멤버 정보 담는 부분 -->
+	<select id="memberData" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM MEMBER WHERE EMAIL = #{value}
+	</select>
+	
+	<!-- 회원 정지 -->
+	<select id="memberStop" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE MEMBER
+		SET MEMBERSTOP = 2
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 회원 정지 해제 -->
+	<select id="memberStart" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE MEMBER
+		SET MEMBERSTOP = 1
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 회원 정보 뿌려줄 애 -->
+	<select id="memberState" resultType="java.util.Map">
+		SELECT MEMBER
+		SET MEMBERSTOP = 1
+		WHERE EMAIL = #{email}
+	</select>
+	
+	
 	
 	<!-- 민선 부분 매퍼 -->
    <!-- 전체 사용자 수 userAllCount-->

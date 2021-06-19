@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.a.dto.MemberDto;
 import com.a.manager.service.managerService;
 
 @Controller
@@ -20,6 +21,7 @@ public class managerController {
 	
 	@Autowired
 	managerService mService;
+	
 	
 	@RequestMapping(value="managerPage.do", method = {RequestMethod.POST,RequestMethod.GET})
 	public String managerPage(HttpSession session, Model model) throws Exception{
@@ -97,6 +99,7 @@ public class managerController {
 			userIdenti.put(json);
 		}
 		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
 		
 		model.addAttribute("allCount", allCount);
 		model.addAttribute("challengeMonth", challengeMonth);
@@ -112,5 +115,20 @@ public class managerController {
 		return "manager/managerPage";
 	}
 	
-
+	// 연우 부분
+	// 회원 정보 뿌려주는 애
+	@RequestMapping(value="memberData.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberData(HttpSession session, Model model) throws Exception{
+		
+		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		String email = memberInfo.getEmail();
+		System.out.println("email ==>"+email);
+		
+		Map<String, Object> memberData = mService.memberData(email);
+		System.out.println("memberData******************** : " + memberData);
+		model.addAttribute("memberData", memberData);
+		
+		return "include/header";
+	}
+	
 }

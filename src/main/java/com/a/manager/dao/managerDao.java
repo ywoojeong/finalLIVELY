@@ -10,9 +10,17 @@ public interface managerDao {
 	// 챌린지 리스트
 	public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException;
 	
-	
 	// 멤버 리스트
 	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException;
+	
+	// 회원 정보 뿌리기
+	public Map<String, Object> memberData(String email) throws SQLException;
+	
+	// 챌린지 정보 뿌리기
+	
+	
+	//회원 정지
+	public int memberStop(Map<String, Object> param) throws SQLException;
 	
 	
 	

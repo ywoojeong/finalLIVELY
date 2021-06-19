@@ -30,8 +30,20 @@ public class managerDaoImpl implements managerDao{
 		System.out.println("memListParam********>"+memListParam);
 		return managerSql.selectList("manager.memberCntList", memListParam);
 	}
-
 	
+	@Override
+	public Map<String, Object> memberData(String email) throws SQLException {
+		// TODO Auto-generated method stub
+		return managerSql.selectOne("manager.memberData", email);
+	}
+	
+	
+	//회원 정지
+	@Override
+	public int memberStop(Map<String, Object> param) throws SQLException{
+		// TODO Auto-generated method stub
+		return managerSql.update("manager.memberStop", param);
+	}
 	
 
    //민선 부분

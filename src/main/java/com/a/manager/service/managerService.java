@@ -6,10 +6,16 @@ import java.util.Map;
 
 public interface managerService {
 
-	
+	//연우 부분
 	public List<Map<String, Object>> managerList(Map<String, Object> mListParam) throws SQLException;
 	
 	public List<Map<String, Object>> memberCntList(Map<String, Object> memListParam) throws SQLException;
+	
+	// 회원 정보 뿌리기
+	public Map<String, Object> memberData(String email) throws SQLException;
+	
+	// 회원 정지
+	public boolean memberStop(Map<String, Object> param) throws SQLException;
 	
    //민선 부분
    
