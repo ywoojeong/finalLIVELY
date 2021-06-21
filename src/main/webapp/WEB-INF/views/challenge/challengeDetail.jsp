@@ -60,13 +60,13 @@ console.log("인증 데이터 identify"+"${identify}")
 console.log("몇명인데 유저"+'${fn:length(challengeMember)}')
 console.log("비교가 되나?  ${now}<${start}")
 </script>
-
+<!--채팅인데 나중에 하기 
 <c:forEach var="challUser" items="${challengeMember}" varStatus="status">
 	<c:if test="${user.email != null && challUser.email==user.email}">
 		<a class="quickmenu" style="position:absolute;width:90px;top:25%;padding:30px;right:10%;background:#000;"  data-toggle="modal" data-target="#myModal5"></a>
 	</c:if>
 </c:forEach>
-
+-->
 
 <div class="backDiv" id="_backDiv">
 	<div class="container challHeader" style="padding-left: 35px;">
