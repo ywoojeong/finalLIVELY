@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manager">
-
 	
 	<!-- 매니저 챌린지 -->
 	<select id="managerList" parameterType="java.util.Map" resultType="java.util.Map">
@@ -10,7 +9,7 @@
 		(SELECT CHA.*, ROW_NUMBER() OVER(ORDER BY CHALLENGESEQ DESC) as SI,
 		(SELECT COUNT(*) FROM CHALLENGE
 		WHERE  CHALLENGEDEL = 0
-			<if test="category !=null and category !='' and rcategory !=0">
+			<if test="category !=null and category !='' and category !=0">
 				AND CATEGORY = #{category}
 			</if>
 			<if test="mSearch !=null and mSearch != ''">
@@ -47,34 +46,96 @@
 		(SELECT MEM.*, ROW_NUMBER() OVER(ORDER BY MEMBERSEQ DESC) as MI,
 		(SELECT COUNT(*) FROM MEMBER
 		WHERE AUTH = 3 AND MEMBERDEL = 0
-		<if test="categorys != null and categorys != ''
-				and searchs != null and searchs != ''">
-			<if test="categorys == 1">
-				AND NICKNAME LIKE '%'||#{searchs}||'%'
-			</if>
-			<if test="categorys == 2">
-				AND EMAIL LIKE '%'||#{searchs}||'%'
-			</if>
-		</if>
+		
+		<choose>
+			<when test = "categorys != null and categorys != ''">
+				<if test="searchs != null and searchs != ''">
+					<if test="categorys == 1">
+						AND NICKNAME LIKE '%'||#{searchs}||'%'
+					</if>
+					<if test="categorys == 2">
+						AND EMAIL LIKE '%'||#{searchs}||'%'
+					</if>
+				</if>
+			</when>
+
+			<otherwise>
+				<if test="searchs != null and searchs != ''">
+					AND (NICKNAME LIKE '%'||#{searchs}||'%' OR EMAIL LIKE '%'||#{searchs}||'%')
+				</if>
+			</otherwise>
+
+		</choose>
+		
 		) as TOTALCNT
 	FROM MEMBER MEM
 	WHERE AUTH = 3 AND MEMBERDEL = 0
-	    <if test="categorys != null and categorys != ''
-				and searchs != null and searchs != ''">
-			<if test="categorys == 1">
-				AND NICKNAME LIKE '%'||#{searchs}||'%'
-			</if>
-			<if test="categorys == 2">
-				AND EMAIL LIKE '%'||#{searchs}||'%'
-			</if>
-		</if>
+		<choose>
+			<when test = "categorys != null and categorys != ''">
+				<if test="searchs != null and searchs != ''">
+					<if test="categorys == 1">
+						AND NICKNAME LIKE '%'||#{searchs}||'%'
+					</if>
+					<if test="categorys == 2">
+						AND EMAIL LIKE '%'||#{searchs}||'%'
+					</if>
+				</if>
+			</when>
+
+			<otherwise>
+				<if test="searchs != null and searchs != ''">
+					AND (NICKNAME LIKE '%'||#{searchs}||'%' OR EMAIL LIKE '%'||#{searchs}||'%')
+				</if>
+			</otherwise>
+
+		</choose>
 	) MV
 	WHERE MV.MI > #{startPage} AND #{endPage} > MV.MI
 	</select>
 	
+	<!-- 멤버 정보 담는 부분 -->
+	<select id="memberData" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM MEMBER WHERE EMAIL = #{value}
+	</select>
+	
+	<!-- 회원 정지 -->
+	<select id="memberStop" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE MEMBER
+		SET MEMBERSTOP = 2
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 회원 정지 해제 -->
+	<select id="memberPlay" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE MEMBER
+		SET MEMBERSTOP = 1
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 회원 정보 뿌려줄 애 -->
+	<select id="memberState" resultType="java.util.Map">
+		SELECT MEMBER
+		SET MEMBERSTOP = 1
+		WHERE EMAIL = #{email}
+	</select>
+	
+	<!-- 챌린지 정지 -->
+	<select id="challStop" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE CHALLENGE
+		SET CHALLENGESTOP = 1
+		WHERE CHALLENGESEQ = #{seq}
+	</select>
+	
+	<!-- 챌린지 정지 해제 -->
+	<select id="challPlay" parameterType="java.util.Map" resultType="java.util.Map">
+		UPDATE CHALLENGE
+		SET CHALLENGESTOP = 0
+		WHERE CHALLENGESEQ = #{seq}
+	</select>
+	
+	
 	
 	<!-- 민선 부분 매퍼 -->
-
    <!-- 전체 사용자 수 userAllCount-->
    <select id="userAllCount" resultType="java.lang.Integer">
        SELECT COUNT(*)

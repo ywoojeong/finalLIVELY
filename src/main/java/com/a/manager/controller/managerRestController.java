@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,6 +76,62 @@ public class managerRestController {
 		return memberCntList;
 	}
 	
+	// 회원 정지
+	@RequestMapping(value="memberStop.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberStop(@RequestParam Map<String,Object> param) throws Exception {
+		System.out.println("값아 뭐니? ->>>>>>>>>>>> " + param);
+		
+		boolean states = mService.memberStop(param);
+		String msg = "";
+		
+		if(states) {
+			return msg = "YES";
+		}else {
+			return msg = "NO";
+		}
+	}
 	
+	// 회원 정지 해제
+	@RequestMapping(value="memberPlay.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String memberPlay(@RequestParam Map<String,Object> param) throws Exception {
+		System.out.println("값아 뭐니? ->>>>>>>>>>>> " + param);
+		
+		boolean states = mService.memberPlay(param);
+		String msg = "";
+		
+		if(states) {
+			return msg = "YES";
+		}else {
+			return msg = "NO";
+		}
+	}
+	
+	// 챌린지 정지
+	@RequestMapping(value="challStop.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String challStop(@RequestParam Map<String,Object> param) throws Exception {
+		System.out.println("값아 뭐니? ->>>>>>>>>>>> " + param);
+		boolean state = mService.challStop(param);
+		String msg = "";
+		
+		if(state) {
+			return msg = "YES";
+		}else {
+			return msg = "NO";
+		}
+	}
+	
+	// 챌린지 정지 해제
+	@RequestMapping(value="challPlay.do", method = {RequestMethod.POST,RequestMethod.GET})
+	public String challPlay(@RequestParam Map<String,Object> param) throws Exception {
+		boolean state = mService.challPlay(param);
+		String msg = "";
+		
+		if(state) {
+			return msg = "YES";
+		}else {
+			return msg = "NO";
+		}
+	}
+
 	
 }

@@ -2,6 +2,7 @@ package com.a.dto;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,12 +12,15 @@ CREATE TABLE MEMBER(
 		EMAIL VARCHAR2(50) CONSTRAINT MEM_PRI PRIMARY KEY, 
 		NICKNAME VARCHAR2(50),
 		MEMBERPHOTO VARCHAR2(200),
+		MEMBERPHOTONAME VARCHAR2(100),
 		NAVERLOGIN VARCHAR2(50),
 		KAKAOLOGIN VARCHAR2(50),
 		GOOGLELOGIN VARCHAR2(50),
 		AUTH NUMBER,
 		MEMBERDEL NUMBER,
-		POINT NUMBER
+		MEMBERSTOP NUMBER,
+		POINT NUMBER, 
+		MEMBERSDATE DATE
 )
 --관리자 1, 멤버 3
 */
@@ -31,14 +35,17 @@ public class MemberDto implements Serializable{
 	private String googleLogin;
 	private int auth;		//관리자 1, 멤버 3
 	private int memberdel;
+	private int memberstop;
 	private int point;
 	private String flag;
+	private String membersdate;
 	
 	public MemberDto() {
 	}
 
 	public MemberDto(String email, String nickname, String memberPhoto, String memberPhotoName, String naverLogin,
-			String kakaoLogin, String googleLogin, int auth, int memberdel, int point, String flag) {
+			String kakaoLogin, String googleLogin, int auth, int memberdel, int memberstop, int point, String flag,
+			String membersdate) {
 		super();
 		this.email = email;
 		this.nickname = nickname;
@@ -49,8 +56,10 @@ public class MemberDto implements Serializable{
 		this.googleLogin = googleLogin;
 		this.auth = auth;
 		this.memberdel = memberdel;
+		this.memberstop = memberstop;
 		this.point = point;
 		this.flag = flag;
+		this.membersdate = membersdate;
 	}
 
 	public String getEmail() {
@@ -125,6 +134,14 @@ public class MemberDto implements Serializable{
 		this.memberdel = memberdel;
 	}
 
+	public int getMemberstop() {
+		return memberstop;
+	}
+
+	public void setMemberstop(int memberstop) {
+		this.memberstop = memberstop;
+	}
+
 	public int getPoint() {
 		return point;
 	}
@@ -141,15 +158,22 @@ public class MemberDto implements Serializable{
 		this.flag = flag;
 	}
 
+	public String getMembersdate() {
+		return membersdate;
+	}
+
+	public void setMembersdate(String membersdate) {
+		this.membersdate = membersdate;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDto [email=" + email + ", nickname=" + nickname + ", memberPhoto=" + memberPhoto
 				+ ", memberPhotoName=" + memberPhotoName + ", naverLogin=" + naverLogin + ", kakaoLogin=" + kakaoLogin
-				+ ", googleLogin=" + googleLogin + ", auth=" + auth + ", memberdel=" + memberdel + ", point=" + point
-				+ ", flag=" + flag + "]";
+				+ ", googleLogin=" + googleLogin + ", auth=" + auth + ", memberdel=" + memberdel + ", memberstop="
+				+ memberstop + ", point=" + point + ", flag=" + flag + ", membersdate=" + membersdate + "]";
 	}
 
-	
 	
 	
 }

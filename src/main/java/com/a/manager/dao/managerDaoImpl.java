@@ -30,10 +30,42 @@ public class managerDaoImpl implements managerDao{
 		System.out.println("memListParam********>"+memListParam);
 		return managerSql.selectList("manager.memberCntList", memListParam);
 	}
-
+	
+	@Override
+	public Map<String, Object> memberData(String email) throws SQLException {
+		// TODO Auto-generated method stub
+		return managerSql.selectOne("manager.memberData", email);
+	}
 	
 	
-
+	//회원 정지
+	@Override
+	public int memberStop(Map<String, Object> param) throws SQLException{
+		// TODO Auto-generated method stub
+		return managerSql.update("manager.memberStop", param);
+	}
+	@Override
+	public int memberPlay(Map<String, Object> param) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("memberPlay  ********>"+param);
+		return managerSql.update("manager.memberPlay", param);
+	}
+	
+	//챌린지 정지
+	@Override
+	public int challStop(Map<String, Object> param) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("challStop  ********>"+param);
+		return managerSql.update("manager.challStop", param);
+	}
+	@Override
+	public int challPlay(Map<String, Object> param) throws SQLException {
+		// TODO Auto-generated method stub
+		System.out.println("challPlay  ********>"+param);
+		return managerSql.update("manager.challPlay", param);
+	}
+	
+	
    //민선 부분
    @Override
    public int userAllCount() {

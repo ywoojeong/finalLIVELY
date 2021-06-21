@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.a.manager.dao.managerDao;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 @Service
 public class managerServiceImpl implements managerService {
@@ -27,6 +28,37 @@ public class managerServiceImpl implements managerService {
 		// TODO Auto-generated method stub
 		return managerdao.memberCntList(memListParam);
 	}
+	
+	@Override
+	public Map<String, Object> memberData(String email) throws SQLException {
+		// TODO Auto-generated method stub
+		return managerdao.memberData(email);
+	}
+	
+	// memberStop
+	@Override
+	public boolean memberStop(Map<String, Object> param) throws SQLException {
+		int	num = managerdao.memberStop(param);
+		return num>0?true:false;
+	}
+	@Override
+	public boolean memberPlay(Map<String, Object> param) throws SQLException {
+		int	nums = managerdao.memberPlay(param);
+		return nums>0?true:false;
+	}
+	
+	//챌린지 정지
+	@Override
+	public boolean challStop(Map<String, Object> param) throws SQLException {
+		int num = managerdao.challStop(param);
+		return num>0?true:false;
+	}
+	@Override
+	public boolean challPlay(Map<String, Object> param) throws SQLException {
+		int num = managerdao.challPlay(param);
+		return num>0?true:false;
+	}
+
 
 	
    //민선 부분
