@@ -41,6 +41,23 @@ public class managerServiceImpl implements managerService {
 		int	num = managerdao.memberStop(param);
 		return num>0?true:false;
 	}
+	@Override
+	public boolean memberPlay(Map<String, Object> param) throws SQLException {
+		int	nums = managerdao.memberPlay(param);
+		return nums>0?true:false;
+	}
+	
+	//챌린지 정지
+	@Override
+	public boolean challStop(Map<String, Object> param) throws SQLException {
+		int num = managerdao.challStop(param);
+		return num>0?true:false;
+	}
+	@Override
+	public boolean challPlay(Map<String, Object> param) throws SQLException {
+		int num = managerdao.challPlay(param);
+		return num>0?true:false;
+	}
 
 
 	

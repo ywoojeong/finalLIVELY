@@ -112,7 +112,6 @@ display: flex; list-style: none; margin-bottom: 45px; padding-left: 0px; justify
     height: 54px;
     border: none;
     border-radius: 2px;
-    margin-right: 16px;
 }
 .challStopBtn:hover, .challPlayBtn:hover{
 	background-color: #68d9b8;

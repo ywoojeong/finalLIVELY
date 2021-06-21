@@ -16,6 +16,11 @@ public interface managerService {
 	
 	// 회원 정지
 	public boolean memberStop(Map<String, Object> param) throws SQLException;
+	public boolean memberPlay(Map<String, Object> param) throws SQLException;
+	
+	//챌린지 정지
+	public boolean challStop(Map<String, Object> param) throws SQLException;
+	public boolean challPlay(Map<String, Object> param) throws SQLException;
 	
    //민선 부분
    

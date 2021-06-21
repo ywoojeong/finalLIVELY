@@ -71,3 +71,8 @@ SELECT SV.* FROM
 		</if>
 	) SV
 	WHERE SV.SI > #{startPage} AND #{endPage} > SV.SI
+	
+	
+	
+	
+select * from member

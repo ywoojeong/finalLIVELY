@@ -275,7 +275,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 		 						<option value="2">이메일</option>
 	 						</select>
 	 						<div class="searchBox" style="height: 100%;">
-                            <input type="text" class="form-control input-Search" id="searchs" placeholder="검색하세요" name="searchs" style="width: 378px;">
+                            <input type="text" class="form-control input-Search" id="searchs" placeholder="검색하세요" name="searchs" style="width: 378px;" >
                            	</div>
                            	<button type="button" class="memSearchBtn" id="memSearchBtn">SEARCH</button>
 						</div>
@@ -345,7 +345,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 		            <div class="row">
 		                <div class="col-sm-12" style="margin-top: 27px;">
 		                    <!-- 카드 위치 -->
-		                    <div class="diy">
+
 		                        <div class="sub_tab"> 탭 위치카테고리 개설일 시작일 종료일</div>
 		                        <div class="challbox">
 									<!-- 챌린지 보이는곳 -->
@@ -356,7 +356,7 @@ console.log("받아오는지 확인하자 || allCount ${allCount} || challengeMo
 									<ul class="challPageUl" id="challPageUl"></ul>
 								</div>
 		                        
-		                    </div>
+
 		
 		                </div>
 		            </div>
@@ -427,14 +427,25 @@ function managerList(now){
 		data: {page:now, 'mSearch':$("#mSearch").val(), 'category':$("#category").val(), 'datestart':$("#datestart").val(), 'dateend':$("#dateend").val()},
 		success:function(list){
 //			alert("리스트 불러오는");
+console.log("managerList =>")
 			console.log(list)
-			var total = list[0].TOTALCNT
-			console.log("토탈 값 보여줘")
-			console.log(total)
 			var data = "";
+			if(list.length > 0){
+				
+			
+			var total = list[0].TOTALCNT
+			console.log("managerList토탈 값 보여줘")
+			console.log(total)
+			
 	    	for(var i=0; i<list.length; i++){
 	    	var categoryName = setCategory(list[i].CATEGORY);
 	    	console.log("category ==>"+categoryName)
+	    	var challState = ""
+    		if(list[i].CHALLENGESTOP == "0"){
+    			challState = "<button type='button' class='challStopBtn' id='stopBtn"+list[i].CHALLENGESEQ+"' onclick=\"cStopBtn('"+list[i].CHALLENGESEQ+"')\">정지</button>"
+	    	}else{
+	    		challState = "<button type='button' class='challPlayBtn' id='startBtn"+list[i].CHALLENGESEQ+"' onclick=\"cPlayBtn('"+list[i].CHALLENGESEQ+"')\">해제</button>"
+	    	}
 	    	// 검색어가 있을때 없을때 제어해주기	
 	    	data += "<div class='mainBox'>"
 	            +	"<div class='main_text main_common'>"
@@ -448,17 +459,17 @@ function managerList(now){
 	            +	"<p class='challDataCard-title'>"+list[i].CHALLENGETITLE+"</p>"
 	            +	"</div> </div>"
 	            +	"<div class='main_btn main_common btns'>"
-	            +	"<button type='button' class='challStopBtn' id='stopBtn'>정지</button>"
-	            +	"<button type='button' class='challPlayBtn' id='startBtn'>해제</button>"
+	            +	challState
 	            +	"</div> </div>";
         		// 댓글 쓸때 seq를 modal로 보내줌
 //        		$('#suggestSeq').val(list[i].SUGGESTBBSSEQ);
 
 	    	}
-	    	if(list.length < 1){
-	    		data += "<div class='mainBox'>검색 결과가 없습니다</div>";
-	    	}
 	    	mListPaging(total,now)
+			}else{
+				mListPaging('0','1')
+	    		data += "<div class='mainBox'>검색 결과가 없습니다</div>";
+			}
 	    	$(".challbox").html(data);
 		},
 		error:function(){
@@ -505,6 +516,51 @@ function mListPaging(total,now){
    $(".challPageUl").html(html);
 //   document.getElementById('sugPageUl').innerHTML = html
 }
+
+function cStopBtn(seq) {
+	console.log("cStopBtn")
+	$.ajax({
+		type : 'POST',
+		url : 'challStop.do',
+		data:{seq:seq},
+		success : function(data){
+			alert(data);
+			if(data == "YES"){
+				console.log($("#startBtn"+seq))
+				$("#stopBtn"+seq).replaceWith("<button type='button' class='challPlayBtn' id='startBtn"+seq+"' onclick=\"cPlayBtn('"+seq+"')\">해제</button>")
+				alert("챌린지가 정지 되었습니다.");
+				
+				
+			}else{
+				alert("챌린지 정지를 실패했습니다.");
+			}
+		},
+		error: function(xhr, status, error){
+			alert('회원 정지 error');
+		}
+	});
+}
+
+function cPlayBtn(seq) {
+	console.log("cPlayBtn")
+	$.ajax({
+		type : 'POST',
+		url : 'challPlay.do',
+		data:{seq:seq},
+		success : function(data){
+			alert(data);
+			if(data == "YES"){
+				alert("챌린지 정지가 해제 되었습니다.");
+				$("#startBtn"+seq).replaceWith("<button type='button' class='challPlayBtn' id='stopBtn"+seq+"' onclick=\"cStopBtn('"+seq+"')\">정지</button>")
+			}else{
+				alert("챌린지 정지 해제 실패");
+			}
+		},
+		error: function(xhr, status, error){
+			alert('회원 정지 error');
+		}
+	});
+}
 </script>
 <script>
 jQuery('#datestart').datetimepicker();
@@ -532,7 +588,6 @@ function memberCntList(now){
 		success:function(list){
 			console.log("멤버 리스트 불러오는애")
 			console.log(list)
-			
 			var data = "";
 			if(list.length < 1){
 				var total = 0;
@@ -542,6 +597,12 @@ function memberCntList(now){
 				console.log("멤버 토탈 값 보여줘")
 				console.log(total)
 		    	for(var i=0; i<list.length; i++){
+		    	var state =""
+		    	if(list[i].MEMBERSTOP == "2"){
+		    		state = "<button type='button' class='memPlayBtn' id='mPlayBtn' onclick=\"mPlayBtn('"+list[i].EMAIL+"')\">해제</button>"
+		    	}else{
+		    		state = "<button type='button' class='memStopBtn' id='mStopBtn' onclick=\"mStopBtn('"+list[i].EMAIL+"')\">정지</button>"
+		    	}
 		    	// 검색어가 있을때 없을때 제어해주기	
 		    	data += "<div class='col-xs-12 col-sm-4' style='display: flex; justify-content: center;'>"
 		    		+	"<div class='card' style='width: 230px; height: 370px; margin-bottom: 49px;'>"
@@ -551,8 +612,7 @@ function memberCntList(now){
 					+	"<p class='card-title' style='margin-bottom: 0.25rem; font-size: 15px;margin-left: 14px;'>"+list[i].NICKNAME+"</p>"
 					+	"<p class='card-text' style='font-size: 13px; margin-left: 15px;'>"+list[i].EMAIL+"</p>"
 		            +	"<div class='memBtn'>"
-		            +	"<button type='button' class='memStopBtn' id='mStopBtn' onclick=\"mStopBtn('"+list[i].EMAIL+"',2)\">정지</button>"
-		            +	"<button type='button' class='memPlayBtn' id='mStartBtn' onclick=\"mStopBtn('"+list[i].EMAIL+"',1)\">해제</button>"
+		            +state
 		            +	"</div> </div>"
 					+	"</div> </div> </div></div>";
 		    	}
@@ -604,14 +664,37 @@ function memListPaging(total,now){
 //	document.getElementById('sugPageUl').innerHTML = html
 }
 
-function mStopBtn(email, number) {
+function mStopBtn(email) {
 	$.ajax({
 		type : 'POST',
 		url : 'memberStop.do',
-		data:{email:email,state:number},
+		data:{email:email},
 		success : function(data){
 			alert(data);
-			alert("회원이 정지되었습니다.");
+			if(data == "YES"){
+				alert("회원이 정지 되었습니다.");
+			}else{
+				alert("회원 정지를 실패했습니다.");
+			}
+		},
+		error: function(xhr, status, error){
+			alert('회원 정지 error');
+		}
+	});
+}
+
+function mPlayBtn(email) {
+	$.ajax({
+		type : 'POST',
+		url : 'memberPlay.do',
+		data:{email:email},
+		success : function(data){
+			alert(data);
+			if(data == "YES"){
+				alert("회원 정지가 해제 되었습니다.");
+			}else{
+				alert("정지 해제 실패");
+			}
 		},
 		error: function(xhr, status, error){
 			alert('회원 정지 error');

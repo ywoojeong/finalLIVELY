@@ -196,3 +196,10 @@ WHERE AA.RNUM > #{startPage} AND #{endPage} > AA.RNUM
 
 
 select * from member
+
+select * 
+
+
+UPDATE MEMBER
+SET MEMBERSTOP = 1
+WHERE EMAIL = #{email}

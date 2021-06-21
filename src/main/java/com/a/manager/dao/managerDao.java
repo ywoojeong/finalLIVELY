@@ -16,13 +16,14 @@ public interface managerDao {
 	// 회원 정보 뿌리기
 	public Map<String, Object> memberData(String email) throws SQLException;
 	
-	// 챌린지 정보 뿌리기
-	
 	
 	//회원 정지
 	public int memberStop(Map<String, Object> param) throws SQLException;
+	public int memberPlay(Map<String, Object> param) throws SQLException;
 	
-	
+	//챌린지 정지
+	public int challStop(Map<String, Object> param) throws SQLException;
+	public int challPlay(Map<String, Object> param) throws SQLException;
 	
 	//민선 차트 부분
 	

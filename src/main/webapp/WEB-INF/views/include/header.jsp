@@ -4,8 +4,21 @@
  
 <%MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");%>   
 <%	if(memberInfo !=null){
-	System.out.println("session memberInfo : " + memberInfo.getNickname() + " Auth : " + memberInfo.getAuth());
+	System.out.println("session memberInfo header: " + memberInfo.getNickname() + " Auth : " + memberInfo.getAuth() + " MEMBERSTOP : " +  memberInfo.getMemberstop());
 	}else {System.out.println("memberInfo:null "); }%>
+
+<%if(memberInfo != null && memberInfo.getMemberstop() == 2){
+	session.invalidate(); // 모든세션정보 삭제
+%>
+	<script>
+	alert("정지횐원 입니다.");
+	window.location.href = "intro.do"
+	</script>
+<%
+	
+   
+}%>
+
 
 <style>
 nav a:first-child {
@@ -80,6 +93,12 @@ font-size: 11pt;
     </div>
   </div>
 </nav> 
+
+<<script type="text/javascript">
+<!--
+
+//-->
+</script>
 
 <!-- <script>
 $('#nav-item a').click(function() {
