@@ -100,6 +100,9 @@ public class managerController {
 		}
 		
 		MemberDto memberInfo = (MemberDto)session.getAttribute("memberInfo");
+		String email = memberInfo.getEmail();
+		Map<String, Object> memberData = mService.memberData(email);
+		model.addAttribute("memberData", memberData);
 		
 		model.addAttribute("allCount", allCount);
 		model.addAttribute("challengeMonth", challengeMonth);
